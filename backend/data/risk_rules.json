@@ -1,0 +1,92 @@
+[
+  {
+    "id": "breathing",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "patterns": [
+      "呼吸困难",
+      "喘不过气",
+      "张口呼吸",
+      "无法呼吸",
+      "窒息"
+    ],
+    "message": "可能存在呼吸急症。请立即联系兽医或宠物急诊，并按接诊人员指导安全转运。",
+    "article_id": "first-aid",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_section": "Choking / Not breathing"
+  },
+  {
+    "id": "urinary-cat",
+    "species": [
+      "cat"
+    ],
+    "patterns": [
+      "尿不出来",
+      "尿不出",
+      "没有尿",
+      "无尿",
+      "只有几滴尿"
+    ],
+    "message": "猫排不出尿或反复尝试却只有少量尿液可能涉及尿道阻塞，需要立即就医。请马上联系兽医，避免在家等待或自行处理。",
+    "article_id": "cat-clean",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+    "source_section": "Clinical Signs / urethral obstruction"
+  },
+  {
+    "id": "collapse",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "patterns": [
+      "昏迷",
+      "失去意识",
+      "抽搐",
+      "严重出血",
+      "大出血"
+    ],
+    "message": "这些描述可能涉及急症。请立即联系兽医或急诊，不要等待更多在线问答。",
+    "article_id": "first-aid",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_section": "Seizures / Bleeding / Unconscious"
+  },
+  {
+    "id": "poison",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "patterns": [
+      "误食毒",
+      "吃了老鼠药",
+      "吞了药",
+      "误食药",
+      "喝了清洁剂",
+      "吃了巧克力",
+      "吃了葡萄",
+      "误食百合",
+      "吃了百合"
+    ],
+    "message": "疑似有害物接触需要立即联系兽医。携带包装或照片，告知时间及可能的量；不要自行催吐或喂药。",
+    "article_id": "first-aid",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_section": "Poisoning"
+  },
+  {
+    "id": "heatstroke",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "patterns": [
+      "中暑",
+      "热射病"
+    ],
+    "message": "疑似中暑需要尽快前往兽医急诊，同时按接诊人员指导开始安全降温。不要等待在线追问。",
+    "article_id": "first-aid",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_section": "IF YOUR PET HAS HEATSTROKE"
+  }
+]

@@ -1,0 +1,437 @@
+[
+  {
+    "id": "cat-prepare",
+    "title": "养猫前：先评估生活和预算",
+    "topic": "养宠前准备",
+    "species": [
+      "cat"
+    ],
+    "body": "选择猫时考虑个性、家庭生活和照护条件，不能只看外观。幼猫通常需要更多关注，成年猫可能更平静。了解来源与健康记录，安排兽医检查。应用准备清单可用于整理本地用品和就医预算；实际费用需向本地机构询问。",
+    "keywords": [
+      "准备",
+      "预算",
+      "时间",
+      "新手",
+      "养猫",
+      "空间"
+    ],
+    "source_organization": "Merck Veterinary Manual",
+    "source_url": "https://www.merckvetmanual.com/cat-owners/selecting-and-providing-a-home-for-a-cat/selecting-a-cat",
+    "source_version": "July 2025 / v102055183",
+    "published_at": "2025-07",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-prepare",
+    "title": "养狗前：留出每天的照护时间",
+    "topic": "养宠前准备",
+    "species": [
+      "dog"
+    ],
+    "body": "每天要安排喂食、清洁、互动和外出排泄。选择与家庭生活相适应的犬只，准备安全住处、牵引用品和照护替代人，并为预防护理和突发就医留预算。幼犬还需要更多监督与训练时间。",
+    "keywords": [
+      "准备",
+      "预算",
+      "时间",
+      "新手",
+      "养狗",
+      "空间"
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://avma.org/resources/pet-owners/petcare/selecting-pet-dog",
+    "source_version": "网页收录版本",
+    "published_at": null,
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-home",
+    "title": "新猫到家：提供安全的退避空间",
+    "topic": "新宠到家",
+    "species": [
+      "cat"
+    ],
+    "body": "提供可躲藏的安全空间，把饮食、饮水、排泄和休息资源合理分开。让猫按自己的节奏探索，避免强迫接触；保留可预测的日常安排。多猫家庭需要分散资源，降低竞争。",
+    "keywords": [
+      "到家",
+      "新猫",
+      "适应",
+      "躲藏",
+      "环境"
+    ],
+    "source_organization": "AAFP / ISFM",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+    "source_version": "2013 环境需求指南",
+    "published_at": "2013-03",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-home",
+    "title": "幼犬到家：安全空间与一致的规则",
+    "topic": "新宠到家",
+    "species": [
+      "dog"
+    ],
+    "body": "提前安排兽医与采用人道方法的训练支持，了解幼犬既往饮食与经历。移除危险物品，设置有人陪伴监督的安全区域；家庭成员统一作息与规则。用奖励引导行为，为适应期留出时间。",
+    "keywords": [
+      "到家",
+      "幼犬",
+      "适应",
+      "新狗",
+      "训练"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/",
+    "source_version": "网页 2026-06-05",
+    "published_at": "2026-06-05",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-food",
+    "title": "猫的饮食：先看生命阶段与体况",
+    "topic": "饮食与体重",
+    "species": [
+      "cat"
+    ],
+    "body": "选择符合生命阶段的完整均衡食物，提供清洁饮水。实际食量需结合食物能量密度、体况、活动与兽医建议；不能仅凭品种确定克数。记录体重与食欲变化。拒食并伴体重下降时应联系兽医。",
+    "keywords": [
+      "饮食",
+      "喂食",
+      "猫粮",
+      "吃多少",
+      "饮水",
+      "体重",
+      "幼猫",
+      "老年"
+    ],
+    "source_organization": "Cornell Feline Health Center",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "source_version": "网页更新 2026-04-30",
+    "published_at": "2026-04-30",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-food",
+    "title": "犬的饮食与体重：根据个体调整",
+    "topic": "饮食与体重",
+    "species": [
+      "dog"
+    ],
+    "body": "完整均衡的食物和个体营养评估是基础。喂食量结合活动、生命阶段、健康状况和体况评估；同时记录主食、零食与补充品，避免遗漏能量摄入。需要精确量时先补充食物能量密度和专业建议。",
+    "keywords": [
+      "饮食",
+      "喂食",
+      "狗粮",
+      "吃多少",
+      "饮水",
+      "体重",
+      "幼犬"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+    "source_version": "2021 营养与体重管理指南",
+    "published_at": "2021",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-clean",
+    "title": "猫砂与清洁：观察排泄的日常窗口",
+    "topic": "居住与清洁",
+    "species": [
+      "cat"
+    ],
+    "body": "猫砂盆放在安静、安全的位置，保持清洁并提供充足数量；多猫家庭通常需要比猫数多一个盆。留意尿量、排尿困难和排泄习惯变化。反复尝试却只有少量或没有尿液，需要立即就医。",
+    "keywords": [
+      "清洁",
+      "猫砂",
+      "护理",
+      "尿",
+      "排泄",
+      "环境"
+    ],
+    "source_organization": "Cornell Feline Health Center",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+    "source_version": "网页更新 October 2016",
+    "published_at": "2016-10",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-clean",
+    "title": "犬的居住环境与日常状态观察",
+    "topic": "居住与清洁",
+    "species": [
+      "dog"
+    ],
+    "body": "考虑居住空间、温度、卫生和安全性。观察皮肤、被毛、活动与排泄变化，记录发现并在就诊时说明。老年犬的视觉、听觉或行动变化可能需要调整环境。具体洗护方法与频率应考虑皮肤状态和兽医建议。",
+    "keywords": [
+      "清洁",
+      "护理",
+      "环境",
+      "洗澡",
+      "被毛",
+      "老年"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+    "source_version": "2019 犬生命阶段检查清单",
+    "published_at": "2019",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-play",
+    "title": "猫的互动：保留捕猎与探索机会",
+    "topic": "互动与训练",
+    "species": [
+      "cat"
+    ],
+    "body": "提供安全的抓挠、攀爬、躲藏和模拟捕猎机会，采用可预测、积极的互动。互动时观察猫的意愿，避免强迫接触。开始短时活动并按反应调整；应用计划中的分钟数只是用户时间分配，不是专业运动处方。",
+    "keywords": [
+      "互动",
+      "运动",
+      "玩耍",
+      "训练",
+      "丰富化",
+      "行为"
+    ],
+    "source_organization": "AAFP / ISFM",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+    "source_version": "2013 环境需求指南",
+    "published_at": "2013-03",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-play",
+    "title": "犬的活动：配合年龄和健康状态",
+    "topic": "互动与训练",
+    "species": [
+      "dog"
+    ],
+    "body": "运动与环境丰富化要适合年龄、体型、性情和健康状态。记录活动耐受性和行动变化，循序调整；异常疲惫或行动不适时停止活动并咨询兽医。安排嗅闻和奖励式学习，幼犬更需要监督。",
+    "keywords": [
+      "互动",
+      "运动",
+      "玩耍",
+      "遛狗",
+      "训练",
+      "行为"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+    "source_version": "2019 犬生命阶段检查清单",
+    "published_at": "2019",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-stage",
+    "title": "老年猫：按状态调整照护",
+    "topic": "生命阶段",
+    "species": [
+      "cat"
+    ],
+    "body": "老年猫可能需要低入口猫砂盆、台阶、容易到达的休息区，以及难以自行梳理部位的帮助。记录食欲、体重与活动变化。生命阶段照护要与兽医检查结果结合，不能仅以年龄自动切换医疗安排。",
+    "keywords": [
+      "年龄",
+      "幼猫",
+      "老年",
+      "阶段",
+      "生日"
+    ],
+    "source_organization": "Cornell Feline Health Center",
+    "source_url": "https://www.vet.cornell.edu/sites/default/files/WhatToExpect_Updated_2022.pdf",
+    "source_version": "2022 What to Expect",
+    "published_at": "2022",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "senior"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-stage",
+    "title": "犬的生命阶段与预防护理准备",
+    "topic": "生命阶段",
+    "species": [
+      "dog"
+    ],
+    "body": "犬的成熟和衰老速度随体型与个体变化。就诊时一起讨论营养、运动、行为与健康观察，根据兽医安排复查和预防护理。记录既往病史、用药与近期变化，帮助制定个体计划。",
+    "keywords": [
+      "年龄",
+      "幼犬",
+      "老年",
+      "阶段",
+      "复查",
+      "疫苗",
+      "预防"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/how-often-should-my-dog-go-to-the-vet-a-dog-life-stage-guide/",
+    "source_version": "网页 2025-06-18",
+    "published_at": "2025-06-18",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-lily",
+    "title": "危险物品：猫与真百合的接触",
+    "topic": "误区与危险",
+    "species": [
+      "cat"
+    ],
+    "body": "真百合等植物对猫有严重中毒风险。看见猫食用任何部分时，立即联系兽医并携带植物资料；不要等症状出现。无法识别植物时也应告知兽医。不要擅自催吐或给予药物。",
+    "keywords": [
+      "危险",
+      "百合",
+      "中毒",
+      "误食",
+      "植物"
+    ],
+    "source_organization": "Pet Poison Helpline",
+    "source_url": "https://www.petpoisonhelpline.com/pet-owners/basics/top-10-plants-poisonous-to-pets/",
+    "source_version": "网页收录版本",
+    "published_at": null,
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "first-aid",
+    "title": "急症识别与就医准备",
+    "topic": "健康与就医",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "body": "呼吸困难、失去意识、抽搐、严重出血，或怀疑吞食毒物时，优先联系兽医或急诊。准备发生时间、接触物包装、既往疾病和正在使用的药物。急救不能替代专业照护，不自行催吐、用药或拖延就医。",
+    "keywords": [
+      "健康",
+      "就医",
+      "呕吐",
+      "异常",
+      "呼吸困难",
+      "抽搐",
+      "出血",
+      "中毒",
+      "误食"
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_version": "Pet First Aid 2025",
+    "published_at": "2025",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-life-stages",
+    "title": "猫的生命阶段：年龄与照护讨论",
+    "topic": "生命阶段",
+    "species": [
+      "cat"
+    ],
+    "body": "AAHA/AAFP 2021 指南将猫按年龄分为幼猫（未满一岁）、年轻成年（1至6岁）、成熟成年（7至10岁）和老年（超过10岁）。年龄有助于讨论照护重点，但健康状态仍需个体评估。本应用用此划分筛选资料，不据此安排疾病治疗。",
+    "keywords": [
+      "年龄",
+      "阶段",
+      "幼猫",
+      "成年",
+      "老年",
+      "生日"
+    ],
+    "source_organization": "AAHA / AAFP",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/",
+    "source_version": "2021 Feline Life Stage Definitions",
+    "published_at": "2021",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-hazards",
+    "title": "犬的误食风险与危险物品管理",
+    "topic": "误区与危险",
+    "species": [
+      "dog"
+    ],
+    "body": "怀疑犬吞食或接触有害物时，立即联系兽医或急诊，提供产品与包装。不要自行催吐或喂药。日常把药物与化学用品妥善收纳，准备兽医联络信息。首版无法列出所有危险物，未被规则命中也不代表安全。",
+    "keywords": [
+      "危险",
+      "误食",
+      "药物",
+      "中毒",
+      "误区"
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_version": "Pet First Aid 2025",
+    "published_at": "2025",
+    "ingested_at": "2026-10-09",
+    "updated_at": "2026-10-09",
+    "life_stages": [
+      "all"
+    ],
+    "review_status": "editorial_summary_unreviewed"
+  }
+]

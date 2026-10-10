@@ -1,0 +1,59 @@
+# Local environments, dependencies, and tools
+.venv/
+venv/
+node_modules/
+/.tools/
+/.impeccable/
+
+# Local configuration and secrets; keep the distributable example
+.env
+.env.*
+!.env.example
+.secret
+*.key
+*.pem
+
+# Runtime data (database, signing key, uploads, and temporary test data)
+/backend/storage/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Build output and release archives
+/frontend/dist/
+/artifacts/
+*.tsbuildinfo
+
+# Python caches and test coverage
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+/backend/pytest-cache-files-*/
+
+# Frontend test output
+/frontend/test-results/
+/frontend/playwright-report/
+coverage/
+
+# Logs, temporary files, and OS metadata
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini

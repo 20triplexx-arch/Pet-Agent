@@ -1,0 +1,44 @@
+[
+  {
+    "id": "cat",
+    "name": "猫",
+    "status": "supported",
+    "scientific_name": "Felis catus"
+  },
+  {
+    "id": "dog",
+    "name": "狗",
+    "status": "supported",
+    "scientific_name": "Canis lupus familiaris"
+  },
+  {
+    "id": "rabbit",
+    "name": "兔子",
+    "status": "planned"
+  },
+  {
+    "id": "hamster",
+    "name": "仓鼠（需细分）",
+    "status": "planned"
+  },
+  {
+    "id": "guinea_pig",
+    "name": "豚鼠",
+    "status": "planned"
+  },
+  {
+    "id": "bird",
+    "name": "鸟类（请填写具体物种）",
+    "status": "planned"
+  },
+  {
+    "id": "turtle",
+    "name": "龟类（请填写具体物种）",
+    "status": "planned"
+  },
+  {
+    "id": "fish",
+    "name": "观赏鱼（请填写具体物种）",
+    "status": "planned"
+  }
+]
