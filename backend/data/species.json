@@ -1,12 +1,14 @@
 [
   {
     "id": "cat",
+    "capabilities": {"knowledge": true, "care_plan": true, "nutrition": true, "emergency_rules": true},
     "name": "猫",
     "status": "supported",
     "scientific_name": "Felis catus"
   },
   {
     "id": "dog",
+    "capabilities": {"knowledge": true, "care_plan": true, "nutrition": true, "emergency_rules": true},
     "name": "狗",
     "status": "supported",
     "scientific_name": "Canis lupus familiaris"

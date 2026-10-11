@@ -13,10 +13,10 @@ import {
   Check,
   Clock,
   Heart,
-  Sun,
   House,
   Utensils,
   Sprout,
+  LogOut,
   BookOpen,
   Trash2,
   Pencil,
@@ -46,6 +46,8 @@ import {
   type Source,
 } from "./api";
 import { useAction, useRemote } from "./hooks";
+import type { MapUsage } from "./care-api";
+import type { BreedList } from "./product-api";
 import {
   Panel,
   State,
@@ -55,6 +57,7 @@ import {
   PageTitle,
   PetArtwork,
   PetPortrait,
+  ArticleContent,
 } from "./components";
 const topics = [
   "养宠前准备",
@@ -77,9 +80,11 @@ function NeedPet() {
 function ReminderList({
   items,
   reload,
+  compact = false,
 }: {
   items: Reminder[];
   reload: () => void;
+  compact?: boolean;
 }) {
   const { user } = useApp(),
     action = useAction();
@@ -119,7 +124,7 @@ function ReminderList({
                     : r.recurrence === "daily"
                       ? "每日"
                       : "每周"}{" "}
-                  · {r.timezone}
+                  {compact ? "" : " · " + r.timezone}
                 </small>
               </div>
               <span className={"badge " + (r.due ? "orange" : "quiet")}>
@@ -131,7 +136,7 @@ function ReminderList({
                       ? "已到期"
                       : "待到期"}
               </span>
-              {!r.task_id && !r.completed && (
+              {!compact && !r.task_id && !r.completed && (
                 <Button
                   className="text-button"
                   disabled={action.busy}
@@ -168,216 +173,149 @@ export function Home() {
     weekday: "long",
   }).format(new Date());
   const due = (reminders.data || []).filter((r) => r.due);
+  const petSummary = pet
+    ? [
+        pet.name,
+        petLabel(pet),
+        pet.age_months !== null ? pet.age_months + " 个月" : null,
+        pet.weight !== null ? pet.weight + " kg" : null,
+      ]
+        .filter(Boolean)
+        .join(" · ")
+    : "选择一只宠物，开始今天的照护。";
   return (
-    <>
-      <PageTitle
-        eyebrow={today}
-        title="陪伴，是每天的小小用心"
-        desc="把照护安排妥当，把更多时间留给彼此。"
-      >
-        <Button onClick={() => navigate("/pets")}>
-          <Plus size={17} />
-          管理宠物
-        </Button>
-      </PageTitle>
-      <p className="today-line">
-        <Sun size={16} aria-hidden="true" />
-        {today}
-        <span> · 把小小的照护，放进今天。</span>
-      </p>
-      <div className="home-grid">
-        <section className="hero">
-          <div>
-            <h2>{pet ? pet.name + "，今天也要好好的" : "你好，新朋友。"}</h2>
-            <p>
-              {pet
-                ? petLabel(pet) +
-                  " · " +
-                  (pet.age_months !== null
-                    ? pet.age_months + " 个月"
-                    : "年龄待补充") +
-                  " · " +
-                  (pet.weight ? pet.weight + " kg" : "体重待记录")
-                : "建立一份档案，让建议更适合你的宠物。"}
-            </p>
-            <Button
-              className="primary"
-              onClick={() => navigate(pet ? "/plans" : "/pets")}
-            >
-              {pet ? "为它安排照护计划" : "建立宠物档案"}
-              <ArrowUpRight size={17} />
-            </Button>
-            <small>
-              {pet
-                ? "当前档案中的信息，会用于问答与计划"
-                : "首版完整支持猫和狗"}
-            </small>
-          </div>
-          <div className="hero-art">
-            <PetArtwork />
-            <span className="art-caption">有你，就是好日子</span>
-          </div>
-        </section>
-        <Panel className="care-tip">
-          <div className="icon-box green">
-            <ShieldCheck />
-          </div>
-          <h3>
-            了解它的日常，
-            <br />
-            才能看见变化。
-          </h3>
-          <p>
-            记下食欲、活动与排泄的变化。遇到呼吸困难、排不出尿等情况，及时联系兽医。
-          </p>
-          <Link to="/knowledge">
-            了解健康观察
-            <ChevronRight size={15} />
-          </Link>
-        </Panel>
-      </div>
-      <div className="stats">
-        <Panel>
-          <div className="icon-box peach">
-            <CalendarDays />
-          </div>
-          <div>
-            <strong>
-              {due.length}
-              <small>项</small>
-            </strong>
-            <p>当前宠物到期待办</p>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="icon-box green">
-            <Scale />
-          </div>
-          <div>
-            <strong>
-              {pet?.weight ?? "—"}
-              <small>kg</small>
-            </strong>
-            <p>
-              {pet?.weight_date
-                ? "最近记录 " + dateText(pet.weight_date, user.timezone)
-                : "记录体重，关注趋势"}
-            </p>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="icon-box violet">
-            <Sparkles />
-          </div>
-          <div>
-            <strong className="stat-text">有据可依</strong>
-            <p>检索真实资料，展示来源</p>
-          </div>
-        </Panel>
-      </div>
-      <div className="two-col">
-        <Panel>
-          <div className="section-heading">
-            <h2>
-              <CalendarDays size={20} />
-              今日照护
-            </h2>
-            <Link to="/plans">
-              全部计划 <ArrowUpRight size={15} />
+    <div className="home-page">
+      <header className="home-welcome">
+        <div className="home-welcome-copy">
+          <h1>今天，好好陪伴</h1>
+          <p className="home-pet-summary">{petSummary}</p>
+          <div className="home-welcome-meta">
+            <time>{today}</time>
+            <Link to="/pets">
+              {pet ? "管理档案" : "查看 / 建立档案"}
+              <ChevronRight size={15} />
             </Link>
           </div>
-          <p className="muted small">
-            仅在页面打开或刷新时显示站内提醒 · {user.timezone}
-          </p>
+        </div>
+        <PetArtwork className="home-companions" />
+      </header>
+
+      <div className="home-care-layout">
+        <Panel className="home-today">
+          <div className="section-heading">
+            <h2>今日照护</h2>
+            <Link to="/plans">
+              全部待办{pet && due.length ? "（" + due.length + "）" : ""}
+              <ArrowUpRight size={15} />
+            </Link>
+          </div>
           {!pet ? (
-            <NeedPet />
+            <div className="home-empty">
+              <CalendarDays size={28} aria-hidden="true" />
+              <p>选好宠物，就能看到它的待办。</p>
+              <Button className="primary" onClick={() => navigate("/pets")}>
+                查看宠物档案
+              </Button>
+            </div>
           ) : (
             <>
               <State {...reminders} retry={reminders.reload} />
-              {reminders.data && (
-                <ReminderList
-                  items={due.slice(0, 6)}
-                  reload={reminders.reload}
-                />
-              )}
+              {reminders.data &&
+                (due.length ? (
+                  <ReminderList
+                    items={due.slice(0, 3)}
+                    reload={reminders.reload}
+                    compact
+                  />
+                ) : (
+                  <div className="home-empty">
+                    <Check size={28} aria-hidden="true" />
+                    <p>暂时没有到期待办。</p>
+                    <Button
+                      className="primary"
+                      onClick={() => navigate("/plans")}
+                    >
+                      安排照护计划
+                    </Button>
+                  </div>
+                ))}
             </>
           )}
+          <details className="home-reminder-note">
+            <summary>提醒说明 · {user.timezone}</summary>
+            <p>
+              仅在页面打开或刷新时显示站内提醒，关闭应用后不会推送。待办按账户时区显示。
+            </p>
+          </details>
         </Panel>
-        <Panel>
-          <div className="section-heading">
-            <h2>
-              <MessageIcon />
-              和宠伴聊聊
-            </h2>
-          </div>
-          <p className="muted">一点困惑，随时问问。</p>
-          <div className="quick-questions">
+
+        <section className="home-ask" aria-labelledby="home-ask-title">
+          <h2 id="home-ask-title">想问什么？</h2>
+          <div className="home-questions">
             {[
-              "它每天应该怎么吃？",
-              "帮我生成一份照护计划",
-              "新宠到家需要准备什么？",
-            ].map((q) => (
+              ["怎么吃更合适？", "它每天应该怎么吃？"],
+              ["照护计划怎么安排？", "帮我生成一份照护计划"],
+              ["新宠到家要准备什么？", "新宠到家需要准备什么？"],
+            ].map(([label, question]) => (
               <button
-                key={q}
-                onClick={() => navigate("/chat?q=" + encodeURIComponent(q))}
+                key={question}
+                onClick={() =>
+                  navigate("/chat?q=" + encodeURIComponent(question))
+                }
               >
-                <span>{q}</span>
+                <span>{label}</span>
                 <ArrowUpRight size={17} />
               </button>
             ))}
           </div>
-          <div className="mini-note">
-            <BookOpen size={20} />
-            <div>
-              知识来自专业公开资料<small>中文摘要标注来源与审核状态</small>
-            </div>
-          </div>
-        </Panel>
+          <Link className="home-chat-link" to="/chat">
+            自由提问
+            <ChevronRight size={15} />
+          </Link>
+        </section>
       </div>
-      <div className="section-heading bottom-heading">
-        <h2>照护知识，从这里开始</h2>
-        <Link to="/knowledge">
-          浏览知识库 <ArrowUpRight size={15} />
+
+      <section
+        className="home-knowledge"
+        aria-labelledby="home-knowledge-title"
+      >
+        <div className="section-heading">
+          <h2 id="home-knowledge-title">照护知识</h2>
+          <Link to="/knowledge">
+            浏览全部
+            <ArrowUpRight size={15} />
+          </Link>
+        </div>
+        <div className="home-topics">
+          {topics.slice(0, 4).map((topic, i) => {
+            const Icon = [Heart, House, Utensils, Sprout][i];
+            return (
+              <Link
+                to={"/knowledge?topic=" + encodeURIComponent(topic)}
+                key={topic}
+              >
+                <Icon size={20} aria-hidden="true" />
+                <span>{topic}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+      <div className="home-health-note">
+        <ShieldCheck size={18} aria-hidden="true" />
+        <p>呼吸困难、排不出尿时，请及时联系兽医。</p>
+        <Link to={"/knowledge?topic=" + encodeURIComponent("健康与就医")}>
+          了解更多
         </Link>
       </div>
-      <div className="topic-cards">
-        {topics.slice(0, 4).map((t, i) => (
-          <Link to={"/knowledge?topic=" + encodeURIComponent(t)} key={t}>
-            <span className={"topic-symbol tone-" + i}>
-              {
-                [
-                  <Heart key="heart" />,
-                  <House key="house" />,
-                  <Utensils key="food" />,
-                  <Sprout key="home" />,
-                ][i]
-              }
-            </span>
-            <h3>{t}</h3>
-            <p>
-              {
-                [
-                  "给陪伴做好准备",
-                  "一起适应新的生活",
-                  "吃得合适，健康成长",
-                  "舒服的家，安心的它",
-                ][i]
-              }
-            </p>
-            <ArrowUpRight size={18} />
-          </Link>
-        ))}
-      </div>
-    </>
+    </div>
   );
-}
-function MessageIcon() {
-  return <Sparkles size={20} />;
 }
 const blankPet = {
   name: "",
   species: "cat",
   breed: "",
+  breed_id: "",
   birthday: "",
   estimated_age_months: "",
   sex: "unknown",
@@ -396,6 +334,8 @@ export function Pets() {
     [show, setShow] = useState(false),
     [form, setForm] = useState<Record<string, string>>({ ...blankPet }),
     [other, setOther] = useState("");
+  const breeds = useRemote<BreedList>("/breeds?species=" + encodeURIComponent(form.species));
+  const breedCandidates = useRemote<BreedList>(form.breed ? "/breeds?species=" + encodeURIComponent(form.species) + "&q=" + encodeURIComponent(form.breed) : null);
   const edit = (p: Pet | null) => {
     setEditing(p);
     setShow(true);
@@ -416,7 +356,7 @@ export function Pets() {
         : "",
     );
   };
-  const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v, ...(k === "species" || k === "breed" ? {breed_id:""} : {}) }));
   return (
     <>
       <PageTitle
@@ -450,11 +390,11 @@ export function Pets() {
               </div>
               <h2>{p.name}</h2>
               <p>
-                {p.breed || "品种未知"} ·{" "}
+                {p.breed_name || p.breed || "品种未知"} ·{" "}
                 {p.age_months === null ? "年龄未知" : p.age_months + " 个月"} ·{" "}
                 {p.weight ? p.weight + " kg" : "体重待记录"}
               </p>
-              {!["cat", "dog"].includes(p.species) && (
+              {!p.capabilities?.knowledge && (
                 <div className="note">
                   暂支持档案记录，该物种的个性化建议尚未上线。
                 </div>
@@ -466,6 +406,12 @@ export function Pets() {
                 <span>{p.environment || "待补充"}</span>
               </div>
               <div className="button-row">
+                {p.id === pet?.id && (
+                  <Link className="care-link" to="/nutrition">
+                    营养资料与方案 <ArrowUpRight size={14} />
+                  </Link>
+                )}
+                <Link className="care-link" to={"/knowledge?species=" + p.species + "&content_kind=breed" + (p.breed_id ? "&breed_id=" + p.breed_id : "")}>品种知识 <ArrowUpRight size={14}/></Link>
                 <Button onClick={() => edit(p)}>
                   <Pencil size={15} />
                   编辑
@@ -588,6 +534,14 @@ export function Pets() {
                   onChange={(e) => update("birthday", e.target.value)}
                 />
               </label>
+              {["cat", "dog"].includes(form.species) && <label>规范品种（确认后关联）
+                <select value={form.breed_id} onChange={e=>update("breed_id",e.target.value)}>
+                  <option value="">未知 / 暂不关联</option>
+                  {(breeds.data?.items || []).map(b=><option key={b.id} value={b.id}>{b.name}</option>)}
+                </select>
+                <small>{breedCandidates.data?.note || "保留原始品种文字。家猫、田园犬和混种也有照护入口。"}</small>
+                <State {...breeds} retry={breeds.reload}/>
+              </label>}
               <label>
                 估计年龄（月，生日未知时）
                 <input
@@ -791,6 +745,7 @@ function DraftEditor({
   );
 }
 export function Plans() {
+  const navigate = useNavigate();
   const { pet, user } = useApp(),
     location = useLocation(),
     action = useAction();
@@ -953,12 +908,21 @@ export function Plans() {
                           {t.local_time} ·{" "}
                           {t.recurrence === "daily" ? "每日" : "每周"}
                         </small>
+                        {p.provenance?.kind === "nutrition" && (
+                          <span className="care-task-detail">
+                            {t.instructions}
+                          </span>
+                        )}
                       </li>
                     ))}
                   </ul>
                   <div className="button-row">
                     <Button
                       onClick={() => {
+                        if (p.provenance?.kind === "nutrition") {
+                          navigate("/nutrition");
+                          return;
+                        }
                         setEditPlan(p);
                         setDraft({
                           title: p.title,
@@ -1254,6 +1218,29 @@ export function Chat() {
                 {m.role === "assistant" && (
                   <>
                     <Sources items={m.metadata_json.sources || []} />
+                    {m.metadata_json.cards?.map(
+                      (card) =>
+                        [
+                          "/nutrition",
+                          "/hospitals",
+                          "/hospitals#visit-summary",
+                        ].includes(card.href) && (
+                          <div className="agent-action" key={card.type}>
+                            <Link
+                              to={card.href}
+                              state={{ urgent: m.metadata_json.urgent }}
+                            >
+                              {card.title} <ArrowUpRight size={16} />
+                            </Link>
+                            {card.text && (
+                              <details>
+                                <summary>查看已整理摘要</summary>
+                                <pre>{card.text}</pre>
+                              </details>
+                            )}
+                          </div>
+                        ),
+                    )}
                     {m.metadata_json.draft && (
                       <div className="draft-preview">
                         <strong>{m.metadata_json.draft.title}</strong>
@@ -1278,6 +1265,10 @@ export function Chat() {
                 )}
               </div>
             ))}
+          </div>
+          <div className="care-link-row chat-care-links">
+            <Link to="/nutrition">营养方案</Link>
+            <Link to="/hospitals">医院与就医资料</Link>
           </div>
           <Feedback action={action} />
           <form
@@ -1365,9 +1356,14 @@ export function Knowledge() {
     [query] = useSearchParams(),
     action = useAction();
   const [q, setQ] = useState(""),
-    [species, setSpecies] = useState(pet?.species || ""),
+    [species, setSpecies] = useState(query.get("species") || pet?.species || ""),
     [topic, setTopic] = useState(query.get("topic") || ""),
-    [favorites, setFavorites] = useState(false);
+    [favorites, setFavorites] = useState(false),
+    [contentKind, setContentKind] = useState(query.get("content_kind") || ""),
+    [breedId, setBreedId] = useState(query.get("breed_id") || (query.get("species") && query.get("species") !== pet?.species ? "" : pet?.breed_id || "")),
+    [lifeStage, setLifeStage] = useState(""), [visible, setVisible] = useState(24);
+  const breeds = useRemote<BreedList>("/breeds?" + new URLSearchParams({species}).toString());
+  useEffect(() => {setVisible(24);}, [species, q, topic, favorites, contentKind, breedId, lifeStage]);
   const path =
     "/knowledge?" +
     new URLSearchParams({
@@ -1375,6 +1371,7 @@ export function Knowledge() {
       species,
       topic,
       favorites: String(favorites),
+      content_kind: contentKind, breed_id: breedId, life_stage: lifeStage,
     }).toString();
   const items = useRemote<Article[]>(!params.id ? path : null),
     detail = useRemote<Article>(params.id ? "/knowledge/" + params.id : null);
@@ -1433,7 +1430,7 @@ export function Knowledge() {
                 {detail.data.bookmarked ? "已收藏" : "收藏"}
               </Button>
             </div>
-            <div className="article-body">{detail.data.body}</div>
+            <ArticleContent body={detail.data.body} />
             <div className="source-card">
               <h3>资料来源与审核信息</h3>
               <p>来源机构：{detail.data.source_organization}</p>
@@ -1449,8 +1446,12 @@ export function Knowledge() {
               <a href={detail.data.source_url} target="_blank" rel="noreferrer">
                 查看专业来源原文 ↗
               </a>
+              {detail.data.references?.map((r,i)=><div className="article-reference" key={r.url + i}>
+                <a href={r.url} target="_blank" rel="noreferrer">{r.organization} ↗</a>
+                <p>支持内容：{r.supports}</p><small>{r.version} · 核对 {r.checked_at}</small>
+              </div>)}
               <small>
-                中文内容为公开资料的简短摘要，具体建议需结合宠物个体和兽医意见。
+                中文内容为公开资料的原创摘要与应用操作清单，具体建议需结合宠物个体和兽医意见。
               </small>
             </div>
           </Panel>
@@ -1462,9 +1463,12 @@ export function Knowledge() {
       <PageTitle
         eyebrow="KNOWLEDGE LIBRARY"
         title="了解多一点，照护安心一点"
-        desc="按物种检索专业公开资料的中文摘要。每一条，都有来源。"
-      />
+        desc="先选猫或狗，再了解品种、食物与日常用品。"
+      ><Link className="care-link" to="/products">比较具体食品与用品 <ArrowUpRight size={15}/></Link></PageTitle>
       <Feedback action={action} />
+      <div className="knowledge-domains" aria-label="知识分类">
+        {[["", "全部"],["care","通用照护"],["breed","品种"],["food","食物"],["supplies","用品"]].map(([value,label])=><Button key={value} aria-pressed={contentKind === value} className={contentKind === value ? "primary" : ""} onClick={()=>{setContentKind(value);setTopic("");}}>{label}</Button>)}
+      </div>
       <Panel className="filters">
         <label className="search-label">
           搜索知识
@@ -1480,12 +1484,12 @@ export function Knowledge() {
           <select
             aria-label="知识物种"
             value={species}
-            onChange={(e) => setSpecies(e.target.value)}
+            onChange={(e) => {setSpecies(e.target.value);setBreedId("");setLifeStage("");}}
           >
             <option value="">猫与狗</option>
             <option value="cat">猫</option>
             <option value="dog">狗</option>
-            {pet && !["cat", "dog"].includes(pet.species) && (
+            {pet && !pet.capabilities?.knowledge && (
               <option value={pet.species}>{pet.species} · 暂未支持</option>
             )}
           </select>
@@ -1494,11 +1498,19 @@ export function Knowledge() {
           照护主题
           <select value={topic} onChange={(e) => setTopic(e.target.value)}>
             <option value="">全部主题</option>
-            {topics.map((t) => (
+            {[...topics,"品种照护","食物选购","用品选购"].map((t) => (
               <option key={t}>{t}</option>
             ))}
           </select>
         </label>
+        <label>品种筛选<select value={breedId} onChange={e=>setBreedId(e.target.value)}>
+          <option value="">全部品种 / 通用知识</option>
+          {breeds.data?.items.map(b=><option key={b.id} value={b.id}>{b.name}</option>)}
+        </select></label>
+        <label>生命阶段<select value={lifeStage} onChange={e=>setLifeStage(e.target.value)}>
+          <option value="">全部阶段</option><option value={species === "dog" ? "puppy" : "kitten"}>幼龄</option>
+          <option value="young_adult">年轻成年</option><option value="mature_adult">成熟成年</option><option value="senior">老年</option>
+        </select></label>
         <Button
           className={favorites ? "primary" : ""}
           onClick={() => setFavorites(!favorites)}
@@ -1507,6 +1519,7 @@ export function Knowledge() {
           {favorites ? "我的收藏" : "查看收藏"}
         </Button>
       </Panel>
+      <State {...breeds} retry={breeds.reload}/>
       <State {...items} retry={items.reload} />
       {items.data && !items.data.length && (
         <Empty>
@@ -1514,7 +1527,7 @@ export function Knowledge() {
         </Empty>
       )}
       <div className="knowledge-grid">
-        {items.data?.map((a, i) => (
+        {items.data?.slice(0,visible).map((a, i) => (
           <Panel key={a.id}>
             <div className={"article-icon tone-" + (i % 4)}>
               <BookOpen size={22} />
@@ -1538,10 +1551,12 @@ export function Knowledge() {
             <Link to={"/knowledge/" + a.id}>
               <h3>{a.title}</h3>
             </Link>
-            <p className="article-excerpt">{a.body}</p>
+            <p className="article-excerpt">
+              {a.body.replace(/^## .*\n/gm, "").split(/\n\s*\n/)[0]}
+            </p>
             <div className="article-meta">
               {a.source_organization}
-              <small>更新 {a.updated_at} · 编辑摘要，未兽医审核</small>
+              <small>更新 {a.updated_at.slice(0,10)} · 编辑摘要，未兽医审核</small>
             </div>
             <Link to={"/knowledge/" + a.id} className="read-link">
               阅读详情 <ArrowUpRight size={15} />
@@ -1549,6 +1564,7 @@ export function Knowledge() {
           </Panel>
         ))}
       </div>
+      {items.data && visible < items.data.length && <Button onClick={()=>setVisible(v=>v+24)}>继续阅读（还有 {items.data.length-visible} 篇）</Button>}
     </>
   );
 }
@@ -1594,7 +1610,7 @@ export function Logs() {
         <NeedPet />
       ) : (
         <>
-          <div className="two-col">
+          <div className="two-col logs-grid">
             <Panel>
               <h2>
                 <Scale size={20} />
@@ -1828,11 +1844,12 @@ function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
   );
 }
 export function SettingsPage() {
-  const { user, refreshUser } = useApp(),
+  const { user, refreshUser, logout } = useApp(),
     [name, setName] = useState(user.full_name),
     [timezone, setTimezone] = useState(user.timezone),
     action = useAction();
   const status = useRemote<{ mode: string; model: string | null }>("/status"),
+    mapUsage = useRemote<MapUsage>("/hospitals/usage"),
     usage = useRemote<{
       requests: number;
       input_tokens: number;
@@ -1849,7 +1866,7 @@ export function SettingsPage() {
       <div className="two-col">
         <Panel>
           <h2>账户与时间设置</h2>
-          <p className="muted">{user.email}</p>
+          <p className="muted account-email">{user.email}</p>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -1895,6 +1912,12 @@ export function SettingsPage() {
               保存设置
             </Button>
           </form>
+          <div className="account-actions">
+            <Button onClick={logout} disabled={action.busy}>
+              <LogOut size={16} />
+              退出登录
+            </Button>
+          </div>
         </Panel>
         <Panel>
           <h2>
@@ -1931,6 +1954,31 @@ export function SettingsPage() {
               </dd>
             </dl>
           )}
+          <details className="care-details map-usage-details">
+            <summary>地图查询与请求用量</summary>
+            <State {...mapUsage} retry={mapUsage.reload} />
+            {mapUsage.data && (
+              <>
+                <p>
+                  {mapUsage.data.enabled ? "地图接口已配置" : "地图接口未启用"}
+                  ；本地营养计算和摘要不需要外部密钥。
+                </p>
+                <dl>
+                  <dt>今日应用请求</dt>
+                  <dd>
+                    {mapUsage.data.day_requests} / {mapUsage.data.day_limit}
+                  </dd>
+                  <dt>本月应用请求</dt>
+                  <dd>
+                    {mapUsage.data.month_requests} / {mapUsage.data.month_limit}
+                  </dd>
+                </dl>
+                <p className="small muted">
+                  按上海时区计数，含坐标转换和失败请求；不是供应商余额。免费资格由账号确认后手动启用。
+                </p>
+              </>
+            )}
+          </details>
         </Panel>
       </div>
       <Panel>

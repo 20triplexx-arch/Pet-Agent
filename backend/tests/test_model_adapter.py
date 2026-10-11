@@ -34,6 +34,13 @@ def fake_provider(monkeypatch, answer, source="cat-food"):
                 "save_care_plan",
                 "create_reminder",
                 "record_care_log",
+                "get_care_history",
+                "get_current_care_plans",
+                "assess_nutrition",
+                "search_nearby_hospitals",
+                "build_vet_visit_summary",
+                "get_breed_knowledge",
+                "assess_pet_products",
             }
         )
         return httpx2.Response(
@@ -128,11 +135,18 @@ def test_unretrieved_citation_rejected_and_rolled_back(
         )
 
 
-def test_five_pydantic_tools_registered():
+def test_twelve_pydantic_tools_registered():
     assert set(agent._function_toolset.tools) == {
         "get_pet_profile",
         "search_pet_knowledge",
         "save_care_plan",
         "create_reminder",
         "record_care_log",
+        "get_care_history",
+        "get_current_care_plans",
+        "assess_nutrition",
+        "search_nearby_hospitals",
+        "build_vet_visit_summary",
+        "get_breed_knowledge",
+        "assess_pet_products",
     }

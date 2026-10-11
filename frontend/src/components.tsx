@@ -122,6 +122,35 @@ export function PetArtwork({ className = "" }: { className?: string }) {
   );
 }
 
+export function ArticleContent({ body }: { body: string }) {
+  return (
+    <div className="article-body">
+      {body.split(/\n\s*\n/).map((block, index) => {
+        const lines = block.trim().split("\n");
+        const heading = lines[0]?.startsWith("## ")
+          ? lines.shift()!.slice(3)
+          : null;
+        const steps =
+          lines.length > 0 && lines.every((line) => /^\d+\.\s/.test(line));
+        return (
+          <section key={index}>
+            {heading && <h2>{heading}</h2>}
+            {steps ? (
+              <ol>
+                {lines.map((line, step) => (
+                  <li key={step}>{line.replace(/^\d+\.\s/, "")}</li>
+                ))}
+              </ol>
+            ) : lines.length > 0 ? (
+              <p>{lines.join("\n")}</p>
+            ) : null}
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
 export function PetPortrait({ species }: { species: string }) {
   return (
     <span
@@ -131,7 +160,14 @@ export function PetPortrait({ species }: { species: string }) {
       aria-hidden="true"
     >
       {["cat", "dog"].includes(species) ? (
-        <PetArtwork />
+        <img
+          className="pet-artwork"
+          src={`/assets/pet-portrait-${species}.webp`}
+          alt=""
+          width={512}
+          height={512}
+          draggable={false}
+        />
       ) : (
         <PawPrint size={32} />
       )}

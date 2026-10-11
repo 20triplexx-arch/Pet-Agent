@@ -28,6 +28,7 @@ class Pet(SQLModel, table=True):
     name: str
     species: str
     breed: str | None = None
+    breed_id: str | None = Field(default=None, foreign_key="breed.id", index=True)
     birthday: str | None = None
     estimated_age_months: int | None = None
     age_estimated_on: str | None = None
@@ -57,6 +58,29 @@ class KnowledgeArticle(SQLModel, table=True):
     ingested_at: str
     updated_at: str
     review_status: str = "editorial_summary_unreviewed"
+    content_kind: str = Field(default="care", index=True)
+    breed_ids: list[str] = Field(default_factory=list, sa_column=Column(JSON, nullable=False))
+    references: list[dict] = Field(default_factory=list, sa_column=Column(JSON, nullable=False))
+
+
+class Breed(SQLModel, table=True):
+    id: str = Field(primary_key=True)
+    species: str = Field(index=True)
+    name: str
+    classification: str = "pedigree"
+    aliases: list[str] = Field(default_factory=list, sa_column=Column(JSON, nullable=False))
+    summary: str
+    article_id: str
+
+
+class ProductAssessment(SQLModel, table=True):
+    id: str = Field(default_factory=uid, primary_key=True)
+    user_id: str = Field(foreign_key="user.id", index=True)
+    pet_id: str | None = Field(default=None, foreign_key="pet.id", index=True)
+    inputs: dict = Field(sa_column=Column(JSON, nullable=False))
+    result: dict = Field(sa_column=Column(JSON, nullable=False))
+    rule_version: str
+    created_at: str = Field(default_factory=now)
 
 
 class Bookmark(SQLModel, table=True):
@@ -92,6 +116,7 @@ class CarePlan(SQLModel, table=True):
     basis: str
     status: str = "active"
     revision: int = 1
+    provenance: dict | None = Field(default=None, sa_column=Column(JSON, nullable=True))
     created_at: str = Field(default_factory=now)
 
 
@@ -160,6 +185,24 @@ class ModelUsage(SQLModel, table=True):
     output_tokens: int = 0
     requests: int = 0
     created_at: str = Field(default_factory=now)
+
+
+class PetNutritionProfile(SQLModel, table=True):
+    id: str = Field(default_factory=uid, primary_key=True)
+    user_id: str = Field(foreign_key="user.id", index=True)
+    pet_id: str = Field(foreign_key="pet.id", unique=True)
+    data: dict = Field(default_factory=dict, sa_column=Column(JSON, nullable=False))
+    revision: int = 1
+    active_plan_id: str | None = Field(default=None, foreign_key="careplan.id")
+    updated_at: str = Field(default_factory=now)
+
+
+class ExternalApiUsage(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("provider", "period"),)
+    id: str = Field(default_factory=uid, primary_key=True)
+    provider: str
+    period: str
+    requests: int = 0
 
 
 class TokenPayload(SQLModel):

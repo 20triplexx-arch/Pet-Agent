@@ -1,0 +1,11 @@
+{
+  "generator": "image_gen.imagegen",
+  "useCase": "style-transfer",
+  "prompt": "Use case: style-transfer.\nAsset type: a single-pet full-body square illustration for the Chinese pet-care app 宠伴.\nInput image: use the supplied cat-and-dog illustration as the exact style and character reference.\nStyle/medium: the same warm children's picture-book illustration, softly painted fluffy fur, gentle warm brown outlines, peach and cream palette, friendly expressive eyes.\nScene/backdrop: actual transparent background, no backdrop, no floor rectangle.\nComposition/framing: one animal only, sitting naturally facing the viewer, complete body from ears to feet and entire tail, centered in a square image, fully inside the middle 80% of the canvas with transparent breathing space on every side.\nConstraints: keep the referenced animal's identity and warm painterly style. No text, border, watermarks, accessories, bowls or balls. No second animal, no overlaps, no body parts cropped. Real alpha transparency.\nPrimary request: create the referenced orange-and-white fluffy kitten ALONE, including both ears, all visible paws and a complete curled orange-and-white tail. No dog.",
+  "referencedImage": "frontend/public/assets/pet-companions.webp",
+  "transparentBackground": true,
+  "importedAt": "2026-10-10T09:04:34.728Z",
+  "originalFile": ".impeccable/assets/pet-portrait-cat-original.png",
+  "webAsset": "frontend/public/assets/pet-portrait-cat.webp",
+  "conversion": "ImageMagick proportional resize to 512x512; WebP quality 90; alpha preserved"
+}

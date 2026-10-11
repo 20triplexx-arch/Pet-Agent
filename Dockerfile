@@ -8,6 +8,9 @@ FROM python:3.13-slim
 WORKDIR /app/backend
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+ARG WITH_OCR=false
+COPY backend/requirements-ocr.txt ./
+RUN if [ "$WITH_OCR" = "true" ]; then pip install --no-cache-dir -r requirements-ocr.txt; fi
 COPY backend/ ./
 COPY LICENSE UPSTREAM.md /app/
 COPY --from=frontend /web/dist /app/frontend/dist

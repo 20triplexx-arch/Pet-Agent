@@ -26,6 +26,10 @@ async def run_model(ctx, text, history, profile, articles):
         "retrieved_data": articles,
         "user_message": text,
     }
+    if ctx.pet_id:
+        from app.nutrition import care_history, current_plans
+        payload["recent_care"] = [{**r, "note": r["note"][:300]} for r in care_history(ctx.session, ctx.user, ctx.pet_id)[:10]]
+        payload["active_plans"] = [{"title": p["title"], "basis": p["basis"][:300]} for p in current_plans(ctx.session, ctx.user, ctx.pet_id)[:5]]
     prompt = json.dumps(payload, ensure_ascii=False)
     if len(prompt) > 24000:
         prompt = json.dumps(

@@ -1,0 +1,570 @@
+[
+  {
+    "id": "cat-multi",
+    "title": "多猫家庭：循序介绍新猫，识别相处压力",
+    "body": "## 相处舒服比一起睡更重要\n猫不一定需要另一只猫作伴。介绍新猫前，先核对双方健康资料，并安排各自能退避的空间、食水、猫砂和抓挠用品。介绍速度由每只猫的反应决定，不能保证几天内成功；原住猫有健康问题时，应先和兽医讨论是否适合增加同伴。\n\n## 按反应推进，而不是按日历推进\n1. 新猫先在安全的独立区域安顿；让双方可以休息、进食和正常排泄，不强迫见面。\n2. 安顿后交换带气味的寝具，观察是否回避、低吼或变得紧张。\n3. 双方放松时，再尝试有可靠屏障的短暂视觉接触与分别互动。\n4. 只有先前步骤持续舒适，才考虑监督下更近的接触；保留退路和分开的资源，出现紧张立即退回较容易的阶段。\n\n## 需要记录的细微信号\n不仅记录打架，也记录持续盯视、堵住通道、一方躲藏、无法自在吃饭或使用猫砂的时间与位置。在应用中分别记在对应宠物的观察记录，避免把两只猫的食欲和排泄混在一起。\n\n## 避免强迫与升级冲突\n不要把猫抱在一起“熟悉”，也不要因哈气惩罚它们。紧张时不要徒手抱起或把手伸入冲突中，先用安全屏障分开视觉接触。已有伤口、持续不吃或反复冲突，应联系兽医或具资质的行为专业人员；这篇介绍清单不替代个体行为评估。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "新宠到家",
+    "keywords": [
+      "多猫",
+      "二胎",
+      "新猫",
+      "相处",
+      "打架",
+      "介绍",
+      "隔离"
+    ],
+    "source_organization": "Feline Veterinary Medical Association",
+    "source_url": "https://catvets.com/wp-content/uploads/2026/07/FelineVMA-Step-by-Step-Guide-How-to-Introduce.pdf",
+    "source_version": "2024多猫紧张指南配套照护者手册；网页PDF核对2026-10-10",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-scratching",
+    "title": "猫抓沙发：提供合适的抓挠选择",
+    "body": "## 抓挠是一种正常行为\n抓挠有标记、伸展和维护爪部的作用。目标是让猫有合适的位置表达行为，而不是让它完全停止抓挠。先看它选择的表面、方向和位置：有的偏爱立面，有的喜欢水平面；只买一种抓板放在远处，可能不能满足需要。\n\n## 从正在被抓的位置开始调整\n1. 记录常抓的家具、发生时间、水平或竖直方向，以及抓板是否会滑动或倾倒。\n2. 在原来偏爱的位置附近提供稳固的替代抓挠用品，给猫伸展和安全退开的空间。\n3. 让猫自行探索；使用替代物时给予它愿意接受的奖励或互动，不抓着前爪强迫示范。\n4. 保护家具表面，并逐步调整替代物位置；观察一项改变是否有帮助，再作下一项改变。\n\n## 同时检查环境与活动\n记录休息位置、互动机会，以及是否有其他猫阻止它使用用品。缺乏适合的抓挠材料、紧张和日常活动不足可能需要同时处理。若突然不愿使用爪部、走路改变或触碰时疼痛，应让兽医检查，而不是加强训练。\n\n## 不采用惊吓或惩罚\n喷水、打骂或让猫受惊可能增加紧张，不能教会它在哪里抓。修剪指甲也不等于取消抓挠需求；初次操作应请专业人员示范，不伤及有血管的部位。应用可保存“检查抓板稳定性”和“观察抓挠选择”等待办，频率根据实际使用和损耗调整。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "互动与训练",
+    "keywords": [
+      "抓沙发",
+      "抓挠",
+      "抓家具",
+      "猫抓板",
+      "磨爪",
+      "抓柱"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-body-language",
+    "title": "猫突然咬人：先读懂互动信号",
+    "body": "## 先区分场景，不给性格下结论\n玩耍中扑咬、触摸后转头咬、受惊后攻击，背后的情况可能不同。疼痛或疾病也可能改变互动耐受。突然出现或明显加重的攻击行为需要兽医评估，不能直接解释成“故意报复”或“需要服从训练”。\n\n## 用更短的互动找到舒适范围\n1. 让猫主动靠近，先短暂触摸它愿意接受的位置，不追着抱起。\n2. 留意耳朵后转、尾巴快速摆动、身体绷紧或转头盯手；出现变化就停止，给它离开的空间。\n3. 玩耍用合适玩具与手保持距离，不用手脚逗它扑咬。\n4. 为躲藏、休息和观察保留空间，避免在无法退避的角落逼近。\n\n## 记录可以帮助专业评估的细节\n写下触发前发生了什么、触摸位置、持续时间、是否有其他动物或噪声，以及之前是否愿意接受同样互动。能安全录到的日常影像比“脾气不好”更具体，不为拍视频故意诱发攻击。\n\n## 人和猫的安全优先\n不要打骂、强行按住或用更强刺激“纠正”。冲突时先拉开接触距离，儿童应由成人监督，不承担处理任务。人被咬伤需及时获得医疗意见；猫有疼痛、异常精神或反复攻击时联系兽医及行为专业人员。本篇不用于在线确定攻击原因。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "互动与训练",
+    "keywords": [
+      "咬人",
+      "摸猫",
+      "攻击",
+      "尾巴",
+      "身体信号",
+      "手玩"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
+    "source_version": "原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容）",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-grooming",
+    "title": "猫的梳毛与指甲护理：从愿意配合开始",
+    "body": "## 护理需求取决于个体\n毛长、梳理能力、皮肤状况和活动影响护理方式。梳毛不仅为了去掉浮毛，也可观察毛结、皮肤变化和寄生虫迹象。老年猫或活动受限的猫可能难以自己清洁，不能把持续不梳理都当作正常变老。\n\n## 先建立舒服的短体验\n1. 选猫放松的时候，让它先认识用品；从愿意接受的身体部位短暂接触开始。\n2. 轻柔梳理，不拉扯打结毛发；猫绷紧、躲避或表现疼痛就停下。\n3. 记录毛结的位置、皮肤是否发红、掉毛是否局部，以及舔咬变化。\n4. 指甲护理先请兽医或合格护理人员示范辨认血管区域和安全固定；不知道边界时不要试剪。\n\n## 怎样安排到日常计划\n按毛发是否打结、指甲是否勾挂及实际耐受安排检查任务，没有适用于所有猫的固定美容频率。把任务写成“检查腋下毛结”或“练习接受触爪”，并记录完成情况；不能一次完成时可以拆成更短的步骤。\n\n## 需要专业处理的情况\n紧贴皮肤的严重毛结不要自己用剪刀处理；持续红肿、渗出、明显瘙痒、疼痛或指甲损伤需要专业评估。不自行涂药或使用不明精油、人用护理产品。猫的护理用品与犬用药物并不能互换，此篇也不用于判断皮肤疾病。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "居住与清洁",
+    "keywords": [
+      "梳毛",
+      "剪指甲",
+      "毛结",
+      "护理",
+      "长毛",
+      "掉毛"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-dental",
+    "title": "猫的口腔护理：观察、适应与专业检查",
+    "body": "## 外表正常不代表口腔没有问题\n口腔问题可能表现为口臭、牙龈变化、流口水、食欲降低或吃东西方式改变；猫仍在吃饭也不能排除疼痛。主人观察不能替代兽医口腔检查，更不能仅凭照片判断牙齿是否需要治疗。\n\n## 在不疼痛的前提下建立护理\n1. 先向兽医确认目前口腔是否适合开展家庭护理；已疼痛或出血时不要强行刷牙。\n2. 从接受嘴边接触开始，让猫可以退开，采用奖励和很短的练习。\n3. 用品和操作请兽医示范；清洁范围逐渐增加，不硬掰嘴巴或追求一次完成。\n4. 保存兽医给出的个体护理要求，安排可执行的练习与复查待办。\n\n## 记录什么比描述“牙不好”更有用\n写明观察日期、是否偏侧咀嚼、掉食物、拒绝原来食物、流涎或精神变化；照片仅在猫愿意且能安全拍摄时留存。就医摘要可汇总这些真实记录，未知项目继续留空。\n\n## 不能用家庭用品代替治疗\n零食、玩具或清洁产品不能保证清除已经存在的牙齿疾病，也不能代替必要的专业评估。不要自行刮牙、使用人用牙膏或给止痛药。持续口臭和进食变化应联系兽医，明显疼痛或不能正常进食需要尽快处理。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "牙齿",
+      "刷牙",
+      "口腔",
+      "口臭",
+      "牙龈",
+      "流口水"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-dental-disease",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-vaccination",
+    "title": "猫的疫苗资料：怎样和兽医确认预防计划",
+    "body": "## 计划需要个体风险评估\n疫苗是预防护理的一部分，选择与间隔受年龄、既往接种、健康情况、生活方式和接触风险影响。室内生活不能直接等同于完全没有感染风险；也不能认为所有猫都需要市面上每一种疫苗。\n\n## 就诊前整理这份资料\n1. 收集能找到的接种凭证、日期、产品记录和既往不良反应；没有凭证就标“未知”，不要凭记忆补齐。\n2. 说明是否出门、寄养、接触新猫、旅行或生活环境改变。\n3. 带上疾病、当前药物及兽医建议，询问本次适合哪些预防项目和后续时间。\n4. 将兽医明确给出的下一次日期及来源记入待办；应用不自行推算接种日历。\n\n## 讨论收益和风险\n接种后应关注哪些变化、发生异常时联系谁，都应提前询问接诊兽医。保护并非百分之百，接种不能用来治疗已有疾病，也不能替代必要的接触管理和健康观察。身体不适时先说明情况，由兽医决定是否调整安排。\n\n## 来源与地区的边界\n参考页介绍北美猫疫苗体系，其中产品可用性、法规与国内可能不同。本篇只整理决策因素和就诊清单，不把国外具体程序套作中国接种规定；当地狂犬病等要求应向当地主管机构及兽医核实。所有实际医疗安排以针对这只猫的专业建议为准。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "疫苗",
+      "免疫",
+      "接种",
+      "室内猫",
+      "预防护理"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-vaccines-benefits-and-risks",
+    "source_version": "原页更新2022-07；2026-10-10核对",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-appetite",
+    "title": "猫不吃东西：记录变化，尽快联系兽医",
+    "body": "## 不先按“挑食”处理\n食欲下降是一种表现，可能与身体问题、疼痛或环境压力等多种因素有关，在线不能确定原因。猫持续不进食可带来严重后果，幼猫与原有健康风险者尤其需要关注。发现明显拒食应尽快联系兽医说明情况，不设置“再等几天看看”的通用门槛。\n\n## 联系兽医时提供这些信息\n1. 最后一次正常进食的时间，实际吃了多少，是否只是闻食物或吃几口。\n2. 同期精神、饮水、排尿和排便变化，有无呕吐、疼痛或流涎。\n3. 最近换粮、搬家、新宠、药物及可能接触的异物或有害物。\n4. 已知体重和记录日期、病史及正在遵循的兽医要求；未知项不猜测。\n\n## 等待专业意见时的准备\n维持安静、可退避的环境，让原本适合它的食物和饮水容易获取；记录提供了什么以及实际反应。不要为了让它进食同时试很多新食物，影响后续判断。可用就医摘要整理时间线、照片和既往记录。\n\n## 避免家庭强制处理\n不要强行灌食、自行喂药或认为零食摄入等于营养已足够。吞咽、口腔或其他身体问题可能需要专业处理。伴呼吸困难、明显虚弱、疑似中毒或排尿困难等情况，应优先及时联系急诊，而不是继续通过聊天排查。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "不吃",
+      "食欲",
+      "厌食",
+      "挑食",
+      "拒食"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-vomiting",
+    "title": "猫呕吐：区分观察事实与猜测原因",
+    "body": "## 不把反复呕吐都归为毛球\n呕吐有多种可能原因，食物、植物、药物、异物或身体疾病都可能有关。看到毛发不能证明只有毛球问题。反复出现、带血，或同时有虚弱、食欲下降和其他状态变化时，需要兽医评估。\n\n## 建立可用的时间线\n1. 记录第一次发生时间、每次间隔和次数，以及和进食的关系。\n2. 描述看到的内容、颜色和是否有血；不要只写“正常吐”。\n3. 记录饮水、食欲、精神、排泄变化，以及最近的食物和接触物。\n4. 能安全留存时拍照或短视频；把可能误食物的包装、名称和时间带给兽医。\n\n## 把未知项留给专业判断\n回忆是否接触线绳、玩具碎片、植物或人用药；不知道是否吞入就标注“可能”，不要当成已经证实。应用记录的是主人观察，不能根据图片或吐出物推断诊断；查看摘要时也应保留事实和怀疑之间的区别。\n\n## 何时优先联系\n疑似吞入危险物、精神明显差、血性呕吐或持续不能正常吃喝，应及时联系兽医；如还伴呼吸困难或明显虚弱，优先急诊咨询。不要自行催吐、用人用止吐药、拉扯从口或肛门露出的线绳，也不要照搬网络禁食方案。急救处理应听从专业人员针对本次情况的指示。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "呕吐",
+      "吐了",
+      "毛球",
+      "反胃",
+      "吐毛"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/vomiting",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "cat-carrier",
+    "title": "猫的航空箱适应：让就医出发更平静",
+    "body": "## 把航空箱变成日常可接近的空间\n猫可能因装箱、移动和诊室刺激产生压力。平时熟悉航空箱有助于准备就医，但不能为了等待训练成功延误必要就诊。选择安全、通风、容易清洁并方便检查的箱体，确认开口、锁扣和尺寸适合这只猫。\n\n## 按舒适反应分步练习\n1. 将航空箱放在猫常活动的地方，加入有熟悉气味的寝具，让它自己接近。\n2. 从愿意在附近休息到自行进入，给予合适的奖励，不追赶塞入。\n3. 愿意待在其中后，再短暂练习关门、保持安静，随后逐渐适应抬起和移动。\n4. 每一步都以猫保持舒服为前提；害怕、逃避或持续挣扎时退回更容易的步骤。\n\n## 出发当天怎样整理\n核对锁扣，携带病历和近期观察摘要。抬箱时从底部支撑并保持稳定，避免只提把手来回晃动；途中固定箱体，注意通风与舒适温度，不在行车时打开让猫出来。多只猫分别使用各自安全的运输箱。\n\n## 到院前后的交接\n提前向医院说明搬运困难和猫的压力表现，询问适合的到院安排，不自行使用镇静药。回家后观察原住猫反应，如出现紧张，先分开并提供完整资源再逐渐恢复接触。应用可记录练习反应和就医要求，不能保证训练消除全部压力。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "航空箱",
+      "猫包",
+      "就医紧张",
+      "运输",
+      "出门",
+      "装箱"
+    ],
+    "source_organization": "Feline Veterinary Medical Association",
+    "source_url": "https://catvets.com/wp-content/uploads/2024/12/FelineVMA_VisitingYourVet_Web.4.pdf",
+    "source_version": "FelineVMA照护者手册 ©2024",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-toilet",
+    "title": "幼犬如厕：靠机会、监督和及时奖励",
+    "body": "## 先创造做对的机会\n如厕学习需要可到达的合适地点、监督和及时反馈，幼犬的生理控制也在发展。反复在家排泄不一定是训练问题；突然变化、排尿困难、疼痛或其他异常，需要兽医评估，不能通过惩罚解释或解决。\n\n## 把一天的机会安排出来\n1. 记录睡醒、进食、活动后及上次排泄时间，按实际表现安排去指定地点的机会。\n2. 看见寻找地点、转圈等信号时，平静带到目标区域。\n3. 在正确地点排泄后及时奖励，让它能把奖励和刚完成的行为联系起来。\n4. 不能监督时安排安全且符合需要的环境，并请合适的人协助照护；不能靠长期关笼替代排泄机会。\n\n## 事故如何处理\n发现排泄物后平静清洁，不把鼻子按过去、不打骂。事后惩罚不能清楚告诉狗该去哪里，还可能让它害怕在主人面前排泄。记录事故发生场景，调整监督和外出机会，而不是给幼犬贴“故意捣乱”的标签。\n\n## 和照护记录连接\n将成功与事故的时间、地点记在观察或活动记录，找出自己遗漏的时段。没有适合所有幼犬的统一憋尿小时数；频率需结合年龄、饮水、活动和个体状态。出现反复用力但排不出、明显疼痛或精神改变时，及时联系兽医；应用不能判断尿路疾病。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "互动与训练",
+    "keywords": [
+      "乱尿",
+      "如厕",
+      "厕所",
+      "尿垫",
+      "大小便",
+      "幼犬",
+      "排泄训练"
+    ],
+    "source_organization": "Merck Veterinary Manual",
+    "source_url": "https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/behavior-problems-in-dogs",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-socialization",
+    "title": "幼犬社会化：建立安全、正向的新体验",
+    "body": "## 社会化不是接触越多越好\n早期经验会影响幼犬对人、动物和环境的反应。目标是在可承受的强度下建立安全、正向的体验，不是强迫它与所有狗打招呼，或把恐惧解释成需要“练胆”。同一刺激对不同幼犬的难度不同。\n\n## 设计一份可调整的体验清单\n1. 从安静、可控制的地点开始，引入不同声音、地面、人和日常用品，一次只增加少量难度。\n2. 让幼犬选择靠近或退开，在放松状态给予合适奖励。\n3. 留意躲藏、僵住、不愿进食奖励或逃避；出现这些反应时降低强度或停止。\n4. 与健康、合适且可控的同伴接触应有人监督，不用拥挤场所检验它是否“适应”。\n\n## 感染风险需要单独讨论\n社会化与预防护理都重要。未完成接种时，应向接诊兽医说明当地环境、接种记录和拟参加活动，让其评估可采用的低风险方式；不因网页通用建议直接去高暴露场所。本文不提供国内统一接种或开课日期。\n\n## 用记录衡量进展\n记录具体刺激、距离、持续时间和幼犬反应；进展是更放松、有选择，而不是忍住不动。持续明显恐惧或攻击需兽医及合格行为专业人员支持。原声明为2008年的专业立场资料，本篇只整理原则和应用清单，不把旧版国外程序当作当地现行医疗要求。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "生命阶段",
+    "keywords": [
+      "社会化",
+      "幼犬",
+      "陌生人",
+      "怕人",
+      "新体验",
+      "疫苗没打完"
+    ],
+    "source_organization": "American Veterinary Society of Animal Behavior",
+    "source_url": "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
+    "source_version": "AVSAB Puppy Socialization Position Statement ©2008；2026-10-10核对",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-crate",
+    "title": "狗的笼箱适应：安全休息空间怎样建立",
+    "body": "## 笼箱的作用与边界\n合适的笼箱可以用于安全运输、临时管理和休息。它不能代替运动、互动、排泄机会和照护，也不应该成为惩罚地点。尺寸应允许狗自然站立、转身和舒适躺下；选择时还要考虑安全、通风及狗是否会咬坏结构。\n\n## 从自愿进入开始\n1. 在安静安全处摆放笼箱，检查门、接缝和内部用品是否会卡住或被误吞。\n2. 先让狗自愿探索，在里面获得舒服的休息或奖励体验，不推入关门。\n3. 愿意进去后，从很短的关门练习开始，保持有人在附近；根据反应逐步调整。\n4. 安排及时的排泄与活动机会，照护人离开前确认基本需要已得到满足。\n\n## 观察它是否真正舒适\n记录进入是否自愿、能否放松，以及是否持续喘气、叫喊、试图逃出或损伤自己。安静不一定代表适应，有的狗会僵住；不能把长时间恐惧当作必须坚持的训练阶段。\n\n## 哪些情况要改变安排\n出现明显压力、破坏逃脱或有分离相关困难时，应停止增加限制，联系兽医或合格训练人员评估其他管理方式。不规定所有狗可关笼的统一小时数；幼犬、老年、身体不适和个体排泄需求都影响安排。应用可记录练习，不以打卡次数证明适应成功。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "居住与清洁",
+    "keywords": [
+      "笼子",
+      "关笼",
+      "笼箱",
+      "航空箱",
+      "休息",
+      "笼养"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-alone",
+    "title": "狗独处时叫喊或破坏：先记录，再评估压力",
+    "body": "## 这些表现不能直接等同于一种诊断\n离开后叫喊、来回走动或破坏可能与分离相关压力有关，也可能受到身体状态、环境、活动与其他因素影响。需要结合发生时机与表现评估，不能从一次视频确定“分离焦虑”，也不应指责狗在报复主人。\n\n## 先取得安全的观察事实\n1. 用不干扰它的方式观察离开前后，记录何时开始、持续多久以及是否能休息。\n2. 写下外部噪声、排泄机会、活动、近期生活变化和是否有伤害自身风险。\n3. 把不同日期的观察分别保存，保留短视频供专业人员评估，不反复制造恐惧来测试。\n\n## 练习应在可承受范围内\n维持可预测的照护安排，为活动、探索和安静休息提供机会。若尝试逐步适应短暂离开，应从狗仍能舒适的难度开始，不以叫到停止为成功标准。现实中无法避免的长时间离开，可寻找合适的临时照护支持，并向兽医讨论管理方案。\n\n## 不自行采用惩罚或用药\n责骂、吓唬和强行关笼可能加重压力。持续明显痛苦、逃出受伤、食欲或其他状态改变需要专业帮助；找采用奖励方式且资质可核实的行为支持。药物是否适合由兽医决定，应用不会根据视频推荐药物或剂量。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "互动与训练",
+    "keywords": [
+      "独处",
+      "分离",
+      "在家叫",
+      "出门就叫",
+      "拆家",
+      "焦虑"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+    "source_version": "原页更新2025-12-23；2026-10-10核对",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-grooming",
+    "title": "狗的皮肤、毛发与耳部：日常检查清单",
+    "body": "## 先认识这只狗的正常状态\n护理需求受毛发、活动环境、皮肤状况和既往专业建议影响。清洁的目的不是追求香味或固定美容次数，而是保持舒适并发现变化。第一次使用工具或清洁产品前，向兽医或合格护理人员确认适用性和安全操作。\n\n## 把检查拆成短步骤\n1. 在狗愿意配合时观察毛发和皮肤，留意毛结、红斑、破损及局部脱毛。\n2. 检查足部、指甲和活动后的附着物，避免强拉毛结或剪得过深。\n3. 观察耳部是否有明显异味、分泌物、反复甩头或触碰疼痛；不把工具深入耳道。\n4. 按实际污物和专业要求选择清洁，充分注意用品安全及狗的反应。\n\n## 记录变化，帮助确定下一步\n写下发现日期、身体部位、舔咬或抓挠频率、最近产品与环境改变；安全照片可供兽医比较。任务写成“检查爪垫”或“观察耳部反应”，而不是仅凭犬种自动生成固定洗澡次数。\n\n## 家庭护理的边界\n疼痛、渗出、明显伤口、持续瘙痒或耳部异常需要兽医评估，不用频繁洗澡掩盖。不要自行使用人用药、消毒液或未确认适用的驱虫与护理产品，猫狗产品不能任意互换。本篇不用于确定皮肤病、耳病或寄生虫种类。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "居住与清洁",
+    "keywords": [
+      "梳毛",
+      "洗澡",
+      "耳朵",
+      "皮肤",
+      "剪指甲",
+      "瘙痒"
+    ],
+    "source_organization": "Merck Veterinary Manual",
+    "source_url": "https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs",
+    "source_version": "原页2025-07版；2026-10-10核对",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-dental",
+    "title": "狗的家庭口腔护理：循序练习，观察疼痛",
+    "body": "## 先确认没有明显疼痛\n口臭、流口水、咀嚼困难、牙龈出血或面部肿胀值得向兽医说明。主人看到的只是口腔的一部分，不能凭可见牙结石判断完整情况。已有不适时先检查，再决定家庭护理，不强行刷发炎或疼痛的部位。\n\n## 将刷牙拆成可以接受的练习\n1. 由兽医确认用品和操作，使用适合犬的护理用品，不用人用牙膏。\n2. 从嘴边轻触开始，狗愿意配合后逐渐认识工具，及时给予合适奖励。\n3. 增加接触与清洁范围前观察是否仍然舒服；不要追赶、强压或硬掰。\n4. 保存专业人员给出的护理与复查安排；练习未完成就记录实际做到哪一步。\n\n## 怎样选择辅助用品\n咀嚼用品和其他口腔产品可能作为辅助，但不能保证解决已有牙齿疾病。选择时和兽医讨论证据、尺寸、误吞和损伤风险；使用零食类用品也应计入营养记录。不要只因为宣传“洁牙”就替代专业检查。\n\n## 给就诊提供明确事实\n记录开始日期、偏侧咀嚼、掉食物、拒食、出血和精神变化，附上可安全取得的照片。持续异常应联系兽医，明显疼痛或不能正常进食需要尽快处理。不自行刮牙、给止痛药或根据网络照片决定治疗。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "刷牙",
+      "牙齿",
+      "口臭",
+      "口腔",
+      "牙龈",
+      "牙结石"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-information/dental-disease-and-home-dental-care",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-adolescent",
+    "title": "成长中的狗：调整环境与训练难度",
+    "body": "## 成长变化不能只靠增加运动解决\n狗在成长过程中体型、探索能力和行为会变化，原先够不到的物品可能变得可接近。阶段及成熟速度有个体差异；突然的疼痛、活动下降或其他状态变化不能一律归为“青春期”，应让兽医评估。\n\n## 重新检查家庭安全\n1. 从狗现在能触及的位置检查电线、垃圾、药物、食物和可吞小物。\n2. 根据实际能力调整门口和危险区域的管理，提供安全可用的休息与探索空间。\n3. 提供适合个体的咀嚼与嗅闻活动，监督用品是否损坏，出现碎片及时收起。\n4. 家庭成员约定一致的提示和奖励方式，避免同一行为一会允许、一会惩罚。\n\n## 训练难度按反应回退\n在较安静环境练习已会的行为，再逐渐增加分心因素。把练习安排得短而清楚，成功后给予奖励；不能完成时降低难度，不用更大强度责骂。嗅闻、探索和学习是活动的一部分，不追求把狗“累到不动”。\n\n## 将观察用到计划调整\n记录活动内容、反应、休息和第二天状态，结合体况、健康及兽医要求调整计划。应用不会仅按犬种或成长标签生成固定运动分钟数、食量或绝育日期。持续恐惧、攻击或无法安静休息时，需要专业行为支持。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "生命阶段",
+    "keywords": [
+      "青春期",
+      "成长",
+      "少年犬",
+      "训练",
+      "咬东西",
+      "幼犬"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/teenage-years-puppy-proofing-and-training-tips",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "dog-winter",
+    "title": "冬季照护：看耐寒差异，也检查脚下环境",
+    "body": "## 毛多不等于没有寒冷风险\n耐寒能力受年龄、体型、毛发、体况、健康和适应程度影响。幼犬、年长、身体不适或毛发较少的狗可能需要更多保护。同一天气对不同狗的影响也不同，不能用一个气温数字规定所有狗的安全外出时长。\n\n## 出门前后检查什么\n1. 查看天气、湿度与风，以及路线是否湿滑；按个体需要准备合身、不妨碍活动的保暖用品。\n2. 外出时观察是否发抖、抬脚、拒走、行动迟缓或持续寻找温暖处；不强迫继续完成原定路线。\n3. 回家后检查足部附着物、湿毛和爪垫状况，按适合它的方式清理并保持干燥。\n4. 给它能自行选择的温暖休息区，避免直接接触可能烫伤的热源。\n\n## 活动与记录一起调整\n恶劣天气下，可以增加安全的室内嗅闻和互动机会，同时保留适合个体的排泄安排。记录外出环境和反应，比仅写“今天遛了多久”更能帮助调整下一次计划；不因减少外出就自行大幅改变食量。\n\n## 需要联系专业人员的情况\n明显虚弱、持续异常反应或受伤应联系兽医；寒冷中状态迅速变差应优先及时求助。不要使用未确认安全的加热、清洁或融冰用品，也不自行判断低体温或冻伤程度。本篇仅适用狗，不能套用为猫或其他物种的温度规则。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "居住与清洁",
+    "keywords": [
+      "冬天",
+      "冬季",
+      "冷",
+      "保暖",
+      "雪",
+      "爪垫"
+    ],
+    "source_organization": "Cornell University College of Veterinary Medicine",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "heat-safety",
+    "title": "炎热天气：避免车内滞留，调整日常活动",
+    "body": "## 车内和强热环境是关键风险\n停放的车即使开一点窗，也不能视作安全等待地点。猫狗需要可获得的饮水、合适的通风和凉爽休息空间；年龄、体况、健康及短鼻等个体因素会影响风险。不会因为“只离开几分钟”就自动安全。\n\n## 日常安排怎样调整\n1. 避开明显炎热的时段与受热路面，为外出活动准备饮水和休息机会。\n2. 狗按状态缩短或改变路线，不为了完成打卡强迫活动；猫确保室内能退避到较舒适处。\n3. 核对运输和临时照护时的温度、通风和人员责任，不能把动物留在停放车内。\n4. 观察活动后的呼吸、精神和恢复，与平时不同就及时停止并联系兽医咨询。\n\n## 出现明显异常时先求助\n高温后呼吸异常、明显虚弱、倒下或其他严重状态改变，需要及时联系兽医或急诊。提供暴露环境、开始时间、表现及既往健康信息，按专业指示处理与运输；不要通过连续聊天等待确认是否中暑。\n\n## 做好家庭和出行检查\n用品不能代替环境管理，也不要以一次“没事”证明以后安全。夏季还要检查户外清洁剂、园艺药剂等接触风险，将可疑包装留供专业判断。应用可记录天气和反应、建立饮水检查待办，但不会据单一气温给出所有猫狗通用的安全阈值。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "误区与危险",
+    "keywords": [
+      "炎热",
+      "夏天",
+      "高温",
+      "中暑",
+      "热",
+      "车内",
+      "爪垫"
+    ],
+    "source_organization": "American Veterinary Medical Association",
+    "source_url": "https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-storage",
+    "title": "宠物食品储存与清洁：保留标签，减少污染",
+    "body": "## 食物安全从拿取和储存开始\n宠物食品也可能受到微生物污染；生食存在对宠物和接触者的感染风险，不能仅以“天然”证明安全。食品是否完整均衡与储存是否安全是不同问题，两者都要关注；对有特殊健康风险的家庭应先咨询专业人员。\n\n## 建立厨房与喂食清单\n1. 接触食品前后清洁双手，按安全方式清洗和干燥食盆、量具，不与人用食物处理混杂。\n2. 干粮按标签条件放在干燥凉爽位置，保留原包装的批次、日期和产品信息；容器也要定期清洁。\n3. 开封湿粮与剩余食物按产品要求处理，需要冷藏时及时妥善保存，不把闻起来正常当作安全保证。\n4. 发现包装破损、霉变或异常时停止使用，并保留批次信息供咨询或反馈。\n\n## 不猜测统一保存时长\n不同产品、开封方式和环境温度会影响保存要求；本篇不替所有罐头规定同样的室温放置小时数。记录产品名、开封日期及实际储存条件，使用标签与专业建议作依据。食物热量标签可用于营养换算，但不能推断微生物安全性。\n\n## 家庭成员也需要防护\n清理食品和排泄物后保持手卫生，避免让小孩直接接触不当保存的食物。宠物在饮食后状态异常时，向兽医提供产品、批次、摄入时间及表现，不自行下结论是某种食物中毒。对猫狗以外物种不能沿用本篇的食物选择与营养建议。\n\n## 购买包装前核对\n大包装单价可能低，但需要结合真实消耗速度、标签储存要求和浪费判断。变质或来源不明的食品不应继续试喂。\n保留原包装、批次和有效期，标注开封日期，按标签温度与密封要求储存。量勺和容器保持清洁，不将新旧批次混得无法追溯。\n按真实使用记录选择包装，不推测所有干粮或湿粮统一保质时间；疑似相关不适时保留资料并联系兽医及厂家。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "储存",
+      "保质期",
+      "湿粮",
+      "罐头",
+      "食盆",
+      "生食",
+      "食品安全",
+      "包装",
+      "批次",
+      "开封",
+      "选购",
+      "预算"
+    ],
+    "source_organization": "U.S. Food and Drug Administration",
+    "source_url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/tips-safe-handling-pet-food-and-treats",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-11",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "food",
+    "breed_ids": [],
+    "references": [
+      {
+        "organization": "U.S. Food and Drug Administration",
+        "url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/tips-safe-handling-pet-food-and-treats",
+        "supports": "食品安全、储存与家庭接触防护原则",
+        "version": "2026-10-10网页核对版；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      },
+      {
+        "organization": "FDA",
+        "url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/tips-safe-handling-pet-food-and-treats",
+        "supports": "保留原包装、批次及标签储存条件；包装预算核对为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "id": "pet-travel",
+    "title": "带猫狗出行：行前资料与安全运输清单",
+    "body": "## 先判断是否适合带它同行\n旅行会改变日常环境与照护安排。身体状态、运输适应、行程和目的地条件都影响选择；不适合同行时需要可靠照护交接。先向兽医讨论健康与运输需要，再核对实际运营方及目的地要求，而不是临出发时才找证件。\n\n## 行前准备清单\n1. 整理宠物身份、接种及健康文件、用药和兽医建议，并确认联系电话可用。\n2. 核对住宿是否允许宠物，运输方式、箱体规格和相关证件；要求向当地机构及实际运营方确认。\n3. 预备原饮食、饮水用品、安全牵引或运输箱、清洁用品和病历副本。\n4. 找好目的地可联系的兽医候选，接诊、营业与急诊能力仍需逐项核实。\n\n## 途中保持可控与可观察\n自驾采用合适的约束或固定运输箱，不让猫狗自由干扰驾驶；保持舒适温度、通风并安排符合个体需要的休息。猫在安全封闭条件下管理，不在行车中开箱；狗下车前确认安全牵引，避免陌生地点逃脱。不能单独留在停放的车里。\n\n## 把照护要求交接清楚\n写明每日食物、观察重点、紧急联系人和原有专业要求，未知项不编造。晕车或压力处理先问兽医，不自行镇静或更改药量。参考页由美国FDA提供，本篇采用通用准备原则，不把其中美国证件与旅行规定写成中国现行规则。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "养宠前准备",
+    "keywords": [
+      "旅行",
+      "出行",
+      "运输",
+      "自驾",
+      "托运",
+      "寄养",
+      "出差"
+    ],
+    "source_organization": "U.S. Food and Drug Administration",
+    "source_url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/travel-training-you-and-your-pets",
+    "source_version": "2026-10-10网页核对版；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  }
+]

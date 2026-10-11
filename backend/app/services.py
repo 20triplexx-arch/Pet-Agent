@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from app.models import *
 from app.schemas import PlanDraft, LogInput, ReminderInput
 from app.clock import *
+from app.species import supports, registry
 
 
 def owned(session, model, ident, user_id):
@@ -16,6 +17,7 @@ def owned(session, model, ident, user_id):
 
 
 def pet_public(session, p):
+    breed = session.get(Breed, p.breed_id) if p.breed_id else None
     weights = session.exec(
         select(CareLog)
         .where(CareLog.pet_id == p.id, CareLog.kind == "weight")
@@ -35,6 +37,8 @@ def pet_public(session, p):
         months = elapsed if p.birthday else (months or 0) + max(0, elapsed)
     return {
         **p.model_dump(),
+        "breed_name": breed.name if breed else None,
+        "capabilities": next((s["capabilities"] for s in registry() if s["id"] == p.species), {"profile": True, "manual_logs": True}),
         "age_months": months,
         "weight": weights[-1].value if weights else None,
         "weight_date": weights[-1].occurred_at if weights else None,
@@ -87,6 +91,17 @@ def mutate(session, user_id, key, scope, payload, fn):
     try:
         result = fn()
         return commit_idempotent(session, user_id, key, fp, result)
+    except (IntegrityError, HTTPException) as exc:
+        session.rollback()
+        # Initial profile insertion or optimistic revision checks may lose a race
+        # before commit_idempotent. A committed identical request still wins.
+        if isinstance(exc, IntegrityError) or exc.status_code == 409:
+            previous = lookup_idempotent(session, user_id, key, fp)
+            if previous is not None:
+                return previous
+        if isinstance(exc, IntegrityError):
+            raise HTTPException(409, "数据已变更，请刷新后重试；本次未重复创建")
+        raise
     except Exception:
         session.rollback()
         raise
@@ -101,7 +116,7 @@ def plan_public(session, p):
 
 def add_plan(session, user, pet_id, draft: PlanDraft):
     pet = owned(session, Pet, pet_id, user.id)
-    if pet.species not in ("cat", "dog"):
+    if not supports(pet.species, "care_plan"):
         raise HTTPException(422, "该物种暂不支持个性化照护计划")
     plan = CarePlan(
         user_id=user.id, pet_id=pet_id, title=draft.title, basis=draft.basis

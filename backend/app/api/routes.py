@@ -16,6 +16,8 @@ from app.schemas import *
 from app.services import *
 from app.knowledge import retriever, serialize_article
 from app.agent import *
+from app.species import registry
+from app.breeds import validate_breed
 
 router = APIRouter(prefix="/api/v1")
 Key = Annotated[str | None, Header(alias="Idempotency-Key")]
@@ -101,7 +103,7 @@ def convert_time(data: TimeConvert, user: CurrentUser):
 
 @router.get("/species")
 def species(user: CurrentUser):
-    return json.loads((DATA / "species.json").read_text(encoding="utf-8"))
+    return registry()
 
 
 @router.get("/pets")
@@ -116,6 +118,7 @@ def pets(session: SessionDep, user: CurrentUser):
 
 @router.post("/pets")
 def create_pet(data: PetInput, session: SessionDep, user: CurrentUser, key: Key = None):
+    validate_breed(session, data.species, data.breed_id)
     def action():
         values = data.model_dump(mode="json")
         if values["estimated_age_months"] is not None:
@@ -138,6 +141,7 @@ def get_pet(pid: str, session: SessionDep, user: CurrentUser):
 @router.put("/pets/{pid}")
 def edit_pet(pid: str, data: PetInput, session: SessionDep, user: CurrentUser):
     p = owned(session, Pet, pid, user.id)
+    validate_breed(session, data.species, data.breed_id)
     age_changed = data.estimated_age_months != p.estimated_age_months
     for k, v in data.model_dump(mode="json").items():
         setattr(p, k, v)
@@ -166,6 +170,8 @@ def delete_pet(pid: str, session: SessionDep, user: CurrentUser):
     rems = [
         r.id for r in session.exec(select(Reminder).where(Reminder.pet_id == pid)).all()
     ]
+    session.exec(delete(PetNutritionProfile).where(PetNutritionProfile.pet_id == pid))
+    session.exec(delete(ProductAssessment).where(ProductAssessment.pet_id == pid))
     session.exec(delete(Message).where(Message.conversation_id.in_(convs)))
     session.exec(delete(Conversation).where(Conversation.id.in_(convs)))
     session.exec(delete(TaskCompletion).where(TaskCompletion.reminder_id.in_(rems)))
@@ -186,14 +192,24 @@ def knowledge(
     species: str | None = None,
     topic: str | None = None,
     favorites: bool = False,
+    breed_id: str | None = None,
+    content_kind: str | None = None,
+    life_stage: str | None = None,
 ):
+    if content_kind and content_kind not in ("care", "breed", "food", "supplies"):
+        raise HTTPException(422, "未知知识分类")
+    if breed_id:
+        b = session.get(Breed, breed_id)
+        if not b or (species and b.species != species):
+            raise HTTPException(422, "品种与物种不匹配")
+        species = b.species
     marks = {
         b.article_id
         for b in session.exec(select(Bookmark).where(Bookmark.user_id == user.id)).all()
     }
     return [
         serialize_article(a, a.id in marks)
-        for a in retriever.search(session, species, q[:1000], topic)
+        for a in retriever.search(session, species, q[:1000], topic, life_stage, breed_id, content_kind)
         if not favorites or a.id in marks
     ]
 
@@ -326,6 +342,8 @@ def update_plan(
 ):
     def action():
         p = owned(session, CarePlan, ident, user.id)
+        if (p.provenance or {}).get("kind") == "nutrition":
+            raise HTTPException(422, "营养数量需要重新评估；请在营养页面调整并确认方案")
         if p.revision != data.revision:
             raise HTTPException(409, "计划已被修改，请刷新后重试")
         changed = session.exec(
@@ -386,6 +404,11 @@ def update_plan(
 @router.patch("/plans/{ident}/status")
 def plan_status(ident: str, data: PlanStatus, session: SessionDep, user: CurrentUser):
     p = owned(session, CarePlan, ident, user.id)
+    if data.status == "active" and (p.provenance or {}).get("kind") == "nutrition":
+        from app.nutrition import profile_response
+        nutrition = profile_response(session, user, p.pet_id)
+        if nutrition["active_plan_id"] != p.id or nutrition["needs_reassessment"]:
+            raise HTTPException(409, "这份营养方案已被替换或依据变化，请重新评估")
     p.status = data.status
     p.revision += 1
     session.add(p)

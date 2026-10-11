@@ -27,19 +27,117 @@ async function login(page: Page) {
     });
   }
   await page.goto("/");
-  await page.screenshot({ path: "../.impeccable/review/login-" + (page.viewportSize()!.width < 600 ? "mobile" : "desktop") + ".png", fullPage: true });
+  const loginButton = await page
+    .getByRole("button", { name: "登录", exact: true })
+    .boundingBox();
+  expect(loginButton!.y + loginButton!.height).toBeLessThanOrEqual(
+    page.viewportSize()!.height,
+  );
+  await page.screenshot({
+    path:
+      "../.impeccable/review/login-" +
+      (page.viewportSize()!.width < 600 ? "mobile" : "desktop") +
+      ".png",
+    fullPage: true,
+  });
   await page.getByLabel("邮箱", { exact: true }).fill(email);
   await page.getByLabel("密码", { exact: true }).fill(password);
   await page.getByRole("button", { name: "登录", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "陪伴，是每天的小小用心" }),
+    page.getByRole("heading", { name: "今天，好好陪伴" }),
   ).toBeVisible();
   await page.getByLabel("当前宠物").selectOption({ label: "奶糖 · 猫" });
+  return authorization;
 }
 async function navigate(page: Page, path: string) {
   await page.goto(path);
   await expect(page.getByLabel("当前宠物")).toBeVisible();
 }
+test("首页待办收敛、切换宠物和快捷入口", async ({ page }, testInfo) => {
+  const originalViewport = page.viewportSize()!;
+  const authorization = await login(page);
+  const pets = await (
+    await page.request.get("/api/v1/pets", {
+      headers: { Authorization: authorization },
+    })
+  ).json();
+  const cat = pets.find((pet: { name: string }) => pet.name === "奶糖");
+  for (let i = 1; i <= 5; i++) {
+    const result = await page.request.post(
+      "/api/v1/pets/" + cat.id + "/reminders",
+      {
+        headers: {
+          Authorization: authorization,
+          "Idempotency-Key": crypto.randomUUID(),
+        },
+        data: {
+          title: "首页照护 " + i,
+          due_local: "2026-01-01T08:00:00",
+          timezone: "Asia/Shanghai",
+          recurrence: "once",
+        },
+      },
+    );
+    expect(result.ok()).toBeTruthy();
+  }
+  await navigate(page, "/");
+  await expect(page.locator(".home-today .todo")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: "全部待办（5）" })).toBeVisible();
+  const viewports =
+    testInfo.project.name === "desktop"
+      ? [
+          { width: 1280, height: 720, name: "desktop" },
+          { width: 850, height: 900, name: "tablet" },
+          { width: 430, height: 1244, name: "user-430" },
+        ]
+      : [{ width: 390, height: 664, name: "mobile" }];
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await expect(page.locator(".home-today")).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBeTruthy();
+    const firstTask = await page
+      .locator(".home-today .check-button")
+      .first()
+      .boundingBox();
+    expect(firstTask!.y + firstTask!.height).toBeLessThanOrEqual(
+      viewport.height - (viewport.width <= 600 ? 72 : 0),
+    );
+    await page.screenshot({
+      path: "../.impeccable/review/home-density-" + viewport.name + ".png",
+      fullPage: true,
+    });
+  }
+  await page.setViewportSize(originalViewport);
+  await page.locator(".home-today .check-button").first().click();
+  await expect(page.locator(".home-today")).toContainText("本周期已打卡");
+  await expect(page.getByRole("link", { name: "全部待办（4）" })).toBeVisible();
+  await page.getByLabel("当前宠物").selectOption({ label: "豆包 · 狗" });
+  await expect(page.locator(".home-pet-summary")).toContainText("豆包");
+  await expect(page.locator(".home-today .todo")).toHaveCount(0);
+  await expect(page.locator(".home-today")).toContainText("暂时没有到期待办");
+  await page
+    .getByRole("button", { name: "新宠到家要准备什么？", exact: true })
+    .click();
+  await expect(page.getByLabel("提问内容")).toHaveValue(
+    "新宠到家需要准备什么？",
+  );
+  await navigate(page, "/");
+  await page.getByLabel("当前宠物").selectOption("");
+  await expect(page.locator(".home-today")).toContainText("选好宠物");
+  await page.screenshot({
+    path:
+      "../.impeccable/review/home-density-unselected-" +
+      testInfo.project.name +
+      ".png",
+    fullPage: true,
+  });
+  await page.getByRole("link", { name: "饮食与体重", exact: true }).click();
+  await expect(page.getByLabel("照护主题")).toHaveValue("饮食与体重");
+});
 test("猫狗档案和对话一起切换，来源与风险提示", async ({ page }) => {
   await login(page);
   await navigate(page, "/chat");
@@ -124,7 +222,7 @@ test("知识搜索、收藏与真实来源详情", async ({ page }) => {
   await login(page);
   await navigate(page, "/knowledge");
   await page.getByLabel("搜索知识").fill("喂食");
-  await expect(page.locator(".knowledge-grid .panel")).toHaveCount(1);
+  await expect(page.locator(".knowledge-grid .panel")).not.toHaveCount(0);
   await page
     .getByRole("link", { name: "猫的饮食：先看生命阶段与体况", exact: true })
     .click();
@@ -168,9 +266,65 @@ test("失败重试保持幂等键，创建提醒不重复", async ({ page }) => 
   await page.getByRole("button", { name: "重试本次请求" }).click();
   await expect(page.locator(".todo").filter({ hasText: title })).toHaveCount(1);
 });
+
+test("扩充知识有分节步骤，切换宠物不混用资料", async ({ page }, testInfo) => {
+  await login(page);
+  await navigate(page, "/knowledge");
+  await page.getByLabel("搜索知识").fill("猫抓沙发怎么办");
+  await expect(
+    page.getByRole("link", {
+      name: "猫抓沙发：提供合适的抓挠选择",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.locator(".article-excerpt").first()).not.toContainText(
+    "##",
+  );
+  await page
+    .getByRole("link", { name: "猫抓沙发：提供合适的抓挠选择", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "抓挠是一种正常行为", level: 2 }),
+  ).toBeVisible();
+  await expect(page.locator(".article-body ol li")).toHaveCount(4);
+  await expect(page.locator(".article-body")).not.toContainText("##");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
+  await page.screenshot({
+    path:
+      "../.impeccable/review/knowledge-expanded-" +
+      testInfo.project.name +
+      ".png",
+    fullPage: true,
+  });
+  await expect(
+    page.getByRole("link", { name: "查看专业来源原文 ↗" }),
+  ).toHaveAttribute("href", /feline-behavior-problems-destructive-behavior$/);
+  await page.getByRole("link", { name: "← 返回知识库" }).click();
+  await page.getByLabel("当前宠物").selectOption({ label: "豆包 · 狗" });
+  await expect(page.getByLabel("知识物种")).toHaveValue("dog");
+  await page.getByLabel("搜索知识").fill("狗独自在家叫");
+  await expect(
+    page.getByRole("link", {
+      name: "狗独处时叫喊或破坏：先记录，再评估压力",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", {
+      name: "猫抓沙发：提供合适的抓挠选择",
+      exact: true,
+    }),
+  ).toHaveCount(0);
+});
 test("七类页面在当前视口无横向溢出", async ({ page }, testInfo) => {
   await login(page);
-  await expect(page.getByRole("navigation", { name: "主要导航" })).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "主要导航" }),
+  ).toBeVisible();
   for (const path of [
     "/",
     "/pets",
@@ -188,11 +342,48 @@ test("七类页面在当前视口无横向溢出", async ({ page }, testInfo) =>
     ).toBeTruthy();
     await expect(page.locator("h1")).toBeVisible();
     await page.waitForLoadState("networkidle");
-    await page.screenshot({ path: "../.impeccable/review/" + (path === "/" ? "home" : path.slice(1)) + "-" + testInfo.project.name + ".png", fullPage: true });
+    if (path === "/chat") {
+      const sendButton = await page
+        .getByRole("button", { name: "发送", exact: true })
+        .boundingBox();
+      const bottomNavigation = testInfo.project.name === "mobile" ? 72 : 0;
+      expect(sendButton!.y + sendButton!.height).toBeLessThanOrEqual(
+        page.viewportSize()!.height - bottomNavigation,
+      );
+    }
+    if (path === "/logs" && testInfo.project.name === "mobile") {
+      const recordField = await page.getByLabel("体重公斤").boundingBox();
+      expect(recordField!.y + recordField!.height).toBeLessThanOrEqual(
+        page.viewportSize()!.height - 72,
+      );
+    }
+    await page.screenshot({
+      path:
+        "../.impeccable/review/" +
+        (path === "/" ? "home" : path.slice(1)) +
+        "-" +
+        testInfo.project.name +
+        ".png",
+      fullPage: true,
+    });
   }
   await navigate(page, "/");
   await page.screenshot({
     path: "test-results/home-" + testInfo.project.name + ".png",
     fullPage: true,
   });
+  await navigate(page, "/settings");
+  await page
+    .locator(".account-actions")
+    .getByRole("button", { name: "退出登录", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "登录", exact: true }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(() => sessionStorage.getItem("chongban_token")),
+  ).toBeNull();
+  expect(
+    await page.evaluate(() => sessionStorage.getItem("chongban_pet")),
+  ).toBeNull();
 });

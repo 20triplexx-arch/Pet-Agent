@@ -1,0 +1,287 @@
+[
+  {
+    "id": "cat-british-shorthair",
+    "species": "cat",
+    "name": "英国短毛猫",
+    "aliases": [
+      "英短",
+      "British Shorthair"
+    ],
+    "classification": "pedigree",
+    "summary": "体形结实、短而密的毛发；蓝色只是毛色之一。安静的倾向不代表不需要游戏，也不能承诺每只都喜欢被抱。",
+    "article_id": "breed-cat-british-shorthair"
+  },
+  {
+    "id": "cat-american-shorthair",
+    "species": "cat",
+    "name": "美国短毛猫",
+    "aliases": [
+      "美短",
+      "American Shorthair"
+    ],
+    "classification": "pedigree",
+    "summary": "短毛、结实的家猫品种，毛色和花纹多样；虎斑花纹也会出现在没有血统记录的家猫中。",
+    "article_id": "breed-cat-american-shorthair"
+  },
+  {
+    "id": "cat-ragdoll",
+    "species": "cat",
+    "name": "布偶猫",
+    "aliases": [
+      "布偶",
+      "Ragdoll"
+    ],
+    "classification": "pedigree",
+    "summary": "重点色、较大体形和半长毛是常见特征；亲近人的品种描述不等于任何个体都愿意持续被抱。",
+    "article_id": "breed-cat-ragdoll"
+  },
+  {
+    "id": "cat-siamese",
+    "species": "cat",
+    "name": "暹罗猫",
+    "aliases": [
+      "暹罗",
+      "Siamese"
+    ],
+    "classification": "pedigree",
+    "summary": "短毛、重点色和较纤细体形；常见品种描述强调交流与互动，但叫声多寡受个体和环境影响。",
+    "article_id": "breed-cat-siamese"
+  },
+  {
+    "id": "cat-maine-coon",
+    "species": "cat",
+    "name": "缅因猫",
+    "aliases": [
+      "缅因",
+      "Maine Coon"
+    ],
+    "classification": "pedigree",
+    "summary": "体形较大、长毛和蓬松尾巴是常见特征；是否属于该品种不能单凭大体重或耳尖毛判断。",
+    "article_id": "breed-cat-maine-coon"
+  },
+  {
+    "id": "cat-persian",
+    "species": "cat",
+    "name": "波斯猫",
+    "aliases": [
+      "波斯",
+      "Persian"
+    ],
+    "classification": "pedigree",
+    "summary": "长而浓密的毛发、较短的面部是常见特征；面部程度有差异，不以越扁越符合照护目标。",
+    "article_id": "breed-cat-persian"
+  },
+  {
+    "id": "cat-exotic",
+    "species": "cat",
+    "name": "异国短毛猫",
+    "aliases": [
+      "加菲猫",
+      "异短",
+      "Exotic"
+    ],
+    "classification": "pedigree",
+    "summary": "体形与短面部常被形容为短毛波斯类型；常用昵称“加菲”也不构成品种证明。",
+    "article_id": "breed-cat-exotic"
+  },
+  {
+    "id": "cat-scottish-fold",
+    "species": "cat",
+    "name": "苏格兰折耳猫",
+    "aliases": [
+      "折耳",
+      "Scottish Fold"
+    ],
+    "classification": "pedigree",
+    "summary": "耳朵向前折叠是明显外形特点，但它与软骨发育的遗传问题相关，不能只作为可爱标签。",
+    "article_id": "breed-cat-scottish-fold"
+  },
+  {
+    "id": "dog-golden",
+    "species": "dog",
+    "name": "金毛寻回犬",
+    "aliases": [
+      "金毛",
+      "Golden Retriever"
+    ],
+    "classification": "pedigree",
+    "summary": "中大型寻回犬，常见倾向是乐于互动；友善描述不能代替儿童与犬互动时的监督。",
+    "article_id": "breed-dog-golden"
+  },
+  {
+    "id": "dog-labrador",
+    "species": "dog",
+    "name": "拉布拉多寻回犬",
+    "aliases": [
+      "拉布拉多",
+      "拉拉",
+      "Labrador"
+    ],
+    "classification": "pedigree",
+    "summary": "中大型、活跃的寻回犬；亲人和精力充足是群体描述，实际活动安排要看年龄与健康。",
+    "article_id": "breed-dog-labrador"
+  },
+  {
+    "id": "dog-poodle",
+    "species": "dog",
+    "name": "贵宾犬",
+    "aliases": [
+      "贵宾",
+      "Poodle"
+    ],
+    "classification": "pedigree",
+    "summary": "有不同体形规格，卷曲毛发需要照护；泰迪通常是造型称呼，不能据此推断玩具体形或喂食量。",
+    "article_id": "breed-dog-poodle"
+  },
+  {
+    "id": "dog-bichon",
+    "species": "dog",
+    "name": "比熊犬",
+    "aliases": [
+      "比熊",
+      "Bichon Frise"
+    ],
+    "classification": "pedigree",
+    "summary": "小型伴侣犬，毛发造型常见，但个体仍需要户外探索、独处练习和休息。",
+    "article_id": "breed-dog-bichon"
+  },
+  {
+    "id": "dog-pomeranian",
+    "species": "dog",
+    "name": "博美犬",
+    "aliases": [
+      "博美",
+      "Pomeranian"
+    ],
+    "classification": "pedigree",
+    "summary": "小体形、蓬松毛发是常见特点；小型不意味着不需要训练，也不能承诺永远安静。",
+    "article_id": "breed-dog-pomeranian"
+  },
+  {
+    "id": "dog-shiba",
+    "species": "dog",
+    "name": "柴犬",
+    "aliases": [
+      "柴",
+      "Shiba Inu"
+    ],
+    "classification": "pedigree",
+    "summary": "较紧凑、双层毛发的犬种，常被描述为独立；独立不是强制压制服从的理由。",
+    "article_id": "breed-dog-shiba"
+  },
+  {
+    "id": "dog-pembroke-corgi",
+    "species": "dog",
+    "name": "彭布罗克威尔士柯基",
+    "aliases": [
+      "彭布罗克",
+      "Pembroke Welsh Corgi"
+    ],
+    "classification": "pedigree",
+    "summary": "短腿的牧羊犬品种；“柯基”也可能指卡迪根等，未确认时不自动归到彭布罗克。",
+    "article_id": "breed-dog-pembroke-corgi"
+  },
+  {
+    "id": "dog-border-collie",
+    "species": "dog",
+    "name": "边境牧羊犬",
+    "aliases": [
+      "边牧",
+      "Border Collie"
+    ],
+    "classification": "pedigree",
+    "summary": "活跃、偏好工作的牧羊犬；聪明的倾向意味着需要合适任务，并不保证适合所有新手。",
+    "article_id": "breed-dog-border-collie"
+  },
+  {
+    "id": "dog-husky",
+    "species": "dog",
+    "name": "西伯利亚哈士奇",
+    "aliases": [
+      "哈士奇",
+      "二哈",
+      "Siberian Husky"
+    ],
+    "classification": "pedigree",
+    "summary": "北方工作犬，有浓密被毛与活动需求；网络上的拆家形象不是必然性格。",
+    "article_id": "breed-dog-husky"
+  },
+  {
+    "id": "dog-samoyed",
+    "species": "dog",
+    "name": "萨摩耶犬",
+    "aliases": [
+      "萨摩耶",
+      "Samoyed"
+    ],
+    "classification": "pedigree",
+    "summary": "厚实浅色被毛的北方犬种；看似微笑的面部不代表没有压力或疼痛。",
+    "article_id": "breed-dog-samoyed"
+  },
+  {
+    "id": "dog-french-bulldog",
+    "species": "dog",
+    "name": "法国斗牛犬",
+    "aliases": [
+      "法斗",
+      "French Bulldog"
+    ],
+    "classification": "pedigree",
+    "summary": "短头、结实体形的伴侣犬；短鼻外形不能作为无需运动或天然健康的证明。",
+    "article_id": "breed-dog-french-bulldog"
+  },
+  {
+    "id": "dog-pug",
+    "species": "dog",
+    "name": "巴哥犬",
+    "aliases": [
+      "巴哥",
+      "八哥犬",
+      "Pug"
+    ],
+    "classification": "pedigree",
+    "summary": "短头、小而结实的伴侣犬；圆脸和亲人倾向不能替代呼吸、体况和眼部观察。",
+    "article_id": "breed-dog-pug"
+  },
+  {
+    "id": "cat-domestic",
+    "species": "cat",
+    "name": "家猫（无明确血统）",
+    "aliases": [
+      "家猫",
+      "田园猫"
+    ],
+    "classification": "domestic",
+    "summary": "家猫（无明确血统）是照护分类入口，不把它当作外形和体形一致的单一标准品种。毛色、俗称和混种背景不足以推断健康、性格或寿命。",
+    "article_id": "breed-cat-domestic"
+  },
+  {
+    "id": "dog-native",
+    "species": "dog",
+    "name": "中华田园犬（地方类型）",
+    "aliases": [
+      "田园犬"
+    ],
+    "classification": "landrace",
+    "summary": "中华田园犬（地方类型）是照护分类入口，不把它当作外形和体形一致的单一标准品种。毛色、俗称和混种背景不足以推断健康、性格或寿命。",
+    "article_id": "breed-dog-native"
+  },
+  {
+    "id": "cat-mixed",
+    "species": "cat",
+    "name": "混种猫",
+    "aliases": [],
+    "classification": "mixed",
+    "summary": "混种猫是照护分类入口，不把它当作外形和体形一致的单一标准品种。毛色、俗称和混种背景不足以推断健康、性格或寿命。",
+    "article_id": "breed-cat-mixed"
+  },
+  {
+    "id": "dog-mixed",
+    "species": "dog",
+    "name": "混种犬",
+    "aliases": [],
+    "classification": "mixed",
+    "summary": "混种犬是照护分类入口，不把它当作外形和体形一致的单一标准品种。毛色、俗称和混种背景不足以推断健康、性格或寿命。",
+    "article_id": "breed-dog-mixed"
+  }
+]

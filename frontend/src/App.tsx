@@ -22,6 +22,7 @@ import { Button } from "./components/ui/button";
 import { api, login, token, type User, type Pet, petLabel } from "./api";
 import { useRemote, useAction } from "./hooks";
 import { State, Feedback, Panel, PetArtwork, PetPortrait } from "./components";
+import { Products } from "./product-page";
 import {
   Home,
   Pets,
@@ -31,12 +32,14 @@ import {
   Logs,
   SettingsPage,
 } from "./pages";
+import { Nutrition, Hospitals } from "./care-pages";
 type Context = {
   user: User;
   pet: Pet | null;
   pets: Pet[];
   refresh: () => void;
   refreshUser: () => void;
+  logout: () => void;
 };
 const Ctx = createContext<Context | null>(null);
 export function useApp() {
@@ -204,6 +207,13 @@ export default function App() {
     pets: pets.data,
     refresh: pets.reload,
     refreshUser: user.reload,
+    logout: () => {
+      sessionStorage.removeItem("chongban_token");
+      sessionStorage.removeItem("chongban_pet");
+      setPid("");
+      setAuthed(false);
+      navigate("/");
+    },
   };
   return (
     <Ctx.Provider value={context}>
@@ -245,7 +255,7 @@ export default function App() {
               <span>
                 一点点记录
                 <br />
-                看见它的每一次变化
+                看见每天的变化
               </span>
               <PetArtwork />
             </div>
@@ -255,14 +265,7 @@ export default function App() {
                 {user.data.full_name || "宠伴用户"}
                 <small>本地账户</small>
               </div>
-              <button
-                aria-label="退出登录"
-                onClick={() => {
-                  sessionStorage.removeItem("chongban_token");
-                  sessionStorage.removeItem("chongban_pet");
-                  setAuthed(false);
-                }}
-              >
+              <button aria-label="退出登录" onClick={context.logout}>
                 <LogOut size={18} />
               </button>
             </div>
@@ -274,11 +277,15 @@ export default function App() {
               <span>我的照护空间</span>
               <ChevronDown size={13} className="breadcrumb-chevron" />
               <strong>
-                {nav.find(
-                  ([path]) =>
-                    path === location.pathname ||
-                    (path !== "/" && location.pathname.startsWith(path)),
-                )?.[1] || "首页"}
+                {{ "/nutrition": "营养管理", "/hospitals": "医院与就医资料", "/products": "产品比较" }[
+                  location.pathname
+                ] ||
+                  nav.find(
+                    ([path]) =>
+                      path === location.pathname ||
+                      (path !== "/" && location.pathname.startsWith(path)),
+                  )?.[1] ||
+                  "首页"}
               </strong>
             </div>
             <div className="top-right">
@@ -301,6 +308,7 @@ export default function App() {
                   onChange={(e) => {
                     setPid(e.target.value);
                     sessionStorage.setItem("chongban_pet", e.target.value);
+                    if (location.pathname === "/knowledge") navigate("/knowledge", {replace:true});
                   }}
                 >
                   <option value="">普通知识 · 未选择宠物</option>
@@ -324,6 +332,9 @@ export default function App() {
               <Route path="/plans" element={<Plans />} />
               <Route path="/logs" element={<Logs />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/nutrition" element={<Nutrition />} />
+              <Route path="/hospitals" element={<Hospitals />} />
+              <Route path="/products" element={<Products />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>
