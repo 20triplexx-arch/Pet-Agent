@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import {
   Routes,
   Route,
@@ -17,7 +17,9 @@ import {
   Settings,
   LogOut,
   ChevronDown,
-} from "lucide-react";
+  DotsThree,
+  X,
+} from "./icons";
 import { Button } from "./components/ui/button";
 import { api, login, token, type User, type Pet, petLabel } from "./api";
 import { useRemote, useAction } from "./hooks";
@@ -31,12 +33,14 @@ import {
   Logs,
   SettingsPage,
 } from "./pages";
+import { Nutrition, Hospitals } from "./care-pages";
 type Context = {
   user: User;
   pet: Pet | null;
   pets: Pet[];
   refresh: () => void;
   refreshUser: () => void;
+  logout: () => void;
 };
 const Ctx = createContext<Context | null>(null);
 export function useApp() {
@@ -66,24 +70,19 @@ function Login({ done }: { done: () => void }) {
           </span>
           宠伴
         </div>
-        <h1>
-          把每一天的小事，
-          <br />
-          变成更好的陪伴。
-        </h1>
-        <p>
-          懂一点它的需要，多一点照护的从容。
-          <br />
-          从一份档案开始，和宠伴一起照顾猫猫狗狗。
-        </p>
+        <h1>照顾它的每一天。</h1>
+        <p>档案、照护计划和日常记录，在这里慢慢积累。</p>
         <div className="pet-art">
           <PetArtwork />
-          <span>让照护有据可依</span>
         </div>
       </div>
       <Panel>
         <h2>{signup ? "建立你的宠伴账户" : "欢迎回到宠伴"}</h2>
-        <p className="muted">从这里开始，照顾它的每一天。</p>
+        <p className="muted">
+          {signup
+            ? "创建账户，保存你的宠物与照护记录。"
+            : "登录，继续今天的照护。"}
+        </p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -103,6 +102,7 @@ function Login({ done }: { done: () => void }) {
             <label>
               昵称
               <input
+                name="full_name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={60}
@@ -112,8 +112,10 @@ function Login({ done }: { done: () => void }) {
           <label>
             邮箱
             <input
+              name="email"
               type="email"
               required
+              autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -121,9 +123,11 @@ function Login({ done }: { done: () => void }) {
           <label>
             密码
             <input
+              name="password"
               type="password"
               required
               minLength={8}
+              autoComplete={signup ? "new-password" : "current-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -155,6 +159,25 @@ export default function App() {
     status = useRemote<{ mode: string }>(authed ? "/status" : null);
   const navigate = useNavigate();
   const location = useLocation();
+  const moreDialog = useRef<HTMLDialogElement>(null);
+  const moreButton = useRef<HTMLButtonElement>(null);
+  const [moreOpen, setMoreOpen] = useState(false);
+  useEffect(() => {
+    const dialog = moreDialog.current;
+    if (moreOpen && dialog && !dialog.open) dialog.showModal();
+    if (!moreOpen && dialog?.open) dialog.close();
+  }, [moreOpen]);
+  useEffect(() => {
+    setMoreOpen(false);
+  }, [location.pathname, authed]);
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => {
+      if (query.matches) setMoreOpen(false);
+    };
+    query.addEventListener("change", closeOnDesktop);
+    return () => query.removeEventListener("change", closeOnDesktop);
+  }, []);
   useEffect(() => {
     const handler = () => setAuthed(false);
     window.addEventListener("auth-expired", handler);
@@ -204,6 +227,13 @@ export default function App() {
     pets: pets.data,
     refresh: pets.reload,
     refreshUser: user.reload,
+    logout: () => {
+      sessionStorage.removeItem("chongban_token");
+      sessionStorage.removeItem("chongban_pet");
+      setPid("");
+      setAuthed(false);
+      navigate("/");
+    },
   };
   return (
     <Ctx.Provider value={context}>
@@ -216,11 +246,8 @@ export default function App() {
             <span className="brand-mark">
               <PawPrint />
             </span>
-            <span>
-              宠伴<small>每一天，有我陪伴</small>
-            </span>
+            <span>宠伴</span>
           </NavLink>
-          <div className="nav-caption">我的照护空间</div>
           <nav aria-label="主要导航">
             {nav.map(([path, label, Icon], i) => (
               <NavLink
@@ -241,28 +268,13 @@ export default function App() {
             ))}
           </nav>
           <div className="sidebar-bottom">
-            <div className="soft-card">
-              <span>
-                一点点记录
-                <br />
-                看见它的每一次变化
-              </span>
-              <PetArtwork />
-            </div>
             <div className="account">
               <span className="avatar">{user.data.full_name[0] || "宠"}</span>
               <div>
                 {user.data.full_name || "宠伴用户"}
                 <small>本地账户</small>
               </div>
-              <button
-                aria-label="退出登录"
-                onClick={() => {
-                  sessionStorage.removeItem("chongban_token");
-                  sessionStorage.removeItem("chongban_pet");
-                  setAuthed(false);
-                }}
-              >
+              <button aria-label="退出登录" onClick={context.logout}>
                 <LogOut size={18} />
               </button>
             </div>
@@ -270,24 +282,24 @@ export default function App() {
         </aside>
         <div className="workspace">
           <header className="topbar">
-            <div className="top-label">
-              <span>我的照护空间</span>
-              <ChevronDown size={13} className="breadcrumb-chevron" />
-              <strong>
-                {nav.find(
-                  ([path]) =>
-                    path === location.pathname ||
-                    (path !== "/" && location.pathname.startsWith(path)),
-                )?.[1] || "首页"}
-              </strong>
-            </div>
+            <NavLink className="mobile-brand" to="/" aria-label="宠伴首页">
+              <PawPrint size={24} />
+              <span>宠伴</span>
+            </NavLink>
+            <span className="desktop-greeting">你的照护空间</span>
             <div className="top-right">
               <span
                 className={
                   status.data?.mode === "live" ? "badge green" : "badge"
                 }
               >
-                {status.data?.mode === "live" ? "已连接模型" : "演示模式"}
+                {status.error
+                  ? "模式读取失败"
+                  : !status.data
+                    ? "读取模式…"
+                    : status.data.mode === "live"
+                      ? "已连接模型"
+                      : "演示模式"}
               </span>
               <div className="pet-switch">
                 {pet ? (
@@ -324,11 +336,104 @@ export default function App() {
               <Route path="/plans" element={<Plans />} />
               <Route path="/logs" element={<Logs />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/nutrition" element={<Nutrition />} />
+              <Route path="/hospitals" element={<Hospitals />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>
           <footer>宠伴 · 首版支持猫与狗　健康建议用于观察和就医准备</footer>
         </div>
+        <nav className="mobile-nav" aria-label="手机主要导航">
+          {[
+            ["/", "首页", House],
+            ["/chat", "AI对话", MessageCircle],
+            ["/plans", "计划", CalendarCheck],
+            ["/knowledge", "知识", BookOpen],
+          ].map(([path, label, Icon]) => {
+            const Glyph = Icon as typeof House;
+            return (
+              <NavLink
+                key={path as string}
+                to={path as string}
+                end={path === "/"}
+                className={({ isActive }) =>
+                  "mobile-nav-item" + (isActive ? " active" : "")
+                }
+              >
+                <Glyph size={23} />
+                <span>{label as string}</span>
+              </NavLink>
+            );
+          })}
+          <button
+            ref={moreButton}
+            className={
+              "mobile-nav-item" +
+              ([
+                "/pets",
+                "/logs",
+                "/settings",
+                "/nutrition",
+                "/hospitals",
+              ].includes(location.pathname)
+                ? " active"
+                : "")
+            }
+            aria-haspopup="dialog"
+            aria-controls="more-navigation"
+            aria-expanded={moreOpen}
+            onClick={() => setMoreOpen(true)}
+          >
+            <DotsThree size={24} />
+            <span>更多</span>
+          </button>
+        </nav>
+        <dialog
+          id="more-navigation"
+          ref={moreDialog}
+          className="more-dialog"
+          aria-labelledby="more-title"
+          onCancel={() => setMoreOpen(false)}
+          onClose={() => {
+            setMoreOpen(false);
+            moreButton.current?.focus();
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setMoreOpen(false);
+          }}
+        >
+          <div className="more-sheet">
+            <div className="section-heading">
+              <h2 id="more-title">更多</h2>
+              <Button
+                aria-label="关闭更多"
+                onClick={() => setMoreOpen(false)}
+                autoFocus
+              >
+                <X size={20} />
+              </Button>
+            </div>
+            <nav aria-label="更多导航">
+              {nav
+                .filter(([path]) =>
+                  ["/pets", "/logs", "/settings"].includes(path),
+                )
+                .map(([path, label, Icon]) => (
+                  <NavLink
+                    key={path}
+                    to={path}
+                    onClick={() => setMoreOpen(false)}
+                    className={({ isActive }) =>
+                      "more-link" + (isActive ? " active" : "")
+                    }
+                  >
+                    <Icon size={22} />
+                    <span>{label}</span>
+                  </NavLink>
+                ))}
+            </nav>
+          </div>
+        </dialog>
       </div>
     </Ctx.Provider>
   );

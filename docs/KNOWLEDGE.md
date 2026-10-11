@@ -1,0 +1,108 @@
+# 知识库维护与本轮扩充
+
+更新日期：2026-10-10（Asia/Shanghai）。资料文件是随源码交付的编辑内容，不依赖外部模型或实时网络搜索。
+
+## 当前覆盖
+
+从24篇、正文总计2250字符扩为44篇、19640字符（按JSON body字符串长度，不等同汉字计数）。24篇原文全部重写补全，另新增20篇；平均446字符，最短365、最长525。猫可用28篇、狗可用26篇，其中10篇共用。八个主题均有猫与狗可读内容；共用文章的正文明确个体与物种边界，不能用于其他动物。
+
+| 主题 | 篇数 |
+| --- | ---: |
+| 养宠前准备 | 3 |
+| 新宠到家 | 3 |
+| 饮食与体重 | 8 |
+| 居住与清洁 | 6 |
+| 互动与训练 | 6 |
+| 生命阶段 | 5 |
+| 误区与危险 | 3 |
+| 健康与就医 | 10 |
+
+新增专篇涵盖多猫介绍、抓挠、互动信号、梳毛、口腔、疫苗资料、拒食与呕吐观察、航空箱适应、幼犬如厕与社会化、笼箱、独处压力、成长训练、季节照护、食品储存和出行。原有营养篇补全单位换算、适用条件、食物分配、零食、体况与肌肉风险、标签解读和就医资料准备。
+
+## 如何组织一篇有用的资料
+
+每篇至少包含适用条件、实际步骤或观察清单、应记录的信息、误区或专业评估边界。专业事实基于下表公开资料，应用任务与记录清单为本项目原创整理；这些操作清单不是原机构正式逐字译文，也没有获原机构背书。
+
+正文支持 `## 标题`、空行分段、`1. `形式的顺序步骤。前端以React文本节点渲染h2、p和ol，避免将知识正文作为HTML执行；其他Markdown功能未实现。列表只展示首段摘要，详情保留全部章节与来源卡。切换宠物后列表物种随之切换，仍允许用户手选猫狗查询。
+
+检索继续采用物种/阶段/主题筛选与关键词排序。健康问答先检索原问题，缺少结果时才扩大到健康/就医，以免通用急救条目挤掉具体观察主题。演示普通回答截取适用说明、相关操作段及边界，第一篇上限420字符、第二篇220字符；完整内容在知识详情。健康回答保留受控观察/就医准备和最多三个问题，并可附280字符的实际检索观察片段。紧急规则仍在检索与模型调用前执行。引用ID及URL来自实际检索资料；没有实时联网问答或向量检索。
+
+## 审核与地域边界
+
+所有条目均为 `editorial_summary_unreviewed`，只作编辑核对，不是“兽医已审核”。原文发布时间与版本分开记录，页面未标发布日期则保持published_at为空；本轮核对日期不是原文发布日期。来源较旧的行为资料只采用环境改善、身体观察和非惩罚互动要点，不照抄喷水、惊吓等旧建议；训练方式结合AVSAB的奖励式训练立场：[专业立场声明](https://avsab.org/resources/position-statements/)。
+
+疫苗、幼犬社会化、出行篇只整理一般原则和专业沟通清单，不将美国产品、接种程序或法规当作中国要求。猫生病篇不以“等满若干小时”作统一安全门槛，不作诊断、不催吐、不强制喂食、不提供药物剂量。食品与护理频率根据标签、实际情况与个体专业要求判断，不添加未经依据的统一数值。猫狗营养计算规则与风险门控未因本轮内容扩充而改变。
+
+资料范围仍不是完整百科；体况评估与疾病、行为个案需要专业支持。兔、豚鼠、具体仓鼠、鸟、龟、鱼的专属资料与规则尚未上线，不能套用本库猫狗内容。后续扩展需独立完成专业来源核对、具体物种能力登记、适用条件和代表性检索验收。
+
+## 导入与保存已有数据
+
+三个JSON文件按稳定ID进行upsert：`knowledge.json`（16篇）、`knowledge_nutrition.json`（8篇）、`knowledge_care.json`（20篇）。初始化会导入全部三份，重复执行不重复创建条目；已有收藏引用原ID继续保留。本轮没有数据库结构变更，不新增迁移。
+
+```powershell
+cd backend
+../.venv/Scripts/python.exe -m scripts.init_db
+# 单独更新照护扩展资料
+../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge_care.json
+```
+
+新内容导入仍校验字段、HTTPS来源、具体物种和审核状态；整批验证后提交。开发者应在导入前逐篇检查来源有效性与正文内容，不能把字段校验或篇幅测试当作专业审核。运行中的服务若修改了Agent源码需重启；已有库、签名密钥与环境配置应保留。
+
+本机导入前已用SQLite backup API备份，目录 `backend/storage/backups/20261010-173906-knowledge/`，密钥也单独保留。导入后知识24→44；其他14张业务表的记录数一致，用户/宠物/计划/记录/会话/提醒/打卡保持。备份及任何密钥不进源码包。
+
+## 逐条专业来源清单
+
+下表链接为实际核对的公开来源。内容不复制整篇文章、受保护图片或图表。没有日期的条目不推测；来源更新仍需后续编辑维护。
+
+| 条目ID | 物种 | 主题 | 正文题目与原始专业资料 | 版本记录 |
+| --- | --- | --- | --- | --- |
+| cat-prepare | 猫 | 养宠前准备 | [养猫前：先评估生活和预算](https://www.merckvetmanual.com/cat-owners/selecting-and-providing-a-home-for-a-cat/selecting-a-cat) | July 2025 / v102055183 |
+| dog-prepare | 狗 | 养宠前准备 | [养狗前：留出每天的照护时间](https://avma.org/resources/pet-owners/petcare/selecting-pet-dog) | 网页收录版本 |
+| cat-home | 猫 | 新宠到家 | [新猫到家：提供安全的退避空间](https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/) | 2013 环境需求指南 |
+| dog-home | 狗 | 新宠到家 | [幼犬到家：安全空间与一致的规则](https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/) | 网页 2026-06-05 |
+| cat-food | 猫 | 饮食与体重 | [猫的饮食：先看生命阶段与体况](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat) | 网页更新 2026-04-30 |
+| dog-food | 狗 | 饮食与体重 | [犬的饮食与体重：根据个体调整](https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/) | 2021 营养与体重管理指南 |
+| cat-clean | 猫 | 居住与清洁 | [猫砂与清洁：观察排泄的日常窗口](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease) | 网页更新 October 2016 |
+| dog-clean | 狗 | 居住与清洁 | [犬的居住环境与日常状态观察](https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/) | 2019 犬生命阶段检查清单 |
+| cat-play | 猫 | 互动与训练 | [猫的互动：保留捕猎与探索机会](https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/) | 2013 环境需求指南 |
+| dog-play | 狗 | 互动与训练 | [犬的活动：配合年龄和健康状态](https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/) | 2019 犬生命阶段检查清单 |
+| cat-stage | 猫 | 生命阶段 | [老年猫：按状态调整照护](https://www.vet.cornell.edu/sites/default/files/WhatToExpect_Updated_2022.pdf) | 2022 What to Expect |
+| dog-stage | 狗 | 生命阶段 | [犬的生命阶段与预防护理准备](https://www.aaha.org/resources/how-often-should-my-dog-go-to-the-vet-a-dog-life-stage-guide/) | 网页 2025-06-18 |
+| cat-lily | 猫 | 误区与危险 | [危险物品：猫与真百合的接触](https://www.petpoisonhelpline.com/pet-owners/basics/top-10-plants-poisonous-to-pets/) | 网页收录版本 |
+| first-aid | 猫、狗 | 健康与就医 | [急症识别与就医准备](https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf) | Pet First Aid 2025 |
+| cat-life-stages | 猫 | 生命阶段 | [猫的生命阶段：年龄与照护讨论](https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/) | 2021 Feline Life Stage Definitions |
+| dog-hazards | 狗 | 误区与危险 | [犬的误食风险与危险物品管理](https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf) | Pet First Aid 2025 |
+| nutrition-energy | 猫、狗 | 饮食与体重 | [健康成年猫狗：维持热量的起始估算](https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/weight-reduction-in-the-obese-pet/0/) | 2021 AAHA Nutrition and Weight Management Guidelines / Box 1 |
+| nutrition-risk | 猫、狗 | 健康与就医 | [哪些营养风险需要专业评估](https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/) | 2021 AAHA / Nutritional Risk Factors |
+| nutrition-feeding | 猫、狗 | 饮食与体重 | [把主粮、零食和实际摄入一起计算](https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/) | 2021 AAHA / Feeding Plans for Healthy, Appropriate Weight Cats and Dogs |
+| nutrition-cat-bcs | 猫 | 饮食与体重 | [猫的体况：体重之外还要看脂肪分布](https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSCat_Nutrition_250612.pdf) | WSAVA feline BCS chart 2025-06 |
+| nutrition-dog-bcs | 狗 | 饮食与体重 | [犬的体况：记录肋骨、腰线和腹部变化](https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf) | WSAVA canine BCS chart 2025-06 |
+| nutrition-muscle | 猫、狗 | 健康与就医 | [肌肉状况与体况评分分别记录](https://wsava.org/global-guidelines/global-nutrition-guidelines/) | Global Nutrition Guidelines / Muscle condition score tools |
+| nutrition-label | 猫、狗 | 饮食与体重 | [填写包装热量与计量单位](https://wsava.org/global-guidelines/global-nutrition-guidelines/) | Global Nutrition Guidelines / Food Label Guides and Selecting a Pet Food |
+| visit-preparation | 猫、狗 | 健康与就医 | [紧急就医前准备联系信息与观察记录](https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf) | AVMA Pet First Aid brochure 2023 |
+| cat-multi | 猫 | 新宠到家 | [多猫家庭：循序介绍新猫，识别相处压力](https://catvets.com/wp-content/uploads/2026/07/FelineVMA-Step-by-Step-Guide-How-to-Introduce.pdf) | 2024多猫紧张指南配套照护者手册；网页PDF核对2026-10-10 |
+| cat-scratching | 猫 | 互动与训练 | [猫抓沙发：提供合适的抓挠选择](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior) | 2026-10-10网页核对版；原页未标发布日期 |
+| cat-body-language | 猫 | 互动与训练 | [猫突然咬人：先读懂互动信号](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression) | 原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容） |
+| cat-grooming | 猫 | 居住与清洁 | [猫的梳毛与指甲护理：从愿意配合开始](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat) | 2026-10-10网页核对版；原页未标发布日期 |
+| cat-dental | 猫 | 健康与就医 | [猫的口腔护理：观察、适应与专业检查](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-dental-disease) | 2026-10-10网页核对版；原页未标发布日期 |
+| cat-vaccination | 猫 | 健康与就医 | [猫的疫苗资料：怎样和兽医确认预防计划](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-vaccines-benefits-and-risks) | 原页更新2022-07；2026-10-10核对 |
+| cat-appetite | 猫 | 健康与就医 | [猫不吃东西：记录变化，尽快联系兽医](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia) | 2026-10-10网页核对版；原页未标发布日期 |
+| cat-vomiting | 猫 | 健康与就医 | [猫呕吐：区分观察事实与猜测原因](https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/vomiting) | 2026-10-10网页核对版；原页未标发布日期 |
+| cat-carrier | 猫 | 健康与就医 | [猫的航空箱适应：让就医出发更平静](https://catvets.com/wp-content/uploads/2024/12/FelineVMA_VisitingYourVet_Web.4.pdf) | FelineVMA照护者手册 ©2024 |
+| dog-toilet | 狗 | 互动与训练 | [幼犬如厕：靠机会、监督和及时奖励](https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/behavior-problems-in-dogs) | 2026-10-10网页核对版；原页未标发布日期 |
+| dog-socialization | 狗 | 生命阶段 | [幼犬社会化：建立安全、正向的新体验](https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf) | AVSAB Puppy Socialization Position Statement ©2008；2026-10-10核对 |
+| dog-crate | 狗 | 居住与清洁 | [狗的笼箱适应：安全休息空间怎样建立](https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one) | 2026-10-10网页核对版；原页未标发布日期 |
+| dog-alone | 狗 | 互动与训练 | [狗独处时叫喊或破坏：先记录，再评估压力](https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations) | 原页更新2025-12-23；2026-10-10核对 |
+| dog-grooming | 狗 | 居住与清洁 | [狗的皮肤、毛发与耳部：日常检查清单](https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs) | 原页2025-07版；2026-10-10核对 |
+| dog-dental | 狗 | 健康与就医 | [狗的家庭口腔护理：循序练习，观察疼痛](https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-information/dental-disease-and-home-dental-care) | 2026-10-10网页核对版；原页未标发布日期 |
+| dog-adolescent | 狗 | 生命阶段 | [成长中的狗：调整环境与训练难度](https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/teenage-years-puppy-proofing-and-training-tips) | 2026-10-10网页核对版；原页未标发布日期 |
+| dog-winter | 狗 | 居住与清洁 | [冬季照护：看耐寒差异，也检查脚下环境](https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips) | 2026-10-10网页核对版；原页未标发布日期 |
+| heat-safety | 猫、狗 | 误区与危险 | [炎热天气：避免车内滞留，调整日常活动](https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety) | 2026-10-10网页核对版；原页未标发布日期 |
+| food-storage | 猫、狗 | 饮食与体重 | [宠物食品储存与清洁：保留标签，减少污染](https://www.fda.gov/animal-veterinary/animal-health-literacy/tips-safe-handling-pet-food-and-treats) | 2026-10-10网页核对版；原页未标发布日期 |
+| pet-travel | 猫、狗 | 养宠前准备 | [带猫狗出行：行前资料与安全运输清单](https://www.fda.gov/animal-veterinary/animal-health-literacy/travel-training-you-and-your-pets) | 2026-10-10网页核对版；原页未标发布日期 |
+
+## 验证与后续维护
+
+本轮后端新增覆盖八个代表性具体问题、跨物种筛选、全部主题可达、深度结构与审核元数据、upsert保留收藏、演示片段与实际引用、健康专篇优先及紧急先行。浏览器新增分节步骤阅读、列表摘要、原始来源、猫狗切换场景；实际执行记录见根目录TEST_RESULTS.md。
+
+后续更新应先选用户实际问题，再找适用的专业资料，写独立中文摘要及清单，更新版本与核对日期，验证代表性检索和专业边界，再导入本机并同步README。不要仅以条目数量或文字长度证明知识可靠性。

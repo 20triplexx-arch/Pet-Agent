@@ -1,5 +1,6 @@
 # Local environments, dependencies, and tools
 .venv/
+.venv313/
 venv/
 node_modules/
 /.tools/

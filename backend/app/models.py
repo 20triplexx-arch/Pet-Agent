@@ -92,6 +92,7 @@ class CarePlan(SQLModel, table=True):
     basis: str
     status: str = "active"
     revision: int = 1
+    provenance: dict | None = Field(default=None, sa_column=Column(JSON, nullable=True))
     created_at: str = Field(default_factory=now)
 
 
@@ -160,6 +161,24 @@ class ModelUsage(SQLModel, table=True):
     output_tokens: int = 0
     requests: int = 0
     created_at: str = Field(default_factory=now)
+
+
+class PetNutritionProfile(SQLModel, table=True):
+    id: str = Field(default_factory=uid, primary_key=True)
+    user_id: str = Field(foreign_key="user.id", index=True)
+    pet_id: str = Field(foreign_key="pet.id", unique=True)
+    data: dict = Field(default_factory=dict, sa_column=Column(JSON, nullable=False))
+    revision: int = 1
+    active_plan_id: str | None = Field(default=None, foreign_key="careplan.id")
+    updated_at: str = Field(default_factory=now)
+
+
+class ExternalApiUsage(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("provider", "period"),)
+    id: str = Field(default_factory=uid, primary_key=True)
+    provider: str
+    period: str
+    requests: int = 0
 
 
 class TokenPayload(SQLModel):

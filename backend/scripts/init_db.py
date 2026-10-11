@@ -17,6 +17,8 @@ def initialize(demo=False):
     )
     with Session(engine) as s:
         import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge.json", s)
+        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_nutrition.json", s)
+        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_care.json", s)
         if (
             demo
             and not s.exec(select(User).where(User.email == "demo@example.com")).first()

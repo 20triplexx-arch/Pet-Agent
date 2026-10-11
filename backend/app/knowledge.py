@@ -2,6 +2,7 @@ import re
 from abc import ABC, abstractmethod
 from sqlmodel import Session, select
 from app.models import KnowledgeArticle, Bookmark
+from app.species import supports
 
 
 class Retriever(ABC):
@@ -18,7 +19,7 @@ class Retriever(ABC):
 
 class KeywordRetriever(Retriever):
     def search(self, session, species, query, topic=None, life_stage=None):
-        if species and species not in ("cat", "dog"):
+        if species and not supports(species, "knowledge"):
             return []
         articles = session.exec(select(KnowledgeArticle)).all()
         terms = [t for t in re.split(r"[\s，。？！、]+", query.lower()) if t]
@@ -44,6 +45,33 @@ class KeywordRetriever(Retriever):
 
 
 retriever: Retriever = KeywordRetriever()
+
+
+def reading_excerpt(article, query, max_chars=420):
+    """Select a scope, a relevant/action section and a boundary, without copying the article."""
+    blocks = [b.strip() for b in article["body"].split("\n\n") if b.strip()]
+    if not blocks:
+        return ""
+    terms = [k.lower() for k in article["keywords"] if k.lower() in query.lower()]
+    terms += [t for t in re.split(r"[\s，。？！、]+", query.lower()) if t]
+    middle = blocks[1:-1] or blocks[1:]
+    ranked = sorted(
+        middle,
+        key=lambda b: sum(t in b.lower() for t in terms)
+        + (2 if re.search(r"(?m)^\d+\. ", b) else 0),
+        reverse=True,
+    )
+    selected = [blocks[0]]
+    if ranked:
+        selected.append(ranked[0])
+    if len(blocks) > 2 and blocks[-1] not in selected:
+        selected.append(blocks[-1])
+    result = "\n\n".join(re.sub(r"(?m)^## ", "", b) for b in selected)
+    if len(result) > max_chars:
+        # Prefer a complete sentence/step over cutting into a clinical condition.
+        cut = max(result.rfind(c, 0, max_chars) for c in ("。", "；", "\n"))
+        result = result[: cut + 1 if cut > max_chars // 2 else max_chars] + "…"
+    return result
 
 
 def serialize_article(a, bookmarked=False):

@@ -19,6 +19,10 @@ class Settings(BaseSettings):
     MODEL_MAX_REQUESTS: int = 4
     MODEL_MAX_OUTPUT_TOKENS: int = 1800
     MODEL_TIMEOUT_SECONDS: int = 35
+    AMAP_ENABLED: bool = False
+    AMAP_API_KEY: str = ""
+    MAP_REQUESTS_PER_DAY: int = 50
+    MAP_REQUESTS_PER_MONTH: int = 500
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
     API_V1_STR: str = "/api/v1"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440

@@ -20,9 +20,10 @@ export default defineConfig({
   ],
   webServer: {
     command:
-      (process.platform === "win32"
-        ? "..\\.venv\\Scripts\\python.exe"
-        : "../.venv/bin/python") + " -m scripts.e2e_server",
+      (process.env.CHONGBAN_TEST_PYTHON ||
+        (process.platform === "win32"
+          ? "..\\.venv\\Scripts\\python.exe"
+          : "../.venv/bin/python")) + " -m scripts.e2e_server",
     cwd: "../backend",
     url: "http://127.0.0.1:8011/health",
     reuseExistingServer: false,

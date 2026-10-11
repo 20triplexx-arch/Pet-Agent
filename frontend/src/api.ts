@@ -4,10 +4,21 @@ export type User = {
   full_name: string;
   timezone: string;
 };
+export type FieldIssue = { path: string; message: string };
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public fields: FieldIssue[] = [],
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
 export type Pet = {
   id: string;
   name: string;
   species: string;
+  capabilities?: Record<string, boolean>;
   breed: string | null;
   birthday: string | null;
   estimated_age_months: number | null;
@@ -37,6 +48,10 @@ export type Plan = Draft & {
   pet_id: string;
   status: string;
   revision: number;
+  provenance?: {
+    kind: string;
+    amounts?: { name: string; daily_grams: number; per_meal_grams: number }[];
+  } | null;
 };
 export type Reminder = {
   id: string;
@@ -71,6 +86,7 @@ export type Reply = {
   sources: Source[];
   draft: Draft | null;
   conversation_id: string;
+  cards?: import("./care-api").ActionCard[];
 };
 export type Message = {
   id: string;
@@ -127,12 +143,27 @@ export async function api<T>(
   }
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    throw new Error(
+    const fields: FieldIssue[] =
+      res.status === 422 && Array.isArray(data.detail)
+        ? data.detail
+            .filter(
+              (d: { loc?: unknown; msg?: unknown }) =>
+                Array.isArray(d.loc) && typeof d.msg === "string",
+            )
+            .map((d: { loc: (string | number)[]; msg: string }) => ({
+              path: d.loc
+                .filter((part, index) => !(index === 0 && part === "body"))
+                .join("."),
+              message: d.msg.replace(/^Value error, /, ""),
+            }))
+        : [];
+    throw new ApiError(
       typeof data.detail === "string"
         ? data.detail
         : Array.isArray(data.detail)
           ? data.detail.map((d: { msg: string }) => d.msg).join("；")
           : "请求失败，请重试",
+      fields,
     );
   }
   return res.json();

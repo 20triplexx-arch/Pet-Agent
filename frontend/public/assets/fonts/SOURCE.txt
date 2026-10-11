@@ -1,0 +1,1 @@
+Noto Sans SC Variable, Fontsource 5.3.1. Source: https://www.npmjs.com/package/@fontsource-variable/noto-sans-sc and https://github.com/notofonts/noto-cjk . SIL OFL 1.1. Local unicode-range WOFF2; no runtime CDN.

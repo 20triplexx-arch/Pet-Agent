@@ -16,6 +16,7 @@ from app.schemas import *
 from app.services import *
 from app.knowledge import retriever, serialize_article
 from app.agent import *
+from app.species import registry
 
 router = APIRouter(prefix="/api/v1")
 Key = Annotated[str | None, Header(alias="Idempotency-Key")]
@@ -101,7 +102,7 @@ def convert_time(data: TimeConvert, user: CurrentUser):
 
 @router.get("/species")
 def species(user: CurrentUser):
-    return json.loads((DATA / "species.json").read_text(encoding="utf-8"))
+    return registry()
 
 
 @router.get("/pets")
@@ -166,6 +167,7 @@ def delete_pet(pid: str, session: SessionDep, user: CurrentUser):
     rems = [
         r.id for r in session.exec(select(Reminder).where(Reminder.pet_id == pid)).all()
     ]
+    session.exec(delete(PetNutritionProfile).where(PetNutritionProfile.pet_id == pid))
     session.exec(delete(Message).where(Message.conversation_id.in_(convs)))
     session.exec(delete(Conversation).where(Conversation.id.in_(convs)))
     session.exec(delete(TaskCompletion).where(TaskCompletion.reminder_id.in_(rems)))
@@ -326,6 +328,8 @@ def update_plan(
 ):
     def action():
         p = owned(session, CarePlan, ident, user.id)
+        if (p.provenance or {}).get("kind") == "nutrition":
+            raise HTTPException(422, "营养数量需要重新评估；请在营养页面调整并确认方案")
         if p.revision != data.revision:
             raise HTTPException(409, "计划已被修改，请刷新后重试")
         changed = session.exec(
@@ -386,6 +390,11 @@ def update_plan(
 @router.patch("/plans/{ident}/status")
 def plan_status(ident: str, data: PlanStatus, session: SessionDep, user: CurrentUser):
     p = owned(session, CarePlan, ident, user.id)
+    if data.status == "active" and (p.provenance or {}).get("kind") == "nutrition":
+        from app.nutrition import profile_response
+        nutrition = profile_response(session, user, p.pet_id)
+        if nutrition["active_plan_id"] != p.id or nutrition["needs_reassessment"]:
+            raise HTTPException(409, "这份营养方案已被替换或依据变化，请重新评估")
     p.status = data.status
     p.revision += 1
     session.add(p)

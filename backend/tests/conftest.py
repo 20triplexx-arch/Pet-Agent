@@ -6,6 +6,15 @@ from sqlalchemy import event
 from app.main import app
 from app.api.deps import get_db
 from scripts.import_knowledge import import_file
+from app.core.config import settings
+
+
+@pytest.fixture(autouse=True)
+def no_live_services(monkeypatch):
+    monkeypatch.setattr(settings, "DEMO_MODE", True)
+    monkeypatch.setattr(settings, "MODEL_API_KEY", "")
+    monkeypatch.setattr(settings, "AMAP_ENABLED", False)
+    monkeypatch.setattr(settings, "AMAP_API_KEY", "")
 
 
 @pytest.fixture
@@ -22,6 +31,8 @@ def db(tmp_path):
     SQLModel.metadata.create_all(e)
     with Session(e) as s:
         import_file(Path("data/knowledge.json"), s)
+        import_file(Path("data/knowledge_nutrition.json"), s)
+        import_file(Path("data/knowledge_care.json"), s)
     yield e
     e.dispose()
 

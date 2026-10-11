@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
   useNavigate,
@@ -8,15 +8,16 @@ import {
 } from "react-router-dom";
 import {
   ArrowUpRight,
+  ArrowLeft,
   Plus,
   Sparkles,
   Check,
   Clock,
   Heart,
-  Sun,
   House,
   Utensils,
   Sprout,
+  LogOut,
   BookOpen,
   Trash2,
   Pencil,
@@ -27,7 +28,7 @@ import {
   Scale,
   Activity,
   ChevronRight,
-} from "lucide-react";
+} from "./icons";
 import { Button } from "./components/ui/button";
 import { useApp } from "./App";
 import {
@@ -45,7 +46,8 @@ import {
   type Article,
   type Source,
 } from "./api";
-import { useAction, useRemote } from "./hooks";
+import { useAction, useEditorFocus, useRemote } from "./hooks";
+import type { MapUsage } from "./care-api";
 import {
   Panel,
   State,
@@ -55,6 +57,7 @@ import {
   PageTitle,
   PetArtwork,
   PetPortrait,
+  ArticleContent,
 } from "./components";
 const topics = [
   "养宠前准备",
@@ -77,9 +80,11 @@ function NeedPet() {
 function ReminderList({
   items,
   reload,
+  compact = false,
 }: {
   items: Reminder[];
   reload: () => void;
+  compact?: boolean;
 }) {
   const { user } = useApp(),
     action = useAction();
@@ -119,7 +124,7 @@ function ReminderList({
                     : r.recurrence === "daily"
                       ? "每日"
                       : "每周"}{" "}
-                  · {r.timezone}
+                  {compact ? "" : " · " + r.timezone}
                 </small>
               </div>
               <span className={"badge " + (r.due ? "orange" : "quiet")}>
@@ -131,7 +136,7 @@ function ReminderList({
                       ? "已到期"
                       : "待到期"}
               </span>
-              {!r.task_id && !r.completed && (
+              {!compact && !r.task_id && !r.completed && (
                 <Button
                   className="text-button"
                   disabled={action.busy}
@@ -168,211 +173,147 @@ export function Home() {
     weekday: "long",
   }).format(new Date());
   const due = (reminders.data || []).filter((r) => r.due);
+  const petSummary = pet
+    ? [
+        pet.name,
+        petLabel(pet),
+        pet.age_months !== null ? pet.age_months + " 个月" : null,
+        pet.weight !== null ? pet.weight + " kg" : null,
+      ]
+        .filter(Boolean)
+        .join(" · ")
+    : "选择一只宠物，开始今天的照护。";
   return (
-    <>
-      <PageTitle
-        eyebrow={today}
-        title="陪伴，是每天的小小用心"
-        desc="把照护安排妥当，把更多时间留给彼此。"
-      >
-        <Button onClick={() => navigate("/pets")}>
-          <Plus size={17} />
-          管理宠物
-        </Button>
-      </PageTitle>
-      <p className="today-line">
-        <Sun size={16} aria-hidden="true" />
-        {today}
-        <span> · 把小小的照护，放进今天。</span>
-      </p>
-      <div className="home-grid">
-        <section className="hero">
-          <div>
-            <h2>{pet ? pet.name + "，今天也要好好的" : "你好，新朋友。"}</h2>
-            <p>
-              {pet
-                ? petLabel(pet) +
-                  " · " +
-                  (pet.age_months !== null
-                    ? pet.age_months + " 个月"
-                    : "年龄待补充") +
-                  " · " +
-                  (pet.weight ? pet.weight + " kg" : "体重待记录")
-                : "建立一份档案，让建议更适合你的宠物。"}
-            </p>
-            <Button
-              className="primary"
-              onClick={() => navigate(pet ? "/plans" : "/pets")}
-            >
-              {pet ? "为它安排照护计划" : "建立宠物档案"}
-              <ArrowUpRight size={17} />
-            </Button>
-            <small>
-              {pet
-                ? "当前档案中的信息，会用于问答与计划"
-                : "首版完整支持猫和狗"}
-            </small>
-          </div>
-          <div className="hero-art">
-            <PetArtwork />
-            <span className="art-caption">有你，就是好日子</span>
-          </div>
-        </section>
-        <Panel className="care-tip">
-          <div className="icon-box green">
-            <ShieldCheck />
-          </div>
-          <h3>
-            了解它的日常，
-            <br />
-            才能看见变化。
-          </h3>
-          <p>
-            记下食欲、活动与排泄的变化。遇到呼吸困难、排不出尿等情况，及时联系兽医。
-          </p>
-          <Link to="/knowledge">
-            了解健康观察
-            <ChevronRight size={15} />
-          </Link>
-        </Panel>
-      </div>
-      <div className="stats">
-        <Panel>
-          <div className="icon-box peach">
-            <CalendarDays />
-          </div>
-          <div>
-            <strong>
-              {due.length}
-              <small>项</small>
-            </strong>
-            <p>当前宠物到期待办</p>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="icon-box green">
-            <Scale />
-          </div>
-          <div>
-            <strong>
-              {pet?.weight ?? "—"}
-              <small>kg</small>
-            </strong>
-            <p>
-              {pet?.weight_date
-                ? "最近记录 " + dateText(pet.weight_date, user.timezone)
-                : "记录体重，关注趋势"}
-            </p>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="icon-box violet">
-            <Sparkles />
-          </div>
-          <div>
-            <strong className="stat-text">有据可依</strong>
-            <p>检索真实资料，展示来源</p>
-          </div>
-        </Panel>
-      </div>
-      <div className="two-col">
-        <Panel>
-          <div className="section-heading">
-            <h2>
-              <CalendarDays size={20} />
-              今日照护
-            </h2>
-            <Link to="/plans">
-              全部计划 <ArrowUpRight size={15} />
+    <div className="home-page">
+      <header className="home-welcome">
+        <div className="home-welcome-copy">
+          <h1>今天，好好陪伴</h1>
+          <p className="home-pet-summary">{petSummary}</p>
+          <div className="home-welcome-meta">
+            <time>{today}</time>
+            <Link to="/pets">
+              {pet ? "管理档案" : "查看 / 建立档案"}
+              <ChevronRight size={15} />
             </Link>
           </div>
-          <p className="muted small">
-            仅在页面打开或刷新时显示站内提醒 · {user.timezone}
-          </p>
+        </div>
+        {pet ? (
+          <PetPortrait species={pet.species} />
+        ) : (
+          <PetArtwork className="home-companions" />
+        )}
+      </header>
+
+      <div className="home-care-layout">
+        <Panel className="home-today">
+          <div className="section-heading">
+            <h2>今日照护</h2>
+            <Link to="/plans">
+              全部待办{pet && due.length ? "（" + due.length + "）" : ""}
+              <ArrowUpRight size={15} />
+            </Link>
+          </div>
           {!pet ? (
-            <NeedPet />
+            <div className="home-empty">
+              <CalendarDays size={28} aria-hidden="true" />
+              <p>选好宠物，就能看到它的待办。</p>
+              <Button className="primary" onClick={() => navigate("/pets")}>
+                查看宠物档案
+              </Button>
+            </div>
           ) : (
             <>
               <State {...reminders} retry={reminders.reload} />
-              {reminders.data && (
-                <ReminderList
-                  items={due.slice(0, 6)}
-                  reload={reminders.reload}
-                />
-              )}
+              {reminders.data &&
+                (due.length ? (
+                  <ReminderList
+                    items={due.slice(0, 3)}
+                    reload={reminders.reload}
+                    compact
+                  />
+                ) : (
+                  <div className="home-empty">
+                    <Check size={28} aria-hidden="true" />
+                    <p>暂时没有到期待办。</p>
+                    <Button
+                      className="primary"
+                      onClick={() => navigate("/plans")}
+                    >
+                      安排照护计划
+                    </Button>
+                  </div>
+                ))}
             </>
           )}
+          <details className="home-reminder-note">
+            <summary>提醒说明 · {user.timezone}</summary>
+            <p>
+              仅在页面打开或刷新时显示站内提醒，关闭应用后不会推送。待办按账户时区显示。
+            </p>
+          </details>
         </Panel>
-        <Panel>
-          <div className="section-heading">
-            <h2>
-              <MessageIcon />
-              和宠伴聊聊
-            </h2>
-          </div>
-          <p className="muted">一点困惑，随时问问。</p>
-          <div className="quick-questions">
+
+        <section className="home-ask" aria-labelledby="home-ask-title">
+          <h2 id="home-ask-title">想问什么？</h2>
+          <div className="home-questions">
             {[
-              "它每天应该怎么吃？",
-              "帮我生成一份照护计划",
-              "新宠到家需要准备什么？",
-            ].map((q) => (
+              ["怎么吃更合适？", "它每天应该怎么吃？"],
+              ["照护计划怎么安排？", "帮我生成一份照护计划"],
+              ["新宠到家要准备什么？", "新宠到家需要准备什么？"],
+            ].map(([label, question]) => (
               <button
-                key={q}
-                onClick={() => navigate("/chat?q=" + encodeURIComponent(q))}
+                key={question}
+                onClick={() =>
+                  navigate("/chat?q=" + encodeURIComponent(question))
+                }
               >
-                <span>{q}</span>
+                <span>{label}</span>
                 <ArrowUpRight size={17} />
               </button>
             ))}
           </div>
-          <div className="mini-note">
-            <BookOpen size={20} />
-            <div>
-              知识来自专业公开资料<small>中文摘要标注来源与审核状态</small>
-            </div>
-          </div>
-        </Panel>
+          <Link className="home-chat-link" to="/chat">
+            自由提问
+            <ChevronRight size={15} />
+          </Link>
+        </section>
       </div>
-      <div className="section-heading bottom-heading">
-        <h2>照护知识，从这里开始</h2>
-        <Link to="/knowledge">
-          浏览知识库 <ArrowUpRight size={15} />
+
+      <section
+        className="home-knowledge"
+        aria-labelledby="home-knowledge-title"
+      >
+        <div className="section-heading">
+          <h2 id="home-knowledge-title">照护知识</h2>
+          <Link to="/knowledge">
+            浏览全部
+            <ArrowUpRight size={15} />
+          </Link>
+        </div>
+        <div className="home-topics">
+          {topics.slice(0, 4).map((topic, i) => {
+            const Icon = [Heart, House, Utensils, Sprout][i];
+            return (
+              <Link
+                to={"/knowledge?topic=" + encodeURIComponent(topic)}
+                key={topic}
+              >
+                <Icon size={20} aria-hidden="true" />
+                <span>{topic}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+      <div className="home-health-note">
+        <ShieldCheck size={18} aria-hidden="true" />
+        <p>呼吸困难、排不出尿时，请及时联系兽医。</p>
+        <Link to={"/knowledge?topic=" + encodeURIComponent("健康与就医")}>
+          了解更多
         </Link>
       </div>
-      <div className="topic-cards">
-        {topics.slice(0, 4).map((t, i) => (
-          <Link to={"/knowledge?topic=" + encodeURIComponent(t)} key={t}>
-            <span className={"topic-symbol tone-" + i}>
-              {
-                [
-                  <Heart key="heart" />,
-                  <House key="house" />,
-                  <Utensils key="food" />,
-                  <Sprout key="home" />,
-                ][i]
-              }
-            </span>
-            <h3>{t}</h3>
-            <p>
-              {
-                [
-                  "给陪伴做好准备",
-                  "一起适应新的生活",
-                  "吃得合适，健康成长",
-                  "舒服的家，安心的它",
-                ][i]
-              }
-            </p>
-            <ArrowUpRight size={18} />
-          </Link>
-        ))}
-      </div>
-    </>
+    </div>
   );
-}
-function MessageIcon() {
-  return <Sparkles size={20} />;
 }
 const blankPet = {
   name: "",
@@ -396,7 +337,9 @@ export function Pets() {
     [show, setShow] = useState(false),
     [form, setForm] = useState<Record<string, string>>({ ...blankPet }),
     [other, setOther] = useState("");
-  const edit = (p: Pet | null) => {
+  const editor = useEditorFocus(show);
+  const edit = (p: Pet | null, trigger: HTMLElement) => {
+    editor.beginEditing(trigger);
     setEditing(p);
     setShow(true);
     setForm(
@@ -420,11 +363,13 @@ export function Pets() {
   return (
     <>
       <PageTitle
-        eyebrow="PET PROFILES"
         title="每一只，都值得被了解"
         desc="未知信息可以留空。体重在照护记录中按日期保存。"
       >
-        <Button className="primary" onClick={() => edit(null)}>
+        <Button
+          className="primary"
+          onClick={(e) => edit(null, e.currentTarget)}
+        >
           <Plus size={17} />
           新增宠物
         </Button>
@@ -441,20 +386,26 @@ export function Pets() {
             >
               <div className="pet-card-head">
                 <PetPortrait species={p.species} />
-                <span
-                  className={"badge " + (pet?.id === p.id ? "green" : "quiet")}
-                >
-                  {petLabel(p)}
-                  {pet?.id === p.id ? " · 当前宠物" : ""}
-                </span>
+                <div className="pet-identity">
+                  <h2>{p.name}</h2>
+                  <p>
+                    {p.breed || "品种未知"} ·{" "}
+                    {p.age_months === null
+                      ? "年龄未知"
+                      : p.age_months + " 个月"}{" "}
+                    · {p.weight ? p.weight + " kg" : "体重待记录"}
+                  </p>
+                  <span
+                    className={
+                      "badge " + (pet?.id === p.id ? "green" : "quiet")
+                    }
+                  >
+                    {petLabel(p)}
+                    {pet?.id === p.id ? " · 当前宠物" : ""}
+                  </span>
+                </div>
               </div>
-              <h2>{p.name}</h2>
-              <p>
-                {p.breed || "品种未知"} ·{" "}
-                {p.age_months === null ? "年龄未知" : p.age_months + " 个月"} ·{" "}
-                {p.weight ? p.weight + " kg" : "体重待记录"}
-              </p>
-              {!["cat", "dog"].includes(p.species) && (
+              {!p.capabilities?.knowledge && (
                 <div className="note">
                   暂支持档案记录，该物种的个性化建议尚未上线。
                 </div>
@@ -466,7 +417,12 @@ export function Pets() {
                 <span>{p.environment || "待补充"}</span>
               </div>
               <div className="button-row">
-                <Button onClick={() => edit(p)}>
+                {p.id === pet?.id && (
+                  <Link className="care-link" to="/nutrition">
+                    营养资料与方案 <ArrowUpRight size={14} />
+                  </Link>
+                )}
+                <Button onClick={(e) => edit(p, e.currentTarget)}>
                   <Pencil size={15} />
                   编辑
                 </Button>
@@ -499,9 +455,17 @@ export function Pets() {
         <Panel className="form-panel">
           <div className="section-heading">
             <h2>{editing ? "编辑 " + editing.name : "建立新宠物档案"}</h2>
-            <Button onClick={() => setShow(false)}>取消</Button>
+            <Button
+              onClick={() => {
+                setShow(false);
+                editor.returnFocus();
+              }}
+            >
+              取消
+            </Button>
           </div>
           <form
+            ref={editor.formRef}
             onSubmit={(e) => {
               e.preventDefault();
               const payload: Record<string, unknown> = {};
@@ -527,121 +491,152 @@ export function Pets() {
               }, "宠物档案已保存");
             }}
           >
-            <div className="form-grid">
-              <label>
-                名称
-                <input
-                  required
-                  maxLength={60}
-                  value={form.name}
-                  onChange={(e) => update("name", e.target.value)}
-                />
-              </label>
-              <label>
-                物种
-                <select
-                  value={
-                    ["cat", "dog", "rabbit", "hamster", "guinea_pig"].includes(
-                      form.species,
-                    )
-                      ? form.species
-                      : "other"
-                  }
-                  onChange={(e) => update("species", e.target.value)}
-                >
-                  <option value="cat">猫 · 已支持</option>
-                  <option value="dog">狗 · 已支持</option>
-                  <option value="rabbit">兔子 · 仅档案</option>
-                  <option value="hamster">仓鼠 · 仅档案</option>
-                  <option value="guinea_pig">豚鼠 · 仅档案</option>
-                  <option value="other">其他具体物种 · 仅档案</option>
-                </select>
-              </label>
-              {!["cat", "dog", "rabbit", "hamster", "guinea_pig"].includes(
-                form.species,
-              ) && (
+            <fieldset className="profile-group">
+              <legend>基础信息</legend>
+              <div className="form-grid">
                 <label>
-                  具体物种 / 学名
+                  名称
                   <input
+                    name="name"
                     required
-                    value={other}
-                    onChange={(e) => {
-                      setOther(e.target.value);
-                      update("species", "other");
-                    }}
-                    placeholder="如：虎皮鹦鹉 / Melopsittacus undulatus"
+                    maxLength={60}
+                    value={form.name}
+                    onChange={(e) => update("name", e.target.value)}
                   />
                 </label>
-              )}
-              <label>
-                品种
-                <input
-                  value={form.breed}
-                  onChange={(e) => update("breed", e.target.value)}
-                />
-              </label>
-              <label>
-                生日
-                <input
-                  type="date"
-                  value={form.birthday}
-                  onChange={(e) => update("birthday", e.target.value)}
-                />
-              </label>
-              <label>
-                估计年龄（月，生日未知时）
-                <input
-                  type="number"
-                  min="0"
-                  max="600"
-                  value={form.estimated_age_months}
-                  onChange={(e) =>
-                    update("estimated_age_months", e.target.value)
-                  }
-                />
-              </label>
-              <label>
-                性别
-                <select
-                  value={form.sex || "unknown"}
-                  onChange={(e) => update("sex", e.target.value)}
-                >
-                  <option value="unknown">未知</option>
-                  <option value="male">雄性</option>
-                  <option value="female">雌性</option>
-                </select>
-              </label>
-              <label>
-                绝育情况
-                <select
-                  value={form.neutered}
-                  onChange={(e) => update("neutered", e.target.value)}
-                >
-                  <option value="">未知</option>
-                  <option value="true">已绝育</option>
-                  <option value="false">未绝育</option>
-                </select>
-              </label>
-            </div>
-            <div className="form-grid">
-              {[
-                ["diet", "当前饮食"],
-                ["activity", "活动情况"],
-                ["environment", "生活环境"],
-                ["allergies", "用户填写的过敏史"],
-                ["medical_history", "既往病史"],
-                ["vet_advice", "兽医建议（请保留原意）"],
-              ].map(([k, t]) => (
-                <label key={k}>
-                  {t}
-                  <textarea
-                    value={form[k]}
-                    onChange={(e) => update(k, e.target.value)}
-                    maxLength={2000}
+                <label>
+                  物种
+                  <select
+                    name="species"
+                    value={
+                      [
+                        "cat",
+                        "dog",
+                        "rabbit",
+                        "hamster",
+                        "guinea_pig",
+                      ].includes(form.species)
+                        ? form.species
+                        : "other"
+                    }
+                    onChange={(e) => update("species", e.target.value)}
+                  >
+                    <option value="cat">猫 · 已支持</option>
+                    <option value="dog">狗 · 已支持</option>
+                    <option value="rabbit">兔子 · 仅档案</option>
+                    <option value="hamster">仓鼠 · 仅档案</option>
+                    <option value="guinea_pig">豚鼠 · 仅档案</option>
+                    <option value="other">其他具体物种 · 仅档案</option>
+                  </select>
+                </label>
+                {!["cat", "dog", "rabbit", "hamster", "guinea_pig"].includes(
+                  form.species,
+                ) && (
+                  <label>
+                    具体物种 / 学名
+                    <input
+                      name="species"
+                      required
+                      value={other}
+                      onChange={(e) => {
+                        setOther(e.target.value);
+                        update("species", "other");
+                      }}
+                      placeholder="如：虎皮鹦鹉 / Melopsittacus undulatus"
+                    />
+                  </label>
+                )}
+                <label>
+                  品种
+                  <input
+                    name="breed"
+                    value={form.breed}
+                    onChange={(e) => update("breed", e.target.value)}
                   />
                 </label>
-              ))}
-            </div>
+                <label>
+                  生日
+                  <input
+                    name="birthday"
+                    type="date"
+                    value={form.birthday}
+                    onChange={(e) => update("birthday", e.target.value)}
+                  />
+                </label>
+                <label>
+                  估计年龄（月，生日未知时）
+                  <input
+                    name="estimated_age_months"
+                    type="number"
+                    min="0"
+                    max="600"
+                    value={form.estimated_age_months}
+                    onChange={(e) =>
+                      update("estimated_age_months", e.target.value)
+                    }
+                  />
+                </label>
+                <label>
+                  性别
+                  <select
+                    name="sex"
+                    value={form.sex || "unknown"}
+                    onChange={(e) => update("sex", e.target.value)}
+                  >
+                    <option value="unknown">未知</option>
+                    <option value="male">雄性</option>
+                    <option value="female">雌性</option>
+                  </select>
+                </label>
+                <label>
+                  绝育情况
+                  <select
+                    name="neutered"
+                    value={form.neutered}
+                    onChange={(e) => update("neutered", e.target.value)}
+                  >
+                    <option value="">未知</option>
+                    <option value="true">已绝育</option>
+                    <option value="false">未绝育</option>
+                  </select>
+                </label>
+              </div>
+            </fieldset>
+            {[
+              {
+                title: "生活习惯",
+                fields: [
+                  ["diet", "当前饮食"],
+                  ["activity", "活动情况"],
+                  ["environment", "生活环境"],
+                ],
+              },
+              {
+                title: "健康资料",
+                fields: [
+                  ["allergies", "用户填写的过敏史"],
+                  ["medical_history", "既往病史"],
+                  ["vet_advice", "兽医建议（请保留原意）"],
+                ],
+              },
+            ].map((group) => (
+              <fieldset className="profile-group" key={group.title}>
+                <legend>{group.title}</legend>
+                <div className="form-grid">
+                  {group.fields.map(([k, t]) => (
+                    <label key={k}>
+                      {t}
+                      <textarea
+                        name={k}
+                        value={form[k]}
+                        onChange={(e) => update(k, e.target.value)}
+                        maxLength={2000}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
             <Button className="primary" disabled={action.busy} type="submit">
               保存档案
             </Button>
@@ -668,6 +663,7 @@ function DraftEditor({
       <label>
         计划名称
         <input
+          name="title"
           aria-label="计划名称"
           value={draft.title}
           onChange={(e) => setDraft({ ...draft, title: e.target.value })}
@@ -677,6 +673,7 @@ function DraftEditor({
       <label>
         整体依据与适用条件
         <textarea
+          name="basis"
           value={draft.basis}
           onChange={(e) => setDraft({ ...draft, basis: e.target.value })}
           required
@@ -689,6 +686,7 @@ function DraftEditor({
               <label>
                 任务名称
                 <input
+                  name={`tasks.${i}.title`}
                   aria-label={"任务名称 " + (i + 1)}
                   value={t.title}
                   onChange={(e) => change(i, "title", e.target.value)}
@@ -698,6 +696,7 @@ function DraftEditor({
               <label>
                 当地时间
                 <input
+                  name={`tasks.${i}.local_time`}
                   type="time"
                   value={t.local_time}
                   onChange={(e) => change(i, "local_time", e.target.value)}
@@ -707,6 +706,7 @@ function DraftEditor({
               <label>
                 重复
                 <select
+                  name={`tasks.${i}.recurrence`}
                   value={t.recurrence}
                   onChange={(e) => change(i, "recurrence", e.target.value)}
                 >
@@ -718,6 +718,7 @@ function DraftEditor({
                 <label>
                   星期
                   <select
+                    name={`tasks.${i}.weekday`}
                     value={t.weekday}
                     onChange={(e) =>
                       change(i, "weekday", Number(e.target.value))
@@ -735,6 +736,7 @@ function DraftEditor({
             <label>
               操作说明
               <textarea
+                name={`tasks.${i}.instructions`}
                 value={t.instructions}
                 onChange={(e) => change(i, "instructions", e.target.value)}
                 required
@@ -743,6 +745,7 @@ function DraftEditor({
             <label>
               依据与适用条件
               <textarea
+                name={`tasks.${i}.basis`}
                 value={t.basis}
                 onChange={(e) => change(i, "basis", e.target.value)}
                 required
@@ -791,6 +794,7 @@ function DraftEditor({
   );
 }
 export function Plans() {
+  const navigate = useNavigate();
   const { pet, user } = useApp(),
     location = useLocation(),
     action = useAction();
@@ -807,6 +811,7 @@ export function Plans() {
   const [title, setTitle] = useState(""),
     [due, setDue] = useState(localNow(user.timezone)),
     [recurrence, setRecurrence] = useState("once");
+  const editor = useEditorFocus(!!draft);
   const reload = () => {
     plans.reload();
     reminders.reload();
@@ -814,7 +819,6 @@ export function Plans() {
   return (
     <>
       <PageTitle
-        eyebrow="CARE PLANNER"
         title="让照护，成为轻松的日常"
         desc={"预览后编辑保存 · 当地时间 " + user.timezone}
       />
@@ -834,6 +838,7 @@ export function Plans() {
               <label>
                 每天可用于互动与整理的时间
                 <input
+                  name="available_minutes"
                   type="number"
                   min="5"
                   max="240"
@@ -845,7 +850,8 @@ export function Plans() {
               <Button
                 className="primary"
                 disabled={action.busy}
-                onClick={() =>
+                onClick={(e) => {
+                  editor.beginEditing(e.currentTarget);
                   action.run(async () => {
                     const r = await api<{ draft: Draft; sources: Source[] }>(
                       "/pets/" + pet.id + "/plans/preview",
@@ -855,8 +861,8 @@ export function Plans() {
                     setDraft(r.draft);
                     setSources(r.sources);
                     setEditPlan(null);
-                  }, "草稿已生成，请检查后保存")
-                }
+                  }, "草稿已生成，请检查后保存");
+                }}
               >
                 <Sparkles size={17} />
                 生成 / 重新调整草稿
@@ -873,6 +879,7 @@ export function Plans() {
                 尚未保存。核对兽医建议与每项适用条件后再确认。
               </div>
               <form
+                ref={editor.formRef}
                 onSubmit={(e) => {
                   e.preventDefault();
                   const data = editPlan
@@ -908,6 +915,7 @@ export function Plans() {
                     onClick={() => {
                       setDraft(null);
                       setEditPlan(null);
+                      editor.returnFocus();
                     }}
                   >
                     取消
@@ -953,12 +961,22 @@ export function Plans() {
                           {t.local_time} ·{" "}
                           {t.recurrence === "daily" ? "每日" : "每周"}
                         </small>
+                        {p.provenance?.kind === "nutrition" && (
+                          <span className="care-task-detail">
+                            {t.instructions}
+                          </span>
+                        )}
                       </li>
                     ))}
                   </ul>
                   <div className="button-row">
                     <Button
-                      onClick={() => {
+                      onClick={(e) => {
+                        if (p.provenance?.kind === "nutrition") {
+                          navigate("/nutrition");
+                          return;
+                        }
+                        editor.beginEditing(e.currentTarget);
                         setEditPlan(p);
                         setDraft({
                           title: p.title,
@@ -1041,6 +1059,7 @@ export function Plans() {
                 <label>
                   待办事项
                   <input
+                    name="title"
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -1050,6 +1069,7 @@ export function Plans() {
                 <label>
                   到期当地时间
                   <input
+                    name="due_local"
                     required
                     type="datetime-local"
                     value={due}
@@ -1059,6 +1079,7 @@ export function Plans() {
                 <label>
                   重复方式
                   <select
+                    name="recurrence"
                     value={recurrence}
                     onChange={(e) => setRecurrence(e.target.value)}
                   >
@@ -1112,6 +1133,35 @@ export function Chat() {
     [text, setText] = useState(query.get("q") || ""),
     [minutes, setMinutes] = useState(30),
     [localMessages, setLocalMessages] = useState<Message[]>([]);
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const chatRootRef = useRef<HTMLDivElement>(null);
+  const followLatestRef = useRef(true);
+  const positionHistoryRef = useRef(true);
+  const lastMessageRef = useRef<string | null>(null);
+  const [hasNewMessages, setHasNewMessages] = useState(false);
+  const showLatest = () => {
+    const list = messageListRef.current;
+    const latest = list?.querySelector<HTMLElement>(".message:last-child");
+    if (list && latest) {
+      list.scrollTo({
+        top:
+          latest.getBoundingClientRect().top -
+          list.getBoundingClientRect().top +
+          list.scrollTop -
+          24,
+        behavior: "instant",
+      });
+    }
+    setHasNewMessages(false);
+  };
+  useLayoutEffect(() => {
+    if (!localMessages.length) return;
+    const latestId = localMessages.at(-1)!.id;
+    if (positionHistoryRef.current || followLatestRef.current) showLatest();
+    else if (latestId !== lastMessageRef.current) setHasNewMessages(true);
+    positionHistoryRef.current = false;
+    lastMessageRef.current = latestId;
+  }, [localMessages]);
   const messages = useRemote<Message[]>(
     cid ? "/conversations/" + cid + "/messages" : null,
   );
@@ -1122,40 +1172,46 @@ export function Chat() {
   useEffect(() => {
     if (messages.data) setLocalMessages(messages.data);
   }, [messages.data]);
-  const send = (value: string) =>
-    action.run(async (key) => {
-      const r = await api<Reply & { message: Message }>(
-        "/chat",
-        "POST",
-        {
-          pet_id: pet?.id || null,
-          conversation_id: cid,
-          text: value,
-          available_minutes: minutes,
-        },
-        key,
-      );
-      setCid(r.conversation_id);
-      setNewChat(false);
-      setText("");
-      setLocalMessages((current) => [
-        ...current,
-        {
-          id: key,
-          role: "user",
-          content: value,
-          metadata_json: r,
-          created_at: new Date().toISOString(),
-        },
-        r.message,
-      ]);
-      conversations.reload();
-      messages.reload();
-    }, "回答已返回");
+  const send = (value: string) => {
+    followLatestRef.current = true;
+    setHasNewMessages(false);
+    action.run(
+      async (key) => {
+        const r = await api<Reply & { message: Message }>(
+          "/chat",
+          "POST",
+          {
+            pet_id: pet?.id || null,
+            conversation_id: cid,
+            text: value,
+            available_minutes: minutes,
+          },
+          key,
+        );
+        setCid(r.conversation_id);
+        setNewChat(false);
+        setText("");
+        setLocalMessages((current) => [
+          ...current,
+          {
+            id: key,
+            role: "user",
+            content: value,
+            metadata_json: r,
+            created_at: new Date().toISOString(),
+          },
+          r.message,
+        ]);
+        conversations.reload();
+        messages.reload();
+      },
+      "回答已返回",
+      chatRootRef.current,
+    );
+  };
   return (
     <>
       <PageTitle
-        eyebrow="PET CARE AGENT"
         title="有问题，和宠伴聊聊"
         desc={
           pet
@@ -1163,7 +1219,7 @@ export function Chat() {
             : "无需建档，也可以提问猫狗普通知识。"
         }
       />
-      <div className="chat-layout">
+      <div className="chat-layout" ref={chatRootRef}>
         <Panel className="chat-panel">
           <div className="chat-toolbar">
             <span className="badge green">{pet ? pet.name : "普通知识"}</span>
@@ -1171,6 +1227,9 @@ export function Chat() {
               aria-label="历史会话"
               value={cid || ""}
               onChange={(e) => {
+                positionHistoryRef.current = true;
+                followLatestRef.current = true;
+                setHasNewMessages(false);
                 setCid(e.target.value || null);
                 setLocalMessages([]);
                 setNewChat(!e.target.value);
@@ -1185,6 +1244,9 @@ export function Chat() {
             </select>
             <Button
               onClick={() => {
+                positionHistoryRef.current = true;
+                followLatestRef.current = true;
+                setHasNewMessages(false);
                 setCid(null);
                 setNewChat(true);
                 setLocalMessages([]);
@@ -1202,16 +1264,21 @@ export function Chat() {
               messages.reload();
             }}
           />
-          <div className="messages" aria-live="polite">
+          <div
+            className="messages"
+            ref={messageListRef}
+            aria-live="polite"
+            onScroll={(e) => {
+              const list = e.currentTarget;
+              followLatestRef.current =
+                list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+              if (followLatestRef.current) setHasNewMessages(false);
+            }}
+          >
             {!localMessages.length && (
               <div className="chat-welcome">
-                <PetArtwork className="chat-welcome-art" />
                 <h2>你好，我是宠伴。</h2>
-                <p>
-                  一起了解它，一点点安排好照护。
-                  <br />
-                  可以问饮食、到家准备、日常互动，或生成计划。
-                </p>
+                <p>可以问饮食、日常照护，或一起安排计划。</p>
                 {[
                   "日常喂食要注意什么？",
                   "它的年龄适合怎样的照护？",
@@ -1254,6 +1321,29 @@ export function Chat() {
                 {m.role === "assistant" && (
                   <>
                     <Sources items={m.metadata_json.sources || []} />
+                    {m.metadata_json.cards?.map(
+                      (card) =>
+                        [
+                          "/nutrition",
+                          "/hospitals",
+                          "/hospitals#visit-summary",
+                        ].includes(card.href) && (
+                          <div className="agent-action" key={card.type}>
+                            <Link
+                              to={card.href}
+                              state={{ urgent: m.metadata_json.urgent }}
+                            >
+                              {card.title} <ArrowUpRight size={16} />
+                            </Link>
+                            {card.text && (
+                              <details>
+                                <summary>查看已整理摘要</summary>
+                                <pre>{card.text}</pre>
+                              </details>
+                            )}
+                          </div>
+                        ),
+                    )}
                     {m.metadata_json.draft && (
                       <div className="draft-preview">
                         <strong>{m.metadata_json.draft.title}</strong>
@@ -1279,6 +1369,21 @@ export function Chat() {
               </div>
             ))}
           </div>
+          {hasNewMessages && (
+            <Button
+              className="latest-message"
+              onClick={() => {
+                followLatestRef.current = true;
+                showLatest();
+              }}
+            >
+              查看最新回复
+            </Button>
+          )}
+          <div className="care-link-row chat-care-links">
+            <Link to="/nutrition">营养方案</Link>
+            <Link to="/hospitals">医院与就医资料</Link>
+          </div>
           <Feedback action={action} />
           <form
             className="chat-input"
@@ -1288,6 +1393,7 @@ export function Chat() {
             }}
           >
             <textarea
+              name="text"
               aria-label="提问内容"
               placeholder={
                 pet
@@ -1310,49 +1416,49 @@ export function Chat() {
         </Panel>
         <div>
           <Panel className="chat-context">
-            <div className="icon-box green">
-              <ShieldCheck />
-            </div>
-            <h3>当前照护背景</h3>
-            {pet ? (
-              <>
-                <strong>
-                  {pet.name} · {petLabel(pet)}
-                </strong>
-                <dl>
-                  <dt>年龄</dt>
-                  <dd>
-                    {pet.age_months === null
-                      ? "未知"
-                      : pet.age_months + " 个月"}
-                  </dd>
-                  <dt>最新体重</dt>
-                  <dd>{pet.weight ? pet.weight + " kg" : "未记录"}</dd>
-                  <dt>饮食</dt>
-                  <dd>{pet.diet || "待补充"}</dd>
-                  <dt>兽医建议</dt>
-                  <dd>{pet.vet_advice || "未填写"}</dd>
-                </dl>
-                <Link to="/pets">
-                  完善档案 <ArrowUpRight size={14} />
-                </Link>
-              </>
-            ) : (
-              <p>未选择宠物。回答不会使用其他宠物档案。</p>
-            )}
-            <label>
-              计划可用时间（分钟）
-              <input
-                type="number"
-                min="5"
-                max="240"
-                value={minutes}
-                onChange={(e) => setMinutes(Number(e.target.value))}
-              />
-            </label>
-            <div className="note">
-              演示模式采用真实检索和受控模板。真实模型需在服务端配置，不会自动产生费用。
-            </div>
+            <details className="context-details" open>
+              <summary>当前照护背景</summary>
+              {pet ? (
+                <>
+                  <strong>
+                    {pet.name} · {petLabel(pet)}
+                  </strong>
+                  <dl>
+                    <dt>年龄</dt>
+                    <dd>
+                      {pet.age_months === null
+                        ? "未知"
+                        : pet.age_months + " 个月"}
+                    </dd>
+                    <dt>最新体重</dt>
+                    <dd>{pet.weight ? pet.weight + " kg" : "未记录"}</dd>
+                    <dt>饮食</dt>
+                    <dd>{pet.diet || "待补充"}</dd>
+                    <dt>兽医建议</dt>
+                    <dd>{pet.vet_advice || "未填写"}</dd>
+                  </dl>
+                  <Link to="/pets">
+                    完善档案 <ArrowUpRight size={14} />
+                  </Link>
+                </>
+              ) : (
+                <p>未选择宠物。回答不会使用其他宠物档案。</p>
+              )}
+              <label>
+                计划可用时间（分钟）
+                <input
+                  name="available_minutes"
+                  type="number"
+                  min="5"
+                  max="240"
+                  value={minutes}
+                  onChange={(e) => setMinutes(Number(e.target.value))}
+                />
+              </label>
+              <div className="note">
+                演示模式采用真实检索和受控模板。真实模型需在服务端配置，不会自动产生费用。
+              </div>
+            </details>
           </Panel>
         </div>
       </div>
@@ -1368,6 +1474,7 @@ export function Knowledge() {
     [species, setSpecies] = useState(pet?.species || ""),
     [topic, setTopic] = useState(query.get("topic") || ""),
     [favorites, setFavorites] = useState(false);
+  useEffect(() => setSpecies(pet?.species || ""), [pet?.id, pet?.species]);
   const path =
     "/knowledge?" +
     new URLSearchParams({
@@ -1394,7 +1501,7 @@ export function Knowledge() {
     return (
       <>
         <Link className="back-link" to="/knowledge">
-          ← 返回知识库
+          <ArrowLeft size={17} /> 返回知识库
         </Link>
         <State {...detail} retry={detail.reload} />
         <Feedback action={action} />
@@ -1428,12 +1535,12 @@ export function Knowledge() {
               <Button onClick={() => mark(detail.data!)}>
                 <Bookmark
                   size={16}
-                  fill={detail.data.bookmarked ? "currentColor" : "none"}
+                  weight={detail.data.bookmarked ? "fill" : "regular"}
                 />
                 {detail.data.bookmarked ? "已收藏" : "收藏"}
               </Button>
             </div>
-            <div className="article-body">{detail.data.body}</div>
+            <ArticleContent body={detail.data.body} />
             <div className="source-card">
               <h3>资料来源与审核信息</h3>
               <p>来源机构：{detail.data.source_organization}</p>
@@ -1450,7 +1557,7 @@ export function Knowledge() {
                 查看专业来源原文 ↗
               </a>
               <small>
-                中文内容为公开资料的简短摘要，具体建议需结合宠物个体和兽医意见。
+                中文内容为公开资料的原创摘要与应用操作清单，具体建议需结合宠物个体和兽医意见。
               </small>
             </div>
           </Panel>
@@ -1460,7 +1567,6 @@ export function Knowledge() {
   return (
     <>
       <PageTitle
-        eyebrow="KNOWLEDGE LIBRARY"
         title="了解多一点，照护安心一点"
         desc="按物种检索专业公开资料的中文摘要。每一条，都有来源。"
       />
@@ -1485,7 +1591,7 @@ export function Knowledge() {
             <option value="">猫与狗</option>
             <option value="cat">猫</option>
             <option value="dog">狗</option>
-            {pet && !["cat", "dog"].includes(pet.species) && (
+            {pet && !pet.capabilities?.knowledge && (
               <option value={pet.species}>{pet.species} · 暂未支持</option>
             )}
           </select>
@@ -1514,39 +1620,44 @@ export function Knowledge() {
         </Empty>
       )}
       <div className="knowledge-grid">
-        {items.data?.map((a, i) => (
-          <Panel key={a.id}>
-            <div className={"article-icon tone-" + (i % 4)}>
-              <BookOpen size={22} />
-              <span>{a.topic}</span>
+        {items.data?.map((a) => (
+          <article key={a.id} className="knowledge-row">
+            <div className="knowledge-row-content">
+              <Link to={"/knowledge/" + a.id}>
+                <h3>{a.title}</h3>
+              </Link>
+              <p className="article-excerpt">
+                {a.body.replace(/^## .*\n/gm, "").split(/\n\s*\n/)[0]}
+              </p>
+              <div className="article-meta">
+                <span>
+                  {a.topic} ·{" "}
+                  {a.species
+                    .map((s) => (s === "cat" ? "猫" : "狗"))
+                    .join(" / ")}
+                </span>
+                <span>{a.source_organization}</span>
+                <small>更新 {a.updated_at} · 编辑摘要，未兽医审核</small>
+              </div>
             </div>
-            <div className="section-heading">
-              <span className="badge quiet">
-                {a.species.map((s) => (s === "cat" ? "猫" : "狗")).join(" / ")}
-              </span>
+            <div className="knowledge-row-actions">
               <button
                 className="bookmark-button"
                 aria-label={"收藏 " + a.title}
+                aria-pressed={a.bookmarked}
+                disabled={action.busy}
                 onClick={() => mark(a)}
               >
                 <Bookmark
-                  size={18}
-                  fill={a.bookmarked ? "currentColor" : "none"}
+                  size={21}
+                  weight={a.bookmarked ? "fill" : "regular"}
                 />
               </button>
+              <Link to={"/knowledge/" + a.id} className="read-link">
+                阅读详情 <ArrowUpRight size={16} />
+              </Link>
             </div>
-            <Link to={"/knowledge/" + a.id}>
-              <h3>{a.title}</h3>
-            </Link>
-            <p className="article-excerpt">{a.body}</p>
-            <div className="article-meta">
-              {a.source_organization}
-              <small>更新 {a.updated_at} · 编辑摘要，未兽医审核</small>
-            </div>
-            <Link to={"/knowledge/" + a.id} className="read-link">
-              阅读详情 <ArrowUpRight size={15} />
-            </Link>
-          </Panel>
+          </article>
         ))}
       </div>
     </>
@@ -1581,7 +1692,6 @@ export function Logs() {
   return (
     <>
       <PageTitle
-        eyebrow="CARE JOURNAL"
         title="记录日常，看见它的变化"
         desc={
           pet
@@ -1594,7 +1704,7 @@ export function Logs() {
         <NeedPet />
       ) : (
         <>
-          <div className="two-col">
+          <div className="two-col logs-grid">
             <Panel>
               <h2>
                 <Scale size={20} />
@@ -1638,6 +1748,7 @@ export function Logs() {
                   <label>
                     记录类型
                     <select
+                      name="kind"
                       value={kind}
                       onChange={(e) => setKind(e.target.value)}
                     >
@@ -1652,6 +1763,7 @@ export function Logs() {
                     <label>
                       体重（kg）
                       <input
+                        name="value"
                         aria-label="体重公斤"
                         type="number"
                         step="0.01"
@@ -1667,6 +1779,7 @@ export function Logs() {
                 <label>
                   发生时间（{user.timezone}）
                   <input
+                    name="occurred_at"
                     type="datetime-local"
                     required
                     value={when}
@@ -1676,6 +1789,7 @@ export function Logs() {
                 <label>
                   记录内容
                   <textarea
+                    name="note"
                     value={note}
                     required={kind !== "weight"}
                     maxLength={3000}
@@ -1708,13 +1822,27 @@ export function Logs() {
             <div className="journal-list">
               {logs.data?.map((l) => (
                 <div key={l.id} className="journal-row">
-                  <span className="journal-dot" />
+                  <span className="journal-kind" aria-hidden="true">
+                    {(() => {
+                      const Icon =
+                        (
+                          {
+                            weight: Scale,
+                            diet: Utensils,
+                            activity: Activity,
+                            grooming: Heart,
+                            observation: ShieldCheck,
+                          } as Record<string, typeof Scale>
+                        )[l.kind] || Heart;
+                      return <Icon size={20} />;
+                    })()}
+                  </span>
                   <div>
                     <strong>
                       {kindNames[l.kind]}
                       {l.value ? " · " + l.value + " kg" : ""}
                     </strong>
-                    <p>{l.note || "—"}</p>
+                    <p>{l.note || "未填写备注"}</p>
                     <small>{dateText(l.occurred_at, user.timezone)}</small>
                   </div>
                   <Button
@@ -1770,6 +1898,17 @@ async function localToUTC(local: string, timezone: string): Promise<string> {
   return r.utc;
 }
 function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
+  const chartRef = useRef<SVGSVGElement>(null);
+  const [width, setWidth] = useState(560);
+  useLayoutEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    const measure = () => setWidth(chart.getBoundingClientRect().width);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(chart);
+    return () => observer.disconnect();
+  }, []);
   const values = weights.map((w) => w.value!),
     min = Math.min(...values) - 0.2,
     max = Math.max(...values) + 0.2;
@@ -1777,7 +1916,7 @@ function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
     start = dates[0],
     span = dates.at(-1)! - start;
   const points = weights.map((w, i) => [
-    45 + (span === 0 ? 0 : ((dates[i] - start) / span) * 460),
+    44 + (span === 0 ? 0 : ((dates[i] - start) / span) * (width - 60)),
     160 - ((w.value! - min) / (max - min)) * 115,
   ]);
   return (
@@ -1791,13 +1930,19 @@ function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
       </div>
       <svg
         className="weight-chart"
-        viewBox="0 0 560 215"
+        ref={chartRef}
+        viewBox={`0 0 ${width} 215`}
         role="img"
         aria-label="体重趋势，按实际记录日期显示"
       >
         {[0, 1, 2].map((n) => (
           <g key={n}>
-            <line x1="45" x2="515" y1={45 + n * 57.5} y2={45 + n * 57.5} />
+            <line
+              x1="44"
+              x2={width - 16}
+              y1={45 + n * 57.5}
+              y2={45 + n * 57.5}
+            />
             <text x="3" y={49 + n * 57.5}>
               {(max - (n * (max - min)) / 2).toFixed(1)}
             </text>
@@ -1814,7 +1959,7 @@ function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
               {dateText(weights[i].occurred_at, tz)} · {weights[i].value}kg
             </title>
             {(i === 0 || i === points.length - 1) && (
-              <text x={x - 25} y="195">
+              <text x={x} y="195" textAnchor={i === 0 ? "start" : "end"}>
                 {dateText(weights[i].occurred_at, tz).slice(0, 5)}
               </text>
             )}
@@ -1828,11 +1973,12 @@ function WeightChart({ weights, tz }: { weights: Log[]; tz: string }) {
   );
 }
 export function SettingsPage() {
-  const { user, refreshUser } = useApp(),
+  const { user, refreshUser, logout } = useApp(),
     [name, setName] = useState(user.full_name),
     [timezone, setTimezone] = useState(user.timezone),
     action = useAction();
   const status = useRemote<{ mode: string; model: string | null }>("/status"),
+    mapUsage = useRemote<MapUsage>("/hospitals/usage"),
     usage = useRemote<{
       requests: number;
       input_tokens: number;
@@ -1841,7 +1987,6 @@ export function SettingsPage() {
   return (
     <>
       <PageTitle
-        eyebrow="ACCOUNT & PREFERENCES"
         title="你的宠伴，按你的习惯"
         desc="账户信息、时区与模型运行状态。"
       />
@@ -1849,7 +1994,7 @@ export function SettingsPage() {
       <div className="two-col">
         <Panel>
           <h2>账户与时间设置</h2>
-          <p className="muted">{user.email}</p>
+          <p className="muted account-email">{user.email}</p>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -1862,6 +2007,7 @@ export function SettingsPage() {
             <label>
               昵称
               <input
+                name="full_name"
                 value={name}
                 maxLength={60}
                 onChange={(e) => setName(e.target.value)}
@@ -1870,6 +2016,7 @@ export function SettingsPage() {
             <label>
               IANA 时区
               <input
+                name="timezone"
                 list="timezones"
                 value={timezone}
                 required
@@ -1895,6 +2042,12 @@ export function SettingsPage() {
               保存设置
             </Button>
           </form>
+          <div className="account-actions">
+            <Button onClick={logout} disabled={action.busy}>
+              <LogOut size={16} />
+              退出登录
+            </Button>
+          </div>
         </Panel>
         <Panel>
           <h2>
@@ -1931,6 +2084,31 @@ export function SettingsPage() {
               </dd>
             </dl>
           )}
+          <details className="care-details map-usage-details">
+            <summary>地图查询与请求用量</summary>
+            <State {...mapUsage} retry={mapUsage.reload} />
+            {mapUsage.data && (
+              <>
+                <p>
+                  {mapUsage.data.enabled ? "地图接口已配置" : "地图接口未启用"}
+                  ；本地营养计算和摘要不需要外部密钥。
+                </p>
+                <dl>
+                  <dt>今日应用请求</dt>
+                  <dd>
+                    {mapUsage.data.day_requests} / {mapUsage.data.day_limit}
+                  </dd>
+                  <dt>本月应用请求</dt>
+                  <dd>
+                    {mapUsage.data.month_requests} / {mapUsage.data.month_limit}
+                  </dd>
+                </dl>
+                <p className="small muted">
+                  按上海时区计数，含坐标转换和失败请求；不是供应商余额。免费资格由账号确认后手动启用。
+                </p>
+              </>
+            )}
+          </details>
         </Panel>
       </div>
       <Panel>

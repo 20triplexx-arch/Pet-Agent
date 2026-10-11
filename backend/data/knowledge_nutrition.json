@@ -1,0 +1,224 @@
+[
+  {
+    "id": "nutrition-energy",
+    "title": "健康成年猫狗：维持热量的起始估算",
+    "body": "## 公式的作用与范围\n健康成年、体况和肌肉合适且资料充分的猫狗，可以用 RER = 70 × 体重kg^0.75，再乘适用系数得到维护热量起点。范围并不是测得的真实代谢量，更不等于疾病或减重处方。\n\n## 应用采用的起始系数\n普通活动：绝育成年猫1.2—1.4、未绝育成年猫1.4—1.6；绝育成年犬1.4—1.6、未绝育成年犬1.6—1.8。低活动猫参考1.0，犬1.0—1.2。活动分类、绝育及体况未知时，不从品种猜一个系数。\n\n## 先校验，再换算\n1. 核对带日期的当前体重，以及BCS、肌肉、健康和孕哺资料。\n2. 列出全部主粮与零食摄入和标签热量。\n3. 预览热量范围，用户选定目标，再按每种食物密度换算克数。\n4. 把新资料和连续体重用于重新评估，不能自动改原喂食量。\n\n## 数量的适用边界\n幼龄、老年、高强度活动、疾病、孕哺、异常体况或肌肉损失需要专业评估。不同来源可能采用不同系数或适用对象，应说明所用规则而不是选一个看似精确的数字。应用以AAHA 2021规则计算并保存输入与确认值，单次体重变化不足以证明应增减量。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "adult",
+      "young_adult",
+      "mature_adult"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "营养",
+      "热量",
+      "能量",
+      "RER",
+      "喂多少",
+      "几克"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/weight-reduction-in-the-obese-pet/0/",
+    "source_version": "2021 AAHA Nutrition and Weight Management Guidelines / Box 1",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-risk",
+    "title": "哪些营养风险需要专业评估",
+    "body": "## 何时不套用普通维护公式\nBCS低于4/9或高于5/9、任何肌肉损失、不明原因体重变化，以及牙口、消化、皮毛或新的医疗问题，都值得扩展营养评估。体重正常也可能同时有肌肉损失。\n\n## 整理给专业人员的信息\n1. 保存评估日期与填写者，不把主人自评标为兽医评估。\n2. 列出主粮、零食、补充品和实际摄入，注明自由采食或代喂。\n3. 按日期整理体重、食欲、排泄和活动变化。\n4. 保留病史、过敏及原兽医饮食要求；无法确认时写未知。\n\n## 应用会怎样处理\n资料缺失时提出最关键的问题；已有风险时只提供非量化观察草稿与专业评估入口。不能根据营养风险列表直接判断是哪种病，也不创建自动减重、增重或治疗热量。\n\n## 提交前检查\n新症状与旧档案都可能影响适用性，不只勾“健康”就忽略既往信息。紧急表现先就医，资料录入不能拖延联系。专业要求变化后应重新核对计划；模型不能自行修改原处方或补充剂剂量。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "营养",
+      "风险",
+      "体况",
+      "肌肉",
+      "健康",
+      "疾病"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+    "source_version": "2021 AAHA / Nutritional Risk Factors",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-feeding",
+    "title": "把主粮、零食和实际摄入一起计算",
+    "body": "## 把全部摄入列出来\nAAHA对健康、体况合适的成年猫狗建议主要热量来自完整均衡食物，零食和非完整食物不超过总热量10%。这是本批应用采用的管理边界，不是疾病饮食规则。\n\n## 一天的盘点顺序\n1. 为每一种主粮、湿粮、零食和训练奖励单独填写名称与克数。\n2. 记录实际吃下量，剩下、撒出或被其他宠物吃掉的部分不能直接算已摄入。\n3. 问清家人是否另行投喂；未知摄入需补充，而不是默认零。\n4. 混合主粮先确认当前热量比例，再决定是否保留。\n\n## 分餐不改变全天总量\n餐次是执行安排，不能因为从两餐改成三餐就多算一份。主粮目标应扣除已确认的零食热量；零食种类或份量变化后重新换算。用日常主粮作训练奖励时，也需纳入全天实际摄入。\n\n## 记录与复评\n在计划中核对每餐数量、时间及依据；保存后才能形成任务。记录食物替换、多人代喂和食欲变化，供后续评估。长期自由采食或多宠共用碗会增加估计难度，应先改善可记录性，不用模型填补未知的精确食量。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "adult",
+      "young_adult",
+      "mature_adult"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "营养",
+      "喂食",
+      "主粮",
+      "零食",
+      "食物",
+      "摄入"
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+    "source_version": "2021 AAHA / Feeding Plans for Healthy, Appropriate Weight Cats and Dogs",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-cat-bcs",
+    "title": "猫的体况：体重之外还要看脂肪分布",
+    "body": "## 体况不是体重的另一种写法\nWSAVA九分制猫体况工具关注肋骨触感、腰线及腹部脂肪分布。长毛、拍摄角度和腹部外形都可能误导，仅凭照片或品种无法可靠评分。\n\n## 一次温和观察\n1. 在猫放松、愿意配合时观察背面腰线和侧面轮廓。\n2. 轻触肋骨附近，避免在疼痛或抗拒时继续。\n3. 对照专业原图理解尺度；不能把五分制和九分制数值混用。\n4. 写下日期、填写者和不确定之处，需要时请兽医演示。\n\n## 与记录一起看\n保存评分同时记录体重日期和称重条件；猫年龄、疾病、肌肉情况及食物摄入都需要单独考虑。一次自评不足以解释体重变化，旧评分也不能当作今天的状态。\n\n## 方案边界\n本批自动维护估算限BCS4—5/9且其他条件合适。低于或高于范围时，应获取专业营养目标，不直接按差几分计算减重或增重速度。资料未由专业人员确认时保持主人填写标识；应用只链接原图，不把未经许可的图表复制进页面。",
+    "species": [
+      "cat"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "营养",
+      "体况",
+      "BCS",
+      "体重",
+      "猫"
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSCat_Nutrition_250612.pdf",
+    "source_version": "WSAVA feline BCS chart 2025-06",
+    "published_at": "2025-06",
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-dog-bcs",
+    "title": "犬的体况：记录肋骨、腰线和腹部变化",
+    "body": "## 先区分秤重与脂肪分布\nWSAVA九分制犬体况结合肋骨触感、俯视腰线与侧面腹部变化。不同体型的犬不能按统一公斤数判断胖瘦，毛量也会影响视觉判断。\n\n## 评分时怎样记录\n1. 让犬自然站立，在放松状态观察轮廓。\n2. 温和检查肋骨触感，不在疼痛或恐惧时强行触摸。\n3. 使用同一九分制参照，不把不同量表直接拼成趋势。\n4. 保存评估日期、填写者及需要专业核实的部分。\n\n## 与肌肉状况分开\n脂肪较多的犬也可能有肌肉损失，因此BCS合适并不自动说明营养资料充分。持续体重、活动耐受、实际摄入与疾病信息都应一起提供。\n\n## 怎样进入方案\n只有本批适用范围内的健康成年犬才生成维护起点。体况异常时不自行制定减重速度、限制营养或加大量食物；请兽医评估目标和监测安排。档案中出现专业建议时保留原意；不能凭主人评分修改疾病饮食或药物。",
+    "species": [
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "营养",
+      "体况",
+      "BCS",
+      "体重",
+      "狗"
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf",
+    "source_version": "WSAVA canine BCS chart 2025-06",
+    "published_at": "2025-06",
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-muscle",
+    "title": "肌肉状况与体况评分分别记录",
+    "body": "## 肌肉与脂肪是不同观察\n体况评分关注脂肪，肌肉状况关注肌肉减少。宠物可能在体重不低、脂肪较多时仍发生肌肉损失，两个字段不能互相代替。\n\n## 提高填写的可信度\n1. 了解WSAVA提供的肌肉工具，并请兽医演示触诊要点。\n2. 不仅看照片或毛发轮廓，也不由应用推断评分。\n3. 写明主人或兽医评估、日期和是否有不确定性。\n4. 尚未评估时选择未知，不能为了生成方案随意填正常。\n\n## 与其他信息连起来\n记录食欲、实际摄入、活动、体重及既往病史；说明“起身费力”“背部触感与以前不同”等可观察事实，不自行写肌肉疾病诊断。老年与不活动宠物的变化同样需要专业分析。\n\n## 为什么应用会拦截\n任何报告的肌肉损失会停止普通成年维护数量建议，提示扩展评估。应用不因此推荐蛋白补充、增重克数或训练强度。专业方案确定后可协助记录执行，但调整目标仍应核对适用条件与原建议。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "营养",
+      "肌肉",
+      "MCS",
+      "体况"
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+    "source_version": "Global Nutrition Guidelines / Muscle condition score tools",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "nutrition-label",
+    "title": "填写包装热量与计量单位",
+    "body": "## 热量和营养声明要分别核对\n食物包装上的能量、适用生命阶段和完整均衡声明用途不同。仅看成分表第一项、品牌名或营销词，不能证明该食物适合当前宠物。\n\n## 抄录包装的顺序\n1. 填写确切产品与口味，区分主粮和零食；不同产品不能共用一个热量值。\n2. 原样核对kcal或kJ，以及每100g、每kg还是每份。\n3. 若按罐或份标注，填写对应克重；杯、勺不能由应用猜重量。\n4. 保存标签文字来源，无法找到能量信息时向厂家核实，不随便估值。\n\n## 换算怎样理解\nkJ需换成kcal再计算；每克热量由标签能量除以对应克重得出。只有有可靠的能量密度和实际克数，才可以核算摄入。示例数值只是算术演示，不是另一款食物的真实标签。\n\n## 不确定时的处理\n包装更新、换规格或换食物后重新抄录和预览。应用不根据“高蛋白”“天然”或价格排名选择治疗饮食。食物标签与病史、阶段或兽医要求冲突时先寻求专业确认，不以换算正确掩盖适用性问题。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "饮食与体重",
+    "keywords": [
+      "营养",
+      "标签",
+      "食物",
+      "热量",
+      "包装",
+      "单位"
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+    "source_version": "Global Nutrition Guidelines / Food Label Guides and Selecting a Pet Food",
+    "published_at": null,
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "visit-preparation",
+    "title": "紧急就医前准备联系信息与观察记录",
+    "body": "## 先判断是否需要立即联系\n资料整理适用于就医准备，不能延迟紧急处理。呼吸困难、倒地、抽搐、严重创伤或疑似中毒时，先联系医院并按其要求转运。\n\n## 摘要里最有用的事实\n1. 宠物身份、物种、阶段与带日期的体重；未知信息留空。\n2. 症状开始、出现次数或持续情况，以及食欲、精神、饮水和排泄变化。\n3. 最近饮食、环境、接触物和生活事件变化。\n4. 用户提供的病史、专业建议及实际用过的药物或补充品，保留原名称与来源。\n\n## 怎样使用应用摘要\n在医院页展开准备就医资料，填写本次观察和开始时间，再读取当前宠物近30天记录。核对是否混入推测、遗漏时间或使用了另一只宠物的信息；可以编辑、复制和下载TXT，不自动发送给医院。\n\n## 出发前核实\n确认能否接诊、地点、电话及安全运输要求。准备原包装、报告和能安全拍摄的短片；医院是否急诊或接诊某物种需电话核实，地图结果不等于已确认。没有完整记录也应如实就医，不能为了补齐模板而等待。",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "topic": "健康与就医",
+    "keywords": [
+      "就医",
+      "医院",
+      "急诊",
+      "观察",
+      "记录",
+      "准备"
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
+    "source_version": "AVMA Pet First Aid brochure 2023",
+    "published_at": "2023",
+    "ingested_at": "2026-10-10",
+    "updated_at": "2026-10-10",
+    "review_status": "editorial_summary_unreviewed"
+  }
+]

@@ -9,6 +9,8 @@ folder = Path(
 os.environ["DATABASE_URL"] = "sqlite:///" + (folder / "e2e.db").as_posix()
 os.environ["DEMO_MODE"] = "true"
 os.environ["MODEL_API_KEY"] = ""
+os.environ["AMAP_ENABLED"] = "false"
+os.environ["AMAP_API_KEY"] = ""
 from scripts.init_db import initialize
 
 initialize(demo=True)
