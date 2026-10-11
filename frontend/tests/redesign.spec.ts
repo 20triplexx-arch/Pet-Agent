@@ -130,6 +130,7 @@ test("全站六种宽度与双倍缩放等效视口，完整宠物插画", async
     "/settings",
     "/nutrition",
     "/hospitals",
+    "/products",
   ];
   for (const width of widths) {
     await page.setViewportSize({ width, height: width < 768 ? 844 : 900 });
@@ -203,10 +204,10 @@ test("全站六种宽度与双倍缩放等效视口，完整宠物插画", async
   });
 });
 
-test("字号、对比度、本地字体和知识请求失败重试", async ({ page }) => {
+test("字号、对比度、本地字体和知识请求失败重试", async ({ page, baseURL }) => {
   const external: string[] = [];
   page.on("request", (request) => {
-    if (!request.url().startsWith("http://127.0.0.1:8011"))
+    if (new URL(request.url()).origin !== new URL(baseURL!).origin)
       external.push(request.url());
   });
   await setup(page);

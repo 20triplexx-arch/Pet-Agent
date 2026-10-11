@@ -76,6 +76,24 @@
     }
   },
   {
+    "name": "get_breed_knowledge",
+    "description": "读取用户确认或明确提问的品种上下文，未知不猜测，不修改档案",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "assess_pet_products",
+    "description": "仅使用当前用户当前宠物已明确保存的产品输入重新进行本地规则评估，不接受模型编造标签、价格或身份",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    }
+  },
+  {
     "name": "save_care_plan",
     "description": "需要明确用户指令、服务端绑定载荷及用户权限；外层事务提交后才报告成功",
     "parameters": {

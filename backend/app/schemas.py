@@ -39,6 +39,7 @@ class PetInput(Strict):
     name: str = Field(min_length=1, max_length=60)
     species: str = Field(min_length=1, max_length=100)
     breed: str | None = Field(default=None, max_length=100)
+    breed_id: str | None = Field(default=None, max_length=100)
     birthday: date | None = None
     estimated_age_months: int | None = Field(default=None, ge=0, le=600)
     sex: Literal["male", "female", "unknown"] | None = None

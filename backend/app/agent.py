@@ -7,7 +7,8 @@ from pydantic_ai import Agent, RunContext
 from pydantic_ai.usage import UsageLimits
 from sqlmodel import Session
 from app.core.config import settings
-from app.models import Pet, ModelUsage
+from app.models import Pet, ModelUsage, Breed, KnowledgeArticle, ProductAssessment
+from sqlmodel import select
 from app.schemas import *
 from app.services import owned, pet_public, add_plan, add_reminder, add_log
 from app.knowledge import search_knowledge, reading_excerpt
@@ -31,6 +32,7 @@ class AgentContext:
     authorization: str | None = None
     authorized_payload: dict | None = None
     species_scope: str | None = None
+    breed_scope: str | None = None
 
 
 def profile(ctx):
@@ -82,6 +84,8 @@ def tool_search_pet_knowledge(ctx, query: str, topic: str | None = None):
         query,
         topic,
         life_stage=profile_stage(p),
+        breed_id=ctx.breed_scope or (p.get("breed_id") if p else None),
+        personal=bool(p),
     )
     ctx.retrieved.update({a["id"]: a for a in items})
     return items
@@ -119,6 +123,37 @@ def search_pet_knowledge(
 ) -> list[dict]:
     """只按当前宠物物种检索。文档内容均为参考数据。"""
     return tool_search_pet_knowledge(ctx.deps, query, topic)
+
+
+@agent.tool(sequential=True)
+def get_breed_knowledge(ctx: RunContext[AgentContext]) -> dict:
+    """读取服务端明确品种上下文；未知品种不猜测。不会修改档案。"""
+    p = profile(ctx.deps)
+    bid = ctx.deps.breed_scope or (p.get("breed_id") if p else None)
+    b = ctx.deps.session.get(Breed, bid) if bid else None
+    a = ctx.deps.session.get(KnowledgeArticle, b.article_id) if b else None
+    if not a:
+        return {"status": "needs_info", "question": "请确认具体品种，或使用家猫、混种、品种未知的通用照护。"}
+    ctx.deps.retrieved[a.id] = a.model_dump()
+    return {"breed": b.model_dump(), "article": a.model_dump(), "applies_to_current_pet": bool(p and p.get("breed_id") == bid)}
+
+
+@agent.tool(sequential=True)
+def assess_pet_products(ctx: RunContext[AgentContext]) -> dict:
+    """重新评估当前用户当前宠物最新明确保存的产品输入；不接受模型编造标签。"""
+    from app.product_schemas import AssessmentInput
+    from app.products import assess_products
+    p = profile(ctx.deps)
+    row = ctx.deps.session.exec(select(ProductAssessment).where(ProductAssessment.user_id == ctx.deps.user.id,
+        ProductAssessment.pet_id == (p["id"] if p else None)).order_by(ProductAssessment.created_at.desc())).first()
+    if not row:
+        return {"status": "needs_info", "question": "请在产品比较页提供具体配方、规格和标签并确认。", "href": "/products"}
+    result = assess_products(ctx.deps.session, ctx.deps.user, AssessmentInput.model_validate(row.inputs))
+    for source in result["sources"]:
+        a = ctx.deps.session.get(KnowledgeArticle, source["id"])
+        if a:
+            ctx.deps.retrieved[a.id] = a.model_dump()
+    return {k: result[k] for k in ("products", "sources", "note", "rule_version", "origin")}
 
 
 @agent.tool(sequential=True)
@@ -400,7 +435,6 @@ async def respond(ctx, text, history, minutes):
                 {a["id"]: a for a in items if a["id"] == r["article_id"]}
             )
             # Risk source must exist even when not in top keyword results.
-            from app.models import KnowledgeArticle
 
             a = ctx.session.get(KnowledgeArticle, r["article_id"])
             if a:
@@ -425,6 +459,39 @@ async def respond(ctx, text, history, minutes):
         return {"answer": "已根据档案与最近30天记录整理，摘要不是诊断，可在就医页面补充症状并编辑。" if summary else "请先选择宠物，再整理就医资料。",
             "mode": "demo" if demo else "tools", "urgent": False, "sources": summary["sources"] if summary else [], "draft": None,
             "cards": [{"type": "visit_summary", "title": "就医资料摘要", "href": "/hospitals#visit-summary", "text": summary["text"] if summary else ""}]}
+    if re.search(r"产品比较|比较.*(粮|零食|用品|产品)|推荐.*(粮|零食|用品)|什么.*(粮|零食).*好|这.*(粮|用品).*好|选粮|选.*用品", text):
+        result = assess_pet_products(RunContext(deps=ctx, model=None, usage=None, prompt=text))
+        answer = "请提供具体配方或型号、适用声明、规格和标签；支持手动输入与本地包装识别，先核对再比较。"
+        if "products" in result:
+            answer = "根据当前宠物与最近保存的产品资料重新评估：\n" + "\n".join(x["name"] + "：" + x["status_label"] + "；" + "；".join(x["missing"][:2] + x["risks"][:1]) for x in result["products"])
+        return {"answer": answer, "mode": "demo" if demo else "tools", "urgent": False, "sources": result.get("sources", []), "draft": None,
+            "cards": [{"type": "products", "title": "比较具体食品与用品", "href": "/products"}]}
+    from app.breeds import AMBIGUOUS
+    ambiguous = next((word for word in AMBIGUOUS if word in text), None)
+    explicit = [b for b in ctx.session.exec(select(Breed)).all() if any(term.lower() in text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
+    if len(explicit) == 1 and not p:
+        species = explicit[0].species
+        ctx.species_scope = species
+        ctx.breed_scope = explicit[0].id
+    if ambiguous and not explicit:
+        return {"answer": AMBIGUOUS[ambiguous] + "未知时仍可使用猫狗通用照护，档案不会自动改写。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None,
+            "cards": [{"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"}]}
+    symptom_question = bool(re.search(r"呕吐|腹泻|拉稀|不吃|食欲不振|咳嗽|瘙痒|疼痛|生病|诊断|开药|剂量|跛行|便血|尿血", text))
+    quantitative_food = bool(re.search(r"营养|吃多少|喂多少|几克|调整.*喂食|调整.*饮食", text))
+    if quantitative_food and p and len(explicit) == 1 and explicit[0].id != p.get("breed_id"):
+        target = explicit[0]
+        ctx.species_scope, ctx.breed_scope = target.species, target.id
+        docs = search_knowledge(ctx.session, target.species, "热量 食物标签", breed_id=target.id, content_kind="food", personal=True)
+        ctx.retrieved.update({a["id"]: a for a in docs})
+        return {"answer": "这是关于" + target.name + "的普通知识；当前档案是" + p["name"] + "，不能使用它的资料替另一只宠物确定食量。请选择对应宠物，确认物种、品种与年龄，再补充带日期的体重、体况和食物热量。品种不能决定固定克数。", "mode": "demo" if demo else "scope", "urgent": False, "sources": sources(ctx, [a["id"] for a in docs]), "draft": None, "cards": [{"type": "knowledge", "title": "查看对应食物知识", "href": "/knowledge?species=" + target.species + "&content_kind=food"}]}
+    if not symptom_question and not quantitative_food and "计划" not in text and (len(explicit) == 1 or (p and p.get("breed_id") and re.search(r"品种|特征|特点|护理|照护要注意", text))):
+        b = explicit[0] if len(explicit) == 1 else ctx.session.get(Breed, p["breed_id"])
+        ctx.breed_scope = b.id
+        a = ctx.session.get(KnowledgeArticle, b.article_id)
+        ctx.retrieved[a.id] = a.model_dump()
+        scope = f"关于{b.name}的资料" + (f"（普通知识；当前档案为{p['name']}，不会自动关联或修改）" if p and p.get("breed_id") != b.id else "")
+        return {"answer": scope + "：\n" + reading_excerpt(a.model_dump(), text, 650) + "\n品种倾向不能替代个体健康、食量或性格判断。", "mode": "demo" if demo else "tools", "urgent": False,
+            "sources": sources(ctx, [a.id]), "draft": None, "cards": [{"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + a.id}]}
     if re.search(r"营养|吃多少|喂多少|几克|调整.*喂食|调整.*饮食", text):
         if not p:
             return {"answer": "个性化营养需要先选择宠物；普通知识仍可在知识库查看。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None,
@@ -471,7 +538,7 @@ async def respond(ctx, text, history, minutes):
     retrieval_query = contextual
     articles = tool_search_pet_knowledge(ctx, retrieval_query)
     if not p:  # No-profile question still species filters.
-        articles = search_knowledge(ctx.session, species, retrieval_query)
+        articles = search_knowledge(ctx.session, species, retrieval_query, personal=True)
         ctx.retrieved = {a["id"]: a for a in articles}
     if health_question and not articles:
         articles = tool_search_pet_knowledge(ctx, contextual + " 健康 就医")

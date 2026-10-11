@@ -16,10 +16,11 @@ def chat(client, headers, pet_id, text):
 
 def test_curated_corpus_has_readable_coverage(client, headers):
     articles = client.get("/api/v1/knowledge", headers=headers).json()
-    assert len(articles) == 44
+    corpus = [a for path in Path("data").glob("knowledge*.json") for a in json.loads(path.read_text(encoding="utf-8"))]
+    assert {a["id"] for a in articles} == {a["id"] for a in corpus}
     assert len({a["id"] for a in articles}) == len(articles)
     topics = {"养宠前准备", "新宠到家", "饮食与体重", "居住与清洁", "互动与训练", "生命阶段", "误区与危险", "健康与就医"}
-    assert {a["topic"] for a in articles} == topics
+    assert topics.issubset({a["topic"] for a in articles})
     for species in ("cat", "dog"):
         for topic in topics:
             selected = client.get("/api/v1/knowledge", headers=headers, params={"species": species, "topic": topic}).json()
@@ -56,9 +57,10 @@ def test_content_upsert_preserves_personal_bookmark(client, headers, db, tmp_pat
     path = tmp_path / "update.json"
     path.write_text(json.dumps([data], ensure_ascii=False), encoding="utf-8")
     with Session(db) as session:
+        before = len(session.exec(select(KnowledgeArticle)).all())
         assert import_file(path, session) == 1
         assert import_file(path, session) == 1
-        assert len(session.exec(select(KnowledgeArticle)).all()) == 44
+        assert len(session.exec(select(KnowledgeArticle)).all()) == before
     article = client.get("/api/v1/knowledge/cat-food", headers=headers).json()
     assert article["bookmarked"] is True and article["body"].endswith("新的编辑说明。")
 

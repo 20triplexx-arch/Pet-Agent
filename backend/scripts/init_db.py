@@ -9,6 +9,7 @@ from app.core.security import get_password_hash
 from app.models import *
 from app.clock import utc_now, iso
 from scripts.import_knowledge import import_file
+from app.breeds import seed_breeds
 
 
 def initialize(demo=False):
@@ -16,9 +17,12 @@ def initialize(demo=False):
         Config(str(Path(__file__).resolve().parents[1] / "alembic.ini")), "head"
     )
     with Session(engine) as s:
+        seed_breeds(s)
         import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge.json", s)
         import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_nutrition.json", s)
         import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_care.json", s)
+        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_breeds.json", s)
+        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_products.json", s)
         if (
             demo
             and not s.exec(select(User).where(User.email == "demo@example.com")).first()

@@ -20,6 +20,8 @@ export type Pet = {
   species: string;
   capabilities?: Record<string, boolean>;
   breed: string | null;
+  breed_id: string | null;
+  breed_name: string | null;
   birthday: string | null;
   estimated_age_months: number | null;
   age_months: number | null;
@@ -110,6 +112,9 @@ export type Article = {
   updated_at: string;
   review_status: string;
   bookmarked: boolean;
+  content_kind: "care" | "breed" | "food" | "supplies";
+  breed_ids: string[];
+  references: { organization: string; url: string; supports: string; version: string; checked_at: string }[];
 };
 export function token() {
   return sessionStorage.getItem("chongban_token");

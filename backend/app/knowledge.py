@@ -14,11 +14,13 @@ class Retriever(ABC):
         query: str,
         topic: str | None = None,
         life_stage: str | None = None,
+        breed_id: str | None = None,
+        content_kind: str | None = None,
     ): ...
 
 
 class KeywordRetriever(Retriever):
-    def search(self, session, species, query, topic=None, life_stage=None):
+    def search(self, session, species, query, topic=None, life_stage=None, breed_id=None, content_kind=None):
         if species and not supports(species, "knowledge"):
             return []
         articles = session.exec(select(KnowledgeArticle)).all()
@@ -29,6 +31,10 @@ class KeywordRetriever(Retriever):
                 continue
             if topic and a.topic != topic:
                 continue
+            if content_kind and a.content_kind != content_kind:
+                continue
+            if breed_id and a.breed_ids and breed_id not in a.breed_ids:
+                continue
             if (
                 life_stage
                 and "all" not in a.life_stages
@@ -36,7 +42,7 @@ class KeywordRetriever(Retriever):
             ):
                 continue
             hay = (a.title + " " + a.body + " " + " ".join(a.keywords)).lower()
-            score = sum(3 for k in a.keywords if k in query.lower()) + sum(
+            score = sum(3 for k in a.keywords if k.lower() in query.lower()) + sum(
                 1 for t in terms if t in hay
             )
             if not query or score > 0:
@@ -78,8 +84,9 @@ def serialize_article(a, bookmarked=False):
     return {**a.model_dump(), "bookmarked": bookmarked}
 
 
-def search_knowledge(session, species, query, topic=None, limit=5, life_stage=None):
+def search_knowledge(session, species, query, topic=None, limit=5, life_stage=None, breed_id=None, content_kind=None, personal=False):
     return [
         a.model_dump()
-        for a in retriever.search(session, species, query, topic, life_stage)[:limit]
+        for a in [a for a in retriever.search(session, species, query, topic, life_stage, breed_id, content_kind)
+                  if not personal or breed_id or not a.breed_ids][:limit]
     ]

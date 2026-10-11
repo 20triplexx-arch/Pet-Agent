@@ -24,6 +24,7 @@ import { Button } from "./components/ui/button";
 import { api, login, token, type User, type Pet, petLabel } from "./api";
 import { useRemote, useAction } from "./hooks";
 import { State, Feedback, Panel, PetArtwork, PetPortrait } from "./components";
+import { Products } from "./product-page";
 import {
   Home,
   Pets,
@@ -313,6 +314,7 @@ export default function App() {
                   onChange={(e) => {
                     setPid(e.target.value);
                     sessionStorage.setItem("chongban_pet", e.target.value);
+                    if (location.pathname === "/knowledge") navigate("/knowledge", {replace:true});
                   }}
                 >
                   <option value="">普通知识 · 未选择宠物</option>
@@ -338,6 +340,7 @@ export default function App() {
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/nutrition" element={<Nutrition />} />
               <Route path="/hospitals" element={<Hospitals />} />
+              <Route path="/products" element={<Products />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

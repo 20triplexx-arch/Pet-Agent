@@ -1,10 +1,14 @@
-param()
+param([switch]$WithOCR)
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 function Check-Exit { if ($LASTEXITCODE -ne 0) { throw "Command failed with exit code $LASTEXITCODE" } }
 if (-not (Test-Path '.venv\Scripts\python.exe')) { python -m venv .venv; Check-Exit }
 python -m pip --python .venv\Scripts\python.exe install -r backend\requirements.txt
 Check-Exit
+if ($WithOCR) {
+    python -m pip --python .venv\Scripts\python.exe install -r backend\requirements-ocr.txt
+    Check-Exit
+}
 if (Get-Command npm -ErrorAction SilentlyContinue) { $npmCommand = 'npm'; $npmPrefix = @() }
 else {
     if (-not (Test-Path '.tools\package\bin\npm-cli.js')) {

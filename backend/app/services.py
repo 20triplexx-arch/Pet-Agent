@@ -17,6 +17,7 @@ def owned(session, model, ident, user_id):
 
 
 def pet_public(session, p):
+    breed = session.get(Breed, p.breed_id) if p.breed_id else None
     weights = session.exec(
         select(CareLog)
         .where(CareLog.pet_id == p.id, CareLog.kind == "weight")
@@ -36,6 +37,7 @@ def pet_public(session, p):
         months = elapsed if p.birthday else (months or 0) + max(0, elapsed)
     return {
         **p.model_dump(),
+        "breed_name": breed.name if breed else None,
         "capabilities": next((s["capabilities"] for s in registry() if s["id"] == p.species), {"profile": True, "manual_logs": True}),
         "age_months": months,
         "weight": weights[-1].value if weights else None,

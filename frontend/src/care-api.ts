@@ -106,7 +106,7 @@ export type VisitSummary = {
   mode: string;
 };
 export type ActionCard = {
-  type: "nutrition" | "hospitals" | "visit_summary";
+  type: "nutrition" | "hospitals" | "visit_summary" | "products" | "knowledge";
   title: string;
   href: string;
   text?: string;

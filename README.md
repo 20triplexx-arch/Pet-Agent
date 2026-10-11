@@ -18,15 +18,17 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 已经实现七类页面：主页、宠物档案、AI 对话、知识库列表与详情、计划与提醒、照护记录、账户与设置。后端具备登录及用户隔离、多宠物 CRUD、知识搜索与收藏、独立会话、结构化计划、记录与体重趋势、时区提醒、事务及幂等保护。
 
-项目还包含十个 Pydantic AI 工具、系统提示词、44 篇有专业来源的分节知识与操作清单、可追溯风险规则、示例猫狗档案、Alembic 初始及增量迁移、初始化与知识导入脚本、锁定依赖、环境变量示例、Docker 配置以及源码包 `artifacts/chongban-mvp.zip`。第一批 Agent 升级已实现营养资料/本地评估/方案替换、医院查询适配和就医摘要；使用方法及边界见下方“第一批 Agent 升级”。
+项目还包含十二个 Pydantic AI 工具、系统提示词、89 篇有专业来源的分节知识与操作清单、可追溯风险规则、示例猫狗档案、Alembic 初始及增量迁移、初始化与知识导入脚本、锁定依赖、环境变量示例、Docker 配置以及源码包 `artifacts/chongban-mvp.zip`。第一批 Agent 升级已实现营养资料/本地评估/方案替换、医院查询适配和就医摘要；使用方法及边界见下方“第一批 Agent 升级”。
+
+**当前整合验收（2026-10-11）**：pytest **106 passed（66.07秒）**，Playwright 桌面/手机 **52 passed（2.0分钟，各26项）**，TypeScript/Vite 生产构建通过。新版 UI 与89篇知识、24项品种、产品比较和本地 OCR 同时保留。修正测试固定端口，并补齐对话的品种指南/产品行动入口及浏览器断言；产品页纳入六种宽度和200%等效视口检查。隔离服务使用8014端口和临时数据库，原数据未参与写入测试。源码包314文件逐字节核对通过；完整记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。
+
+**合并前验收（2026-10-11，猫狗品种、食物与用品）**：pytest **106 passed（71.91秒）**，Playwright 桌面/手机 **32 passed（1.4分钟）**，TypeScript/Vite 构建通过。本机安装并验证 RapidOCR 3.10.0 / ONNX Runtime CPU 1.31.0，包含真实中文英文、小数、百分比、旋转及模糊图片识别。已有运行库备份后增量迁移，14张业务表按原列逐行保持一致，登录密钥保留，知识44→89、品种登记24项。SQLite升级/回退及PostgreSQL离线迁移SQL编译通过。产品比较、明确保存、营养资料交接和两端页面回归通过；没有调用付费模型、识图API或真实地图。新增流程见 [docs/PRODUCT_KNOWLEDGE.md](docs/PRODUCT_KNOWLEDGE.md)，完整证据及限制见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 **历史验收（2026-10-10，知识覆盖与深度扩充）**：pytest **76 passed（32.60秒）**，Playwright 桌面/手机 **24 passed（55.3秒）**，TypeScript/Vite 构建通过。含原有 SQLite 迁移与数据保留、升级/回退、PostgreSQL 离线 SQL 编译回归。本轮无新结构迁移，已有本机库备份后知识24→44，其他14张业务表记录数一致。真实地图未联调，默认关闭；没有付费模型调用。详见 [知识维护说明](docs/KNOWLEDGE.md) 和 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 历史验收：2026-10-09 完整 MVP 后端25项、浏览器12项；2026-10-10 页面重设计浏览器12项、首页简化浏览器14项、第一批Agent升级后端65项及浏览器22项。Docker Compose 配置曾检查通过，本轮未重新验证容器。各轮证据与验证边界见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 尚未验证：真实服务商付费模型调用与质量、PostgreSQL 实机集成、Docker 镜像实际构建与容器运行、原生 Safari。项目没有上线，知识中文摘要与风险规则没有经过专业兽医审核。
-
-**当前前端验收（2026-10-11，全站重设计）**：TypeScript/Vite 构建通过，桌面/手机 Playwright **42 passed（2.0分钟）**。手机导航、六种屏宽、完整插画、本地字体、对比度、失败重试、图表实际字号、长对话定位、编辑焦点、服务端字段错误关联（含对话侧栏）和既有24项业务回归均通过。本轮仅修改前端及测试/交接文档，没有后端结构或数据库迁移；后端76项是上轮结果，未重复运行。
 
 ### 接续时优先阅读的文件
 
@@ -35,11 +37,13 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 | [README.md](README.md)、[TEST_RESULTS.md](TEST_RESULTS.md)、[UPSTREAM.md](UPSTREAM.md) | 已确认方案、启动方式、验收边界与上游出处 |
 | [backend/app/models.py](backend/app/models.py)、[backend/app/schemas.py](backend/app/schemas.py) | 数据实体、请求结构及校验 |
 | [backend/app/api/routes.py](backend/app/api/routes.py)、[backend/app/services.py](backend/app/services.py) | API、用户权限、事务、幂等和业务写入 |
-| [backend/app/agent.py](backend/app/agent.py)、[backend/app/agent_system.txt](backend/app/agent_system.txt) | Agent 流程、风险优先、演示问答与十个工具 |
+| [backend/app/agent.py](backend/app/agent.py)、[backend/app/agent_system.txt](backend/app/agent_system.txt) | Agent 流程、风险优先、演示问答与十二个工具 |
 | [backend/app/model_adapter.py](backend/app/model_adapter.py) | 兼容模型接口、调用限制、来源检查及用量记录 |
 | [docs/AGENT_UPGRADE.md](docs/AGENT_UPGRADE.md)、[backend/app/nutrition.py](backend/app/nutrition.py)、[backend/app/hospitals.py](backend/app/hospitals.py)、[backend/app/visit.py](backend/app/visit.py) | 第一批接口、营养数值、地图查询与就医摘要边界 |
 | [backend/app/knowledge.py](backend/app/knowledge.py)、[backend/data/](backend/data/) | 检索扩展接口、知识、具体物种与风险资料 |
-| [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md) | 44篇资料覆盖、逐条来源、编辑与地域边界、正文格式及导入方法 |
+| [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md) | 89篇资料覆盖、逐条来源、编辑与地域边界、正文格式及导入方法 |
+| [docs/PRODUCT_KNOWLEDGE.md](docs/PRODUCT_KNOWLEDGE.md)、[docs/SOURCE_CATALOG.md](docs/SOURCE_CATALOG.md)、[docs/OCR_LICENSES.md](docs/OCR_LICENSES.md) | 品种、选购、比较及OCR使用方法、接口、来源与许可 |
+| [backend/app/products.py](backend/app/products.py)、[backend/app/product_schemas.py](backend/app/product_schemas.py)、[backend/app/ocr.py](backend/app/ocr.py)、[frontend/src/product-page.tsx](frontend/src/product-page.tsx) | 后端数值与状态规则、确认校验、本地识别和产品页面 |
 | [backend/app/clock.py](backend/app/clock.py)、[backend/migrations/](backend/migrations/) | 当地日历与 UTC 转换、数据库迁移 |
 | [frontend/src/App.tsx](frontend/src/App.tsx)、[frontend/src/pages.tsx](frontend/src/pages.tsx)、[frontend/src/hooks.tsx](frontend/src/hooks.tsx) | 页面、统一宠物切换与加载/失败/重试状态 |
 | [PRODUCT.md](PRODUCT.md)、[DESIGN.md](DESIGN.md)、[frontend/src/styles.css](frontend/src/styles.css) | 产品事实、已确认视觉风格与实际设计变量；后续页面应沿用 |
@@ -58,7 +62,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 接续时先阅读本节与用户最新要求，再定位相关源码。需要运行项目时使用下方启动命令并检查实际服务状态；当前数据库和本地签名密钥位于 `backend/storage/`，继续开发应保留已有数据，不重新建立整个工程。
 
-用户于 2026-10-10 提出营养方案、附近医院、知识扩充和多物种支持，并批准第一批实施计划。营养管理、医院查询适配、就医摘要、8条营养新增知识和独立物种能力登记已实现；随后针对“资料太少、内容片面”，补全全部24篇并新增20篇具体照护资料，当前44篇。真实地图仍需用户配置并确认免费资格后联调。第二批具体物种与环境照护尚未实现。后续可推进知识专业审核、真实服务验证和具体物种支持；实施前研究记录与本批交付说明见文末。
+用户于 2026-10-10 提出营养方案、附近医院、知识扩充和多物种支持，并批准第一批实施计划。营养管理、医院查询适配、就医摘要、8条营养新增知识和独立物种能力登记已实现；随后针对“资料太少、内容片面”，补全全部24篇并新增20篇具体照护资料，当时44篇。2026-10-11按批准计划补齐8猫12犬及4个非注册分类、12个食物主题、10类用品，共89篇，并实现私有产品比较、可选本地OCR及品种Agent检索。真实地图仍需用户配置并确认免费资格后联调。具体其他物种与环境照护尚未实现。后续可推进知识专业审核、真实服务验证和具体物种支持；各批交付说明见文末。
 
 **用户已明确要求：随着项目推进持续更新本 README。** 每次完成有实质进展的工作时，在交付前同步更新相关内容，不等到用户再次提醒。
 
@@ -69,7 +73,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 ## 2026-10-11 全站 UI 重设计
 
-Git 集成进度：已创建功能分支 `codex/chongban-ui-redesign`，用于保存本轮工作树的源码及设计文档。目标分支是原目录 `D:\CodexWork\智能` 的 `Pet-Agent`。该目录中的品种、产品比较与本地 OCR 升级任务仍在运行，用户要求等待它完成后再合并；目前尚未合并，也没有覆盖原目录或本地数据。
+Git 集成进度：用户于 2026-10-11 明确要求继续合并。UI 已保存为 `c420855`，原目录中的品种、产品比较与本地 OCR 升级完成后已保存为 `0616572`。当前在 `codex/chongban-ui-redesign` 完成冲突整合和隔离验证，验证通过后将快进更新原目录 `D:\CodexWork\智能` 的 `Pet-Agent`。备份分支为 `backup/pet-agent-before-ui-merge-20261011-1630`，本地数据与签名密钥另有私有备份。
 
 用户批准方案后，使用 impeccable 和 design-taste-frontend 对登录、七类主页面、营养和医院/就医摘要统一重设计。以下规则是当前版本，后面的2026-10-10设计章节为历史记录。
 
@@ -81,7 +85,7 @@ Git 集成进度：已创建功能分支 `codex/chongban-ui-redesign`，用于�
 - 构建及42项浏览器测试通过，覆盖320/390/430/850/1280/1440px和200%缩放等效640px布局。200%是有效CSS视口模拟，并非人工真机浏览器缩放认证；原生Safari与完整读屏审计未验证。第一次回归发现手机记录入口过低，已修正。独立审查要求修复图表刻度缩小、部分正文小于16px、长对话和编辑定位，已单批完成；图表两视口实际标签13px，编辑取消返回触发按钮。
 - 422校验失败保留服务端字段路径，在本次提交的表单或资料面板内关联控件，显示逐字段错误并定位首个问题。包含任务/食物索引、稳定标签名、`aria-invalid`与错误描述，重试继续保留原幂等键。跨字段或没有对应可编辑控件的业务错误保留总提示；不声称所有422路径都能映射。
 - 独立初审方向通过、处置fix；修复评分为**ship：F1–F4全部resolved**。字段关联补审发现对话侧栏范围FV1，指定对话共同控件范围后，评分为**ship：FV1 resolved**。这两个评分仅覆盖所列修复，未宣称完整可访问性认证。少数标准校验错误保留服务端原文。
-- [DESIGN.md](DESIGN.md) 已按当前源码刷新；`.impeccable/design.json` 为 v2 扩展，包含10个独立组件片段和实际焦点、动效、响应式规则。源码包 `artifacts/chongban-mvp.zip` 包含271个文件，已校验完整性及与当前文件逐字节一致；不包含本地数据库、密钥、依赖目录或构建产物。字体许可、图片来源和本轮审查记录保留在包内。
+- [DESIGN.md](DESIGN.md) 已按当前源码刷新；`.impeccable/design.json` 为 v2 扩展，包含10个独立组件片段和实际焦点、动效、响应式规则。UI 独立交付时源码包为271个文件；合并版会重新打包并逐字节核对，不包含本地数据库、密钥、依赖目录或构建产物。字体许可、图片来源和本轮审查记录保留在包内。
 
 本轮在当前managed worktree内恢复依赖，Python3.13.13测试环境为 `.venv313/`，临时浏览器数据库隔离在 `backend/storage/e2e-*/`，独立预览端口 **8002** 使用 `backend/storage/ui-preview.db`。原8000服务和数据库没有被覆盖。标准安装仍按下文在Python3.13创建 `.venv`。可通过环境变量 `CHONGBAN_TEST_PYTHON` 指定浏览器测试的Python解释器，未设置时沿用 `.venv`：
 
@@ -166,7 +170,7 @@ npm run dev
 
 1. 登录并在右上角选择宠物，或在档案页新增。未知项留空；生日优先于估计年龄，估计年龄记录估计日期并随时间推进。
 2. 提问猫狗普通知识无需档案。选中宠物后，对话按用户和宠物分开保存；切换宠物会切换会话、计划、记录和待办。
-3. 知识页按物种、主题或中文关键词筛选，查看真实来源与收藏。中文摘要未经兽医审核。
+3. 知识页按物种、通用照护/品种/食物/用品、已确认品种、阶段、主题或中文关键词筛选，查看真实来源与收藏。中文摘要未经兽医审核。进入“比较具体产品”，手动录入或本地OCR提取候选，核对后比较1—3件同类产品，明确保存才建立历史。食品需要另行确认才能加入营养资料，之后重新预览营养方案。
 4. 在计划页设置可用时间，生成草稿，修改任务、时间、周期和依据，明确保存。保存会同步创建提醒。
 5. 到期待办打卡，完成历史按每个周期单独保留。暂停/结束计划会暂停关联提醒。
 6. 记录带日期的体重、饮食、活动、护理与异常观察。体重按发生时间取最新值并显示趋势。
@@ -198,7 +202,7 @@ SDK 自动重试关闭；每轮限制模型请求次数、工具次数、输入�
 
 ## Agent 与工具权限
 
-系统提示词：backend/app/agent_system.txt；五个 Pydantic AI 工具：backend/app/agent.py；可审查 JSON Schema：backend/data/tool_definitions.json。运行 `python -m scripts.export_tools` 可重新导出。
+系统提示词：backend/app/agent_system.txt；十二个 Pydantic AI 工具：backend/app/agent.py；可审查 JSON Schema：backend/data/tool_definitions.json。在backend目录运行 `python -m scripts.export_tools` 可重新导出。最新增加 `get_breed_knowledge`、`assess_pet_products`：读取当前已确认品种或用户明确询问的对象，以及重新评估当前用户/宠物最近一次已保存比较。没有比较时返回录入入口，不编造产品数据。
 
 服务端在模型调用与追问前识别紧急风险，并核对当前宠物档案和物种。紧急提示不调用模型，风险规则逐条关联资料 URL 与章节。药物/诊断问题采用受控就医准备提示，不给剂量；资料不足不让模型凭空回答。
 
@@ -210,15 +214,20 @@ SDK 自动重试关闭；每轮限制模型请求次数、工具次数、输入�
 
 ## 知识导入与扩展
 
-backend/data/knowledge.json（16篇）、knowledge_nutrition.json（8篇）和knowledge_care.json（20篇）合计44篇原创中文摘要与操作清单。专业来源包含AVMA、Cornell、AAHA、FelineVMA、WSAVA、AVSAB、Merck Veterinary Manual、FDA及Pet Poison Helpline。每条包含题目、分节正文、物种、阶段、主题、关键词、来源机构与 URL、发布日期或版本、收录/更新日期及审核状态。原页没有日期时明确保存为空，不猜测。八个主题均可筛选；覆盖和逐条来源见 [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md)。
+backend/data/knowledge.json（16篇）、knowledge_nutrition.json（8篇）、knowledge_care.json（20篇）、knowledge_breeds.json（24篇）和knowledge_products.json（21篇）合计89篇原创中文摘要与操作清单。原44篇ID保留；食品储存复用原条目补深，不另建重复文章。专业来源包含AVMA、Cornell、AAHA、FelineVMA、WSAVA、AVSAB、Merck Veterinary Manual、FDA及Pet Poison Helpline；CFA/AKC用于品种名称、外形和倾向，健康结论另核对专业资料。每条包含题目、分节正文、物种、阶段、主题、关键词、分类、品种关联、来源机构与URL、发布日期或版本、收录/更新日期及审核状态。新增多来源references逐条注明支持的内容。原页没有日期时明确保存为空，不猜测。覆盖和逐条来源见 [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md) 与 [docs/SOURCE_CATALOG.md](docs/SOURCE_CATALOG.md)。
 
 编辑 JSON，或准备相同结构文件：
 
 ```powershell
 cd backend
+# 首次或结构升级：执行迁移、登记品种，再按ID导入全部五份知识
+../.venv/Scripts/python.exe -m scripts.init_db
+# 修改单份后可单独导入；品种引用必须已登记
 ../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge.json
 ../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge_nutrition.json
 ../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge_care.json
+../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge_breeds.json
+../.venv/Scripts/python.exe -m scripts.import_knowledge data/knowledge_products.json
 ```
 
 导入在验证所有条目后按 ID 更新，整批提交；来源必须 HTTPS，首版仅接受 editorial_summary_unreviewed，不能借用原机构审核状态标记中文摘要。新增鸟、龟、鱼、仓鼠资料必须细分物种，而非泛用大类。
@@ -241,7 +250,7 @@ PostgreSQL 配置路径：
 DATABASE_URL=postgresql+psycopg://user:password@localhost:5432/chongban
 ```
 
-配置后执行迁移和知识导入。SQLite 与 PostgreSQL 的初始迁移 SQL 已编译验证；本机没有运行 PostgreSQL 服务，**尚未做真实 PostgreSQL 集成测试或 SQLite 数据搬迁**。字段采用通用 JSON、外键和唯一约束，无数据库专属全文语法。SQLite 外键、WAL 和 busy timeout 已开启，适合本机小规模使用；更大并发应迁移 PostgreSQL。
+配置后执行迁移和知识导入。SQLite与PostgreSQL的初始及全部增量迁移SQL已编译验证；本机没有运行PostgreSQL服务，**尚未做真实PostgreSQL集成测试或SQLite数据搬迁**。字段采用通用JSON、外键和唯一约束，无数据库专属全文语法。SQLite外键、WAL和busy timeout已开启，适合本机小规模使用；更大并发应迁移PostgreSQL。
 
 备份前停止应用，将 storage 中数据库与 .secret 一起备份。原始密钥不保存到浏览器，登录 bearer token 存在当前标签页 sessionStorage。页面输出使用 React 转义；本 MVP 没有邮箱找回、邮件验证、社交登录或生产级登录限流。
 
@@ -256,7 +265,7 @@ npx playwright install chromium
 npm test
 ```
 
-Playwright 自动启动 8011 隔离测试服务器，使用独立测试数据库和每场景独立账户，不改本机演示数据。桌面和 iPhone 尺寸都使用 Chromium。报告在 frontend/playwright-report，失败保留截图与 trace。后端测试覆盖原十个验收场景，并补充 DST、并发幂等、回滚、明确授权、虚构来源、模型接口与会话混用；测试结果与限制见 TEST_RESULTS.md。
+Playwright默认启动8011隔离测试服务器；端口占用时在frontend目录先设置 `$env:CHONGBAN_E2E_PORT='8013'`，本轮使用8013。它使用独立测试数据库和每场景独立账户，不改本机演示数据。桌面和iPhone尺寸都使用Chromium。报告在frontend/playwright-report，失败保留截图与trace。完整OCR验收先安装 `backend/requirements-ocr.txt`：后端未安装时真实OCR用例会跳过，浏览器完整套件要求已安装且启用OCR，避免将模拟或跳过当作识别通过。后端覆盖原十个场景、营养医院摘要以及本批品种/产品/OCR，并补充DST、并发幂等、回滚、明确授权、虚构来源和上下文隔离。实际测试结果与限制见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 ## Docker（后续部署用）
 
@@ -394,7 +403,7 @@ MAP_REQUESTS_PER_MONTH=500
 
 ### 已有安装升级与开发接续
 
-先停止服务并备份 `backend/storage` 中数据库与 `.secret`，保持现有 `.env`。根目录运行 `scripts/start.ps1 -Rebuild`，初始化脚本自动执行增量迁移并导入全部当前知识（现为44篇），保留登录、档案、记录及计划。不删除数据库，不重复创建已有演示账户。第一批新增营养知识的单独导入：
+先停止服务并备份 `backend/storage` 中数据库与 `.secret`，保持现有 `.env`。根目录运行 `scripts/start.ps1 -Rebuild`，初始化脚本自动执行增量迁移并导入全部当前知识（现为89篇），保留登录、档案、记录及计划。不删除数据库，不重复创建已有演示账户。第一批新增营养知识的单独导入：
 
 ```powershell
 cd backend
@@ -405,11 +414,11 @@ cd backend
 
 接口、请求结构、规则和工具边界见 [docs/AGENT_UPGRADE.md](docs/AGENT_UPGRADE.md)；关键代码是 `app/care_schemas.py`、`nutrition.py`、`hospitals.py`、`visit.py`、`api/care_routes.py` 与 `frontend/src/care-pages.tsx`。`20261010_nutrition` 是增量迁移，依赖原初始版本 `385c23b07d08`。后续物种扩展逐项启用能力并增加专属规则，不能只把status改为supported。
 
-本批验证结果见 [TEST_RESULTS.md](TEST_RESULTS.md)，源码包继续使用 `artifacts/chongban-mvp.zip`；打包脚本排除本地数据库、密钥、依赖与构建报告。后续每次推进继续同步本README、测试证据和已知限制。第二批聚焦具体物种与环境照护，本批不包含选粮商品库、OCR、疾病处方、自动预约或系统推送。
+本批验证结果见 [TEST_RESULTS.md](TEST_RESULTS.md)，源码包继续使用 `artifacts/chongban-mvp.zip`；打包脚本排除本地数据库、密钥、依赖与构建报告。后续每次推进继续同步本README、测试证据和已知限制。此营养/就医批次当时不包含OCR，OCR与指定产品比较已在下方2026-10-11批次完成；商品库、疾病处方、自动预约或系统推送仍未实现。具体其他物种与环境照护继续待后续推进。
 
 ## 知识覆盖与深度扩充（2026-10-10）
 
-用户指出资料数量少、内容短且片面后，审计发现24篇正文合计2250字符，平均不足100。本轮补全原有全部24篇并新增20篇，现为44篇、19640字符、平均446；每篇按适用条件、步骤或观察清单、记录建议及误区/专业边界分节，保留来源、版本和未审核状态。
+用户指出资料数量少、内容短且片面后，审计发现24篇正文合计2250字符，平均不足100。该历史批次补全原有全部24篇并新增20篇，当时44篇、19640字符、平均446；每篇按适用条件、步骤或观察清单、记录建议及误区/专业边界分节，保留来源、版本和未审核状态。
 
 补充多猫相处、抓沙发、互动信号、梳毛和指甲、口腔护理、疫苗沟通、拒食与呕吐观察、航空箱适应、幼犬如厕与社会化、独处压力、笼箱、成长训练、寒暑季照护、食品储存和出行。营养条目完善输入、换算、风险门控和标签条件，具体数值计算规则不变。旧“健康观察”主题统一为页面可筛选的“健康与就医”。
 
@@ -417,3 +426,19 @@ cd backend
 
 已有本机库备份后按ID更新，44篇已在运行应用中显示，其他14张业务表记录数不变。后端76项、桌面/手机24项和前端构建通过；实际浏览器阅读页也已检查。覆盖、逐条专业来源、地域边界、正文格式及后续编辑流程见 [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md)，详细验证见 [TEST_RESULTS.md](TEST_RESULTS.md)。这些资料仍是未经兽医审核的猫狗编辑内容，不代表完整百科或其他物种知识已上线。
 
+
+## 2026-10-11 知识与产品升级（已完成）
+
+在原44篇及收藏ID基础上增加24个品种/分类指南、12个食物主题和10类用品指南，共89篇。规范品种需用户确认，保留原始档案文字；泰迪、蓝猫、金渐层和柯基不自动猜测。知识库内增加分类、品种与阶段筛选，以及具体产品比较入口，首页和一级导航保持原结构。
+
+已实现手动产品录入、1—3个同类产品比较、后台成本计算、明确保存与历史快照、私有数据隔离和幂等保护。食品仅在用户确认后追加到营养资料，不改既有任务或喂食量。可选RapidOCR 3.10.0 / ONNX Runtime CPU 1.31.0已在本机安装；运行时本地识别，模型校验信息在backend/data/ocr_models.json。没有调用识图API、地图或付费模型。
+
+完整pytest **106 passed（71.91秒）**、桌面/手机Playwright **32 passed（1.4分钟）**、TypeScript/Vite构建通过，SQLite旧数据保留/升级回退与PostgreSQL离线SQL编译通过。真实本地OCR验证中文英文标签、180度旋转、模糊、小数和百分比；格式、像素/体积上限、未安装、忙碌、超时与字段确认均有测试。独立设计复核提出上传按钮英文问题，改为中文控件后完成全套浏览器回归；限定这项修正的最终结论为ship，设计文档核对已完成。
+
+已有运行库先备份到 `backend/storage/backups/20261011-160309-products/`，增量迁移到 `20261011_products`。14张既有业务表按原列逐行保持一致、外键检查通过、签名密钥不变；2只原宠物保留，知识44→89。备份与私人数据不进入源码包。后续已有SQLite安装可在停止服务后，从backend目录执行 `../.venv/Scripts/python.exe -m scripts.backup_migrate`，自动备份数据库/密钥、迁移和核对旧表，然后重新构建启动。这个辅助脚本仅处理已存在的SQLite库，其他配置使用常规备份和迁移方式。
+
+可选安装：`./scripts/setup.ps1 -WithOCR`；已有环境：`.venv/Scripts/python.exe -m pip install -r backend/requirements-ocr.txt`。未安装或OCR_ENABLED=false时使用手动录入，其他功能可用。Docker可用`docker build --build-arg WITH_OCR=true -t chongban .`，默认镜像不装OCR。
+
+从知识库进入 `/products`，比较、编辑、确认、保存和回看；保存食品后的“添加到营养资料”是单独确认步骤，之后进入营养页补充摄入并复评。所有输入、价格及日期来自用户，不抓实时价格；比较针对具体配方或型号，不扩大为整个品牌结论。图片区只作当次识别，不存数据库、日志或模型上下文。真实商业包装准确率尚未量化，关键字段必须人工核对。没有新增首页卡片或一级导航，手机沿用现有温暖配色和文字标签。
+
+详细用法、全部新增接口及12工具说明见 [docs/PRODUCT_KNOWLEDGE.md](docs/PRODUCT_KNOWLEDGE.md)，维护与来源见 [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md)、[docs/SOURCE_CATALOG.md](docs/SOURCE_CATALOG.md)，引擎、模型许可和校验信息见 [docs/OCR_LICENSES.md](docs/OCR_LICENSES.md)。知识全部未经兽医审核；真实模型、地图、PostgreSQL实机、Docker构建和原生Safari仍在未验证范围。源码包使用 `python scripts/package_source.py` 更新，含配置、测试、许可与设计证据，排除本机数据和密钥。

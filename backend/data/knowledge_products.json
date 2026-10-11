@@ -1,0 +1,778 @@
+[
+  {
+    "id": "food-adequacy",
+    "title": "主粮与补充食品：先看营养适用声明",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "主粮",
+      "补充食品",
+      "完整",
+      "营养适用"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n主粮需要覆盖对应物种和阶段的营养需求；零食、补充食品或单一肉类不能仅因宠物爱吃就承担完整日粮。\n\n## 实际核对步骤\n在包装上找完整或补充性食品的声明，抄下原文、适用物种和阶段；没有声明就向厂家索取资料，不把商品标题中的“主食级”当作已核实证据。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n美国AAFCO声明用于解释美国标签，不自动证明中国合规；应用不核发认证或判断一个品牌所有配方。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "FDA",
+        "url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/complete-and-balanced-pet-food",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "FDA",
+    "source_url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/complete-and-balanced-pet-food",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-stage",
+    "title": "幼龄、成年与孕哺：适用阶段怎样核对",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "幼猫粮",
+      "幼犬粮",
+      "阶段",
+      "孕哺"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n生命阶段不同，食物适用范围也不同。成年维持食物不能自动承担幼龄或孕哺需求，特殊健康状态还需要专业要求。\n\n## 实际核对步骤\n记录年龄及估计依据、是否孕哺、厂家阶段声明。成长速度或老年标签不能单独决定数量；查看专业饮食建议是否与商品说明冲突。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n品种名称或体形宣传不能替代营养适用声明；成长、孕哺及疾病方案交由兽医评估。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "FDA",
+        "url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/complete-and-balanced-pet-food",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "FDA",
+    "source_url": "https://www.fda.gov/animal-veterinary/animal-health-literacy/complete-and-balanced-pet-food",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-labels",
+    "title": "看懂包装：配料、保证分析与厂家资料",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "配料",
+      "标签",
+      "保证分析",
+      "比较",
+      "无谷"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n配料表、保证分析、营养适用声明与热量承担不同作用。第一位配料、肉含量宣传和包装档次不能单独证明产品质量。\n\n## 实际核对步骤\n抄录具体配方与市场版本。营养数值要保留单位及≥、≤或典型值；向厂家询问配方人员、质量控制和完整营养分析，资料无法取得时保留缺口。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n保证最小或最大值不是实测值，不据此给出精准营养排名；“WSAVA认证”不能作为应用生成的背书。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "WSAVA",
+        "url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2021版选粮指南；2026-10-11核对",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+    "source_version": "2021版选粮指南；2026-10-11核对",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-energy",
+    "title": "热量与规格：kcal、kJ、按份怎样换算",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "热量",
+      "kcal",
+      "kJ",
+      "规格",
+      "每份"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n可比较的成本与喂食克数需要明确能量密度。包装可能写每100克、每公斤或每份，不能省略单位。\n\n## 实际核对步骤\n先确认是代谢能及相应单位。1 kcal = 4.184 kJ；每公斤值除以10得到每100克值。每份必须有该份克重，杯、勺或罐不能凭经验猜重量。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n缺失能量时只能比较按克成本，不能编造每日热量或将保证分析推算成精确能量。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "WSAVA",
+        "url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2021版选粮指南；2026-10-11核对",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+    "source_version": "2021版选粮指南；2026-10-11核对",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-formats",
+    "title": "干粮、湿粮与混合喂食：比较真正的差异",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "干粮",
+      "湿粮",
+      "罐头",
+      "混合喂食"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n食品形态影响含水量、储存和使用便利性，但任一形态都需要核对营养适用与实际摄入。罐头可能是主粮，也可能是补充食品。\n\n## 实际核对步骤\n分别记录各食品热量和实际克数，把零食计入总量；混合时使用用户确认的能量分配，记录食欲和排泄变化。开封后的处理按标签，不以常温放置时长套用所有产品。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n不能把干粮自动视为洁牙治疗，也不能凭湿粮百分比与干粮直接比较营养高低。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-treats",
+    "title": "零食与训练奖励：好用，也要算入饮食",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "零食",
+      "奖励",
+      "猫条",
+      "训练"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n零食用于互动和训练，通常不承担完整主粮的作用。实际风险取决于总摄入、配方、吞咽方式及个体健康。\n\n## 实际核对步骤\n记录每种奖励名称、能量和每日克数；多人喂食用同一份记录。也可以把已确定日粮中的一部分用于奖励，避免反复追加。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n营养风险筛查包括额外食物摄入。具体上限及限制结合当前营养资料或兽医要求，不按品种写死。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "AAHA",
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "AAHA",
+    "source_url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-raw",
+    "title": "冻干与生食：加工名不能证明安全",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "冻干",
+      "生食",
+      "raw",
+      "细菌"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n冻干描述加工方式，不保证灭菌或营养完整。未充分加热的动物蛋白及其制品可能携带让宠物和家人生病的病原。\n\n## 实际核对步骤\n查看是否为生食、厂家杀菌与质量控制资料、完整食品声明和保存要求。处理食物前后清洁双手，器具和接触面按标签处理，儿童接触须监督。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\nCDC不建议给猫狗喂生食及生食零食；本应用对已知生食标为需谨慎，不把未知加工方式写成已安全。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "CDC",
+        "url": "https://www.cdc.gov/healthy-pets/about/pet-food-safety.html",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "CDC",
+    "source_url": "https://www.cdc.gov/healthy-pets/about/pet-food-safety.html",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-allergy",
+    "title": "无谷与过敏：先分清证据和宣传",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "无谷",
+      "过敏",
+      "谷物",
+      "低敏"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n瘙痒或肠胃异常可能有多种原因。无谷、单一蛋白或低敏宣传不能直接证明当前宠物不会过敏。\n\n## 实际核对步骤\n记录具体症状、开始时间、所有食物和零食、既往专业评估。若需要排除饮食试验，遵循兽医要求并同时管理零食和其他入口。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n应用不凭配料给出确定过敏诊断；有过敏史时比较结论进入需专业评估，原配方和兽医限制必须保留。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/food-allergies",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/food-allergies",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-homemade",
+    "title": "自制与补充剂：完整饮食需要哪些依据",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "自制",
+      "补充剂",
+      "维生素",
+      "钙粉"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n自制饭的食材看起来丰富，也不代表营养完整；补充剂可以改变总摄入，不能自动叠加在完整主粮上。\n\n## 实际核对步骤\n如自制是主食，带上完整食谱、克重、制作和保存方法，请兽医或兽医营养专业人员评估。补充剂记录产品及剂量来源，处方和专业建议不由应用修改。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n本应用不生成治疗食谱或补充剂剂量，不以网络食谱替代个体专业方案。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "CDC",
+        "url": "https://www.cdc.gov/healthy-pets/about/pet-food-safety.html",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "CDC",
+    "source_url": "https://www.cdc.gov/healthy-pets/about/pet-food-safety.html",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-transition",
+    "title": "换粮前后：怎样留出可判断的观察记录",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "换粮",
+      "适应",
+      "观察",
+      "食欲"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n换粮影响接受度与消化观察。准备阶段要确认当前食物、换粮原因和专业限制，疾病或持续不适先咨询兽医。\n\n## 实际核对步骤\n记录旧新配方、每日实际比例、摄入、呕吐及排泄。一次尽量只调整一个变量；出现不适时保留标签和时间线，停止继续盲目试换。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n不规定所有宠物统一换粮天数，应用只整理记录与资料；严重不适时求助优先于试吃或产品比较。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "food-budget",
+    "title": "粮和零食怎样算预算：克价、热量价与损耗",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "food",
+    "topic": "食物选购",
+    "keywords": [
+      "预算",
+      "价格",
+      "成本",
+      "比较",
+      "多少钱"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫狗食品选购与用户指定配方比较。判断需要包装原文和个体资料，缺失内容明确留空。\n\n## 判断依据\n预算比较应针对具体配方、规格和实际成交价。便宜或昂贵本身不能证明适合，价格数据也不能代表未来行情。\n\n## 实际核对步骤\n计算每100克价格；能量单位可靠时再算每100kcal价格。每日成本仅采用确认的实际用量；缺失用量不使用品种估计，并分别记录零食、运费及开封损耗。\n\n## 需要记录什么\n1. 产品全名、具体配方、销售市场、包装规格及标签日期。\n2. 宠物物种、年龄依据、当前食物和已有专业饮食限制。\n3. 原文、单位、数值来源与实际使用情况，输入确认不代表厂家已经被应用核实。\n\n## 怎样比较和控制成本\n先筛掉与用途或个体条件不匹配的选项，再比较信息完整度、便利性和实际成本。按用户提供价格注明日期；没有能量或用量时保留无法计算的项目，不补造数值。\n\n## 注意事项与资料边界\n比较结果注明价格币种和日期，营养量来自后端，品牌宣传不能改变规则。\n这篇是中文编辑摘要及原创核对清单，未经兽医审核。来源只支持相应原则，不表示机构为所比较产品背书。",
+    "references": [
+      {
+        "organization": "WSAVA",
+        "url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+        "supports": "本篇判断原则；具体资料核对与预算步骤为原创",
+        "version": "2021版选粮指南；2026-10-11核对",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "WSAVA",
+    "source_url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+    "source_version": "2021版选粮指南；2026-10-11核对",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-bowls",
+    "title": "食水器具：稳定、易清洁与实际接受度",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "食盆",
+      "水碗",
+      "饮水机"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n选择能稳定放置、方便拆洗的器具，观察宠物能否自然进食饮水。饮水机必须检查泵、滤芯和停电时可用水源，不能把流动水当作医疗措施。\n\n## 购买前核对\n记录容积、可拆结构、材料标注及清洁方法；划伤、破损或难以清洁时评估替换。预算同时包含滤芯、电耗和清洁时间。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "CDC",
+        "url": "https://www.cdc.gov/healthy-pets/about/cleaning-and-disinfecting-pet-supplies.html",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "CDC",
+    "source_url": "https://www.cdc.gov/healthy-pets/about/cleaning-and-disinfecting-pet-supplies.html",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-litter",
+    "title": "猫砂与砂盆：尺寸、进出和使用偏好",
+    "species": [
+      "cat"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "猫砂",
+      "猫砂盆",
+      "砂盆"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n砂盆要让猫能舒适转身和进出，位置安静且能接近。香味、封闭或自动功能不保证更受欢迎，老人猫或行动困难者还需考虑入口。\n\n## 购买前核对\n比较内尺寸、边缘高度、粉尘和清理方式，新砂先观察接受度。自动盆核对安全设计、适用体重与清洁步骤，卡阻或异常立即停用；预算包含补砂、耗材及垃圾处理。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-house-soiling",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-house-soiling",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-carriers",
+    "title": "航空箱与笼箱：实测身体，练习进入",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "航空箱",
+      "笼箱",
+      "运输",
+      "尺寸"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n运输或休息的用途不同，要核对宠物能否舒适站立、转身与躺下，通风、锁扣和提手是否可靠。运营方运输规则另行核对，休息箱不能当作惩罚。\n\n## 购买前核对\n实测身体尺寸和体重，核对内部尺寸与承重。让宠物逐步自愿靠近、进入并获得奖励；门锁、底板或拉链损坏时更换，预算包括垫材和清洁。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-beds",
+    "title": "窝垫：能休息、能退出、能清洗",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "窝",
+      "床垫",
+      "保暖",
+      "防滑"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n休息用品首先要适应真实睡姿、环境温度和进出能力。厚毛、短头、年老或行动困难个体的舒适需求不同，不能只按品种购买。\n\n## 购买前核对\n查看内部尺寸、支撑、防滑、可拆洗及吞咬风险。电热或降温用品必须按警示使用并保留离开的空间，不能覆盖医疗保暖需求；预算含清洗干燥与替换。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-scratch",
+    "title": "抓板与猫爬架：方向、稳定和承重",
+    "species": [
+      "cat"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "抓板",
+      "猫爬架",
+      "攀爬",
+      "抓挠"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n抓挠是正常行为，先观察偏好的方向、材质和位置，再提供替代。高大的架子若晃动或无法安全上下，可能不如稳定的低设施。\n\n## 购买前核对\n比较底座、固定方式、单层面积与承重，放在观察到的活动位置。毛绒、麻绳和连接件破损时检查吞食风险，预算计算替换抓面而非只比整架价格。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "Cornell 兽医学院",
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Cornell 兽医学院",
+    "source_url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-toys",
+    "title": "互动与啃咬玩具：尺寸、监督和替换",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "玩具",
+      "啃咬",
+      "逗猫棒",
+      "益智"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n玩具按实际口型、玩法和破坏方式选择。容易吞入的小件、脱落发声器、绳线等需要特别检查；猫狗的游戏方式也不同。\n\n## 购买前核对\n首次使用有人观察，破损即收起。逗猫棒结束后收纳，不留下可吞绳线；啃咬用品不能承诺任何犬都不会噎住或损伤牙齿，预算含替换与清洗。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "AKC",
+        "url": "https://www.akc.org/canine-partners/a-guide-to-toy-shopping-for-your-pup/",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "AKC",
+    "source_url": "https://www.akc.org/canine-partners/a-guide-to-toy-shopping-for-your-pup/",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-harness",
+    "title": "牵引与胸背：实测、防脱和场景",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "胸背",
+      "牵引",
+      "项圈",
+      "防脱"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n选择重点是贴合、防脱和不妨碍自然活动。处罚或疼痛装置不替代奖励式训练，猫的户外适应需另外评估，不能直接套用犬散步流程。\n\n## 购买前核对\n核对胸围、颈围、扣具及调节范围，在安全室内试穿并观察皮肤摩擦和动作。夜间、运输与日常散步用途分别确认，预算含磨损替换；防脱不是无限牵引或无人拴养保证。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "AVSAB",
+        "url": "https://avsab.org/resources/position-statements/",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "AVSAB",
+    "source_url": "https://avsab.org/resources/position-statements/",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-grooming",
+    "title": "梳洗工具：被毛、皮肤与合作程度",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "梳子",
+      "洗护",
+      "指甲剪",
+      "毛结"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n工具按毛长、密度、皮肤状况和配合程度选择。硬拉毛结、频繁刺激性清洗或把皮肤问题归为脏都可能增加不适。\n\n## 购买前核对\n先试一小块并记录接受度，严重毛结交专业人员处理。洗护查看物种适用、配方与警示，疾病皮肤遵循兽医安排；预算除工具还含专业护理与干燥时间。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "Merck Veterinary Manual",
+        "url": "https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "Merck Veterinary Manual",
+    "source_url": "https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-dental",
+    "title": "口腔用品：刷牙练习与专业检查",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "牙刷",
+      "牙膏",
+      "洁牙",
+      "口腔用品"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n家庭口腔护理从愿意接受口周触碰开始；工具按口腔尺寸与个体耐受选择，不能用咬胶、玩具或无麻醉刮牙替代必要的专业检查。\n\n## 购买前核对\n确认物种适用的刷具和清洁产品，不自行配药。记录口臭、红肿、流涎、咀嚼变化或疼痛；明显不适先求助。比较耗材成本与可坚持的操作，宣传洁牙不等于已治疗疾病。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "AVMA",
+        "url": "https://avma.org/PetDental",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://avma.org/PetDental",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  },
+  {
+    "id": "supply-cleaning",
+    "title": "环境清洁用品：用途、稀释和接触安全",
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "content_kind": "supplies",
+    "topic": "用品选购",
+    "keywords": [
+      "清洁剂",
+      "消毒",
+      "除味",
+      "精油"
+    ],
+    "life_stages": [
+      "all"
+    ],
+    "breed_ids": [],
+    "body": "适用于猫、狗的用品选择。先确认用途和个体条件，再比较具体规格，不能凭品牌或装饰判断好坏。\n\n## 是否需要与适用条件\n去污与消毒用途不同，先阅读产品适用表面、稀释、接触和通风要求。“宠物友好”字样不能免除警示，精油类产品也不能自动认为安全。\n\n## 购买前核对\n原包装标注并放到宠物无法接近的地方；处理时隔开宠物，按说明完成冲洗、干燥和通风后再开放。不要自行混合清洁化学品；预算包括实际稀释用量与耗材。\n\n## 使用与维护清单\n1. 保存说明、型号、尺寸、警示和清洁方法，第一次使用记录接受情况。\n2. 清洁、拆装后核对结构与残留，不能改变原用途或忽略标签条件。\n3. 出现损坏、不适或无法可靠清洁时停止继续使用，记录原因并决定替换或专业求助。\n\n## 预算怎么比较\n用用户填写的真实价格、耗材补购和预计替换周期计算，预计寿命只是输入假设。优先考虑必要功能和能持续维护的选项，不把高价格、流行外形或“专属品种”当作质量证据。\n\n## 来源与边界\n来源支持相应照护或安全原则，尺寸记录、选购顺序和预算清单为本项目原创整理。资料不足的产品显示缺口，不声称认证、安全保证或厂家已核实；健康问题需要专业评估。未经兽医审核。",
+    "references": [
+      {
+        "organization": "AVMA",
+        "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+        "supports": "对应的照护、安全或训练原则；选购清单为原创整理",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-11"
+      }
+    ],
+    "source_organization": "AVMA",
+    "source_url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+    "source_version": "2026-10-11网页核对；原页未标发布日期",
+    "published_at": null,
+    "ingested_at": "2026-10-11T00:00:00+00:00",
+    "updated_at": "2026-10-11T00:00:00+00:00",
+    "review_status": "editorial_summary_unreviewed"
+  }
+]

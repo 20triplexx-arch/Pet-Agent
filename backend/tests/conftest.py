@@ -7,6 +7,7 @@ from app.main import app
 from app.api.deps import get_db
 from scripts.import_knowledge import import_file
 from app.core.config import settings
+from app.breeds import seed_breeds
 
 
 @pytest.fixture(autouse=True)
@@ -30,9 +31,12 @@ def db(tmp_path):
 
     SQLModel.metadata.create_all(e)
     with Session(e) as s:
+        seed_breeds(s)
         import_file(Path("data/knowledge.json"), s)
         import_file(Path("data/knowledge_nutrition.json"), s)
         import_file(Path("data/knowledge_care.json"), s)
+        import_file(Path("data/knowledge_breeds.json"), s)
+        import_file(Path("data/knowledge_products.json"), s)
     yield e
     e.dispose()
 

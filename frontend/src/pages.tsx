@@ -48,6 +48,7 @@ import {
 } from "./api";
 import { useAction, useEditorFocus, useRemote } from "./hooks";
 import type { MapUsage } from "./care-api";
+import type { BreedList } from "./product-api";
 import {
   Panel,
   State,
@@ -319,6 +320,7 @@ const blankPet = {
   name: "",
   species: "cat",
   breed: "",
+  breed_id: "",
   birthday: "",
   estimated_age_months: "",
   sex: "unknown",
@@ -337,6 +339,17 @@ export function Pets() {
     [show, setShow] = useState(false),
     [form, setForm] = useState<Record<string, string>>({ ...blankPet }),
     [other, setOther] = useState("");
+  const breeds = useRemote<BreedList>(
+    "/breeds?species=" + encodeURIComponent(form.species),
+  );
+  const breedCandidates = useRemote<BreedList>(
+    form.breed
+      ? "/breeds?species=" +
+          encodeURIComponent(form.species) +
+          "&q=" +
+          encodeURIComponent(form.breed)
+      : null,
+  );
   const editor = useEditorFocus(show);
   const edit = (p: Pet | null, trigger: HTMLElement) => {
     editor.beginEditing(trigger);
@@ -359,7 +372,12 @@ export function Pets() {
         : "",
     );
   };
-  const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const update = (k: string, v: string) =>
+    setForm((f) => ({
+      ...f,
+      [k]: v,
+      ...(k === "species" || k === "breed" ? { breed_id: "" } : {}),
+    }));
   return (
     <>
       <PageTitle
@@ -389,7 +407,7 @@ export function Pets() {
                 <div className="pet-identity">
                   <h2>{p.name}</h2>
                   <p>
-                    {p.breed || "品种未知"} ·{" "}
+                    {p.breed_name || p.breed || "品种未知"} ·{" "}
                     {p.age_months === null
                       ? "年龄未知"
                       : p.age_months + " 个月"}{" "}
@@ -422,6 +440,17 @@ export function Pets() {
                     营养资料与方案 <ArrowUpRight size={14} />
                   </Link>
                 )}
+                <Link
+                  className="care-link"
+                  to={
+                    "/knowledge?species=" +
+                    p.species +
+                    "&content_kind=breed" +
+                    (p.breed_id ? "&breed_id=" + p.breed_id : "")
+                  }
+                >
+                  品种知识 <ArrowUpRight size={14} />
+                </Link>
                 <Button onClick={(e) => edit(p, e.currentTarget)}>
                   <Pencil size={15} />
                   编辑
@@ -554,6 +583,28 @@ export function Pets() {
                     onChange={(e) => update("breed", e.target.value)}
                   />
                 </label>
+                {["cat", "dog"].includes(form.species) && (
+                  <label>
+                    规范品种（确认后关联）
+                    <select
+                      name="breed_id"
+                      value={form.breed_id}
+                      onChange={(e) => update("breed_id", e.target.value)}
+                    >
+                      <option value="">未知 / 暂不关联</option>
+                      {(breeds.data?.items || []).map((b) => (
+                        <option key={b.id} value={b.id}>
+                          {b.name}
+                        </option>
+                      ))}
+                    </select>
+                    <small>
+                      {breedCandidates.data?.note ||
+                        "保留原始品种文字。家猫、田园犬和混种也有照护入口。"}
+                    </small>
+                    <State {...breeds} retry={breeds.reload} />
+                  </label>
+                )}
                 <label>
                   生日
                   <input
@@ -1321,28 +1372,31 @@ export function Chat() {
                 {m.role === "assistant" && (
                   <>
                     <Sources items={m.metadata_json.sources || []} />
-                    {m.metadata_json.cards?.map(
-                      (card) =>
-                        [
-                          "/nutrition",
-                          "/hospitals",
-                          "/hospitals#visit-summary",
-                        ].includes(card.href) && (
-                          <div className="agent-action" key={card.type}>
-                            <Link
-                              to={card.href}
-                              state={{ urgent: m.metadata_json.urgent }}
-                            >
-                              {card.title} <ArrowUpRight size={16} />
-                            </Link>
-                            {card.text && (
-                              <details>
-                                <summary>查看已整理摘要</summary>
-                                <pre>{card.text}</pre>
-                              </details>
-                            )}
-                          </div>
-                        ),
+                    {m.metadata_json.cards?.map((card) =>
+                      [
+                        "/nutrition",
+                        "/hospitals",
+                        "/hospitals#visit-summary",
+                        "/products",
+                      ].includes(card.href) ||
+                      /^\/knowledge(?:\/[^/?#]+)?(?:\?[^#]*)?$/.test(
+                        card.href,
+                      ) ? (
+                        <div className="agent-action" key={card.type}>
+                          <Link
+                            to={card.href}
+                            state={{ urgent: m.metadata_json.urgent }}
+                          >
+                            {card.title} <ArrowUpRight size={16} />
+                          </Link>
+                          {card.text && (
+                            <details>
+                              <summary>查看已整理摘要</summary>
+                              <pre>{card.text}</pre>
+                            </details>
+                          )}
+                        </div>
+                      ) : null,
                     )}
                     {m.metadata_json.draft && (
                       <div className="draft-preview">
@@ -1471,10 +1525,26 @@ export function Knowledge() {
     [query] = useSearchParams(),
     action = useAction();
   const [q, setQ] = useState(""),
-    [species, setSpecies] = useState(pet?.species || ""),
+    [species, setSpecies] = useState(
+      query.get("species") || pet?.species || "",
+    ),
     [topic, setTopic] = useState(query.get("topic") || ""),
-    [favorites, setFavorites] = useState(false);
-  useEffect(() => setSpecies(pet?.species || ""), [pet?.id, pet?.species]);
+    [favorites, setFavorites] = useState(false),
+    [contentKind, setContentKind] = useState(query.get("content_kind") || ""),
+    [breedId, setBreedId] = useState(
+      query.get("breed_id") ||
+        (query.get("species") && query.get("species") !== pet?.species
+          ? ""
+          : pet?.breed_id || ""),
+    ),
+    [lifeStage, setLifeStage] = useState(""),
+    [visible, setVisible] = useState(24);
+  const breeds = useRemote<BreedList>(
+    "/breeds?" + new URLSearchParams({ species }).toString(),
+  );
+  useEffect(() => {
+    setVisible(24);
+  }, [species, q, topic, favorites, contentKind, breedId, lifeStage]);
   const path =
     "/knowledge?" +
     new URLSearchParams({
@@ -1482,6 +1552,9 @@ export function Knowledge() {
       species,
       topic,
       favorites: String(favorites),
+      content_kind: contentKind,
+      breed_id: breedId,
+      life_stage: lifeStage,
     }).toString();
   const items = useRemote<Article[]>(!params.id ? path : null),
     detail = useRemote<Article>(params.id ? "/knowledge/" + params.id : null);
@@ -1556,6 +1629,17 @@ export function Knowledge() {
               <a href={detail.data.source_url} target="_blank" rel="noreferrer">
                 查看专业来源原文 ↗
               </a>
+              {detail.data.references?.map((r, i) => (
+                <div className="article-reference" key={r.url + i}>
+                  <a href={r.url} target="_blank" rel="noreferrer">
+                    {r.organization} ↗
+                  </a>
+                  <p>支持内容：{r.supports}</p>
+                  <small>
+                    {r.version} · 核对 {r.checked_at}
+                  </small>
+                </div>
+              ))}
               <small>
                 中文内容为公开资料的原创摘要与应用操作清单，具体建议需结合宠物个体和兽医意见。
               </small>
@@ -1568,9 +1652,34 @@ export function Knowledge() {
     <>
       <PageTitle
         title="了解多一点，照护安心一点"
-        desc="按物种检索专业公开资料的中文摘要。每一条，都有来源。"
-      />
+        desc="先选猫或狗，再了解品种、食物与日常用品。"
+      >
+        <Link className="care-link" to="/products">
+          比较具体食品与用品 <ArrowUpRight size={15} />
+        </Link>
+      </PageTitle>
       <Feedback action={action} />
+      <div className="knowledge-domains" aria-label="知识分类">
+        {[
+          ["", "全部"],
+          ["care", "通用照护"],
+          ["breed", "品种"],
+          ["food", "食物"],
+          ["supplies", "用品"],
+        ].map(([value, label]) => (
+          <Button
+            key={value}
+            aria-pressed={contentKind === value}
+            className={contentKind === value ? "primary" : ""}
+            onClick={() => {
+              setContentKind(value);
+              setTopic("");
+            }}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
       <Panel className="filters">
         <label className="search-label">
           搜索知识
@@ -1586,7 +1695,11 @@ export function Knowledge() {
           <select
             aria-label="知识物种"
             value={species}
-            onChange={(e) => setSpecies(e.target.value)}
+            onChange={(e) => {
+              setSpecies(e.target.value);
+              setBreedId("");
+              setLifeStage("");
+            }}
           >
             <option value="">猫与狗</option>
             <option value="cat">猫</option>
@@ -1600,9 +1713,33 @@ export function Knowledge() {
           照护主题
           <select value={topic} onChange={(e) => setTopic(e.target.value)}>
             <option value="">全部主题</option>
-            {topics.map((t) => (
+            {[...topics, "品种照护", "食物选购", "用品选购"].map((t) => (
               <option key={t}>{t}</option>
             ))}
+          </select>
+        </label>
+        <label>
+          品种筛选
+          <select value={breedId} onChange={(e) => setBreedId(e.target.value)}>
+            <option value="">全部品种 / 通用知识</option>
+            {breeds.data?.items.map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          生命阶段
+          <select
+            value={lifeStage}
+            onChange={(e) => setLifeStage(e.target.value)}
+          >
+            <option value="">全部阶段</option>
+            <option value={species === "dog" ? "puppy" : "kitten"}>幼龄</option>
+            <option value="young_adult">年轻成年</option>
+            <option value="mature_adult">成熟成年</option>
+            <option value="senior">老年</option>
           </select>
         </label>
         <Button
@@ -1613,6 +1750,7 @@ export function Knowledge() {
           {favorites ? "我的收藏" : "查看收藏"}
         </Button>
       </Panel>
+      <State {...breeds} retry={breeds.reload} />
       <State {...items} retry={items.reload} />
       {items.data && !items.data.length && (
         <Empty>
@@ -1620,7 +1758,7 @@ export function Knowledge() {
         </Empty>
       )}
       <div className="knowledge-grid">
-        {items.data?.map((a) => (
+        {items.data?.slice(0, visible).map((a) => (
           <article key={a.id} className="knowledge-row">
             <div className="knowledge-row-content">
               <Link to={"/knowledge/" + a.id}>
@@ -1660,6 +1798,11 @@ export function Knowledge() {
           </article>
         ))}
       </div>
+      {items.data && visible < items.data.length && (
+        <Button onClick={() => setVisible((v) => v + 24)}>
+          继续阅读（还有 {items.data.length - visible} 篇）
+        </Button>
+      )}
     </>
   );
 }

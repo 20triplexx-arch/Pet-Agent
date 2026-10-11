@@ -1,10 +1,20 @@
 import json, argparse
 from pathlib import Path
 from urllib.parse import urlparse
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 from sqlmodel import Session
 from app.core.db import engine
-from app.models import KnowledgeArticle
+from app.models import KnowledgeArticle, Breed
+
+
+class Reference(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    organization: str = Field(min_length=1)
+    url: HttpUrl
+    supports: str = Field(min_length=1)
+    version: str = Field(min_length=1)
+    checked_at: str
 
 
 class ArticleImport(BaseModel):
@@ -23,6 +33,9 @@ class ArticleImport(BaseModel):
     ingested_at: str
     updated_at: str
     review_status: str = "editorial_summary_unreviewed"
+    content_kind: Literal["care", "breed", "food", "supplies"] = "care"
+    breed_ids: list[str] = Field(default_factory=list)
+    references: list[Reference] = Field(default_factory=list)
 
 
 def import_file(path, session):
@@ -35,6 +48,12 @@ def import_file(path, session):
             raise ValueError("来源需要 HTTPS")
         if any(s in ("bird", "turtle", "fish", "hamster") for s in a["species"]):
             raise ValueError("这些大类必须细分到具体物种")
+        for bid in a["breed_ids"]:
+            b = session.get(Breed, bid)
+            if not b or b.species not in a["species"]:
+                raise ValueError("知识品种必须与已登记物种匹配")
+        if any(urlparse(r["url"]).scheme != "https" for r in a["references"]):
+            raise ValueError("多来源也需要 HTTPS")
     for a in validated:
         existing = session.get(KnowledgeArticle, a["id"])
         if existing:

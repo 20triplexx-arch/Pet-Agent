@@ -34,6 +34,7 @@ export {
   NavigationArrow as Navigation,
   Phone,
   FileText,
+  Scan as ScanText,
   DotsThree,
   X,
 } from "@phosphor-icons/react";
