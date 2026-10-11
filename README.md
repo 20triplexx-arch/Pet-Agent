@@ -2,6 +2,8 @@
 
 React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官方全栈模板 0.12.0 为基线，MIT 出处与实际复用见 [UPSTREAM.md](UPSTREAM.md)。已适配并验证 Python 3.13、Node 24，使用 npm 锁文件。
 
+代码仓库：[20triplexx-arch/Pet-Agent](https://github.com/20triplexx-arch/Pet-Agent)，GitHub发布分支为 `main`。本地整合工作分支为 `Pet-Agent`，向该仓库发布时使用 `git push origin HEAD:main`。仓库包含源码、迁移、知识、测试、许可、配置示例与启动脚本；本地数据库、签名密钥、实际环境配置、依赖目录和生成的源码包由 `.gitignore` 排除。
+
 ## 给后续模型的接续说明
 
 本节是项目的长期交接记录，用于在新会话或上下文丢失后恢复背景。文档更新日期：**2026-10-11（Asia/Shanghai）**。后续工作应结合用户最新要求与当前代码；这里记录的是已经确认的选择和历史状态，不代表服务此刻仍在运行。
