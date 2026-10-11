@@ -7,7 +7,8 @@ from zipfile import ZIP_DEFLATED, ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_DIRS = {
     "node_modules", "storage", "dist", "test-results", "playwright-report",
-    "__pycache__", ".pytest_cache", ".git",
+    "__pycache__", ".pytest_cache", ".ruff_cache", ".mypy_cache", ".git",
+    ".venv", ".venv313", "venv", ".tox", "htmlcov", "coverage",
 }
 ROOT_FILES = [
     "README.md", "TEST_RESULTS.md", "UPSTREAM.md", "PRODUCT.md", "DESIGN.md",

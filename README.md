@@ -20,7 +20,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 项目还包含十二个 Pydantic AI 工具、系统提示词、89 篇有专业来源的分节知识与操作清单、可追溯风险规则、示例猫狗档案、Alembic 初始及增量迁移、初始化与知识导入脚本、锁定依赖、环境变量示例、Docker 配置以及源码包 `artifacts/chongban-mvp.zip`。第一批 Agent 升级已实现营养资料/本地评估/方案替换、医院查询适配和就医摘要；使用方法及边界见下方“第一批 Agent 升级”。
 
-**当前整合验收（2026-10-11）**：pytest **106 passed（66.07秒）**，Playwright 桌面/手机 **52 passed（2.0分钟，各26项）**，TypeScript/Vite 生产构建通过。新版 UI 与89篇知识、24项品种、产品比较和本地 OCR 同时保留。修正测试固定端口，并补齐对话的品种指南/产品行动入口及浏览器断言；产品页纳入六种宽度和200%等效视口检查。隔离服务使用8014端口和临时数据库，原数据未参与写入测试。源码包314文件逐字节核对通过；完整记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。
+**当前整合验收（2026-10-11）**：pytest **106 passed（66.07秒）**，Playwright 桌面/手机 **52 passed（2.0分钟，各26项）**，TypeScript/Vite 生产构建通过。新版 UI 与89篇知识、24项品种、产品比较和本地 OCR 同时保留。修正测试固定端口，并补齐对话的品种指南/产品行动入口及浏览器断言；产品页纳入六种宽度和200%等效视口检查。隔离服务使用8014端口和临时数据库，原数据未参与写入测试。最终源码包330文件，补齐历史原始插画及审查证据、排除工具缓存，逐字节核对通过；完整记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 **合并前验收（2026-10-11，猫狗品种、食物与用品）**：pytest **106 passed（71.91秒）**，Playwright 桌面/手机 **32 passed（1.4分钟）**，TypeScript/Vite 构建通过。本机安装并验证 RapidOCR 3.10.0 / ONNX Runtime CPU 1.31.0，包含真实中文英文、小数、百分比、旋转及模糊图片识别。已有运行库备份后增量迁移，14张业务表按原列逐行保持一致，登录密钥保留，知识44→89、品种登记24项。SQLite升级/回退及PostgreSQL离线迁移SQL编译通过。产品比较、明确保存、营养资料交接和两端页面回归通过；没有调用付费模型、识图API或真实地图。新增流程见 [docs/PRODUCT_KNOWLEDGE.md](docs/PRODUCT_KNOWLEDGE.md)，完整证据及限制见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
