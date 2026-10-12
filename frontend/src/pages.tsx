@@ -47,6 +47,9 @@ import {
   type Source,
 } from "./api";
 import { useAction, useEditorFocus, useRemote } from "./hooks";
+import { AnswerContent } from "./answer-content";
+import { ChatSupplement, type Supplement } from "./chat-supplement";
+import type { ModelQuota } from "./api";
 import type { MapUsage } from "./care-api";
 import type { BreedList } from "./product-api";
 import {
@@ -1184,6 +1187,15 @@ export function Chat() {
     [text, setText] = useState(query.get("q") || ""),
     [minutes, setMinutes] = useState(30),
     [localMessages, setLocalMessages] = useState<Message[]>([]);
+  const [context, setContext] = useState<Supplement>({});
+  const [depth, setDepth] = useState("auto");
+  const [contextOpen, setContextOpen] = useState(false);
+  const [copied, setCopied] = useState("");
+  const [copyError, setCopyError] = useState("");
+  const supplementRef = useRef<HTMLDetailsElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const quota = useRemote<ModelQuota>("/usage/quota");
+  useEffect(() => { if (contextOpen) supplementRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }, [contextOpen]);
   const messageListRef = useRef<HTMLDivElement>(null);
   const chatRootRef = useRef<HTMLDivElement>(null);
   const followLatestRef = useRef(true);
@@ -1224,6 +1236,7 @@ export function Chat() {
     if (messages.data) setLocalMessages(messages.data);
   }, [messages.data]);
   const send = (value: string) => {
+    if (value.length > 12000 || action.busy) return;
     followLatestRef.current = true;
     setHasNewMessages(false);
     action.run(
@@ -1236,6 +1249,8 @@ export function Chat() {
             conversation_id: cid,
             text: value,
             available_minutes: minutes,
+            context,
+            answer_depth: depth,
           },
           key,
         );
@@ -1255,8 +1270,9 @@ export function Chat() {
         ]);
         conversations.reload();
         messages.reload();
+        quota.reload();
       },
-      "回答已返回",
+      "",
       chatRootRef.current,
     );
   };
@@ -1270,7 +1286,7 @@ export function Chat() {
             : "无需建档，也可以提问猫狗普通知识。"
         }
       />
-      <div className="chat-layout" ref={chatRootRef}>
+      <div className="chat-layout deep-chat-layout" ref={chatRootRef}>
         <Panel className="chat-panel">
           <div className="chat-toolbar">
             <span className="badge green">{pet ? pet.name : "普通知识"}</span>
@@ -1283,6 +1299,8 @@ export function Chat() {
                 setHasNewMessages(false);
                 setCid(e.target.value || null);
                 setLocalMessages([]);
+                setContext({});
+                setContextOpen(false);
                 setNewChat(!e.target.value);
               }}
             >
@@ -1301,6 +1319,8 @@ export function Chat() {
                 setCid(null);
                 setNewChat(true);
                 setLocalMessages([]);
+                setContext({});
+                setContextOpen(false);
               }}
             >
               <Plus size={15} />
@@ -1368,9 +1388,14 @@ export function Chat() {
                 {m.metadata_json.urgent && m.role === "assistant" && (
                   <strong className="urgent-title">紧急就医提示</strong>
                 )}
-                <div className="message-text">{m.content}</div>
+                <div className="message-text">{m.role === "assistant" ? <AnswerContent text={m.content} sources={m.metadata_json.sources || []} /> : m.content}</div>
                 {m.role === "assistant" && (
                   <>
+                    <div className="answer-actions">
+                      <Button type="button" className="text-button" onClick={async () => { try { await navigator.clipboard.writeText(m.content); setCopied(m.id); setCopyError(""); } catch { setCopyError("复制失败，可以选中回答文字手动复制。"); } }}>{copied === m.id ? "已复制" : "复制回答"}</Button>
+                      <Button type="button" className="text-button" disabled={action.busy} onClick={() => { setText("请结合上面的资料，进一步说明适用条件、选择依据和具体执行步骤。"); setDepth("detailed"); inputRef.current?.focus(); }}>继续深入</Button>
+                    </div>
+                    {m.metadata_json.context_budget_notes?.length ? <p className="muted small">{m.metadata_json.context_budget_notes.join("；")}</p> : null}
                     <Sources items={m.metadata_json.sources || []} />
                     {m.metadata_json.cards?.map((card) =>
                       [
@@ -1447,6 +1472,7 @@ export function Chat() {
             }}
           >
             <textarea
+              ref={inputRef}
               name="text"
               aria-label="提问内容"
               placeholder={
@@ -1456,19 +1482,32 @@ export function Chat() {
               }
               value={text}
               onChange={(e) => setText(e.target.value)}
-              maxLength={4000}
               required
+              aria-describedby="chat-input-count"
+              aria-invalid={text.length > 12000}
+              disabled={action.busy}
             />
+            <div className="chat-compose-controls">
+              <label>深度<select aria-label="回答深度" value={depth} disabled={action.busy} onChange={e => setDepth(e.target.value)}><option value="auto">自动</option><option value="brief">简短</option><option value="detailed">深入</option></select></label>
+              <Button type="button" disabled={action.busy} aria-expanded={contextOpen} aria-controls="chat-supplement" onClick={() => setContextOpen(!contextOpen)}>补充资料</Button>
+              <span id="chat-input-count" role={text.length > 12000 ? "alert" : undefined} className={text.length > 12000 ? "input-over-limit" : ""}>{text.length} / 12000 字{text.length > 12000 ? "，请分次发送" : ""}</span>
+            </div>
             <div>
               <span>健康问题提供观察与就医准备建议</span>
-              <Button className="primary" disabled={action.busy} type="submit">
+              <Button className="primary" disabled={action.busy || text.length > 12000} type="submit">
                 <Send size={16} />
                 发送
               </Button>
             </div>
+            {copyError && <p role="status">{copyError}</p>}
           </form>
         </Panel>
         <div>
+            <details ref={supplementRef} className="chat-supplement" id="chat-supplement" open={contextOpen} onToggle={e => setContextOpen(e.currentTarget.open)}>
+              <summary>补充本次照护资料</summary>
+              <ChatSupplement value={context} change={setContext} busy={action.busy} />
+              <Button type="button" onClick={() => { setContextOpen(false); inputRef.current?.focus(); }}>回到提问</Button>
+            </details>
           <Panel className="chat-context">
             <details className="context-details" open>
               <summary>当前照护背景</summary>
@@ -1521,6 +1560,7 @@ export function Chat() {
 }
 export function Knowledge() {
   const { pet } = useApp(),
+    location = useLocation(),
     params = useParams(),
     [query] = useSearchParams(),
     action = useAction();
@@ -1558,6 +1598,10 @@ export function Knowledge() {
     }).toString();
   const items = useRemote<Article[]>(!params.id ? path : null),
     detail = useRemote<Article>(params.id ? "/knowledge/" + params.id : null);
+  useEffect(() => {
+    if (!detail.data || !location.hash) return;
+    try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ block: "start" }); } catch { /* Invalid hash leaves the article readable. */ }
+  }, [detail.data, location.hash]);
   const mark = (a: Article) =>
     action.run(
       async () => {
@@ -2122,6 +2166,7 @@ export function SettingsPage() {
     action = useAction();
   const status = useRemote<{ mode: string; model: string | null }>("/status"),
     mapUsage = useRemote<MapUsage>("/hospitals/usage"),
+    quota = useRemote<ModelQuota>("/usage/quota"),
     usage = useRemote<{
       requests: number;
       input_tokens: number;
@@ -2217,6 +2262,8 @@ export function SettingsPage() {
             </>
           )}
           <State {...usage} retry={usage.reload} />
+          <State {...quota} retry={quota.reload} />
+          {quota.data && <p className="model-quota">今日真实问答 {quota.data.attempted_turns} / {quota.data.daily_limit} 次，剩余 {quota.data.remaining_turns} 次；失败 {quota.data.failed_turns} 次。按上海时区计算，应用统计不是供应商账单。</p>}
           {usage.data && (
             <dl>
               <dt>已记录模型请求</dt>

@@ -68,10 +68,10 @@ def test_content_upsert_preserves_personal_bookmark(client, headers, db, tmp_pat
 def test_demo_excerpts_and_citations_are_real_and_bounded(client, headers, cat):
     reply = chat(client, headers, cat["id"], "猫抓沙发怎么办").json()
     assert reply["mode"] == "demo"
-    assert len(reply["answer"]) < 800
+    assert "步骤" in reply["answer"] or "怎样" in reply["answer"]
     assert "替代" in reply["answer"] and "1." in reply["answer"]
     assert reply["sources"][0]["id"] == "cat-scratching"
-    assert "## " not in reply["answer"]
+    assert "## " in reply["answer"] and reply["sources"][0]["sections"]
     for source in reply["sources"]:
         article = client.get("/api/v1/knowledge/" + source["id"], headers=headers).json()
         assert source["url"] == article["source_url"]

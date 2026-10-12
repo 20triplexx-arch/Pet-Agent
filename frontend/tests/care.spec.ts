@@ -149,7 +149,7 @@ test("猫狗档案和对话一起切换，来源与风险提示", async ({ page 
   );
   await expect(page.locator(".sources a").first()).toHaveAttribute(
     "href",
-    /vet.cornell.edu/,
+    /(?:vet\.cornell\.edu|aaha\.org)/,
   );
   await page.getByLabel("当前宠物").selectOption({ label: "豆包 · 狗" });
   await expect(page.locator(".message")).toHaveCount(0);

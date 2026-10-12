@@ -6,7 +6,7 @@ from sqlalchemy import create_engine, inspect
 import pytest
 from app.core.config import settings
 from sqlmodel import Session, select
-from app.models import User, Pet, CareLog, CarePlan
+from app.models import User, Pet, CareLog, CarePlan, Conversation, Message, KnowledgeArticle, Bookmark
 
 
 def test_actual_sqlite_upgrade_downgrade(tmp_path, monkeypatch):
@@ -70,4 +70,41 @@ def test_incremental_upgrade_preserves_existing_data(tmp_path, monkeypatch):
         assert s.get(Pet, "p").name == "保留猫"
         assert s.get(CareLog, "l").note == "保留记录"
         assert s.get(CarePlan, "c").provenance is None
+    engine.dispose()
+
+
+def test_deep_chat_migration_preserves_messages_and_bookmarks(tmp_path, monkeypatch):
+    import json
+    url = "sqlite:///" + str(tmp_path / "before-deep-chat.db")
+    monkeypatch.setattr(settings, "DATABASE_URL", url)
+    config = Config("alembic.ini")
+    command.upgrade(config, "20261011_products")
+    engine = create_engine(url)
+    with Session(engine) as session:
+        user = User(id="legacy-u", email="legacy-deep@example.com", hashed_password="test-hash")
+        session.add(user)
+        session.flush()
+        session.add(Pet(id="legacy-p", user_id=user.id, name="保留猫", species="cat"))
+        article = next(a for a in json.loads(Path("data/knowledge.json").read_text(encoding="utf-8")) if a["id"] == "cat-food")
+        session.add(KnowledgeArticle(**article))
+        session.flush()
+        session.add(Bookmark(id="legacy-bookmark", user_id=user.id, article_id="cat-food"))
+        session.commit()
+    with engine.begin() as connection:
+        connection.exec_driver_sql("INSERT INTO conversation (id,user_id,pet_id,created_at) VALUES ('legacy-c','legacy-u','legacy-p','2026-10-01')")
+        connection.exec_driver_sql("INSERT INTO message (id,conversation_id,role,content,metadata_json,created_at) VALUES ('legacy-m','legacy-c','user','保留观察记录','{}','2026-10-01')")
+    engine.dispose()
+    command.upgrade(config, "head")
+    engine = create_engine(url)
+    with Session(engine) as session:
+        assert session.get(Conversation, "legacy-c").summary_json == {}
+        assert session.get(Message, "legacy-m").content == "保留观察记录"
+        assert session.get(Bookmark, "legacy-bookmark").article_id == "cat-food"
+    assert "modelattempt" in inspect(engine).get_table_names()
+    engine.dispose()
+    command.downgrade(config, "20261011_products")
+    engine = create_engine(url)
+    with engine.connect() as connection:
+        assert connection.exec_driver_sql("SELECT content FROM message WHERE id='legacy-m'").scalar_one() == "保留观察记录"
+        assert connection.exec_driver_sql("SELECT COUNT(*) FROM bookmark").scalar_one() == 1
     engine.dispose()

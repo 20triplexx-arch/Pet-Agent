@@ -33,6 +33,13 @@ class AgentContext:
     authorized_payload: dict | None = None
     species_scope: str | None = None
     breed_scope: str | None = None
+    supplement: dict = field(default_factory=dict)
+    answer_depth: str = "auto"
+    resolved_depth: str = "standard"
+    effective_context: dict = field(default_factory=dict)
+    analysis: dict = field(default_factory=dict)
+    memory: dict = field(default_factory=dict)
+    model_attempt: object | None = None
 
 
 def profile(ctx):
@@ -80,10 +87,10 @@ def tool_search_pet_knowledge(ctx, query: str, topic: str | None = None):
     p = profile(ctx)
     items = search_knowledge(
         ctx.session,
-        p["species"] if p else ctx.species_scope,
+        ctx.species_scope or (p["species"] if p else None),
         query,
         topic,
-        life_stage=profile_stage(p),
+        life_stage=profile_stage(p) if p and (not ctx.breed_scope or ctx.breed_scope == p.get("breed_id")) and (not ctx.species_scope or ctx.species_scope == p["species"]) else None,
         breed_id=ctx.breed_scope or (p.get("breed_id") if p else None),
         personal=bool(p),
     )
@@ -144,6 +151,8 @@ def assess_pet_products(ctx: RunContext[AgentContext]) -> dict:
     from app.product_schemas import AssessmentInput
     from app.products import assess_products
     p = profile(ctx.deps)
+    if p and ((ctx.deps.species_scope and ctx.deps.species_scope != p["species"]) or (ctx.deps.breed_scope and ctx.deps.breed_scope != p.get("breed_id"))):
+        return {"status": "needs_info", "question": "问题对象与当前宠物不同，请选择对应宠物并提供产品资料。"}
     row = ctx.deps.session.exec(select(ProductAssessment).where(ProductAssessment.user_id == ctx.deps.user.id,
         ProductAssessment.pet_id == (p["id"] if p else None)).order_by(ProductAssessment.created_at.desc())).first()
     if not row:
@@ -192,13 +201,16 @@ def get_current_care_plans(ctx: RunContext[AgentContext]) -> list[dict]:
 
 @agent.tool(sequential=True)
 def assess_nutrition(ctx: RunContext[AgentContext]) -> dict:
-    """按已保存资料本地评估；不接受模型编造体况、热量或身份。"""
+    """评估当前用户确认的档案及会话营养资料；不写入，不接受模型编造数值。"""
     if not ctx.deps.pet_id:
         return {"status": "needs_info", "questions": ["请先选择宠物并补充营养资料。"]}
-    row = get_profile(ctx.deps.session, ctx.deps.user, ctx.deps.pet_id)
-    result = assess(ctx.deps.session, ctx.deps.user, ctx.deps.pet_id, NutritionInput.model_validate(row.data) if row else NutritionInput())
-    ctx.deps.retrieved.update({a["id"]: a for a in result["input_snapshot"]["articles"]})
-    return {k: result[k] for k in ("status", "calculation", "questions", "warnings", "sources", "conditions")}
+    p = profile(ctx.deps)
+    if ctx.deps.breed_scope and ctx.deps.breed_scope != p.get("breed_id"):
+        return {"status": "needs_info", "questions": ["问题目标与当前档案不同，不能使用当前宠物的数值评估另一只宠物。"]}
+    from app.deep_chat import nutrition_facts
+    values = ctx.deps.effective_context.get("values", ctx.deps.supplement)
+    result = nutrition_facts(ctx.deps, p, values, values.get("observations", ""))
+    return result
 
 
 @agent.tool(sequential=True)
@@ -426,7 +438,10 @@ async def respond(ctx, text, history, minutes):
             None,
         )
     ctx.species_scope = species
-    found = risks(text, species)
+    risk_text = text + " " + " ".join(v for v in ctx.supplement.values() if isinstance(v, str))
+    if ctx.supplement.get("nutrition"):
+        risk_text += " " + ctx.supplement["nutrition"].get("current_symptoms", "")
+    found = risks(risk_text, species)
     demo = settings.DEMO_MODE or not settings.MODEL_API_KEY
     if found:
         for r in found:
@@ -450,219 +465,10 @@ async def respond(ctx, text, history, minutes):
             "draft": None,
             "cards": [{"type": "hospitals", "title": "找附近宠物医院", "href": "/hospitals"}, {"type": "visit_summary", "title": "整理就医资料", "href": "/hospitals#visit-summary"}],
         }
-    if re.search(r"找.*医院|附近.*医院|推荐.*医院|医院.*推荐", text):
-        return {"answer": "可授权定位或输入城市、区县查找医院候选。接诊能力与营业情况需核实；没有接口结果时不会生成模拟医院。",
-            "mode": "demo" if demo else "tools", "urgent": False, "sources": [], "draft": None,
-            "cards": [{"type": "hospitals", "title": "查找医院", "href": "/hospitals"}]}
-    if re.search(r"就医摘要|就医资料|看医生.*资料|复诊资料", text):
-        summary = build_summary(ctx.session, ctx.user, ctx.pet_id, VisitInput()) if ctx.pet_id else None
-        return {"answer": "已根据档案与最近30天记录整理，摘要不是诊断，可在就医页面补充症状并编辑。" if summary else "请先选择宠物，再整理就医资料。",
-            "mode": "demo" if demo else "tools", "urgent": False, "sources": summary["sources"] if summary else [], "draft": None,
-            "cards": [{"type": "visit_summary", "title": "就医资料摘要", "href": "/hospitals#visit-summary", "text": summary["text"] if summary else ""}]}
-    if re.search(r"产品比较|比较.*(粮|零食|用品|产品)|推荐.*(粮|零食|用品)|什么.*(粮|零食).*好|这.*(粮|用品).*好|选粮|选.*用品", text):
-        result = assess_pet_products(RunContext(deps=ctx, model=None, usage=None, prompt=text))
-        answer = "请提供具体配方或型号、适用声明、规格和标签；支持手动输入与本地包装识别，先核对再比较。"
-        if "products" in result:
-            answer = "根据当前宠物与最近保存的产品资料重新评估：\n" + "\n".join(x["name"] + "：" + x["status_label"] + "；" + "；".join(x["missing"][:2] + x["risks"][:1]) for x in result["products"])
-        return {"answer": answer, "mode": "demo" if demo else "tools", "urgent": False, "sources": result.get("sources", []), "draft": None,
-            "cards": [{"type": "products", "title": "比较具体食品与用品", "href": "/products"}]}
-    from app.breeds import AMBIGUOUS
-    ambiguous = next((word for word in AMBIGUOUS if word in text), None)
-    explicit = [b for b in ctx.session.exec(select(Breed)).all() if any(term.lower() in text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
-    if len(explicit) == 1 and not p:
-        species = explicit[0].species
-        ctx.species_scope = species
-        ctx.breed_scope = explicit[0].id
-    if ambiguous and not explicit:
-        return {"answer": AMBIGUOUS[ambiguous] + "未知时仍可使用猫狗通用照护，档案不会自动改写。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None,
-            "cards": [{"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"}]}
-    symptom_question = bool(re.search(r"呕吐|腹泻|拉稀|不吃|食欲不振|咳嗽|瘙痒|疼痛|生病|诊断|开药|剂量|跛行|便血|尿血", text))
-    quantitative_food = bool(re.search(r"营养|吃多少|喂多少|几克|调整.*喂食|调整.*饮食", text))
-    if quantitative_food and p and len(explicit) == 1 and explicit[0].id != p.get("breed_id"):
-        target = explicit[0]
-        ctx.species_scope, ctx.breed_scope = target.species, target.id
-        docs = search_knowledge(ctx.session, target.species, "热量 食物标签", breed_id=target.id, content_kind="food", personal=True)
-        ctx.retrieved.update({a["id"]: a for a in docs})
-        return {"answer": "这是关于" + target.name + "的普通知识；当前档案是" + p["name"] + "，不能使用它的资料替另一只宠物确定食量。请选择对应宠物，确认物种、品种与年龄，再补充带日期的体重、体况和食物热量。品种不能决定固定克数。", "mode": "demo" if demo else "scope", "urgent": False, "sources": sources(ctx, [a["id"] for a in docs]), "draft": None, "cards": [{"type": "knowledge", "title": "查看对应食物知识", "href": "/knowledge?species=" + target.species + "&content_kind=food"}]}
-    if not symptom_question and not quantitative_food and "计划" not in text and (len(explicit) == 1 or (p and p.get("breed_id") and re.search(r"品种|特征|特点|护理|照护要注意", text))):
-        b = explicit[0] if len(explicit) == 1 else ctx.session.get(Breed, p["breed_id"])
-        ctx.breed_scope = b.id
-        a = ctx.session.get(KnowledgeArticle, b.article_id)
-        ctx.retrieved[a.id] = a.model_dump()
-        scope = f"关于{b.name}的资料" + (f"（普通知识；当前档案为{p['name']}，不会自动关联或修改）" if p and p.get("breed_id") != b.id else "")
-        return {"answer": scope + "：\n" + reading_excerpt(a.model_dump(), text, 650) + "\n品种倾向不能替代个体健康、食量或性格判断。", "mode": "demo" if demo else "tools", "urgent": False,
-            "sources": sources(ctx, [a.id]), "draft": None, "cards": [{"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + a.id}]}
-    if re.search(r"营养|吃多少|喂多少|几克|调整.*喂食|调整.*饮食", text):
-        if not p:
-            return {"answer": "个性化营养需要先选择宠物；普通知识仍可在知识库查看。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None,
-                    "cards": [{"type": "nutrition", "title": "补充营养资料", "href": "/nutrition"}]}
-        row = get_profile(ctx.session, ctx.user, ctx.pet_id)
-        evaluation = assess(ctx.session, ctx.user, ctx.pet_id, NutritionInput.model_validate(row.data) if row else NutritionInput())
-        answer = f"结合 {p['name']}（{p['age_months'] if p['age_months'] is not None else '未知'} 个月），"
-        if evaluation["status"] == "ready":
-            answer += "已完成本地营养评估，参考范围及克数换算请在营养页面预览，选择目标后再保存。"
-        else:
-            answer += "目前不能可靠给出固定食量，需要体重与体况、食物能量密度等资料。" + "；".join(evaluation["warnings"][:2] + evaluation["questions"][:3])
-        return {"answer": answer, "mode": "demo" if demo else "planner", "urgent": evaluation["urgent"], "sources": evaluation["sources"], "draft": None,
-                "cards": [{"type": "nutrition", "title": "预览营养方案", "href": "/nutrition", "status": evaluation["status"]}]}
-    if species and not supports(species, "knowledge"):
-        return {
-            "answer": "首版完整支持猫和狗。当前物种暂缺已收录的可靠照护资料；不能套用猫狗方法。请说明具体物种或学名，并向熟悉该物种的兽医咨询。",
-            "mode": "demo" if demo else "scope",
-            "urgent": False,
-            "sources": [],
-            "draft": None,
-        }
-    contextual = text
-    if history and len(text) < 25:
-        contextual = (
-            " ".join(m["content"][:500] for m in history[-4:] if m["role"] == "user")
-            + " "
-            + text
-        )
-    if not species:
-        return {
-            "answer": "为了检索适用资料，请先告诉我：你想了解猫还是狗？普通知识无需建立档案。",
-            "mode": "demo" if demo else "scope",
-            "urgent": False,
-            "sources": [],
-            "draft": None,
-        }
-    health_question = bool(
-        re.search(
-            r"健康|症状|呕吐|腹泻|拉稀|不吃|食欲不振|咳嗽|瘙痒|疼痛|生病|疾病|诊断|药|剂量|绝育|疫苗|驱虫|患有|肿瘤|癌症|感染",
-            contextual,
-        )
-    )
-    # Do not let generic health keywords outrank the user's specific observation.
-    retrieval_query = contextual
-    articles = tool_search_pet_knowledge(ctx, retrieval_query)
-    if not p:  # No-profile question still species filters.
-        articles = search_knowledge(ctx.session, species, retrieval_query, personal=True)
-        ctx.retrieved = {a["id"]: a for a in articles}
-    if health_question and not articles:
-        articles = tool_search_pet_knowledge(ctx, contextual + " 健康 就医")
-    if "计划" in text:
-        draft = make_draft(ctx, minutes)
-        return {
-            "answer": "已生成可编辑草稿，尚未保存。请检查每项时间、依据和当前健康限制，然后点击“保存计划”。如档案有变化，可以重新生成并确认调整。",
-            "mode": "demo" if demo else "planner",
-            "urgent": False,
-            "sources": sources(ctx, list(ctx.retrieved)),
-            "draft": draft.model_dump(mode="json"),
-        }
-    profile_text = (
-        f"结合 {p['name']}（{'猫' if species == 'cat' else '狗'}，"
-        + (f"{p['age_months']} 个月" if p["age_months"] is not None else "年龄未知")
-        + "）"
-        if p
-        else ("关于猫" if species == "cat" else "关于狗")
-    )
-    if any(k in contextual for k in ("吃多少", "几克", "喂多少")):
-        return {
-            "answer": profile_text
-            + "，目前不能可靠给出固定食量。请补充：1. 当前食物的能量密度或标签；2. 最新体重和体况评估；3. 活动情况及兽医饮食建议。具体数量需个体营养评估，不能仅凭品种确定。",
-            "mode": "demo" if demo else "scope",
-            "urgent": False,
-            "sources": sources(ctx, [a["id"] for a in articles[:2]]),
-            "draft": None,
-        }
-    if not articles:
-        return {
-            "answer": profile_text
-            + "，本地知识库暂未检索到足够可靠的资料。请补充具体主题和观察情况，或向兽医咨询；不能凭空给出建议。",
-            "mode": "demo" if demo else "scope",
-            "urgent": False,
-            "sources": [],
-            "draft": None,
-        }
-    if re.search(r"剂量|诊断|什么病|开药|用什么药|吃什么药", text):
-        return {
-            "answer": profile_text
-            + "，不能可靠作出诊断或提供药物与剂量。请记录症状起始、频率、饮食与排泄变化，以及已用药物，并联系兽医。",
-            "mode": "demo" if demo else "safety",
-            "urgent": False,
-            "sources": sources(ctx, [a["id"] for a in articles[:2]]),
-            "draft": None,
-        }
-    if health_question:
-        questions = []
-        if not re.search(r"今天|昨天|小时|刚才|开始于|\d+天", contextual):
-            questions.append("何时开始？")
-        if not re.search(r"\d+次|持续|频率", contextual):
-            questions.append("出现频率或是否持续？")
-        if not re.search(r"精神|食欲|排泄|饮水", contextual):
-            questions.append("精神、食欲与排泄有什么变化？")
-        answer = (
-            profile_text
-            + "，这些信息不足以确定病因。请记录症状时间线、饮食与接触物变化，能安全拍摄时留存影像，带上病史和已用药物供兽医评估。不要自行开药或调整剂量。"
-        )
-        if questions:
-            answer += "\n优先补充：" + " ".join(questions[:3])
-        observation_article = next((a for a in articles if a["topic"] == "健康与就医"), None)
-        if observation_article:
-            answer += "\n\n相关观察与准备：\n" + reading_excerpt(observation_article, text, 280)
-        if p and p.get("vet_advice"):
-            answer += (
-                "\n用户档案中的兽医建议："
-                + p["vet_advice"]
-                + "；需要变更时先向兽医确认。"
-            )
-        return {
-            "answer": answer,
-            "mode": "demo" if demo else "safety",
-            "urgent": False,
-            "sources": sources(ctx, list(dict.fromkeys(
-                [a["id"] for a in articles[:2]]
-                + ([observation_article["id"]] if observation_article else [])
-            ))),
-            "draft": None,
-        }
-    if demo:
-        if re.search(r"药|剂量|诊断|什么病", text):
-            answer = "不能可靠作出诊断或提供药物剂量。请记录症状起始、频率、饮食与排泄变化，以及已用药物，并联系兽医。"
-        elif any(k in contextual for k in ("吃多少", "几克", "喂多少")):
-            answer = (
-                profile_text
-                + "，目前不能可靠给出固定食量。请补充：1. 当前食物的能量密度或标签；2. 最新体重和体况评估；3. 活动情况及兽医饮食建议。"
-            )
-        elif not articles:
-            answer = (
-                profile_text
-                + "，本地知识库暂未检索到足够可靠的资料。请补充具体主题和观察情况，或向兽医咨询；不能凭空给出建议。"
-            )
-        else:
-            answer = (
-                profile_text
-                + "，可以先这样做：\n"
-                + "\n\n".join(
-                    reading_excerpt(a, text, 420 if i == 0 else 220)
-                    for i, a in enumerate(articles[:2])
-                )
-                + "\n完整操作步骤与适用条件可在知识库查看，下方来源对应实际检索条目。"
-            )
-            if p and p.get("vet_advice"):
-                answer += (
-                    "\n档案中的兽医建议："
-                    + p["vet_advice"]
-                    + "。如有冲突，以兽医针对该宠物的建议为准。"
-                )
-            if any(k in contextual for k in ("呕吐", "不吃", "腹泻", "异常", "生病")):
-                answer += "\n请补充：何时开始、出现频率，以及食欲/精神/排泄的变化？健康问题需要兽医评估，不能在此确定诊断。"
-        return {
-            "answer": answer,
-            "mode": "demo",
-            "urgent": False,
-            "sources": sources(ctx, [a["id"] for a in articles[:2]]),
-            "draft": None,
-        }
-    from app.model_adapter import run_model
-
-    answer = await run_model(ctx, text, history, p, articles)
-    return {
-        "answer": clean_answer(answer.answer),
-        "mode": "live",
-        "urgent": False,
-        "sources": sources(ctx, answer.citation_ids),
-        "draft": None,
-    }
+    from app.deep_chat import answer_question
+    try:
+        return await answer_question(ctx, text, history, minutes)
+    except HTTPException:
+        raise
+    except Exception as error:
+        raise HTTPException(503, "知识检索或本地分析工具失败，本次未完成且未保存回答。可手动重试。") from error

@@ -1,5 +1,6 @@
 from pathlib import Path
 import secrets
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -16,9 +17,12 @@ class Settings(BaseSettings):
     MODEL_API_KEY: str = ""
     MODEL_BASE_URL: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     MODEL_NAME: str = "qwen3.7-flash"
-    MODEL_MAX_REQUESTS: int = 4
-    MODEL_MAX_OUTPUT_TOKENS: int = 1800
-    MODEL_TIMEOUT_SECONDS: int = 35
+    MODEL_MAX_REQUESTS: int = Field(default=4, ge=1, le=4)
+    MODEL_MAX_OUTPUT_TOKENS: int = Field(default=4096, ge=128, le=16384)
+    MODEL_MAX_INPUT_TOKENS: int = Field(default=32000, ge=4096, le=131072)
+    MODEL_CONTEXT_CHARS: int = Field(default=48000, ge=16000, le=200000)
+    MODEL_TIMEOUT_SECONDS: int = Field(default=90, ge=5, le=180)
+    MODEL_TURNS_PER_DAY: int = Field(default=20, ge=0, le=10000)
     AMAP_ENABLED: bool = False
     AMAP_API_KEY: str = ""
     MAP_REQUESTS_PER_DAY: int = 50

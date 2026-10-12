@@ -573,11 +573,14 @@ async def chat(
             .where(Message.conversation_id == c.id)
             .order_by(Message.created_at)
         ).all()
-    ][-8:]
-    ctx = AgentContext(session, user, data.pet_id)
+    ]
+    ctx = AgentContext(session, user, data.pet_id, supplement=data.context.model_dump(mode="json", exclude_none=True) if data.context else {}, answer_depth=data.answer_depth)
     try:
         p = profile(ctx)
-        urgent = risks(data.text, p["species"] if p else infer_species(data.text))
+        risk_text = data.text + " " + " ".join(v for v in ctx.supplement.values() if isinstance(v, str))
+        if ctx.supplement.get("nutrition"):
+            risk_text += " " + ctx.supplement["nutrition"].get("current_symptoms", "")
+        urgent = risks(risk_text, p["species"] if p else infer_species(data.text))
         write = None if urgent else explicit_write(ctx, data.text)
         # Only explicit instructions can consume the latest draft, never the model.
         if urgent:
@@ -633,7 +636,13 @@ async def chat(
                 }
         else:
             result = await respond(ctx, data.text, history, data.available_minutes)
-        session.add(Message(conversation_id=c.id, role="user", content=data.text))
+        c.summary_json = ctx.memory
+        session.add(c)
+        user_message = Message(conversation_id=c.id, role="user", content=data.text, metadata_json={"context": ctx.supplement, "answer_depth": data.answer_depth, "source": "用户本次提供，未自动更新档案"})
+        session.add(user_message)
+        for provenance in result.get("context_provenance", {}).values():
+            if provenance["message_id"] == "current":
+                provenance["message_id"] = user_message.id
         m = Message(
             conversation_id=c.id,
             role="assistant",
@@ -651,6 +660,12 @@ async def chat(
         )
     except Exception:
         session.rollback()
+        if ctx.model_attempt:
+            # Operational audit survives failed answer rollback, without retaining question data.
+            session.add(ModelAttempt(id=ctx.model_attempt.id, user_id=user.id, status="failed", created_at=ctx.model_attempt.created_at))
+            if getattr(ctx, "known_model_usage", None):
+                session.add(ctx.known_model_usage)
+            session.commit()
         raise
 
 
@@ -662,3 +677,9 @@ def usage(session: SessionDep, user: CurrentUser):
         "input_tokens": sum(u.input_tokens for u in rows),
         "output_tokens": sum(u.output_tokens for u in rows),
     }
+
+
+@router.get("/usage/quota")
+def model_quota(session: SessionDep, user: CurrentUser):
+    from app.model_adapter import quota_status
+    return quota_status(session, user.id)

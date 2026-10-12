@@ -1,5 +1,6 @@
 import { type ReactNode, useId, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import { AlertCircle, CheckCircle2, PawPrint, ArrowUpRight } from "./icons";
 import { Button } from "./components/ui/button";
 import type { FieldIssue, Source } from "./api";
@@ -166,13 +167,16 @@ export function Sources({ items }: { items: Source[] }) {
   return items.length ? (
     <details className="sources">
       <summary>本次实际检索来源 · {items.length} 条</summary>
-      {items.map((s) => (
-        <a key={s.id} href={s.url} target="_blank" rel="noreferrer">
+        {items.map((s) => (
+          <div key={s.id} className="source-entry">
+          <a href={s.url} target="_blank" rel="noreferrer">
           {s.title}{" "}
           <span>
             · {s.organization} <ArrowUpRight size={14} />
           </span>
         </a>
+          {s.sections?.map((heading) => <Link key={heading} to={`/knowledge/${s.id}#${encodeURIComponent(heading)}`} className="source-section">查看章节：{heading}</Link>)}
+          </div>
       ))}
     </details>
   ) : null;
@@ -222,7 +226,7 @@ export function ArticleContent({ body }: { body: string }) {
           lines.length > 0 && lines.every((line) => /^\d+\.\s/.test(line));
         return (
           <section key={index}>
-            {heading && <h2>{heading}</h2>}
+            {heading && <h2 id={heading}>{heading}</h2>}
             {steps ? (
               <ol>
                 {lines.map((line, step) => (

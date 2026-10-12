@@ -8,12 +8,16 @@ from app.models import ModelUsage, Message, IdempotencyRecord
 from app.agent import agent
 
 
-def fake_provider(monkeypatch, answer, source="cat-food"):
+def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_calls", citation_sections=None):
     captured = []
 
     def handler(request):
         body = json.loads(request.content)
         captured.append(body)
+        actual_source = source
+        if source == "__first__":
+            payload = json.loads(body["messages"][-1]["content"])
+            actual_source = payload["retrieved_data"][0]["id"] if payload["retrieved_data"] else None
         assert request.url.path.endswith("/chat/completions")
         assert body["model"] == "mock-model"
         names = {t["function"]["name"] for t in body["tools"]}
@@ -65,8 +69,9 @@ def fake_provider(monkeypatch, answer, source="cat-food"):
                                         "arguments": json.dumps(
                                             {
                                                 "answer": answer,
-                                                "citation_ids": [source],
+                                                "citation_ids": [actual_source] if actual_source else [],
                                                 "draft": None,
+                                                "citation_sections": citation_sections or [],
                                             },
                                             ensure_ascii=False,
                                         ),
@@ -74,7 +79,7 @@ def fake_provider(monkeypatch, answer, source="cat-food"):
                                 }
                             ],
                         },
-                        "finish_reason": "tool_calls",
+                        "finish_reason": finish_reason,
                     }
                 ],
                 "usage": {

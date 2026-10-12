@@ -1,4 +1,7 @@
 import re
+import math
+from collections import Counter
+from functools import lru_cache
 from abc import ABC, abstractmethod
 from sqlmodel import Session, select
 from app.models import KnowledgeArticle, Bookmark
@@ -19,13 +22,62 @@ class Retriever(ABC):
     ): ...
 
 
-class KeywordRetriever(Retriever):
+SYNONYMS = (
+    ("拉稀", "腹泻"), ("不吃", "拒食", "食欲下降", "食欲不振"),
+    ("乱尿", "如厕", "排泄"), ("抓沙发", "抓挠", "猫抓板"),
+    ("独自在家", "独处", "分离", "叫"), ("刷牙", "口腔", "牙齿"),
+    ("新猫", "新宠", "适应", "到家"), ("粮", "主粮", "食物"),
+    ("胖", "肥胖", "体重", "体况"), ("多猫", "多宠", "相处"),
+    ("航空箱", "运输箱", "笼箱"), ("热量", "能量", "卡路里"),
+    ("保暖", "冬季"), ("玩具", "啃咬", "互动"),
+)
+
+
+def expanded_query(query):
+    additions = [w for group in SYNONYMS if any(w in query for w in group) for w in group]
+    return query + " " + " ".join(dict.fromkeys(additions))
+
+
+def tokenize(text, vocabulary=()):
+    """Deterministic dictionary maximum matching plus CJK bigrams; no remote service."""
+    return list(_tokenize(text, tuple(sorted(set(vocabulary)))))
+
+
+@lru_cache(maxsize=32)
+def lexicon(vocabulary):
+    buckets = {}
+    for word in sorted({w.lower() for w in vocabulary if len(w) >= 2}, key=len, reverse=True):
+        buckets.setdefault(word[0], []).append(word)
+    return buckets
+
+
+@lru_cache(maxsize=8192)
+def _tokenize(text, vocabulary):
+    words = lexicon(vocabulary)
+    tokens = []
+    for chunk in re.findall(r"[a-z0-9]+|[\u3400-\u9fff]+", text.lower()):
+        if not re.search(r"[\u3400-\u9fff]", chunk):
+            tokens.append(chunk)
+            continue
+        position = 0
+        while position < len(chunk):
+            match = next((w for w in words.get(chunk[position], []) if chunk.startswith(w, position)), None)
+            if match:
+                tokens.append(match)
+                position += len(match)
+            else:
+                if position + 1 < len(chunk):
+                    tokens.append(chunk[position:position + 2])
+                position += 1
+    return tuple(tokens)
+
+
+class BM25Retriever(Retriever):
     def search(self, session, species, query, topic=None, life_stage=None, breed_id=None, content_kind=None):
         if species and not supports(species, "knowledge"):
             return []
         articles = session.exec(select(KnowledgeArticle)).all()
-        terms = [t for t in re.split(r"[\s，。？！、]+", query.lower()) if t]
-        ranked = []
+        filtered = []
         for a in articles:
             if species and species not in a.species:
                 continue
@@ -41,16 +93,52 @@ class KeywordRetriever(Retriever):
                 and life_stage not in a.life_stages
             ):
                 continue
-            hay = (a.title + " " + a.body + " " + " ".join(a.keywords)).lower()
-            score = sum(3 for k in a.keywords if k.lower() in query.lower()) + sum(
-                1 for t in terms if t in hay
-            )
-            if not query or score > 0:
+            filtered.append(a)
+        if not query.strip():
+            return sorted(filtered, key=lambda a: a.id)
+        if not filtered:
+            return []
+        vocabulary = [k for a in filtered for k in a.keywords] + [w for g in SYNONYMS for w in g]
+        generic = {"宠物", "动物", "怎么", "如何", "什么", "怎样", "需要", "注意", "是否", "可以", "照护", "我的", "你的"}
+        query_tokens = set(tokenize(expanded_query(query), vocabulary)) - generic
+        docs = [Counter(tokenize(a.title + " " + a.body + " " + " ".join(a.keywords), vocabulary)) for a in filtered]
+        average = sum(sum(d.values()) for d in docs) / len(docs) or 1
+        frequencies = Counter(t for doc in docs for t in doc)
+        ranked = []
+        for a, doc in zip(filtered, docs):
+            length = sum(doc.values())
+            score = sum(math.log(1 + (len(docs) - frequencies[t] + .5) / (frequencies[t] + .5))
+                * doc[t] * 2.2 / (doc[t] + 1.2 * (.25 + .75 * length / average))
+                for t in query_tokens if doc[t])
+            # Original intent wins over expanded generic words; keep precise topic ordering.
+            exact_keywords = [k for k in a.keywords if len(k) > 1 and k.lower() in query.lower() and k not in generic]
+            score += sum(12 + len(k) for k in exact_keywords)
+            score += sum(6 for k in a.keywords if len(k) > 1 and k in a.title and k in query)
+            if score > 0 and (exact_keywords or len(query_tokens & doc.keys()) >= 2):
                 ranked.append((score, a))
         return [a for _, a in sorted(ranked, key=lambda x: (-x[0], x[1].id))]
 
 
-retriever: Retriever = KeywordRetriever()
+KeywordRetriever = BM25Retriever  # compatibility for existing integrations
+retriever: Retriever = BM25Retriever()
+
+
+def sections(article):
+    chunks = re.split(r"(?m)^##\s+", article["body"])
+    result = []
+    for chunk in chunks:
+        if not chunk.strip():
+            continue
+        heading, _, body = chunk.partition("\n")
+        result.append({"heading": heading.strip(), "text": body.strip() or heading.strip()})
+    return result
+
+
+def evidence_sections(article, query, count=3):
+    terms = set(tokenize(expanded_query(query), article["keywords"]))
+    scored = sorted(enumerate(sections(article)), key=lambda item: (
+        -len(terms & set(tokenize(item[1]["heading"] + " " + item[1]["text"], article["keywords"]))), item[0]))
+    return [section for _, section in sorted(scored[:count])]
 
 
 def reading_excerpt(article, query, max_chars=420):
@@ -90,3 +178,18 @@ def search_knowledge(session, species, query, topic=None, limit=5, life_stage=No
         for a in [a for a in retriever.search(session, species, query, topic, life_stage, breed_id, content_kind)
                   if not personal or breed_id or not a.breed_ids][:limit]
     ]
+
+
+def multi_search(session, species, questions, **filters):
+    """Reserve coverage per subquestion before filling remaining evidence slots."""
+    groups = [search_knowledge(session, species, question, limit=4, **filters) for question in questions[:3]]
+    selected = {}
+    for rank in range(4):
+        for question, articles in zip(questions, groups):
+            if rank < len(articles):
+                article = articles[rank]
+                if article["id"] not in selected and len(selected) < 9:
+                    selected[article["id"]] = {**article, "matched_sections": evidence_sections(article, question), "matched_questions": []}
+                if article["id"] in selected:
+                    selected[article["id"]]["matched_questions"].append(question)
+    return list(selected.values())

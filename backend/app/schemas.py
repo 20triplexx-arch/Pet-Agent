@@ -145,11 +145,39 @@ class CompletionInput(Strict):
     occurrence_at: str
 
 
+class ChatContext(Strict):
+    goal: str = Field(default="", max_length=2000)
+    observations: str = Field(default="", max_length=3000)
+    timeline: str = Field(default="", max_length=2000)
+    diet_activity: str = Field(default="", max_length=3000)
+    environment_changes: str = Field(default="", max_length=2000)
+    professional_advice: str = Field(default="", max_length=3000)
+    # Imported lazily below to avoid the care_schemas -> schemas cycle.
+    nutrition: dict | None = None
+
+    @field_validator("nutrition")
+    @classmethod
+    def nutrition_input(cls, value):
+        if value is not None:
+            from app.care_schemas import NutritionInput
+            return NutritionInput.model_validate(value).model_dump(mode="json", exclude_unset=True)
+        return None
+
+
 class ChatInput(Strict):
     pet_id: str | None = None
     conversation_id: str | None = None
-    text: str = Field(min_length=1, max_length=4000)
+    text: str = Field(min_length=1, max_length=12000)
     available_minutes: int = Field(default=30, ge=5, le=240)
+    context: ChatContext | None = None
+    answer_depth: Literal["auto", "brief", "detailed"] = "auto"
+
+    @field_validator("text")
+    @classmethod
+    def message_not_blank(cls, value):
+        if not value.strip():
+            raise ValueError("请填写提问内容")
+        return value
 
 
 class PlanRequest(Strict):
@@ -173,7 +201,13 @@ class TimeConvert(Strict):
         return v
 
 
+class CitationSection(Strict):
+    article_id: str
+    heading: str
+
+
 class AgentAnswer(Strict):
     answer: str
     citation_ids: list[str] = Field(default_factory=list)
     draft: PlanDraft | None = None
+    citation_sections: list[CitationSection] = Field(default_factory=list, max_length=30)

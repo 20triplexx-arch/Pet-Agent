@@ -80,6 +80,7 @@ export type Source = {
   title: string;
   url: string;
   organization: string;
+  sections?: string[];
 };
 export type Reply = {
   answer: string;
@@ -89,6 +90,19 @@ export type Reply = {
   draft: Draft | null;
   conversation_id: string;
   cards?: import("./care-api").ActionCard[];
+  answer_depth?: string;
+  questions?: string[];
+  context_conflicts?: string[];
+  context_budget_notes?: string[];
+};
+
+export type ModelQuota = {
+  daily_limit: number;
+  attempted_turns: number;
+  failed_turns: number;
+  remaining_turns: number;
+  timezone: string;
+  note: string;
 };
 export type Message = {
   id: string;

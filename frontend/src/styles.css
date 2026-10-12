@@ -958,7 +958,49 @@ button[data-slot="button"].check-button {
 }
 .chat-input textarea {
   min-height: 84px;
-  max-height: 180px;
+  max-height: 240px;
+}
+
+.answer-content { max-width: 72ch; white-space: normal; }
+.answer-content p { margin: 0 0 16px; white-space: pre-wrap; }
+.answer-content h3 { font-size: 20px; line-height: 1.5; margin: 28px 0 12px; }
+.answer-content h4 { font-size: 17px; line-height: 1.6; margin: 20px 0 8px; }
+.answer-content ul, .answer-content ol { margin: 12px 0 20px; padding-left: 24px; }
+.answer-content li { margin: 8px 0; }
+.answer-content code { font-family: inherit; background: var(--color-peach-soft); padding: 2px 4px; border-radius: 4px; }
+.answer-table { overflow-x: auto; max-width: 100%; margin: 16px 0 24px; }
+.answer-table table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.answer-table th, .answer-table td { border-bottom: 1px solid var(--color-line); padding: 10px; text-align: left; min-width: 100px; }
+.answer-table th { font-weight: 600; background: var(--color-peach-soft); }
+.answer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.inline-source, .source-section { color: var(--color-primary); font-size: 13px; }
+.source-section { display: block; margin-bottom: 8px; }
+.article-body h2 { scroll-margin-top: 96px; }
+.source-entry { padding-bottom: 12px; }
+.chat-compose-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chat-compose-controls label { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 0; }
+.chat-compose-controls select { width: auto; min-height: 44px; padding: 6px 8px; margin-top: 0; }
+.deep-chat-layout .chat-panel { height: calc(100dvh - 180px); }
+.chat-compose-controls span { margin-left: auto; font-variant-numeric: tabular-nums; }
+.chat-compose-controls .input-over-limit { color: var(--color-danger); }
+.chat-supplement { scroll-margin-top: 96px; padding: 16px 0; border-bottom: 1px solid var(--color-line); margin-bottom: 24px; }
+.chat-supplement summary { color: var(--color-primary); cursor: pointer; min-height: 44px; }
+.chat-supplement-fields { border: 0; padding: 0; min-width: 0; }
+.chat-supplement-fields legend { margin: 16px 0 8px; font-size: 14px; }
+.chat-supplement-fields label { display: grid; gap: 8px; margin: 16px 0; font-size: 14px; }
+.chat-supplement-fields textarea { min-height: 96px; }
+.chat-supplement-fields .care-check { display: flex; }
+.nutrition-supplement { margin-top: 24px; }
+.model-quota { font-size: 14px; line-height: 1.8; }
+@media (max-width: 767px) {
+  .deep-chat-layout .chat-panel { height: calc(100dvh - 280px); min-height: 410px; }
+  .chat-input textarea { min-height: 68px; }
+  .chat-compose-controls { gap: 6px; flex-wrap: nowrap; }
+  .chat-compose-controls label { font-size: 13px; white-space: nowrap; }
+  .chat-compose-controls select { width: 68px; }
+  .chat-compose-controls button { padding-inline: 10px; }
+  .chat-compose-controls span { text-align: right; }
+  .answer-content h3 { font-size: 19px; }
 }
 .chat-input > div {
   display: flex;

@@ -6,7 +6,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 ## 给后续模型的接续说明
 
-本节是项目的长期交接记录，用于在新会话或上下文丢失后恢复背景。文档更新日期：**2026-10-11（Asia/Shanghai）**。后续工作应结合用户最新要求与当前代码；这里记录的是已经确认的选择和历史状态，不代表服务此刻仍在运行。
+本节是项目的长期交接记录，用于在新会话或上下文丢失后恢复背景。文档更新日期：**2026-10-12（Asia/Shanghai）**。后续工作应结合用户最新要求与当前代码；这里记录的是已经确认的选择和历史状态，不代表服务此刻仍在运行。
 
 ### 项目目标与已确认选择
 
@@ -20,9 +20,11 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 已经实现七类页面：主页、宠物档案、AI 对话、知识库列表与详情、计划与提醒、照护记录、账户与设置。后端具备登录及用户隔离、多宠物 CRUD、知识搜索与收藏、独立会话、结构化计划、记录与体重趋势、时区提醒、事务及幂等保护。
 
-项目还包含十二个 Pydantic AI 工具、系统提示词、89 篇有专业来源的分节知识与操作清单、可追溯风险规则、示例猫狗档案、Alembic 初始及增量迁移、初始化与知识导入脚本、锁定依赖、环境变量示例、Docker 配置以及源码包 `artifacts/chongban-mvp.zip`。第一批 Agent 升级已实现营养资料/本地评估/方案替换、医院查询适配和就医摘要；使用方法及边界见下方“第一批 Agent 升级”。
+项目还包含十二个 Pydantic AI 工具、系统提示词、89 篇有专业来源的分节知识与操作清单、可追溯风险规则、示例猫狗档案、Alembic 初始及增量迁移、初始化与知识导入脚本、锁定依赖、环境变量示例、Docker 配置以及源码包 [artifacts/chongban-mvp.zip](artifacts/chongban-mvp.zip)。2026-10-12本批包327文件，完整性和逐文件字节核对通过，包含本工作树源码及本轮设计审查记录，不含本地数据、密钥或依赖。第一批 Agent 升级已实现营养资料/本地评估/方案替换、医院查询适配和就医摘要；使用方法及边界见下方“第一批 Agent 升级”。
 
-**当前整合验收（2026-10-11）**：pytest **106 passed（66.07秒）**，Playwright 桌面/手机 **52 passed（2.0分钟，各26项）**，TypeScript/Vite 生产构建通过。新版 UI 与89篇知识、24项品种、产品比较和本地 OCR 同时保留。修正测试固定端口，并补齐对话的品种指南/产品行动入口及浏览器断言；产品页纳入六种宽度和200%等效视口检查。隔离服务使用8014端口和临时数据库，原数据未参与写入测试。最终源码包330文件，补齐历史原始插画及审查证据、排除工具缓存，逐字节核对通过；完整记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。
+**当前升级（2026-10-12，Agent 深度问答）**：12000字输入、会话补充资料、自动/简短/深入回答、多主题BM25检索与章节引用、最近24条消息及带来源的更早摘要已经实现。真实模型综合普通健康、品种、营养与产品事实，演示模式使用同一检索与本地计算路径；保留紧急先行与明确保存。十类高频专题补深11篇旧文章，89个ID与收藏保持。新增会话摘要与模型尝试计数的增量迁移；pytest **158 passed（150.19秒）**、Playwright **60 passed（2.2分钟，桌面/手机各30项）**、生产构建通过，完整交付记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。真实模型尚未联调，不能将模拟验收等同实际回答质量验收。详见 [docs/DEEP_CHAT.md](docs/DEEP_CHAT.md)。本批位于managed worktree，未修改原目录数据库或8000服务，未上线或再次远程推送。
+
+**历史整合验收（2026-10-11）**：pytest **106 passed（66.07秒）**，Playwright 桌面/手机 **52 passed（2.0分钟，各26项）**，TypeScript/Vite 生产构建通过。新版 UI 与89篇知识、24项品种、产品比较和本地 OCR 同时保留。修正测试固定端口，并补齐对话的品种指南/产品行动入口及浏览器断言；产品页纳入六种宽度和200%等效视口检查。隔离服务使用8014端口和临时数据库，原数据未参与写入测试。该次源码包330文件，补齐历史原始插画及审查证据、排除工具缓存，逐字节核对通过；完整记录见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
 **合并前验收（2026-10-11，猫狗品种、食物与用品）**：pytest **106 passed（71.91秒）**，Playwright 桌面/手机 **32 passed（1.4分钟）**，TypeScript/Vite 构建通过。本机安装并验证 RapidOCR 3.10.0 / ONNX Runtime CPU 1.31.0，包含真实中文英文、小数、百分比、旋转及模糊图片识别。已有运行库备份后增量迁移，14张业务表按原列逐行保持一致，登录密钥保留，知识44→89、品种登记24项。SQLite升级/回退及PostgreSQL离线迁移SQL编译通过。产品比较、明确保存、营养资料交接和两端页面回归通过；没有调用付费模型、识图API或真实地图。新增流程见 [docs/PRODUCT_KNOWLEDGE.md](docs/PRODUCT_KNOWLEDGE.md)，完整证据及限制见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
@@ -41,6 +43,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 | [backend/app/api/routes.py](backend/app/api/routes.py)、[backend/app/services.py](backend/app/services.py) | API、用户权限、事务、幂等和业务写入 |
 | [backend/app/agent.py](backend/app/agent.py)、[backend/app/agent_system.txt](backend/app/agent_system.txt) | Agent 流程、风险优先、演示问答与十二个工具 |
 | [backend/app/model_adapter.py](backend/app/model_adapter.py) | 兼容模型接口、调用限制、来源检查及用量记录 |
+| [docs/DEEP_CHAT.md](docs/DEEP_CHAT.md)、[backend/app/deep_chat.py](backend/app/deep_chat.py)、[backend/tests/test_deep_chat.py](backend/tests/test_deep_chat.py) | 深度问答接口、会话资料与摘要、多主题检索、成本预算及30条质量问法 |
 | [docs/AGENT_UPGRADE.md](docs/AGENT_UPGRADE.md)、[backend/app/nutrition.py](backend/app/nutrition.py)、[backend/app/hospitals.py](backend/app/hospitals.py)、[backend/app/visit.py](backend/app/visit.py) | 第一批接口、营养数值、地图查询与就医摘要边界 |
 | [backend/app/knowledge.py](backend/app/knowledge.py)、[backend/data/](backend/data/) | 检索扩展接口、知识、具体物种与风险资料 |
 | [docs/KNOWLEDGE.md](docs/KNOWLEDGE.md) | 89篇资料覆盖、逐条来源、编辑与地域边界、正文格式及导入方法 |
@@ -139,6 +142,8 @@ npm test
 
 ## 本机启动
 
+2026-10-12本批独立预览：`http://127.0.0.1:8018/chat`，当前worktree的`backend/storage/chongban.db`和示例账号；与原8000服务不共享数据。预览健康检查为ok/demo，进程ID记录在`backend/storage/deep-chat-preview.pid`，服务状态需要接续时重新检查。开发验收复用了原目录已安装的Python3.13与Node依赖，常规新安装仍按以下脚本，不依赖该绝对路径。
+
 Windows PowerShell，在项目根目录运行：
 
 ```powershell
@@ -194,13 +199,18 @@ MODEL_API_KEY=服务商密钥
 MODEL_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 MODEL_NAME=qwen3.7-flash
 MODEL_MAX_REQUESTS=4
-MODEL_MAX_OUTPUT_TOKENS=1800
-MODEL_TIMEOUT_SECONDS=35
+MODEL_MAX_OUTPUT_TOKENS=4096
+MODEL_MAX_INPUT_TOKENS=32000
+MODEL_CONTEXT_CHARS=48000
+MODEL_TIMEOUT_SECONDS=90
+MODEL_TURNS_PER_DAY=20
 ```
 
 这是兼容 Chat Completions 的配置示例，模型名称和服务区域须以所选服务商实际可用项为准。独立适配层在 backend/app/model_adapter.py；Pydantic AI 的 OpenAIChatModel 使用服务端环境变量。任何密钥都不应放入 VITE_*、前端配置或提交到仓库。
 
-SDK 自动重试关闭；每轮限制模型请求次数、工具次数、输入上下文和输出量，记录成功响应的 provider token 用量。真实费用需按服务商最新价格计算，失败请求也可能被服务商计费；当前应用用量统计不代表账单。当前未使用真实密钥做付费调用；兼容接口通过本地 HTTP 模拟响应验证。默认计划生成使用受控规划器，以保证依据和适用条件稳定，模型用于普通知识的自由问答。健康相关内容使用受控观察与就医准备模板，避免模型自行诊断或给剂量。
+SDK自动重试关闭；每轮最多4次模型请求、8次工具调用，32000输入token为整轮累计预算，4096输出token为单次上限，默认90秒整轮超时。上下文按48000字符预算选择历史和知识章节；最新问题、健康限制与专业建议不静默截断。默认每用户按上海日历每日最多20次真实问答尝试，失败也计数；设0可停止真实调用。设置页展示尝试数、失败数、已取得的供应商token，统计不是供应商余额或账单。未知失败用量不填虚假token，已取得用量即使回答被拒绝也保留。
+
+真实模型现在负责综合品种、营养、产品及普通健康资料并追问，不再只输出页面入口；营养数值与产品预算仍由后端计算，医院事实仍通过独立授权查询。紧急提示和药物/诊断边界先在服务端处理。模型输出未完成、错误引用或不允许的确定诊断/新药物剂量会拒绝回答；这些保护是提示词和启发式校验，未经临床验证。当前未使用真实密钥做调用，兼容接口通过本地HTTP模拟验证；真实回答质量、延迟及成本需要配置可用模型后少量联调。具体预算与接口见 [深度问答说明](docs/DEEP_CHAT.md)。
 
 ## Agent 与工具权限
 
@@ -300,8 +310,8 @@ LICENSE / UPSTREAM.md
 
 ## 已知限制
 
-知识库现有44篇猫狗编辑资料，仍不是完整百科，没有专业兽医对中文摘要与风险规则进行审核；检索与风险规则基于关键词，无法完整理解所有同义词、否定、过去时、错别字或紧急症状。没有命中规则不代表安全。健康问题需专业兽医评估，其他物种尚未开放专属知识。
-演示对话用有限模板和短历史关键词承接，不能替代真实模型的理解。自由语言不会被自动当作写入授权；只有明确支持的保存/记录指令和页面操作执行写入，其他表达需要人工确认输入。
+知识库现有89篇猫狗编辑资料，仍不是完整百科，没有专业兽医对中文摘要与风险规则进行审核。检索采用本地分词/同义词/BM25，紧急风险仍依赖词规则，无法完整理解否定、过去时、错别字或全部症状。没有命中规则不代表安全。健康问题需专业兽医评估，其他物种尚未开放专属知识。
+演示对话采用多主题检索、本地计算和受控内容编排，对任意复杂问题的理解仍有限；带来源的旧消息摘要是选择性摘录，不是无限记忆。真实模型综合表达路径已实现但尚未使用可用服务商密钥联调。自由语言不会被自动当作写入授权；只有明确支持的保存/记录指令和页面操作执行写入，其他表达需要人工确认输入。
 当前没有向量检索、系统推送、后台定时调度、文件/图像诊断、药物处方或其他物种专属照护。无密钥功能已验证，真实服务商质量与账单、PostgreSQL 和 Docker 实际运行仍需后续环境验证。
 
 ## Agent 能力升级讨论（2026-10-10，实施前研究记录）

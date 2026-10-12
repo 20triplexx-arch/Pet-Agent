@@ -95,6 +95,7 @@ class Conversation(SQLModel, table=True):
     user_id: str = Field(foreign_key="user.id", index=True)
     pet_id: str | None = Field(default=None, foreign_key="pet.id", index=True)
     created_at: str = Field(default_factory=now)
+    summary_json: dict = Field(default_factory=dict, sa_column=Column(JSON, nullable=False))
 
 
 class Message(SQLModel, table=True):
@@ -185,6 +186,14 @@ class ModelUsage(SQLModel, table=True):
     output_tokens: int = 0
     requests: int = 0
     created_at: str = Field(default_factory=now)
+
+
+class ModelAttempt(SQLModel, table=True):
+    """Count provider attempts even when the answer transaction is rolled back."""
+    id: str = Field(default_factory=uid, primary_key=True)
+    user_id: str = Field(foreign_key="user.id", index=True)
+    status: str = "started"
+    created_at: str = Field(default_factory=now, index=True)
 
 
 class PetNutritionProfile(SQLModel, table=True):
