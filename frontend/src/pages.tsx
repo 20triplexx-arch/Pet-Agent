@@ -2201,11 +2201,13 @@ export function SettingsPage() {
           {status.data && (
             <>
               <span className="badge">
-                {status.data.mode === "demo" ? "演示模式" : "真实模型已启用"}
+                {status.data.mode === "demo" ? "演示模式" : status.data.mode === "configuration_error" ? "模型配置待补充" : "真实模型模式"}
               </span>
               <p>
                 {status.data.mode === "demo"
                   ? "无模型调用费用。使用真实知识检索与受控模板生成内容。"
+                  : status.data.mode === "configuration_error"
+                    ? "真实模式已选择，但服务端密钥未配置。模型问答暂不可用，请补充配置后重启。"
                   : "当前模型：" +
                     status.data.model +
                     "。费用由配置的模型服务商按用量计算。"}

@@ -1,0 +1,56 @@
+name: Care application verification
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    env:
+      DEMO_MODE: "true"
+      MODEL_PROVIDER: compatible
+      MODEL_API_KEY: ""
+      DEEPSEEK_API_KEY: ""
+      AMAP_ENABLED: "false"
+      SECRET_KEY: ci-only-isolated-key-not-for-production
+      CHONGBAN_TEST_PYTHON: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install -r backend/requirements.txt -r backend/requirements-ocr.txt
+      - run: python -m pytest -q
+        working-directory: backend
+      - run: python -m evals.runner --mode offline
+        working-directory: backend
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: npm test
+        working-directory: frontend
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-evidence
+          path: |
+            artifacts/evaluations/*/report.*
+            frontend/playwright-report
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t chongban-ci .
+      - run: python3 scripts/verify_container.py

@@ -10,6 +10,9 @@ from app.api.routes import router
 from app.api.care_routes import router as care_router
 from app.api.product_routes import router as product_router
 from app.core.config import settings
+from app.execution import ExecutionMiddleware, configure_logging
+
+configure_logging(settings.EXECUTION_LOG_PATH)
 
 app = FastAPI(title="宠伴", version="0.2.0")
 app.add_middleware(
@@ -18,6 +21,7 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Request-ID"],
 )
 app.include_router(router)
 app.include_router(care_router)
@@ -69,13 +73,14 @@ class BoundedOCRUpload:
 
 
 app.add_middleware(BoundedOCRUpload)
+app.add_middleware(ExecutionMiddleware)
 
 
 @app.get("/health")
 def health():
     return {
         "status": "ok",
-        "mode": "demo" if settings.DEMO_MODE or not settings.MODEL_API_KEY else "live",
+        "mode": settings.model_mode,
     }
 
 

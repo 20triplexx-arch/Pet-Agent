@@ -8,14 +8,14 @@ from app.models import ModelUsage, Message, IdempotencyRecord
 from app.agent import agent
 
 
-def fake_provider(monkeypatch, answer, source="cat-food"):
+def fake_provider(monkeypatch, answer, source="cat-food", model="mock-model"):
     captured = []
 
     def handler(request):
         body = json.loads(request.content)
         captured.append(body)
         assert request.url.path.endswith("/chat/completions")
-        assert body["model"] == "mock-model"
+        assert body["model"] == model
         names = {t["function"]["name"] for t in body["tools"]}
         assert {
             "get_pet_profile",
@@ -94,7 +94,7 @@ def fake_provider(monkeypatch, answer, source="cat-food"):
     monkeypatch.setattr("app.model_adapter.AsyncOpenAI", factory)
     monkeypatch.setattr(settings, "DEMO_MODE", False)
     monkeypatch.setattr(settings, "MODEL_API_KEY", "test-key-not-live")
-    monkeypatch.setattr(settings, "MODEL_NAME", "mock-model")
+    monkeypatch.setattr(settings, "MODEL_NAME", model)
     return captured
 
 
