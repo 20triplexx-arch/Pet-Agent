@@ -299,8 +299,10 @@ export default function App() {
                   : !status.data
                     ? "读取模式…"
                     : status.data.mode === "live"
-                      ? "已连接模型"
-                      : "演示模式"}
+                      ? "真实模型模式"
+                      : status.data.mode === "configuration_error"
+                        ? "模型配置待补充"
+                        : "演示模式"}
               </span>
               <div className="pet-switch">
                 {pet ? (

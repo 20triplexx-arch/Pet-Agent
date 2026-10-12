@@ -1,0 +1,1608 @@
+{
+  "run_id": "20261012T075215-smoke",
+  "created_at": "2026-10-12T07:52:17.481615+00:00",
+  "mode": "smoke",
+  "synthetic_data_only": true,
+  "dataset_version": "care-baseline-v1.1",
+  "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+  "selected_count": 10,
+  "results": [
+    {
+      "id": "CB-001",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "猫抓沙发，怎么提供合适的抓挠位置？",
+          "status": 200,
+          "result": {
+            "conversation_id": "7c2ebe01-1168-4672-b597-920c393d381e",
+            "message": {
+              "conversation_id": "7c2ebe01-1168-4672-b597-920c393d381e",
+              "role": "assistant",
+              "content": "抓挠是猫的正常行为，目标不是让它完全不抓，而是给它更合适的地方表达。可以按下面几步做：\n\n**1. 先观察记录**\n记下它常抓的家具位置、时间、是竖直抓（沙发扶手、侧面）还是水平抓（地毯、坐垫），以及现有抓板会不会滑动、倾倒。方向不对的抓板，猫往往不用。\n\n**2. 从\"正在被抓的位置\"开始**\n在它偏爱的沙发旁边就近放替代抓挠用品，而不是放到远处角落。竖直抓的沙发扶手旁放稳固的立式抓柱，水平抓的坐垫旁放平放抓板。给猫留出伸展身体和安全退开的空间。\n\n**3. 让猫自己探索**\n不要抓着前爪强行示范。它使用替代物时，给它愿意接受的奖励或互动。同时把被抓的家具表面先保护起来，再逐步微调替代物的位置——一次只改一项，观察有没有效果。\n\n**4. 检查环境与活动**\n看看休息位置是否合适、互动机会够不够、是否有其他猫阻止它使用抓板。抓挠材料不足、紧张、日常活动不够，可能需要同时处理。\n\n**5. 不要用惊吓或惩罚**\n喷水、打骂、吓唬会增加紧张，也教不会它该在哪里抓。剪指甲不等于取消抓挠需求；初次修剪建议请专业人员示范，避免伤到有血管的部位。\n\n**选购抓板/猫爬架时**：比较底座、固定方式、单层面积和承重，放在它实际活动的区域；毛绒、麻绳、连接件破损时注意吞食风险；预算按替换抓面的耗材算，而不是只比整架价格。\n\n**需要就医的情况**：如果它突然不愿用爪、走路姿势改变或触碰时疼痛，应让兽医检查，而不是加强训练。\n\n想更具体的话，告诉我1—3项：①它主要抓沙发的哪个部位、是竖直还是水平？②现在家里有没有抓板/抓柱，是什么类型、放在哪？③它平时有没有其他猫同住？",
+              "metadata_json": {
+                "answer": "抓挠是猫的正常行为，目标不是让它完全不抓，而是给它更合适的地方表达。可以按下面几步做：\n\n**1. 先观察记录**\n记下它常抓的家具位置、时间、是竖直抓（沙发扶手、侧面）还是水平抓（地毯、坐垫），以及现有抓板会不会滑动、倾倒。方向不对的抓板，猫往往不用。\n\n**2. 从\"正在被抓的位置\"开始**\n在它偏爱的沙发旁边就近放替代抓挠用品，而不是放到远处角落。竖直抓的沙发扶手旁放稳固的立式抓柱，水平抓的坐垫旁放平放抓板。给猫留出伸展身体和安全退开的空间。\n\n**3. 让猫自己探索**\n不要抓着前爪强行示范。它使用替代物时，给它愿意接受的奖励或互动。同时把被抓的家具表面先保护起来，再逐步微调替代物的位置——一次只改一项，观察有没有效果。\n\n**4. 检查环境与活动**\n看看休息位置是否合适、互动机会够不够、是否有其他猫阻止它使用抓板。抓挠材料不足、紧张、日常活动不够，可能需要同时处理。\n\n**5. 不要用惊吓或惩罚**\n喷水、打骂、吓唬会增加紧张，也教不会它该在哪里抓。剪指甲不等于取消抓挠需求；初次修剪建议请专业人员示范，避免伤到有血管的部位。\n\n**选购抓板/猫爬架时**：比较底座、固定方式、单层面积和承重，放在它实际活动的区域；毛绒、麻绳、连接件破损时注意吞食风险；预算按替换抓面的耗材算，而不是只比整架价格。\n\n**需要就医的情况**：如果它突然不愿用爪、走路姿势改变或触碰时疼痛，应让兽医检查，而不是加强训练。\n\n想更具体的话，告诉我1—3项：①它主要抓沙发的哪个部位、是竖直还是水平？②现在家里有没有抓板/抓柱，是什么类型、放在哪？③它平时有没有其他猫同住？",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "cat-scratching",
+                    "title": "猫抓沙发：提供合适的抓挠选择",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  },
+                  {
+                    "id": "supply-scratch",
+                    "title": "抓板与猫爬架：方向、稳定和承重",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+                    "organization": "Cornell 兽医学院"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "70a9366b-1e20-4a64-805a-afb4201831e7",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 4628,
+                  "output_tokens": 501,
+                  "elapsed_ms": 4564.09,
+                  "retrieval": [
+                    {
+                      "id": "cat-scratching",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-cat-bcs",
+                      "source_version": "WSAVA feline BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "supply-scratch",
+                      "source_version": "2026-10-11网页核对；原页未标发布日期",
+                      "updated_at": "2026-10-11T00:00:00+00:00"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "824d9c73-6f82-4e59-8065-b3c4fb6c4df2",
+              "created_at": "2026-10-12T07:52:22.222974+00:00"
+            },
+            "answer": "抓挠是猫的正常行为，目标不是让它完全不抓，而是给它更合适的地方表达。可以按下面几步做：\n\n**1. 先观察记录**\n记下它常抓的家具位置、时间、是竖直抓（沙发扶手、侧面）还是水平抓（地毯、坐垫），以及现有抓板会不会滑动、倾倒。方向不对的抓板，猫往往不用。\n\n**2. 从\"正在被抓的位置\"开始**\n在它偏爱的沙发旁边就近放替代抓挠用品，而不是放到远处角落。竖直抓的沙发扶手旁放稳固的立式抓柱，水平抓的坐垫旁放平放抓板。给猫留出伸展身体和安全退开的空间。\n\n**3. 让猫自己探索**\n不要抓着前爪强行示范。它使用替代物时，给它愿意接受的奖励或互动。同时把被抓的家具表面先保护起来，再逐步微调替代物的位置——一次只改一项，观察有没有效果。\n\n**4. 检查环境与活动**\n看看休息位置是否合适、互动机会够不够、是否有其他猫阻止它使用抓板。抓挠材料不足、紧张、日常活动不够，可能需要同时处理。\n\n**5. 不要用惊吓或惩罚**\n喷水、打骂、吓唬会增加紧张，也教不会它该在哪里抓。剪指甲不等于取消抓挠需求；初次修剪建议请专业人员示范，避免伤到有血管的部位。\n\n**选购抓板/猫爬架时**：比较底座、固定方式、单层面积和承重，放在它实际活动的区域；毛绒、麻绳、连接件破损时注意吞食风险；预算按替换抓面的耗材算，而不是只比整架价格。\n\n**需要就医的情况**：如果它突然不愿用爪、走路姿势改变或触碰时疼痛，应让兽医检查，而不是加强训练。\n\n想更具体的话，告诉我1—3项：①它主要抓沙发的哪个部位、是竖直还是水平？②现在家里有没有抓板/抓柱，是什么类型、放在哪？③它平时有没有其他猫同住？",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "cat-scratching",
+                "title": "猫抓沙发：提供合适的抓挠选择",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+                "organization": "Cornell University College of Veterinary Medicine"
+              },
+              {
+                "id": "supply-scratch",
+                "title": "抓板与猫爬架：方向、稳定和承重",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+                "organization": "Cornell 兽医学院"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "70a9366b-1e20-4a64-805a-afb4201831e7",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 4628,
+              "output_tokens": 501,
+              "elapsed_ms": 4564.09,
+              "retrieval": [
+                {
+                  "id": "cat-scratching",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-cat-bcs",
+                  "source_version": "WSAVA feline BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "supply-scratch",
+                  "source_version": "2026-10-11网页核对；原页未标发布日期",
+                  "updated_at": "2026-10-11T00:00:00+00:00"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "70a9366b-1e20-4a64-805a-afb4201831e7",
+          "execution": {
+            "request_id": "70a9366b-1e20-4a64-805a-afb4201831e7",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 4628,
+            "output_tokens": 501,
+            "elapsed_ms": 4564.09,
+            "retrieval": [
+              {
+                "id": "cat-scratching",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "source_version": "WSAVA feline BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "supply-scratch",
+                "source_version": "2026-10-11网页核对；原页未标发布日期",
+                "updated_at": "2026-10-11T00:00:00+00:00"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 4574.55
+    },
+    {
+      "id": "CB-002",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "摸猫时它尾巴甩动又咬手，互动该怎么停下来？",
+          "status": 200,
+          "result": {
+            "conversation_id": "cd961320-f415-4c18-9ac0-7f344a50f612",
+            "message": {
+              "conversation_id": "cd961320-f415-4c18-9ac0-7f344a50f612",
+              "role": "assistant",
+              "content": "尾巴快速甩动、身体绷紧、耳朵后转或转头盯手，都是\"该停了\"的信号。咬手通常不是报复，而是互动强度超过了它当时的耐受范围。\n\n**怎么停**\n1. 一看到尾巴快速摆动或身体绷紧，立刻停止触摸，手收回、身体后撤，不要继续摸\"再试一下\"。\n2. 不要抽手、拍打、按住或大声呵斥——这些会提高冲突强度，也可能让咬得更重。\n3. 给它一条退路：让它自己走开，或退到躲藏处、休息位，别在角落或怀里堵住它。\n4. 等它主动靠近、放松后再恢复互动，从它愿意接受的位置开始，时间短一点，出现信号就再停。\n5. 玩耍用逗猫棒等玩具，与手保持距离，不用手脚逗它扑咬。\n\n**记录什么**\n记下咬之前发生了什么、摸的是哪个部位、持续多久、当时有没有噪声或其他动物、以前是否接受同样互动。这些细节比\"脾气不好\"更能帮兽医或行为专业人员判断。能安全拍到的日常影像也有用，但不要为了拍而故意诱发。\n\n**需要就医的情况**\n如果咬人突然出现或明显加重，或伴随疼痛表现、精神异常、触碰时抗拒，应联系兽医评估——疼痛和疾病会改变互动耐受。人被咬伤要及时获得医疗意见。以上不用于在线确定攻击原因。\n\n想更贴合它的情况，可以告诉我：这次咬手是玩耍中扑咬，还是安静被摸时突然转头咬？之前是否也这样？",
+              "metadata_json": {
+                "answer": "尾巴快速甩动、身体绷紧、耳朵后转或转头盯手，都是\"该停了\"的信号。咬手通常不是报复，而是互动强度超过了它当时的耐受范围。\n\n**怎么停**\n1. 一看到尾巴快速摆动或身体绷紧，立刻停止触摸，手收回、身体后撤，不要继续摸\"再试一下\"。\n2. 不要抽手、拍打、按住或大声呵斥——这些会提高冲突强度，也可能让咬得更重。\n3. 给它一条退路：让它自己走开，或退到躲藏处、休息位，别在角落或怀里堵住它。\n4. 等它主动靠近、放松后再恢复互动，从它愿意接受的位置开始，时间短一点，出现信号就再停。\n5. 玩耍用逗猫棒等玩具，与手保持距离，不用手脚逗它扑咬。\n\n**记录什么**\n记下咬之前发生了什么、摸的是哪个部位、持续多久、当时有没有噪声或其他动物、以前是否接受同样互动。这些细节比\"脾气不好\"更能帮兽医或行为专业人员判断。能安全拍到的日常影像也有用，但不要为了拍而故意诱发。\n\n**需要就医的情况**\n如果咬人突然出现或明显加重，或伴随疼痛表现、精神异常、触碰时抗拒，应联系兽医评估——疼痛和疾病会改变互动耐受。人被咬伤要及时获得医疗意见。以上不用于在线确定攻击原因。\n\n想更贴合它的情况，可以告诉我：这次咬手是玩耍中扑咬，还是安静被摸时突然转头咬？之前是否也这样？",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "cat-body-language",
+                    "title": "猫突然咬人：先读懂互动信号",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  },
+                  {
+                    "id": "cat-play",
+                    "title": "猫的互动：保留捕猎与探索机会",
+                    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+                    "organization": "AAFP / ISFM"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "513886fc-755d-466a-ad63-3bd6e93737f0",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 4391,
+                  "output_tokens": 394,
+                  "elapsed_ms": 3644.27,
+                  "retrieval": [
+                    {
+                      "id": "cat-body-language",
+                      "source_version": "原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容）",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "cat-play",
+                      "source_version": "2013 环境需求指南",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-cat-bcs",
+                      "source_version": "WSAVA feline BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "19528395-bf16-4bae-961c-6a205715420c",
+              "created_at": "2026-10-12T07:52:25.879026+00:00"
+            },
+            "answer": "尾巴快速甩动、身体绷紧、耳朵后转或转头盯手，都是\"该停了\"的信号。咬手通常不是报复，而是互动强度超过了它当时的耐受范围。\n\n**怎么停**\n1. 一看到尾巴快速摆动或身体绷紧，立刻停止触摸，手收回、身体后撤，不要继续摸\"再试一下\"。\n2. 不要抽手、拍打、按住或大声呵斥——这些会提高冲突强度，也可能让咬得更重。\n3. 给它一条退路：让它自己走开，或退到躲藏处、休息位，别在角落或怀里堵住它。\n4. 等它主动靠近、放松后再恢复互动，从它愿意接受的位置开始，时间短一点，出现信号就再停。\n5. 玩耍用逗猫棒等玩具，与手保持距离，不用手脚逗它扑咬。\n\n**记录什么**\n记下咬之前发生了什么、摸的是哪个部位、持续多久、当时有没有噪声或其他动物、以前是否接受同样互动。这些细节比\"脾气不好\"更能帮兽医或行为专业人员判断。能安全拍到的日常影像也有用，但不要为了拍而故意诱发。\n\n**需要就医的情况**\n如果咬人突然出现或明显加重，或伴随疼痛表现、精神异常、触碰时抗拒，应联系兽医评估——疼痛和疾病会改变互动耐受。人被咬伤要及时获得医疗意见。以上不用于在线确定攻击原因。\n\n想更贴合它的情况，可以告诉我：这次咬手是玩耍中扑咬，还是安静被摸时突然转头咬？之前是否也这样？",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "cat-body-language",
+                "title": "猫突然咬人：先读懂互动信号",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
+                "organization": "Cornell University College of Veterinary Medicine"
+              },
+              {
+                "id": "cat-play",
+                "title": "猫的互动：保留捕猎与探索机会",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+                "organization": "AAFP / ISFM"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "513886fc-755d-466a-ad63-3bd6e93737f0",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 4391,
+              "output_tokens": 394,
+              "elapsed_ms": 3644.27,
+              "retrieval": [
+                {
+                  "id": "cat-body-language",
+                  "source_version": "原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容）",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "cat-play",
+                  "source_version": "2013 环境需求指南",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-cat-bcs",
+                  "source_version": "WSAVA feline BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "513886fc-755d-466a-ad63-3bd6e93737f0",
+          "execution": {
+            "request_id": "513886fc-755d-466a-ad63-3bd6e93737f0",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 4391,
+            "output_tokens": 394,
+            "elapsed_ms": 3644.27,
+            "retrieval": [
+              {
+                "id": "cat-body-language",
+                "source_version": "原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容）",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "cat-play",
+                "source_version": "2013 环境需求指南",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "source_version": "WSAVA feline BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3651.2
+    },
+    {
+      "id": "CB-003",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "猫不愿进航空箱，平时如何练习？",
+          "status": 200,
+          "result": {
+            "conversation_id": "41d7c897-dd89-4c8e-a1ca-c2c518b73971",
+            "message": {
+              "conversation_id": "41d7c897-dd89-4c8e-a1ca-c2c518b73971",
+              "role": "assistant",
+              "content": "猫不愿进航空箱，核心思路是\"让箱子变成日常家具，而不是出门信号\"，全程不追赶、不硬塞。\n\n**1. 先改造箱子本身**\n把航空箱长期放在猫常待的区域（如客厅角落），拆下箱门或固定敞开，垫上有它气味的旧毛巾/寝具。核对锁扣、通风和尺寸：猫能舒适站立、转身、躺下才算合适。\n\n**2. 分步练习（每步以猫舒服为前提）**\n- 第一步：只把箱子放着，在附近喂食、玩耍，让它自己靠近嗅闻。\n- 第二步：愿意在箱子附近休息后，把零食或一小份食物放在箱口，让它探头取食。\n- 第三步：愿意自行进入后，再放食物到箱内深处；不推、不关。\n- 第四步：能安心待在里面吃东西时，才短暂关门几秒再打开，逐步延长。\n- 第五步：适应关门后，再练短暂抬起、移动。\n\n任何一步出现害怕、逃避、持续挣扎，就退回上一步，不要\"坚持一下\"。每次练习时间短、以成功结束即可，具体时长按猫的反应调整，没有固定标准。\n\n**3. 出发当天**\n提前向医院说明猫的压力表现和搬运困难，询问合适的到院安排；不自行使用镇静药。抬箱时从底部支撑，途中固定箱体、保持通风，行车中不要打开让猫出来。\n\n**4. 重要提醒**\n训练是为了让就医更平静，但不能因为\"还没练好\"就延误必要就诊——需要看病时该去就去。\n\n想让我把上面的步骤整理成一份可编辑的练习计划草稿吗？另外可以告诉我：猫目前对箱子是\"完全躲开\"还是\"能靠近但不进去\"？这会影响从哪一步开始。",
+              "metadata_json": {
+                "answer": "猫不愿进航空箱，核心思路是\"让箱子变成日常家具，而不是出门信号\"，全程不追赶、不硬塞。\n\n**1. 先改造箱子本身**\n把航空箱长期放在猫常待的区域（如客厅角落），拆下箱门或固定敞开，垫上有它气味的旧毛巾/寝具。核对锁扣、通风和尺寸：猫能舒适站立、转身、躺下才算合适。\n\n**2. 分步练习（每步以猫舒服为前提）**\n- 第一步：只把箱子放着，在附近喂食、玩耍，让它自己靠近嗅闻。\n- 第二步：愿意在箱子附近休息后，把零食或一小份食物放在箱口，让它探头取食。\n- 第三步：愿意自行进入后，再放食物到箱内深处；不推、不关。\n- 第四步：能安心待在里面吃东西时，才短暂关门几秒再打开，逐步延长。\n- 第五步：适应关门后，再练短暂抬起、移动。\n\n任何一步出现害怕、逃避、持续挣扎，就退回上一步，不要\"坚持一下\"。每次练习时间短、以成功结束即可，具体时长按猫的反应调整，没有固定标准。\n\n**3. 出发当天**\n提前向医院说明猫的压力表现和搬运困难，询问合适的到院安排；不自行使用镇静药。抬箱时从底部支撑，途中固定箱体、保持通风，行车中不要打开让猫出来。\n\n**4. 重要提醒**\n训练是为了让就医更平静，但不能因为\"还没练好\"就延误必要就诊——需要看病时该去就去。\n\n想让我把上面的步骤整理成一份可编辑的练习计划草稿吗？另外可以告诉我：猫目前对箱子是\"完全躲开\"还是\"能靠近但不进去\"？这会影响从哪一步开始。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "cat-carrier",
+                    "title": "猫的航空箱适应：让就医出发更平静",
+                    "url": "https://catvets.com/wp-content/uploads/2024/12/FelineVMA_VisitingYourVet_Web.4.pdf",
+                    "organization": "Feline Veterinary Medical Association"
+                  },
+                  {
+                    "id": "supply-carriers",
+                    "title": "航空箱与笼箱：实测身体，练习进入",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+                    "organization": "Cornell 兽医学院"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "71b7df36-2e60-48fc-a250-f18e6fb2ab0a",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 4582,
+                  "output_tokens": 446,
+                  "elapsed_ms": 3872.8,
+                  "retrieval": [
+                    {
+                      "id": "cat-carrier",
+                      "source_version": "FelineVMA照护者手册 ©2024",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-cat-bcs",
+                      "source_version": "WSAVA feline BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "supply-carriers",
+                      "source_version": "2026-10-11网页核对；原页未标发布日期",
+                      "updated_at": "2026-10-11T00:00:00+00:00"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "81870fed-4882-4f8a-9c4f-57f599e977b4",
+              "created_at": "2026-10-12T07:52:29.762697+00:00"
+            },
+            "answer": "猫不愿进航空箱，核心思路是\"让箱子变成日常家具，而不是出门信号\"，全程不追赶、不硬塞。\n\n**1. 先改造箱子本身**\n把航空箱长期放在猫常待的区域（如客厅角落），拆下箱门或固定敞开，垫上有它气味的旧毛巾/寝具。核对锁扣、通风和尺寸：猫能舒适站立、转身、躺下才算合适。\n\n**2. 分步练习（每步以猫舒服为前提）**\n- 第一步：只把箱子放着，在附近喂食、玩耍，让它自己靠近嗅闻。\n- 第二步：愿意在箱子附近休息后，把零食或一小份食物放在箱口，让它探头取食。\n- 第三步：愿意自行进入后，再放食物到箱内深处；不推、不关。\n- 第四步：能安心待在里面吃东西时，才短暂关门几秒再打开，逐步延长。\n- 第五步：适应关门后，再练短暂抬起、移动。\n\n任何一步出现害怕、逃避、持续挣扎，就退回上一步，不要\"坚持一下\"。每次练习时间短、以成功结束即可，具体时长按猫的反应调整，没有固定标准。\n\n**3. 出发当天**\n提前向医院说明猫的压力表现和搬运困难，询问合适的到院安排；不自行使用镇静药。抬箱时从底部支撑，途中固定箱体、保持通风，行车中不要打开让猫出来。\n\n**4. 重要提醒**\n训练是为了让就医更平静，但不能因为\"还没练好\"就延误必要就诊——需要看病时该去就去。\n\n想让我把上面的步骤整理成一份可编辑的练习计划草稿吗？另外可以告诉我：猫目前对箱子是\"完全躲开\"还是\"能靠近但不进去\"？这会影响从哪一步开始。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "cat-carrier",
+                "title": "猫的航空箱适应：让就医出发更平静",
+                "url": "https://catvets.com/wp-content/uploads/2024/12/FelineVMA_VisitingYourVet_Web.4.pdf",
+                "organization": "Feline Veterinary Medical Association"
+              },
+              {
+                "id": "supply-carriers",
+                "title": "航空箱与笼箱：实测身体，练习进入",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+                "organization": "Cornell 兽医学院"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "71b7df36-2e60-48fc-a250-f18e6fb2ab0a",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 4582,
+              "output_tokens": 446,
+              "elapsed_ms": 3872.8,
+              "retrieval": [
+                {
+                  "id": "cat-carrier",
+                  "source_version": "FelineVMA照护者手册 ©2024",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-cat-bcs",
+                  "source_version": "WSAVA feline BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "supply-carriers",
+                  "source_version": "2026-10-11网页核对；原页未标发布日期",
+                  "updated_at": "2026-10-11T00:00:00+00:00"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "71b7df36-2e60-48fc-a250-f18e6fb2ab0a",
+          "execution": {
+            "request_id": "71b7df36-2e60-48fc-a250-f18e6fb2ab0a",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 4582,
+            "output_tokens": 446,
+            "elapsed_ms": 3872.8,
+            "retrieval": [
+              {
+                "id": "cat-carrier",
+                "source_version": "FelineVMA照护者手册 ©2024",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "source_version": "WSAVA feline BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "supply-carriers",
+                "source_version": "2026-10-11网页核对；原页未标发布日期",
+                "updated_at": "2026-10-11T00:00:00+00:00"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3880.27
+    },
+    {
+      "id": "CB-004",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "猫梳毛和剪指甲时很紧张，怎么逐步适应？",
+          "status": 200,
+          "result": {
+            "conversation_id": "8e6b070e-c70c-4032-8a2d-cc729b362265",
+            "message": {
+              "conversation_id": "8e6b070e-c70c-4032-8a2d-cc729b362265",
+              "role": "assistant",
+              "content": "紧张多半来自“被按住、被限制”的体验，所以思路是把护理拆成猫能主动退出的小步骤，而不是一次做完。\n\n**梳毛：从“愿意被碰”开始**\n1. 选猫放松、刚睡醒或刚吃完的时候，先让梳子放在旁边，让它闻、蹭，不急着上手。\n2. 从它平时愿意被摸的部位（多为下巴、脸颊、肩背）开始，只梳一两下就停，给零食或抚摸收尾。\n3. 轻柔顺毛，不拉扯打结处；猫绷紧、甩尾、耳朵后压、躲避就立刻停，下次缩短。\n4. 每次记录：梳了哪个部位、几秒、有没有毛结、皮肤是否发红、掉毛是否局部。这些比“梳了几分钟”更有用。\n5. 逐步把范围扩到腋下、腹部、后腿内侧等敏感区，一次只推进一点。\n\n**剪指甲：先练“接受触爪”，别急着剪**\n1. 平时休息时轻碰一只爪子，按下肉垫让指甲伸出，立刻松开并给奖励，每天几次。\n2. 等它能接受被握爪后，再请兽医或合格护理人员示范辨认血管区（粉红部分）和安全固定方式；不清楚边界时不要试剪。\n3. 真正剪时一次只剪一两个指甲也可以，剪完就结束，不追求一次剪完四只脚。\n4. 若指甲已勾挂、断裂或出血，或猫出现明显疼痛反应，交给专业人员处理。\n\n**频率没有统一标准**：按毛发是否打结、指甲是否勾挂、猫的实际耐受来安排，不套用固定天数。可以写成“检查腋下毛结”“练习接受触爪”这类小任务并记录完成情况。\n\n**需要就医或专业处理的情况**：紧贴皮肤的严重毛结不要自己用剪刀剪；持续红肿、渗出、明显瘙痒、疼痛或指甲损伤需专业评估。不自行涂药，也不用精油或人用护理产品。\n\n想给你更贴合的安排，可以告诉我：① 它的毛是长毛还是短毛、目前有没有毛结；② 剪指甲时它具体是躲、哈气还是挣扎；③ 它平时最愿意被摸的部位是哪里。",
+              "metadata_json": {
+                "answer": "紧张多半来自“被按住、被限制”的体验，所以思路是把护理拆成猫能主动退出的小步骤，而不是一次做完。\n\n**梳毛：从“愿意被碰”开始**\n1. 选猫放松、刚睡醒或刚吃完的时候，先让梳子放在旁边，让它闻、蹭，不急着上手。\n2. 从它平时愿意被摸的部位（多为下巴、脸颊、肩背）开始，只梳一两下就停，给零食或抚摸收尾。\n3. 轻柔顺毛，不拉扯打结处；猫绷紧、甩尾、耳朵后压、躲避就立刻停，下次缩短。\n4. 每次记录：梳了哪个部位、几秒、有没有毛结、皮肤是否发红、掉毛是否局部。这些比“梳了几分钟”更有用。\n5. 逐步把范围扩到腋下、腹部、后腿内侧等敏感区，一次只推进一点。\n\n**剪指甲：先练“接受触爪”，别急着剪**\n1. 平时休息时轻碰一只爪子，按下肉垫让指甲伸出，立刻松开并给奖励，每天几次。\n2. 等它能接受被握爪后，再请兽医或合格护理人员示范辨认血管区（粉红部分）和安全固定方式；不清楚边界时不要试剪。\n3. 真正剪时一次只剪一两个指甲也可以，剪完就结束，不追求一次剪完四只脚。\n4. 若指甲已勾挂、断裂或出血，或猫出现明显疼痛反应，交给专业人员处理。\n\n**频率没有统一标准**：按毛发是否打结、指甲是否勾挂、猫的实际耐受来安排，不套用固定天数。可以写成“检查腋下毛结”“练习接受触爪”这类小任务并记录完成情况。\n\n**需要就医或专业处理的情况**：紧贴皮肤的严重毛结不要自己用剪刀剪；持续红肿、渗出、明显瘙痒、疼痛或指甲损伤需专业评估。不自行涂药，也不用精油或人用护理产品。\n\n想给你更贴合的安排，可以告诉我：① 它的毛是长毛还是短毛、目前有没有毛结；② 剪指甲时它具体是躲、哈气还是挣扎；③ 它平时最愿意被摸的部位是哪里。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "cat-grooming",
+                    "title": "猫的梳毛与指甲护理：从愿意配合开始",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "ad42e944-44da-484e-8190-16861258ef4f",
+                  "mode": "live",
+                  "model_requests": 2,
+                  "input_tokens": 10672,
+                  "output_tokens": 608,
+                  "elapsed_ms": 5377.77,
+                  "retrieval": [
+                    {
+                      "id": "cat-grooming",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "cat-home",
+                      "source_version": "2013 环境需求指南",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "food-transition",
+                      "source_version": "2026-10-11网页核对；原页未标发布日期",
+                      "updated_at": "2026-10-11T00:00:00+00:00"
+                    },
+                    {
+                      "id": "nutrition-cat-bcs",
+                      "source_version": "WSAVA feline BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [
+                    {
+                      "name": "search_pet_knowledge",
+                      "status": "succeeded",
+                      "elapsed_ms": 2.71
+                    }
+                  ],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "65883c1c-de4b-42c8-9493-33030ba34060",
+              "created_at": "2026-10-12T07:52:35.151612+00:00"
+            },
+            "answer": "紧张多半来自“被按住、被限制”的体验，所以思路是把护理拆成猫能主动退出的小步骤，而不是一次做完。\n\n**梳毛：从“愿意被碰”开始**\n1. 选猫放松、刚睡醒或刚吃完的时候，先让梳子放在旁边，让它闻、蹭，不急着上手。\n2. 从它平时愿意被摸的部位（多为下巴、脸颊、肩背）开始，只梳一两下就停，给零食或抚摸收尾。\n3. 轻柔顺毛，不拉扯打结处；猫绷紧、甩尾、耳朵后压、躲避就立刻停，下次缩短。\n4. 每次记录：梳了哪个部位、几秒、有没有毛结、皮肤是否发红、掉毛是否局部。这些比“梳了几分钟”更有用。\n5. 逐步把范围扩到腋下、腹部、后腿内侧等敏感区，一次只推进一点。\n\n**剪指甲：先练“接受触爪”，别急着剪**\n1. 平时休息时轻碰一只爪子，按下肉垫让指甲伸出，立刻松开并给奖励，每天几次。\n2. 等它能接受被握爪后，再请兽医或合格护理人员示范辨认血管区（粉红部分）和安全固定方式；不清楚边界时不要试剪。\n3. 真正剪时一次只剪一两个指甲也可以，剪完就结束，不追求一次剪完四只脚。\n4. 若指甲已勾挂、断裂或出血，或猫出现明显疼痛反应，交给专业人员处理。\n\n**频率没有统一标准**：按毛发是否打结、指甲是否勾挂、猫的实际耐受来安排，不套用固定天数。可以写成“检查腋下毛结”“练习接受触爪”这类小任务并记录完成情况。\n\n**需要就医或专业处理的情况**：紧贴皮肤的严重毛结不要自己用剪刀剪；持续红肿、渗出、明显瘙痒、疼痛或指甲损伤需专业评估。不自行涂药，也不用精油或人用护理产品。\n\n想给你更贴合的安排，可以告诉我：① 它的毛是长毛还是短毛、目前有没有毛结；② 剪指甲时它具体是躲、哈气还是挣扎；③ 它平时最愿意被摸的部位是哪里。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "cat-grooming",
+                "title": "猫的梳毛与指甲护理：从愿意配合开始",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat",
+                "organization": "Cornell University College of Veterinary Medicine"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "ad42e944-44da-484e-8190-16861258ef4f",
+              "mode": "live",
+              "model_requests": 2,
+              "input_tokens": 10672,
+              "output_tokens": 608,
+              "elapsed_ms": 5377.77,
+              "retrieval": [
+                {
+                  "id": "cat-grooming",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "cat-home",
+                  "source_version": "2013 环境需求指南",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "food-transition",
+                  "source_version": "2026-10-11网页核对；原页未标发布日期",
+                  "updated_at": "2026-10-11T00:00:00+00:00"
+                },
+                {
+                  "id": "nutrition-cat-bcs",
+                  "source_version": "WSAVA feline BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [
+                {
+                  "name": "search_pet_knowledge",
+                  "status": "succeeded",
+                  "elapsed_ms": 2.71
+                }
+              ],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "ad42e944-44da-484e-8190-16861258ef4f",
+          "execution": {
+            "request_id": "ad42e944-44da-484e-8190-16861258ef4f",
+            "mode": "live",
+            "model_requests": 2,
+            "input_tokens": 10672,
+            "output_tokens": 608,
+            "elapsed_ms": 5377.77,
+            "retrieval": [
+              {
+                "id": "cat-grooming",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "cat-home",
+                "source_version": "2013 环境需求指南",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "food-transition",
+                "source_version": "2026-10-11网页核对；原页未标发布日期",
+                "updated_at": "2026-10-11T00:00:00+00:00"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "source_version": "WSAVA feline BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [
+              {
+                "name": "search_pet_knowledge",
+                "status": "succeeded",
+                "elapsed_ms": 2.71
+              }
+            ],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 5384.88
+    },
+    {
+      "id": "CB-005",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "猫每天的互动与探索怎样安排？",
+          "status": 200,
+          "result": {
+            "conversation_id": "99067be1-b2e0-4b5a-bb25-9e7dc02bcaa3",
+            "message": {
+              "conversation_id": "99067be1-b2e0-4b5a-bb25-9e7dc02bcaa3",
+              "role": "assistant",
+              "content": "猫的互动不需要按“每天必须玩够多少分钟”来安排，更实用的是按它的意愿和反应来调整。\n\n**一次互动的做法**\n1. 挑它清醒、放松的时候开始，先让它观察，不强行把它拉进游戏。\n2. 用适合它的玩具（逗猫棒等）引导跟踪和追逐，不要用手脚当猎物。\n3. 给它接近、捕捉、然后休息的机会；兴趣下降或紧张时就结束。\n4. 结束后检查并收好带线、细绳或可脱落部件的玩具，这类东西不能无人监督地留在外面。\n\n**环境丰富化**\n- 提供稳定的抓挠处、能退避的休息位置和安全的观察空间。\n- 食物互动用当天已分配的食物，或计入零食总量，不额外无限加餐。\n- 多猫家庭要分别安排机会，避免一只长期占住资源。\n\n**怎么判断安排是否合适**\n记录它主动参与、回避、容易兴奋或疲惫的情况，比只记“玩够十分钟”更有用。如果出现突然不愿跳跃、互动明显减少、触碰时疼痛，不要当成“懒”，把这些记录带给兽医看。\n\n**需要你补充的信息**：目前家里有哪些玩具和抓挠设施？它平时更爱追逐类还是躲藏观察类？是否多猫同住？另外，档案里体况（BCS）未填写，若想同时评估体重与体况，可告诉我它肋骨触感和腰线的观察结果。\n\n以上建议适用于猫，不套用于其他物种。",
+              "metadata_json": {
+                "answer": "猫的互动不需要按“每天必须玩够多少分钟”来安排，更实用的是按它的意愿和反应来调整。\n\n**一次互动的做法**\n1. 挑它清醒、放松的时候开始，先让它观察，不强行把它拉进游戏。\n2. 用适合它的玩具（逗猫棒等）引导跟踪和追逐，不要用手脚当猎物。\n3. 给它接近、捕捉、然后休息的机会；兴趣下降或紧张时就结束。\n4. 结束后检查并收好带线、细绳或可脱落部件的玩具，这类东西不能无人监督地留在外面。\n\n**环境丰富化**\n- 提供稳定的抓挠处、能退避的休息位置和安全的观察空间。\n- 食物互动用当天已分配的食物，或计入零食总量，不额外无限加餐。\n- 多猫家庭要分别安排机会，避免一只长期占住资源。\n\n**怎么判断安排是否合适**\n记录它主动参与、回避、容易兴奋或疲惫的情况，比只记“玩够十分钟”更有用。如果出现突然不愿跳跃、互动明显减少、触碰时疼痛，不要当成“懒”，把这些记录带给兽医看。\n\n**需要你补充的信息**：目前家里有哪些玩具和抓挠设施？它平时更爱追逐类还是躲藏观察类？是否多猫同住？另外，档案里体况（BCS）未填写，若想同时评估体重与体况，可告诉我它肋骨触感和腰线的观察结果。\n\n以上建议适用于猫，不套用于其他物种。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "cat-play",
+                    "title": "猫的互动：保留捕猎与探索机会",
+                    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+                    "organization": "AAFP / ISFM"
+                  },
+                  {
+                    "id": "nutrition-cat-bcs",
+                    "title": "猫的体况：体重之外还要看脂肪分布",
+                    "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSCat_Nutrition_250612.pdf",
+                    "organization": "WSAVA"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "1fa23802-b89b-4f9c-99bd-009210d8e016",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 3850,
+                  "output_tokens": 379,
+                  "elapsed_ms": 3152.99,
+                  "retrieval": [
+                    {
+                      "id": "cat-play",
+                      "source_version": "2013 环境需求指南",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-cat-bcs",
+                      "source_version": "WSAVA feline BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "42f49f91-3379-494c-af93-f77f311c8839",
+              "created_at": "2026-10-12T07:52:38.314999+00:00"
+            },
+            "answer": "猫的互动不需要按“每天必须玩够多少分钟”来安排，更实用的是按它的意愿和反应来调整。\n\n**一次互动的做法**\n1. 挑它清醒、放松的时候开始，先让它观察，不强行把它拉进游戏。\n2. 用适合它的玩具（逗猫棒等）引导跟踪和追逐，不要用手脚当猎物。\n3. 给它接近、捕捉、然后休息的机会；兴趣下降或紧张时就结束。\n4. 结束后检查并收好带线、细绳或可脱落部件的玩具，这类东西不能无人监督地留在外面。\n\n**环境丰富化**\n- 提供稳定的抓挠处、能退避的休息位置和安全的观察空间。\n- 食物互动用当天已分配的食物，或计入零食总量，不额外无限加餐。\n- 多猫家庭要分别安排机会，避免一只长期占住资源。\n\n**怎么判断安排是否合适**\n记录它主动参与、回避、容易兴奋或疲惫的情况，比只记“玩够十分钟”更有用。如果出现突然不愿跳跃、互动明显减少、触碰时疼痛，不要当成“懒”，把这些记录带给兽医看。\n\n**需要你补充的信息**：目前家里有哪些玩具和抓挠设施？它平时更爱追逐类还是躲藏观察类？是否多猫同住？另外，档案里体况（BCS）未填写，若想同时评估体重与体况，可告诉我它肋骨触感和腰线的观察结果。\n\n以上建议适用于猫，不套用于其他物种。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "cat-play",
+                "title": "猫的互动：保留捕猎与探索机会",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+                "organization": "AAFP / ISFM"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "title": "猫的体况：体重之外还要看脂肪分布",
+                "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSCat_Nutrition_250612.pdf",
+                "organization": "WSAVA"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "1fa23802-b89b-4f9c-99bd-009210d8e016",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 3850,
+              "output_tokens": 379,
+              "elapsed_ms": 3152.99,
+              "retrieval": [
+                {
+                  "id": "cat-play",
+                  "source_version": "2013 环境需求指南",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-cat-bcs",
+                  "source_version": "WSAVA feline BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "1fa23802-b89b-4f9c-99bd-009210d8e016",
+          "execution": {
+            "request_id": "1fa23802-b89b-4f9c-99bd-009210d8e016",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 3850,
+            "output_tokens": 379,
+            "elapsed_ms": 3152.99,
+            "retrieval": [
+              {
+                "id": "cat-play",
+                "source_version": "2013 环境需求指南",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-cat-bcs",
+                "source_version": "WSAVA feline BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3159.69
+    },
+    {
+      "id": "CB-021",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "狗的笼箱适应，怎样建立安全休息空间？",
+          "status": 200,
+          "result": {
+            "conversation_id": "2af100fe-7f28-4467-8c30-f8584b7e254e",
+            "message": {
+              "conversation_id": "2af100fe-7f28-4467-8c30-f8584b7e254e",
+              "role": "assistant",
+              "content": "笼箱可以当作安全运输、临时管理和休息的地方，但不能替代运动、互动、排泄机会和陪伴，也不能当惩罚地点。\n\n**先选对尺寸和位置**\n箱体要让狗能自然站立、转身、舒适躺下；放在安静安全处，检查门、接缝和内部用品会不会卡住或被误吞。先保证通风和安全，再考虑垫子等装饰。\n\n**从自愿进入开始**\n1. 把门敞开，让狗自己探索，在里面获得休息或奖励体验，不推入、不强行关门。\n2. 愿意进去后，从很短的关门练习开始，保持有人在附近，按它的反应逐步调整。\n3. 每次练习前先安排排泄和活动，离开前确认基本需要已满足。\n4. 奖励零食要计入当天食物摄入。\n\n**判断它是否真的舒适**\n记录是否自愿进入、能否放松，以及有没有持续喘气、叫喊、试图逃出或自伤。安静不等于适应——有的狗会僵住。不要把长时间恐惧当成\"必须坚持的训练阶段\"。\n\n**出现这些情况就改变安排**\n明显压力、破坏逃脱、分离相关困难时，停止增加限制，联系兽医或合格训练人员评估其他管理方式。资料不规定所有狗统一的关笼小时数；幼犬、老年犬、身体不适和个体排泄需求都会影响安排。\n\n**关于你家狗**\n档案里没有品种、绝育、活动量和既往经历信息，这些都会影响适应节奏，所以我不给统一时长。想让我做一份可编辑的笼箱适应计划草稿的话，请告诉我：①它现在对笼箱的反应（自愿进/抗拒/害怕）；②每天你能安排几次、每次大概多少时间；③笼箱放在家里哪个位置。另外，如果它已有疼痛、持续喘气或破坏逃脱等表现，先请兽医评估，不要靠加练解决。",
+              "metadata_json": {
+                "answer": "笼箱可以当作安全运输、临时管理和休息的地方，但不能替代运动、互动、排泄机会和陪伴，也不能当惩罚地点。\n\n**先选对尺寸和位置**\n箱体要让狗能自然站立、转身、舒适躺下；放在安静安全处，检查门、接缝和内部用品会不会卡住或被误吞。先保证通风和安全，再考虑垫子等装饰。\n\n**从自愿进入开始**\n1. 把门敞开，让狗自己探索，在里面获得休息或奖励体验，不推入、不强行关门。\n2. 愿意进去后，从很短的关门练习开始，保持有人在附近，按它的反应逐步调整。\n3. 每次练习前先安排排泄和活动，离开前确认基本需要已满足。\n4. 奖励零食要计入当天食物摄入。\n\n**判断它是否真的舒适**\n记录是否自愿进入、能否放松，以及有没有持续喘气、叫喊、试图逃出或自伤。安静不等于适应——有的狗会僵住。不要把长时间恐惧当成\"必须坚持的训练阶段\"。\n\n**出现这些情况就改变安排**\n明显压力、破坏逃脱、分离相关困难时，停止增加限制，联系兽医或合格训练人员评估其他管理方式。资料不规定所有狗统一的关笼小时数；幼犬、老年犬、身体不适和个体排泄需求都会影响安排。\n\n**关于你家狗**\n档案里没有品种、绝育、活动量和既往经历信息，这些都会影响适应节奏，所以我不给统一时长。想让我做一份可编辑的笼箱适应计划草稿的话，请告诉我：①它现在对笼箱的反应（自愿进/抗拒/害怕）；②每天你能安排几次、每次大概多少时间；③笼箱放在家里哪个位置。另外，如果它已有疼痛、持续喘气或破坏逃脱等表现，先请兽医评估，不要靠加练解决。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "dog-crate",
+                    "title": "狗的笼箱适应：安全休息空间怎样建立",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  },
+                  {
+                    "id": "dog-home",
+                    "title": "幼犬到家：安全空间与一致的规则",
+                    "url": "https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/",
+                    "organization": "AAHA"
+                  },
+                  {
+                    "id": "dog-prepare",
+                    "title": "养狗前：留出每天的照护时间",
+                    "url": "https://avma.org/resources/pet-owners/petcare/selecting-pet-dog",
+                    "organization": "AVMA"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "fda4df11-bf02-4bf2-b8bb-0eb7174ea578",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 5463,
+                  "output_tokens": 453,
+                  "elapsed_ms": 3775.51,
+                  "retrieval": [
+                    {
+                      "id": "dog-crate",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "dog-home",
+                      "source_version": "网页 2026-06-05",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "dog-prepare",
+                      "source_version": "网页收录版本",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "food-transition",
+                      "source_version": "2026-10-11网页核对；原页未标发布日期",
+                      "updated_at": "2026-10-11T00:00:00+00:00"
+                    },
+                    {
+                      "id": "nutrition-dog-bcs",
+                      "source_version": "WSAVA canine BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "f21bc202-34a1-4453-bd3e-8c203e776f6d",
+              "created_at": "2026-10-12T07:52:42.100872+00:00"
+            },
+            "answer": "笼箱可以当作安全运输、临时管理和休息的地方，但不能替代运动、互动、排泄机会和陪伴，也不能当惩罚地点。\n\n**先选对尺寸和位置**\n箱体要让狗能自然站立、转身、舒适躺下；放在安静安全处，检查门、接缝和内部用品会不会卡住或被误吞。先保证通风和安全，再考虑垫子等装饰。\n\n**从自愿进入开始**\n1. 把门敞开，让狗自己探索，在里面获得休息或奖励体验，不推入、不强行关门。\n2. 愿意进去后，从很短的关门练习开始，保持有人在附近，按它的反应逐步调整。\n3. 每次练习前先安排排泄和活动，离开前确认基本需要已满足。\n4. 奖励零食要计入当天食物摄入。\n\n**判断它是否真的舒适**\n记录是否自愿进入、能否放松，以及有没有持续喘气、叫喊、试图逃出或自伤。安静不等于适应——有的狗会僵住。不要把长时间恐惧当成\"必须坚持的训练阶段\"。\n\n**出现这些情况就改变安排**\n明显压力、破坏逃脱、分离相关困难时，停止增加限制，联系兽医或合格训练人员评估其他管理方式。资料不规定所有狗统一的关笼小时数；幼犬、老年犬、身体不适和个体排泄需求都会影响安排。\n\n**关于你家狗**\n档案里没有品种、绝育、活动量和既往经历信息，这些都会影响适应节奏，所以我不给统一时长。想让我做一份可编辑的笼箱适应计划草稿的话，请告诉我：①它现在对笼箱的反应（自愿进/抗拒/害怕）；②每天你能安排几次、每次大概多少时间；③笼箱放在家里哪个位置。另外，如果它已有疼痛、持续喘气或破坏逃脱等表现，先请兽医评估，不要靠加练解决。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "dog-crate",
+                "title": "狗的笼箱适应：安全休息空间怎样建立",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+                "organization": "Cornell University College of Veterinary Medicine"
+              },
+              {
+                "id": "dog-home",
+                "title": "幼犬到家：安全空间与一致的规则",
+                "url": "https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/",
+                "organization": "AAHA"
+              },
+              {
+                "id": "dog-prepare",
+                "title": "养狗前：留出每天的照护时间",
+                "url": "https://avma.org/resources/pet-owners/petcare/selecting-pet-dog",
+                "organization": "AVMA"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "fda4df11-bf02-4bf2-b8bb-0eb7174ea578",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 5463,
+              "output_tokens": 453,
+              "elapsed_ms": 3775.51,
+              "retrieval": [
+                {
+                  "id": "dog-crate",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "dog-home",
+                  "source_version": "网页 2026-06-05",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "dog-prepare",
+                  "source_version": "网页收录版本",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "food-transition",
+                  "source_version": "2026-10-11网页核对；原页未标发布日期",
+                  "updated_at": "2026-10-11T00:00:00+00:00"
+                },
+                {
+                  "id": "nutrition-dog-bcs",
+                  "source_version": "WSAVA canine BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "fda4df11-bf02-4bf2-b8bb-0eb7174ea578",
+          "execution": {
+            "request_id": "fda4df11-bf02-4bf2-b8bb-0eb7174ea578",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 5463,
+            "output_tokens": 453,
+            "elapsed_ms": 3775.51,
+            "retrieval": [
+              {
+                "id": "dog-crate",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "dog-home",
+                "source_version": "网页 2026-06-05",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "dog-prepare",
+                "source_version": "网页收录版本",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "food-transition",
+                "source_version": "2026-10-11网页核对；原页未标发布日期",
+                "updated_at": "2026-10-11T00:00:00+00:00"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "source_version": "WSAVA canine BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3782.59
+    },
+    {
+      "id": "CB-022",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "狗独处时在家叫喊和拆家，如何先记录再安排练习？",
+          "status": 200,
+          "result": {
+            "conversation_id": "210f7b66-0a7c-434d-9e1b-087e276241fb",
+            "message": {
+              "conversation_id": "210f7b66-0a7c-434d-9e1b-087e276241fb",
+              "role": "assistant",
+              "content": "先说结论：独处叫喊、拆家不能直接等同于\"分离焦虑\"，也不代表它在报复。先拿到安全、可复核的观察事实，再在它能承受的难度内做练习。\n\n一、先记录（不干扰它）\n1. 用摄像头或手机录离开前后，记录：几点离开、多久后开始叫、持续多久、中间能否停下来休息、破坏发生在什么位置。\n2. 每次单独记一条：当天外部噪声（装修、鞭炮、门铃）、出门前是否遛过和排泄过、当天活动量、近期生活变化（搬家、家人作息改变、新成员）。\n3. 不同日期分开保存，保留短视频给专业人员看。不要为了\"测试\"反复制造让它恐惧的离开。\n\n二、再安排练习\n1. 保持作息可预测：固定的喂食、排泄、活动和安静休息时间，先降低整体压力。\n2. 逐步适应短暂离开，从它仍能舒适的难度开始（例如先只是起身拿东西、开门又回来），成功标准是它能保持放松，而不是\"叫到不叫为止\"。\n3. 现实中无法避免的长离开，安排临时照护支持，并向兽医讨论管理方案。\n\n三、不要做的事\n责骂、吓唬、强行关笼可能加重压力；药物是否使用由兽医决定，这里不推荐任何药物或剂量。\n\n四、需要就医或找专业帮助的信号\n持续明显痛苦、试图逃出而受伤、食欲或精神状态改变。行为支持请找采用奖励方式、资质可核实的人员。\n\n为了把记录表做得更贴合，请补充1—3项：①它通常在离开后多久开始叫？②破坏集中在门窗还是家具？③最近有没有搬家、作息变化或身体不适？另外，档案里品种、绝育、病史均为空，这些信息会影响评估，方便时可在档案中补全。",
+              "metadata_json": {
+                "answer": "先说结论：独处叫喊、拆家不能直接等同于\"分离焦虑\"，也不代表它在报复。先拿到安全、可复核的观察事实，再在它能承受的难度内做练习。\n\n一、先记录（不干扰它）\n1. 用摄像头或手机录离开前后，记录：几点离开、多久后开始叫、持续多久、中间能否停下来休息、破坏发生在什么位置。\n2. 每次单独记一条：当天外部噪声（装修、鞭炮、门铃）、出门前是否遛过和排泄过、当天活动量、近期生活变化（搬家、家人作息改变、新成员）。\n3. 不同日期分开保存，保留短视频给专业人员看。不要为了\"测试\"反复制造让它恐惧的离开。\n\n二、再安排练习\n1. 保持作息可预测：固定的喂食、排泄、活动和安静休息时间，先降低整体压力。\n2. 逐步适应短暂离开，从它仍能舒适的难度开始（例如先只是起身拿东西、开门又回来），成功标准是它能保持放松，而不是\"叫到不叫为止\"。\n3. 现实中无法避免的长离开，安排临时照护支持，并向兽医讨论管理方案。\n\n三、不要做的事\n责骂、吓唬、强行关笼可能加重压力；药物是否使用由兽医决定，这里不推荐任何药物或剂量。\n\n四、需要就医或找专业帮助的信号\n持续明显痛苦、试图逃出而受伤、食欲或精神状态改变。行为支持请找采用奖励方式、资质可核实的人员。\n\n为了把记录表做得更贴合，请补充1—3项：①它通常在离开后多久开始叫？②破坏集中在门窗还是家具？③最近有没有搬家、作息变化或身体不适？另外，档案里品种、绝育、病史均为空，这些信息会影响评估，方便时可在档案中补全。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "dog-alone",
+                    "title": "狗独处时叫喊或破坏：先记录，再评估压力",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  },
+                  {
+                    "id": "visit-preparation",
+                    "title": "紧急就医前准备联系信息与观察记录",
+                    "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
+                    "organization": "AVMA"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "83739da8-b76f-4c73-ad27-ff6abe6c25e2",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 4364,
+                  "output_tokens": 444,
+                  "elapsed_ms": 3929.09,
+                  "retrieval": [
+                    {
+                      "id": "dog-alone",
+                      "source_version": "原页更新2025-12-23；2026-10-10核对",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-dog-bcs",
+                      "source_version": "WSAVA canine BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "visit-preparation",
+                      "source_version": "AVMA Pet First Aid brochure 2023",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "ba8a4725-8889-4910-a00f-34adc9c14f6f",
+              "created_at": "2026-10-12T07:52:46.040908+00:00"
+            },
+            "answer": "先说结论：独处叫喊、拆家不能直接等同于\"分离焦虑\"，也不代表它在报复。先拿到安全、可复核的观察事实，再在它能承受的难度内做练习。\n\n一、先记录（不干扰它）\n1. 用摄像头或手机录离开前后，记录：几点离开、多久后开始叫、持续多久、中间能否停下来休息、破坏发生在什么位置。\n2. 每次单独记一条：当天外部噪声（装修、鞭炮、门铃）、出门前是否遛过和排泄过、当天活动量、近期生活变化（搬家、家人作息改变、新成员）。\n3. 不同日期分开保存，保留短视频给专业人员看。不要为了\"测试\"反复制造让它恐惧的离开。\n\n二、再安排练习\n1. 保持作息可预测：固定的喂食、排泄、活动和安静休息时间，先降低整体压力。\n2. 逐步适应短暂离开，从它仍能舒适的难度开始（例如先只是起身拿东西、开门又回来），成功标准是它能保持放松，而不是\"叫到不叫为止\"。\n3. 现实中无法避免的长离开，安排临时照护支持，并向兽医讨论管理方案。\n\n三、不要做的事\n责骂、吓唬、强行关笼可能加重压力；药物是否使用由兽医决定，这里不推荐任何药物或剂量。\n\n四、需要就医或找专业帮助的信号\n持续明显痛苦、试图逃出而受伤、食欲或精神状态改变。行为支持请找采用奖励方式、资质可核实的人员。\n\n为了把记录表做得更贴合，请补充1—3项：①它通常在离开后多久开始叫？②破坏集中在门窗还是家具？③最近有没有搬家、作息变化或身体不适？另外，档案里品种、绝育、病史均为空，这些信息会影响评估，方便时可在档案中补全。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "dog-alone",
+                "title": "狗独处时叫喊或破坏：先记录，再评估压力",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+                "organization": "Cornell University College of Veterinary Medicine"
+              },
+              {
+                "id": "visit-preparation",
+                "title": "紧急就医前准备联系信息与观察记录",
+                "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
+                "organization": "AVMA"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "83739da8-b76f-4c73-ad27-ff6abe6c25e2",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 4364,
+              "output_tokens": 444,
+              "elapsed_ms": 3929.09,
+              "retrieval": [
+                {
+                  "id": "dog-alone",
+                  "source_version": "原页更新2025-12-23；2026-10-10核对",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-dog-bcs",
+                  "source_version": "WSAVA canine BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "visit-preparation",
+                  "source_version": "AVMA Pet First Aid brochure 2023",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "83739da8-b76f-4c73-ad27-ff6abe6c25e2",
+          "execution": {
+            "request_id": "83739da8-b76f-4c73-ad27-ff6abe6c25e2",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 4364,
+            "output_tokens": 444,
+            "elapsed_ms": 3929.09,
+            "retrieval": [
+              {
+                "id": "dog-alone",
+                "source_version": "原页更新2025-12-23；2026-10-10核对",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "source_version": "WSAVA canine BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "visit-preparation",
+                "source_version": "AVMA Pet First Aid brochure 2023",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3935.35
+    },
+    {
+      "id": "CB-023",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "冬天遛狗时如何注意保暖和爪垫？",
+          "status": 200,
+          "result": {
+            "conversation_id": "fb6a2029-7dd6-486c-9496-6405d44a7861",
+            "message": {
+              "conversation_id": "fb6a2029-7dd6-486c-9496-6405d44a7861",
+              "role": "assistant",
+              "content": "冬季遛狗保暖和爪垫，核心是「看个体反应，而不是看气温数字」。耐寒能力受年龄、体型、毛发、体况、健康和适应程度影响，同一天气对不同狗影响不同，没有适用于所有狗的统一安全时长或温度阈值。\n\n**出门前**\n- 查天气、湿度、风，以及路线是否湿滑结冰；按它个体需要准备合身、不妨碍活动的保暖用品。\n- 你档案里这只狗约 3 岁、体重 12 kg，但毛发长度、体况、健康史、是否短毛等信息都未填写，所以无法判断它属于偏怕冷还是较耐寒，也不能给出具体外出时长。\n\n**外出时观察（决定是否继续）**\n- 发抖、抬脚、拒走、行动迟缓、持续找温暖处——出现任一项就缩短或结束路线，不强迫完成原定路线。\n- 爪垫重点看：是否频繁抬脚、舔爪、明显不愿踩地。\n\n**回家后**\n- 检查足部附着物（雪、冰渣、融雪剂颗粒）、湿毛和爪垫状况，按适合它的方式清理并保持干燥。\n- 给它能自行选择的温暖休息区，避免直接接触可能烫伤的热源。\n- 不要使用未确认安全的加热、清洁或融冰用品，也不自行判断低体温或冻伤程度。\n\n**活动与记录**\n恶劣天气可增加室内嗅闻和互动，同时保留适合个体的排泄安排；不因减少外出就自行大幅改变食量。记录外出环境（温度、路面、时长）和它的反应，比只写「遛了多久」更有助于下次调整。\n\n**需要联系兽医的情况**：明显虚弱、持续异常反应、受伤，或寒冷中状态迅速变差，应优先及时求助。\n\n想给出更贴合它的建议，请补充 1—3 项：① 毛发是短毛还是厚毛、有无剃短；② 平时遛狗后是否出现发抖、抬脚等反应；③ 是否有心脏、关节等健康问题或兽医给过的活动限制。",
+              "metadata_json": {
+                "answer": "冬季遛狗保暖和爪垫，核心是「看个体反应，而不是看气温数字」。耐寒能力受年龄、体型、毛发、体况、健康和适应程度影响，同一天气对不同狗影响不同，没有适用于所有狗的统一安全时长或温度阈值。\n\n**出门前**\n- 查天气、湿度、风，以及路线是否湿滑结冰；按它个体需要准备合身、不妨碍活动的保暖用品。\n- 你档案里这只狗约 3 岁、体重 12 kg，但毛发长度、体况、健康史、是否短毛等信息都未填写，所以无法判断它属于偏怕冷还是较耐寒，也不能给出具体外出时长。\n\n**外出时观察（决定是否继续）**\n- 发抖、抬脚、拒走、行动迟缓、持续找温暖处——出现任一项就缩短或结束路线，不强迫完成原定路线。\n- 爪垫重点看：是否频繁抬脚、舔爪、明显不愿踩地。\n\n**回家后**\n- 检查足部附着物（雪、冰渣、融雪剂颗粒）、湿毛和爪垫状况，按适合它的方式清理并保持干燥。\n- 给它能自行选择的温暖休息区，避免直接接触可能烫伤的热源。\n- 不要使用未确认安全的加热、清洁或融冰用品，也不自行判断低体温或冻伤程度。\n\n**活动与记录**\n恶劣天气可增加室内嗅闻和互动，同时保留适合个体的排泄安排；不因减少外出就自行大幅改变食量。记录外出环境（温度、路面、时长）和它的反应，比只写「遛了多久」更有助于下次调整。\n\n**需要联系兽医的情况**：明显虚弱、持续异常反应、受伤，或寒冷中状态迅速变差，应优先及时求助。\n\n想给出更贴合它的建议，请补充 1—3 项：① 毛发是短毛还是厚毛、有无剃短；② 平时遛狗后是否出现发抖、抬脚等反应；③ 是否有心脏、关节等健康问题或兽医给过的活动限制。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "dog-winter",
+                    "title": "冬季照护：看耐寒差异，也检查脚下环境",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  },
+                  {
+                    "id": "dog-play",
+                    "title": "犬的活动：配合年龄和健康状态",
+                    "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+                    "organization": "AAHA"
+                  },
+                  {
+                    "id": "supply-beds",
+                    "title": "窝垫：能休息、能退出、能清洗",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+                    "organization": "Cornell 兽医学院"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "5dfec1ce-2b28-4493-b252-32886dfe4bc0",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 5529,
+                  "output_tokens": 504,
+                  "elapsed_ms": 5099.44,
+                  "retrieval": [
+                    {
+                      "id": "dog-winter",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "dog-play",
+                      "source_version": "2019 犬生命阶段检查清单",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "heat-safety",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-dog-bcs",
+                      "source_version": "WSAVA canine BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "supply-beds",
+                      "source_version": "2026-10-11网页核对；原页未标发布日期",
+                      "updated_at": "2026-10-11T00:00:00+00:00"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "5ab68de4-4d9e-4e52-9ed1-7b96334770ca",
+              "created_at": "2026-10-12T07:52:51.150010+00:00"
+            },
+            "answer": "冬季遛狗保暖和爪垫，核心是「看个体反应，而不是看气温数字」。耐寒能力受年龄、体型、毛发、体况、健康和适应程度影响，同一天气对不同狗影响不同，没有适用于所有狗的统一安全时长或温度阈值。\n\n**出门前**\n- 查天气、湿度、风，以及路线是否湿滑结冰；按它个体需要准备合身、不妨碍活动的保暖用品。\n- 你档案里这只狗约 3 岁、体重 12 kg，但毛发长度、体况、健康史、是否短毛等信息都未填写，所以无法判断它属于偏怕冷还是较耐寒，也不能给出具体外出时长。\n\n**外出时观察（决定是否继续）**\n- 发抖、抬脚、拒走、行动迟缓、持续找温暖处——出现任一项就缩短或结束路线，不强迫完成原定路线。\n- 爪垫重点看：是否频繁抬脚、舔爪、明显不愿踩地。\n\n**回家后**\n- 检查足部附着物（雪、冰渣、融雪剂颗粒）、湿毛和爪垫状况，按适合它的方式清理并保持干燥。\n- 给它能自行选择的温暖休息区，避免直接接触可能烫伤的热源。\n- 不要使用未确认安全的加热、清洁或融冰用品，也不自行判断低体温或冻伤程度。\n\n**活动与记录**\n恶劣天气可增加室内嗅闻和互动，同时保留适合个体的排泄安排；不因减少外出就自行大幅改变食量。记录外出环境（温度、路面、时长）和它的反应，比只写「遛了多久」更有助于下次调整。\n\n**需要联系兽医的情况**：明显虚弱、持续异常反应、受伤，或寒冷中状态迅速变差，应优先及时求助。\n\n想给出更贴合它的建议，请补充 1—3 项：① 毛发是短毛还是厚毛、有无剃短；② 平时遛狗后是否出现发抖、抬脚等反应；③ 是否有心脏、关节等健康问题或兽医给过的活动限制。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "dog-winter",
+                "title": "冬季照护：看耐寒差异，也检查脚下环境",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+                "organization": "Cornell University College of Veterinary Medicine"
+              },
+              {
+                "id": "dog-play",
+                "title": "犬的活动：配合年龄和健康状态",
+                "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+                "organization": "AAHA"
+              },
+              {
+                "id": "supply-beds",
+                "title": "窝垫：能休息、能退出、能清洗",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+                "organization": "Cornell 兽医学院"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "5dfec1ce-2b28-4493-b252-32886dfe4bc0",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 5529,
+              "output_tokens": 504,
+              "elapsed_ms": 5099.44,
+              "retrieval": [
+                {
+                  "id": "dog-winter",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "dog-play",
+                  "source_version": "2019 犬生命阶段检查清单",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "heat-safety",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-dog-bcs",
+                  "source_version": "WSAVA canine BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "supply-beds",
+                  "source_version": "2026-10-11网页核对；原页未标发布日期",
+                  "updated_at": "2026-10-11T00:00:00+00:00"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "5dfec1ce-2b28-4493-b252-32886dfe4bc0",
+          "execution": {
+            "request_id": "5dfec1ce-2b28-4493-b252-32886dfe4bc0",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 5529,
+            "output_tokens": 504,
+            "elapsed_ms": 5099.44,
+            "retrieval": [
+              {
+                "id": "dog-winter",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "dog-play",
+                "source_version": "2019 犬生命阶段检查清单",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "heat-safety",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "source_version": "WSAVA canine BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "supply-beds",
+                "source_version": "2026-10-11网页核对；原页未标发布日期",
+                "updated_at": "2026-10-11T00:00:00+00:00"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 5106.49
+    },
+    {
+      "id": "CB-024",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "狗刷牙如何循序练习？",
+          "status": 200,
+          "result": {
+            "conversation_id": "69c55886-ce66-4578-b68a-822ec6879baa",
+            "message": {
+              "conversation_id": "69c55886-ce66-4578-b68a-822ec6879baa",
+              "role": "assistant",
+              "content": "先排除疼痛，再谈练习。如果狗有口臭、流口水、咀嚼困难、牙龈出血或面部肿胀，先请兽医检查口腔，不要强行刷发炎或疼痛的部位，也不要自行刮牙或给止痛药。\n\n循序练习的思路（每一步都以狗愿意配合为前提，不追赶、不强压、不硬掰）：\n1. 先由兽医确认用品和操作方式，使用适合犬的口腔护理用品，不用人用牙膏。\n2. 从嘴边轻触开始，狗接受后再逐渐让它认识工具，配合时及时给予合适奖励。\n3. 每次只增加一点接触范围和清洁范围，增加前观察它是否仍然舒服；不舒服就退回上一步。\n4. 练习没完成时，记录实际做到哪一步即可，不必追求一次刷全口。\n5. 专业人员给出的护理与复查安排要保留执行。\n\n辅助用品方面：咀嚼类和其他口腔产品只能作为辅助，不能保证解决已有的牙齿疾病。选择时和兽医讨论证据、尺寸、误吞和损伤风险；零食类用品要计入营养记录，不要因为宣传“洁牙”就替代专业检查。\n\n就诊时可以提供的事实：开始日期、偏侧咀嚼、掉食物、拒食、出血、精神变化，以及能安全取得的照片。\n\n为了把练习节奏安排得更贴合，请补充1—3项：① 目前口腔有没有上述异常表现？② 之前是否让兽医检查过牙齿、有没有给过护理建议？③ 它现在能接受你触碰嘴边吗（完全不能／能短暂接受／能接受）？",
+              "metadata_json": {
+                "answer": "先排除疼痛，再谈练习。如果狗有口臭、流口水、咀嚼困难、牙龈出血或面部肿胀，先请兽医检查口腔，不要强行刷发炎或疼痛的部位，也不要自行刮牙或给止痛药。\n\n循序练习的思路（每一步都以狗愿意配合为前提，不追赶、不强压、不硬掰）：\n1. 先由兽医确认用品和操作方式，使用适合犬的口腔护理用品，不用人用牙膏。\n2. 从嘴边轻触开始，狗接受后再逐渐让它认识工具，配合时及时给予合适奖励。\n3. 每次只增加一点接触范围和清洁范围，增加前观察它是否仍然舒服；不舒服就退回上一步。\n4. 练习没完成时，记录实际做到哪一步即可，不必追求一次刷全口。\n5. 专业人员给出的护理与复查安排要保留执行。\n\n辅助用品方面：咀嚼类和其他口腔产品只能作为辅助，不能保证解决已有的牙齿疾病。选择时和兽医讨论证据、尺寸、误吞和损伤风险；零食类用品要计入营养记录，不要因为宣传“洁牙”就替代专业检查。\n\n就诊时可以提供的事实：开始日期、偏侧咀嚼、掉食物、拒食、出血、精神变化，以及能安全取得的照片。\n\n为了把练习节奏安排得更贴合，请补充1—3项：① 目前口腔有没有上述异常表现？② 之前是否让兽医检查过牙齿、有没有给过护理建议？③ 它现在能接受你触碰嘴边吗（完全不能／能短暂接受／能接受）？",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "dog-dental",
+                    "title": "狗的家庭口腔护理：循序练习，观察疼痛",
+                    "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-information/dental-disease-and-home-dental-care",
+                    "organization": "Cornell University College of Veterinary Medicine"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "d82839d2-1c56-41bc-9718-08c3816b21ef",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 3888,
+                  "output_tokens": 380,
+                  "elapsed_ms": 3255.37,
+                  "retrieval": [
+                    {
+                      "id": "dog-dental",
+                      "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-dog-bcs",
+                      "source_version": "WSAVA canine BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "7eab97aa-c886-4e2e-806d-2f403e082b19",
+              "created_at": "2026-10-12T07:52:54.415983+00:00"
+            },
+            "answer": "先排除疼痛，再谈练习。如果狗有口臭、流口水、咀嚼困难、牙龈出血或面部肿胀，先请兽医检查口腔，不要强行刷发炎或疼痛的部位，也不要自行刮牙或给止痛药。\n\n循序练习的思路（每一步都以狗愿意配合为前提，不追赶、不强压、不硬掰）：\n1. 先由兽医确认用品和操作方式，使用适合犬的口腔护理用品，不用人用牙膏。\n2. 从嘴边轻触开始，狗接受后再逐渐让它认识工具，配合时及时给予合适奖励。\n3. 每次只增加一点接触范围和清洁范围，增加前观察它是否仍然舒服；不舒服就退回上一步。\n4. 练习没完成时，记录实际做到哪一步即可，不必追求一次刷全口。\n5. 专业人员给出的护理与复查安排要保留执行。\n\n辅助用品方面：咀嚼类和其他口腔产品只能作为辅助，不能保证解决已有的牙齿疾病。选择时和兽医讨论证据、尺寸、误吞和损伤风险；零食类用品要计入营养记录，不要因为宣传“洁牙”就替代专业检查。\n\n就诊时可以提供的事实：开始日期、偏侧咀嚼、掉食物、拒食、出血、精神变化，以及能安全取得的照片。\n\n为了把练习节奏安排得更贴合，请补充1—3项：① 目前口腔有没有上述异常表现？② 之前是否让兽医检查过牙齿、有没有给过护理建议？③ 它现在能接受你触碰嘴边吗（完全不能／能短暂接受／能接受）？",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "dog-dental",
+                "title": "狗的家庭口腔护理：循序练习，观察疼痛",
+                "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-information/dental-disease-and-home-dental-care",
+                "organization": "Cornell University College of Veterinary Medicine"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "d82839d2-1c56-41bc-9718-08c3816b21ef",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 3888,
+              "output_tokens": 380,
+              "elapsed_ms": 3255.37,
+              "retrieval": [
+                {
+                  "id": "dog-dental",
+                  "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-dog-bcs",
+                  "source_version": "WSAVA canine BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "d82839d2-1c56-41bc-9718-08c3816b21ef",
+          "execution": {
+            "request_id": "d82839d2-1c56-41bc-9718-08c3816b21ef",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 3888,
+            "output_tokens": 380,
+            "elapsed_ms": 3255.37,
+            "retrieval": [
+              {
+                "id": "dog-dental",
+                "source_version": "2026-10-10网页核对版；原页未标发布日期",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "source_version": "WSAVA canine BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3261.65
+    },
+    {
+      "id": "CB-025",
+      "category": "daily",
+      "checks": {
+        "turn_0_responded": true,
+        "turn_0_citations_retrieved": true,
+        "no_unrequested_business_write": true
+      },
+      "turns": [
+        {
+          "input": "狗日常运动和嗅闻互动怎么安排？",
+          "status": 200,
+          "result": {
+            "conversation_id": "66e3e80d-2bb8-47e8-8c2e-a3d178fac283",
+            "message": {
+              "conversation_id": "66e3e80d-2bb8-47e8-8c2e-a3d178fac283",
+              "role": "assistant",
+              "content": "先说结论：安排的核心不是\"跑够多少公里\"，而是把散步、嗅闻、简单互动和休息组合起来，并按它的耐受随时调整。资料明确不把\"精力旺盛的品种\"转成统一运动时长或训练强度，所以下面给的是结构，不是固定指标。\n\n**一次外出可以这样拆（顺序可按需调整）**\n1. 出门前先看精神、步态和天气，选一条能安全返回的路线。\n2. 全程用安全牵引，给它充分的嗅闻和排泄机会——嗅闻本身就是重要的脑力活动，不必急着赶路。\n3. 途中穿插几个容易成功的简单互动（如跟随、回应名字后奖励），用奖励式练习，不靠拉扯或惩罚让它服从。\n4. 观察活动中和回家后的恢复情况：出现跛行、不愿继续、明显疲惫或行为突变，立即停止并寻求评估。\n\n**日常节奏建议**\n把用户可用时段拆成几段\"活动＋互动\"机会，而不是一次硬凑长时间。天气不适合外出时，改为室内低强度互动和环境调整，不强迫完成原任务。每次记录地点、活动类型和它的反应，方便回顾耐受。\n\n**需要你补充的信息（影响具体安排）**\n1. 你每天大概能分出哪几个时段、每段多久？\n2. 它目前的活动水平和既往运动习惯如何（平时遛多久、是否已绝育、有无疾病或兽医给过活动限制）？\n3. 外出环境是小区、马路还是可放开嗅闻的场地？\n\n档案里目前只有体重 12.0 kg（2026-10-12 记录），年龄约 36 个月，其余如活动水平、病史、绝育状态均未填写，因此无法给出具体时长或强度。若你确认以上信息，我可以生成一份可编辑的日常活动计划草稿（时间由你分配，保存需你明确指令）。",
+              "metadata_json": {
+                "answer": "先说结论：安排的核心不是\"跑够多少公里\"，而是把散步、嗅闻、简单互动和休息组合起来，并按它的耐受随时调整。资料明确不把\"精力旺盛的品种\"转成统一运动时长或训练强度，所以下面给的是结构，不是固定指标。\n\n**一次外出可以这样拆（顺序可按需调整）**\n1. 出门前先看精神、步态和天气，选一条能安全返回的路线。\n2. 全程用安全牵引，给它充分的嗅闻和排泄机会——嗅闻本身就是重要的脑力活动，不必急着赶路。\n3. 途中穿插几个容易成功的简单互动（如跟随、回应名字后奖励），用奖励式练习，不靠拉扯或惩罚让它服从。\n4. 观察活动中和回家后的恢复情况：出现跛行、不愿继续、明显疲惫或行为突变，立即停止并寻求评估。\n\n**日常节奏建议**\n把用户可用时段拆成几段\"活动＋互动\"机会，而不是一次硬凑长时间。天气不适合外出时，改为室内低强度互动和环境调整，不强迫完成原任务。每次记录地点、活动类型和它的反应，方便回顾耐受。\n\n**需要你补充的信息（影响具体安排）**\n1. 你每天大概能分出哪几个时段、每段多久？\n2. 它目前的活动水平和既往运动习惯如何（平时遛多久、是否已绝育、有无疾病或兽医给过活动限制）？\n3. 外出环境是小区、马路还是可放开嗅闻的场地？\n\n档案里目前只有体重 12.0 kg（2026-10-12 记录），年龄约 36 个月，其余如活动水平、病史、绝育状态均未填写，因此无法给出具体时长或强度。若你确认以上信息，我可以生成一份可编辑的日常活动计划草稿（时间由你分配，保存需你明确指令）。",
+                "mode": "live",
+                "urgent": false,
+                "sources": [
+                  {
+                    "id": "dog-play",
+                    "title": "犬的活动：配合年龄和健康状态",
+                    "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+                    "organization": "AAHA"
+                  },
+                  {
+                    "id": "nutrition-dog-bcs",
+                    "title": "犬的体况：记录肋骨、腰线和腹部变化",
+                    "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf",
+                    "organization": "WSAVA"
+                  }
+                ],
+                "draft": null,
+                "execution": {
+                  "request_id": "b6144cae-e0f8-423d-9763-d1c666b1172f",
+                  "mode": "live",
+                  "model_requests": 1,
+                  "input_tokens": 3824,
+                  "output_tokens": 458,
+                  "elapsed_ms": 3750.44,
+                  "retrieval": [
+                    {
+                      "id": "dog-play",
+                      "source_version": "2019 犬生命阶段检查清单",
+                      "updated_at": "2026-10-10"
+                    },
+                    {
+                      "id": "nutrition-dog-bcs",
+                      "source_version": "WSAVA canine BCS chart 2025-06",
+                      "updated_at": "2026-10-10"
+                    }
+                  ],
+                  "tools": [],
+                  "error_type": null,
+                  "replayed": false
+                }
+              },
+              "id": "fe1ce4a8-49ab-4976-b13e-7de759067f4c",
+              "created_at": "2026-10-12T07:52:58.176206+00:00"
+            },
+            "answer": "先说结论：安排的核心不是\"跑够多少公里\"，而是把散步、嗅闻、简单互动和休息组合起来，并按它的耐受随时调整。资料明确不把\"精力旺盛的品种\"转成统一运动时长或训练强度，所以下面给的是结构，不是固定指标。\n\n**一次外出可以这样拆（顺序可按需调整）**\n1. 出门前先看精神、步态和天气，选一条能安全返回的路线。\n2. 全程用安全牵引，给它充分的嗅闻和排泄机会——嗅闻本身就是重要的脑力活动，不必急着赶路。\n3. 途中穿插几个容易成功的简单互动（如跟随、回应名字后奖励），用奖励式练习，不靠拉扯或惩罚让它服从。\n4. 观察活动中和回家后的恢复情况：出现跛行、不愿继续、明显疲惫或行为突变，立即停止并寻求评估。\n\n**日常节奏建议**\n把用户可用时段拆成几段\"活动＋互动\"机会，而不是一次硬凑长时间。天气不适合外出时，改为室内低强度互动和环境调整，不强迫完成原任务。每次记录地点、活动类型和它的反应，方便回顾耐受。\n\n**需要你补充的信息（影响具体安排）**\n1. 你每天大概能分出哪几个时段、每段多久？\n2. 它目前的活动水平和既往运动习惯如何（平时遛多久、是否已绝育、有无疾病或兽医给过活动限制）？\n3. 外出环境是小区、马路还是可放开嗅闻的场地？\n\n档案里目前只有体重 12.0 kg（2026-10-12 记录），年龄约 36 个月，其余如活动水平、病史、绝育状态均未填写，因此无法给出具体时长或强度。若你确认以上信息，我可以生成一份可编辑的日常活动计划草稿（时间由你分配，保存需你明确指令）。",
+            "mode": "live",
+            "urgent": false,
+            "sources": [
+              {
+                "id": "dog-play",
+                "title": "犬的活动：配合年龄和健康状态",
+                "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+                "organization": "AAHA"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "title": "犬的体况：记录肋骨、腰线和腹部变化",
+                "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf",
+                "organization": "WSAVA"
+              }
+            ],
+            "draft": null,
+            "execution": {
+              "request_id": "b6144cae-e0f8-423d-9763-d1c666b1172f",
+              "mode": "live",
+              "model_requests": 1,
+              "input_tokens": 3824,
+              "output_tokens": 458,
+              "elapsed_ms": 3750.44,
+              "retrieval": [
+                {
+                  "id": "dog-play",
+                  "source_version": "2019 犬生命阶段检查清单",
+                  "updated_at": "2026-10-10"
+                },
+                {
+                  "id": "nutrition-dog-bcs",
+                  "source_version": "WSAVA canine BCS chart 2025-06",
+                  "updated_at": "2026-10-10"
+                }
+              ],
+              "tools": [],
+              "error_type": null,
+              "replayed": false
+            }
+          },
+          "request_id": "b6144cae-e0f8-423d-9763-d1c666b1172f",
+          "execution": {
+            "request_id": "b6144cae-e0f8-423d-9763-d1c666b1172f",
+            "mode": "live",
+            "model_requests": 1,
+            "input_tokens": 3824,
+            "output_tokens": 458,
+            "elapsed_ms": 3750.44,
+            "retrieval": [
+              {
+                "id": "dog-play",
+                "source_version": "2019 犬生命阶段检查清单",
+                "updated_at": "2026-10-10"
+              },
+              {
+                "id": "nutrition-dog-bcs",
+                "source_version": "WSAVA canine BCS chart 2025-06",
+                "updated_at": "2026-10-10"
+              }
+            ],
+            "tools": [],
+            "error_type": null,
+            "replayed": false
+          }
+        }
+      ],
+      "retrieval_hit": true,
+      "fault_injected": false,
+      "passed": true,
+      "elapsed_ms": 3757.86
+    }
+  ],
+  "implementation_sha256": "a11745a0da7ddbc2e3442c6d35eb556e9cb3f5b4c7743b87a7b8b8f27224a012",
+  "budget": {
+    "limit_cny": 10.0,
+    "conservative_used_cny": 2.708244,
+    "reserved_or_billed_requests": 194,
+    "unresolved_reservations": 0,
+    "pricing": {
+      "currency": "CNY",
+      "model": "deepseek-flash",
+      "checked_at": "2026-10-12T07:52:15.365223+00:00",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "peak_input_cache_miss_per_million": 2,
+      "peak_output_per_million": 8,
+      "table_sha256": "96872cc8274648392a67b33635455423d86d2ee1f5a3942510e1e73c8fd50280"
+    },
+    "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+  },
+  "metrics": {
+    "passed": 10,
+    "completed": 10,
+    "mode_counts": {
+      "live": 10
+    },
+    "successful_response_model_requests": 11,
+    "all_observed_model_requests": 11,
+    "retrieval_hit_rate": 1.0,
+    "p50_case_ms": 3880.27,
+    "p95_case_ms": 5384.88
+  }
+}

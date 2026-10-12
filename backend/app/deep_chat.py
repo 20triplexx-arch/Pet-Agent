@@ -194,7 +194,7 @@ def demo_answer(p, facts, conflicts, questions, articles, health_questions, tool
         records = tools["recent_care"][:5]
         answer.append("## 当前宠物近期记录\n" + "\n".join("- " + r["occurred_at"] + " · " + r["kind"] + (f" · {r['value']} kg" if r["kind"] == "weight" else "") + " · 用户记录：" + r["note"][:1000] + "（记录ID：" + r["id"] + "）" for r in records) + "\n这些是用户记录，不是经检查确认的诊断；缺少打卡也不等于未照护。")
     if tools.get("active_plans") and any("计划" in q for q in questions):
-        answer.append("## 当前执行中的计划\n" + "\n".join("- " + plan["title"] + f"（版本 {plan['revision']}，用户已保存）" for plan in tools["active_plans"]))
+        answer.append("## 当前执行中的计划\n" + "\n".join("- " + plan["title"] + f"（版本 {plan['revision']}，来自既有计划记录）" for plan in tools["active_plans"]))
     used = set()
     for question in questions:
         relevant = [a for a in articles if question in a.get("matched_questions", [])]
@@ -239,7 +239,7 @@ async def answer_question(ctx, text, history, minutes):
     explicit = [b for b in breeds if any(term.lower() in text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
     target = explicit[0] if len(explicit) == 1 else None
     species = (target.species if target else (p["species"] if p else infer_species(contextual)))
-    demo = settings.DEMO_MODE or not settings.MODEL_API_KEY
+    demo = settings.DEMO_MODE
     mode = "demo" if demo else "live"
     cards, tools = [], {}
     ambiguous = next((word for word in AMBIGUOUS if word in text), None)
@@ -247,6 +247,8 @@ async def answer_question(ctx, text, history, minutes):
         return {"answer": AMBIGUOUS[ambiguous] + "未知时仍可使用猫狗通用照护，档案不会自动改写。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None, "cards": [{"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"}]}
     if not species or not supports(species, "knowledge"):
         message = "为了检索适用资料，请告诉我想了解猫还是狗；普通知识无需建档。" if not species else "首版完整支持猫和狗。当前具体物种暂缺已收录的可靠资料，不能套用猫狗方法。请提供具体物种或学名。"
+        if not species and re.search(r"营养|食量|喂多少|热量", text):
+            message += "个体食量请先选择宠物，不能仅凭品种确定。还需核对带日期的体重与体况、健康限制，以及实际摄入与食品热量。"
         return {"answer": message, "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None}
     if ambiguous and not target:
         cards.append({"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"})

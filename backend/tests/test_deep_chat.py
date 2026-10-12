@@ -14,6 +14,23 @@ def ask(client, headers, pid, text, **extra):
     return client.post("/api/v1/chat", headers={**headers, "Idempotency-Key": str(uuid4())}, json={"pet_id": pid, "text": text, **extra})
 
 
+def test_legacy_request_setting_is_accepted_and_capped(client, headers, cat, monkeypatch):
+    from app.core.config import Settings
+    from app.model_adapter import UsageLimits
+    assert Settings(_env_file=None, MODEL_MAX_REQUESTS=6).MODEL_MAX_REQUESTS == 6
+    fake_provider(monkeypatch, "核对个体和标签资料后安排照护。", source="__first__")
+    monkeypatch.setattr(settings, "MODEL_MAX_REQUESTS", 6)
+    limits = []
+    def capture(**kwargs):
+        limits.append(kwargs)
+        return UsageLimits(**kwargs)
+    monkeypatch.setattr("app.model_adapter.UsageLimits", capture)
+    response = ask(client, headers, cat["id"], "喂食建议")
+    assert response.status_code == 200, response.text
+    assert limits[0]["request_limit"] == 4
+    assert limits[0]["output_tokens_limit"] == settings.MODEL_MAX_OUTPUT_TOKENS * 4
+
+
 QUALITY_CASES = [
     ("scratching", "cat", "猫抓沙发怎么办", ["cat-scratching"], ["替代", "材质"]),
     ("new-cat", "cat", "新猫刚到家如何适应", ["cat-home"], ["空间", "记录"]),

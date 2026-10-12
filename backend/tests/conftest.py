@@ -14,6 +14,8 @@ from app.breeds import seed_breeds
 def no_live_services(monkeypatch):
     monkeypatch.setattr(settings, "DEMO_MODE", True)
     monkeypatch.setattr(settings, "MODEL_API_KEY", "")
+    monkeypatch.setattr(settings, "MODEL_PROVIDER", "compatible")
+    monkeypatch.setattr(settings, "DEEPSEEK_API_KEY", "")
     monkeypatch.setattr(settings, "AMAP_ENABLED", False)
     monkeypatch.setattr(settings, "AMAP_API_KEY", "")
 

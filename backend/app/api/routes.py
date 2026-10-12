@@ -18,6 +18,7 @@ from app.knowledge import retriever, serialize_article
 from app.agent import *
 from app.species import registry
 from app.breeds import validate_breed
+from app.execution import current_execution
 
 router = APIRouter(prefix="/api/v1")
 Key = Annotated[str | None, Header(alias="Idempotency-Key")]
@@ -88,10 +89,10 @@ def settings_update(data: SettingsUpdate, session: SessionDep, user: CurrentUser
 @router.get("/status")
 def status(user: CurrentUser):
     return {
-        "mode": "demo" if settings.DEMO_MODE or not settings.MODEL_API_KEY else "live",
+        "mode": settings.model_mode,
         "model": None
-        if settings.DEMO_MODE or not settings.MODEL_API_KEY
-        else settings.MODEL_NAME,
+        if settings.DEMO_MODE
+        else settings.model_name,
         "reminder_delivery": "in_app_only",
     }
 
@@ -555,6 +556,8 @@ async def chat(
     fp = fingerprint("chat", data.model_dump())
     old = lookup_idempotent(session, user.id, key, fp)
     if old is not None:
+        if trace := current_execution.get():
+            trace.replayed = True
         return old
     if data.pet_id:
         owned(session, Pet, data.pet_id, user.id)
@@ -600,7 +603,7 @@ async def chat(
                 result = {
                     "answer": "还没有可保存的草稿，请先生成计划。",
                     "mode": "demo"
-                    if settings.DEMO_MODE or not settings.MODEL_API_KEY
+                    if settings.DEMO_MODE
                     else "tools",
                     "sources": [],
                     "draft": None,
@@ -638,6 +641,10 @@ async def chat(
             result = await respond(ctx, data.text, history, data.available_minutes)
         c.summary_json = ctx.memory
         session.add(c)
+        if trace := current_execution.get():
+            trace.mode = result["mode"]
+            trace.retrieved(ctx.retrieved)
+            result["execution"] = trace.summary()
         user_message = Message(conversation_id=c.id, role="user", content=data.text, metadata_json={"context": ctx.supplement, "answer_depth": data.answer_depth, "source": "用户本次提供，未自动更新档案"})
         session.add(user_message)
         for provenance in result.get("context_provenance", {}).values():
@@ -658,14 +665,25 @@ async def chat(
         raise HTTPException(
             422, "写入参数无效：" + "; ".join(x["msg"] for x in e.errors())
         )
-    except Exception:
+    except Exception as exc:
+        if trace := current_execution.get():
+            trace.retrieved(ctx.retrieved)
+            trace.error_type = trace.error_type or type(exc).__name__
         session.rollback()
-        if ctx.model_attempt:
-            # Operational audit survives failed answer rollback, without retaining question data.
-            session.add(ModelAttempt(id=ctx.model_attempt.id, user_id=user.id, status="failed", created_at=ctx.model_attempt.created_at))
-            if getattr(ctx, "known_model_usage", None):
-                session.add(ctx.known_model_usage)
+        # Preserve both the turn audit and known consumed tokens without counting twice.
+        try:
+            if ctx.model_attempt:
+                session.add(ModelAttempt(id=ctx.model_attempt.id, user_id=user.id, status="failed", created_at=ctx.model_attempt.created_at))
+            known = getattr(ctx, "known_model_usage", None)
+            if known:
+                session.add(known)
+            elif trace and trace.model_requests and (trace.input_tokens or trace.output_tokens):
+                session.add(ModelUsage(user_id=user.id, model=settings.model_name,
+                                       requests=trace.model_requests, input_tokens=trace.input_tokens,
+                                       output_tokens=trace.output_tokens))
             session.commit()
+        except Exception:
+            session.rollback()
         raise
 
 

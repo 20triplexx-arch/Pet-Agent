@@ -71,8 +71,8 @@ answer_depth为`auto | brief | detailed`，默认auto。补充资料最大字符
 
 | 设置 | 默认 | 含义 |
 | --- | ---: | --- |
-| DEMO_MODE | true | 无MODEL_API_KEY时也明确回退演示 |
-| MODEL_MAX_REQUESTS | 4 | 单轮最多请求次数，可配置1—4 |
+| DEMO_MODE | true | 默认无密钥演示；显式false缺所选服务商密钥时返回配置错误 |
+| MODEL_MAX_REQUESTS | 4 | 单轮最多4次；兼容旧值5—6，实际仍限制为4 |
 | MODEL_MAX_OUTPUT_TOKENS | 4096 | 单次输出上限；整轮最多该值×请求数 |
 | MODEL_MAX_INPUT_TOKENS | 32000 | 整轮累计输入token预算，含工具往返 |
 | MODEL_CONTEXT_CHARS | 48000 | 模型初始JSON上下文字符预算 |
@@ -80,6 +80,8 @@ answer_depth为`auto | brief | detailed`，默认auto。补充资料最大字符
 | MODEL_TURNS_PER_DAY | 20 | 每用户上海日历日真实问答尝试数，0禁止真实调用 |
 
 最多8次模型工具调用。超出字符预算先减少更早完整历史，以有来源摘要保留重点，再选择完整相关知识章节与近期记录；保护内容仍超预算则422要求分次，尚未调用模型。不删除最新问题或专业建议来强行发送。
+
+2026-10-12与质量基线分支整合：支持MODEL_PROVIDER=deepseek、DEEPSEEK_API_KEY与DEEPSEEK_MODEL，或compatible的原配置，两者密钥不互借。显式选择真实模式却缺密钥时显示configuration_error，需要模型的请求503，默认DEMO_MODE=true仍可零密钥体验。执行追踪和累计评测预算保护保留；日常问答默认4096输出，固定评测账本上下文继续限制1800输出，不提高既有10元授权总额。旧真实基线属于合并前报告，尚未用真实服务商重新评测整合后的深度流程。
 
 失败尝试也占每日次数，手动重试可能再次计费。取得的provider token会记录，包括返回内容被校验拒绝的情况；没有取得用量的失败只记录尝试，不虚构token。应用数不是供应商余额、免费额度或账单。
 

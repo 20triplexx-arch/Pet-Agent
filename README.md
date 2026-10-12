@@ -1,5 +1,17 @@
 # 宠伴 · 本地宠物照护 Agent MVP
 
+## 最新整合：深度问答与真实模型质量基线（2026-10-12）
+
+已在 `codex/deep-chat-upgrade` 整合深度问答和 `Pet-Agent` 的DeepSeek质量基线：保留长输入、补充资料、BM25、章节引用及摘要，也保留服务商隔离、脱敏追踪、预算账本、CI和恢复脚本。完整后端178项通过；最终边界/措辞调整后受影响的71项再次通过，桌面/手机62项、生产构建和100场景离线基线通过。本次整合没有真实模型调用；合并前真实基线不代表整合后回答质量。下面保留质量基线独立阶段记录。
+
+第一阶段已实现 DeepSeek 专用接入、固定100场景评测、脱敏执行追踪、累计10元测试预算账本、自动化CI及可验证的SQLite备份恢复。该阶段原目录 `.env` 选择真实模式，从既有 `DEEPSEEK_API_KEY` 环境变量读取密钥，未把密钥写入文件；当时8000健康检查为 `ok/live`，前端返回200。这是历史运行检查，当前服务状态需重新核对。分发配置仍默认演示模式。
+
+本轮后端 **125 passed（81.59秒）**、桌面/手机浏览器 **54 passed（2.1分钟）**、TypeScript/Vite构建通过；最终离线与真实基线各 **100/100** 自动行为检查通过。真实完整基线包含60条模型回答、82次模型请求，其他场景含本地规则和明确标记的故障注入。跨两轮接入检查和两轮真实基线共276次付费模型请求，按官方高峰未命中价格的累计保守估算 **3.827318元**，未决预留0，低于授权10元；这不是服务商账单。
+
+首轮真实基线92/100保留在证据中。修正请求/输入门限、重复读取和未授权工具异常分类；另修正一项将拒绝文字误当成伪造引用的评测标准。引用支持另做10例助手来源对照：6例主要原则有支持，4例有未获资料明确支持的细节。自动通过不代表回答准确率100%，真人评分与兽医审核仍待完成。
+
+实现与使用：[第一阶段说明](docs/MATURITY_PHASE_ONE.md)；验证：[TEST_RESULTS.md](TEST_RESULTS.md)；证据与问题：[来源对照及失败分析](docs/evaluations/SOURCE_REVIEW.md)、[真实基线](docs/evaluations/baseline-live.md)。Docker/Linux CI检查已配置，但本机没有Docker或可用WSL发行版，未取得实际容器运行结果；没有远程推送或触发GitHub工作流。
+
 React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官方全栈模板 0.12.0 为基线，MIT 出处与实际复用见 [UPSTREAM.md](UPSTREAM.md)。已适配并验证 Python 3.13、Node 24，使用 npm 锁文件。
 
 代码仓库：[20triplexx-arch/Pet-Agent](https://github.com/20triplexx-arch/Pet-Agent)，GitHub发布分支为 `main`。本地整合工作分支为 `Pet-Agent`，向该仓库发布时使用 `git push origin HEAD:main`。仓库包含源码、迁移、知识、测试、许可、配置示例与启动脚本；本地数据库、签名密钥、实际环境配置、依赖目录和生成的源码包由 `.gitignore` 排除。
@@ -34,7 +46,7 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 历史验收：2026-10-09 完整 MVP 后端25项、浏览器12项；2026-10-10 页面重设计浏览器12项、首页简化浏览器14项、第一批Agent升级后端65项及浏览器22项。Docker Compose 配置曾检查通过，本轮未重新验证容器。各轮证据与验证边界见 [TEST_RESULTS.md](TEST_RESULTS.md)。
 
-尚未验证：真实服务商付费模型调用与质量、PostgreSQL 实机集成、Docker 镜像实际构建与容器运行、原生 Safari。项目没有上线，知识中文摘要与风险规则没有经过专业兽医审核。
+尚未验证：本次整合后深度流程的真实服务商生成质量、真人与专业质量审核、PostgreSQL实机、Docker运行及原生Safari。DeepSeek独立阶段的真实基线是合并前记录，范围与限制见顶部。项目没有上线，知识中文摘要与风险规则没有经过专业兽医审核。
 
 ### 接续时优先阅读的文件
 
@@ -191,12 +203,13 @@ npm run dev
 
 ## 模型配置与成本
 
-默认 `DEMO_MODE=true`。无密钥时，即使设为 false，也回退到明确标注的演示模式。演示模式采用真实检索、权限与工具路径和受控中文模板；不调用模型，不产生模型费用。
+默认 `DEMO_MODE=true`，无密钥可用明确标注的演示模式。与质量基线分支整合后，显式设为false却缺少所选服务商密钥时，显示configuration_error，需模型的问答返回503；不会把真实模式冒充演示。演示模式采用真实检索、权限与本地工具路径和受控内容编排，不产生模型费用。
 
 在根目录 .env 配置，重启后端：
 
 ```dotenv
 DEMO_MODE=false
+MODEL_PROVIDER=compatible
 MODEL_API_KEY=服务商密钥
 MODEL_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 MODEL_NAME=qwen3.7-flash

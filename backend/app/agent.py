@@ -16,6 +16,7 @@ from app.species import supports
 from app.nutrition import care_history, current_plans, assess, get_profile
 from app.care_schemas import NutritionInput, VisitInput
 from app.visit import build_summary
+from app.execution import traced_tool
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 SYSTEM = Path(__file__).with_name("agent_system.txt").read_text(encoding="utf-8")
@@ -98,16 +99,19 @@ def tool_search_pet_knowledge(ctx, query: str, topic: str | None = None):
     return items
 
 
+@traced_tool
 def tool_save_care_plan(ctx, draft: PlanDraft):
     authorize(ctx, "save_care_plan", draft.model_dump(mode="json"))
     return add_plan(ctx.session, ctx.user, ctx.pet_id, draft)
 
 
+@traced_tool
 def tool_create_reminder(ctx, reminder: ReminderInput):
     authorize(ctx, "create_reminder", reminder.model_dump(mode="json"))
     return add_reminder(ctx.session, ctx.user, ctx.pet_id, reminder)
 
 
+@traced_tool
 def tool_record_care_log(ctx, log: LogInput):
     authorize(ctx, "record_care_log", log.model_dump(mode="json"))
     return add_log(ctx.session, ctx.user, ctx.pet_id, log)
@@ -119,12 +123,14 @@ agent = Agent(
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def get_pet_profile(ctx: RunContext[AgentContext]) -> dict | None:
     """读取当前用户、当前宠物档案。"""
     return tool_get_pet_profile(ctx.deps)
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def search_pet_knowledge(
     ctx: RunContext[AgentContext], query: str, topic: str | None = None
 ) -> list[dict]:
@@ -133,6 +139,7 @@ def search_pet_knowledge(
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def get_breed_knowledge(ctx: RunContext[AgentContext]) -> dict:
     """读取服务端明确品种上下文；未知品种不猜测。不会修改档案。"""
     p = profile(ctx.deps)
@@ -146,6 +153,7 @@ def get_breed_knowledge(ctx: RunContext[AgentContext]) -> dict:
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def assess_pet_products(ctx: RunContext[AgentContext]) -> dict:
     """重新评估当前用户当前宠物最新明确保存的产品输入；不接受模型编造标签。"""
     from app.product_schemas import AssessmentInput
@@ -166,24 +174,28 @@ def assess_pet_products(ctx: RunContext[AgentContext]) -> dict:
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def save_care_plan(ctx: RunContext[AgentContext], draft: PlanDraft) -> dict:
     """需要用户明确保存此草稿；只返回事务内结果，由外层提交后报告成功。"""
     return tool_save_care_plan(ctx.deps, draft)
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def create_reminder(ctx: RunContext[AgentContext], reminder: ReminderInput) -> dict:
     """需要用户明确创建指令及当地时间和时区。"""
     return tool_create_reminder(ctx.deps, reminder)
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def record_care_log(ctx: RunContext[AgentContext], log: LogInput) -> dict:
     """需要用户明确记录指令；验证实际发生时间与当前宠物权限。"""
     return tool_record_care_log(ctx.deps, log)
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def get_care_history(ctx: RunContext[AgentContext]) -> list[dict]:
     """读取当前宠物最近30天记录，最多20条，未知不推断。"""
     if not ctx.deps.pet_id:
@@ -192,6 +204,7 @@ def get_care_history(ctx: RunContext[AgentContext]) -> list[dict]:
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def get_current_care_plans(ctx: RunContext[AgentContext]) -> list[dict]:
     """读取当前宠物执行中的计划，不修改。"""
     if not ctx.deps.pet_id:
@@ -200,6 +213,7 @@ def get_current_care_plans(ctx: RunContext[AgentContext]) -> list[dict]:
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def assess_nutrition(ctx: RunContext[AgentContext]) -> dict:
     """评估当前用户确认的档案及会话营养资料；不写入，不接受模型编造数值。"""
     if not ctx.deps.pet_id:
@@ -214,12 +228,14 @@ def assess_nutrition(ctx: RunContext[AgentContext]) -> dict:
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def search_nearby_hospitals(ctx: RunContext[AgentContext]) -> dict:
     """返回独立查询入口；位置只能由用户在该页面提供，不向模型传坐标。"""
     return {"type": "hospitals", "title": "找附近宠物医院", "href": "/hospitals", "status": "needs_user_location"}
 
 
 @agent.tool(sequential=True)
+@traced_tool
 def build_vet_visit_summary(ctx: RunContext[AgentContext]) -> dict:
     """从当前宠物真实记录生成就医摘要，不诊断或添加未报告症状。"""
     if not ctx.deps.pet_id:
@@ -442,7 +458,7 @@ async def respond(ctx, text, history, minutes):
     if ctx.supplement.get("nutrition"):
         risk_text += " " + ctx.supplement["nutrition"].get("current_symptoms", "")
     found = risks(risk_text, species)
-    demo = settings.DEMO_MODE or not settings.MODEL_API_KEY
+    demo = settings.DEMO_MODE
     if found:
         for r in found:
             items = search_knowledge(ctx.session, None, "")

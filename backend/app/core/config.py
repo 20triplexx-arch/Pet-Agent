@@ -1,5 +1,6 @@
 from pathlib import Path
 import secrets
+from typing import Literal
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,10 +15,14 @@ class Settings(BaseSettings):
     DATABASE_URL: str = f"sqlite:///{(STORAGE / 'chongban.db').as_posix()}"
     SECRET_KEY: str = ""
     DEMO_MODE: bool = True
-    MODEL_API_KEY: str = ""
+    MODEL_PROVIDER: Literal["compatible", "deepseek"] = "compatible"
+    DEEPSEEK_API_KEY: str = Field(default="", repr=False)
+    MODEL_API_KEY: str = Field(default="", repr=False)
     MODEL_BASE_URL: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     MODEL_NAME: str = "qwen3.7-flash"
-    MODEL_MAX_REQUESTS: int = Field(default=4, ge=1, le=4)
+    DEEPSEEK_MODEL: str = "deepseek-flash"
+    # Accept the previous six-request setting; the runtime caps each turn at four.
+    MODEL_MAX_REQUESTS: int = Field(default=4, ge=1, le=6)
     MODEL_MAX_OUTPUT_TOKENS: int = Field(default=4096, ge=128, le=16384)
     MODEL_MAX_INPUT_TOKENS: int = Field(default=32000, ge=4096, le=131072)
     MODEL_CONTEXT_CHARS: int = Field(default=48000, ge=16000, le=200000)
@@ -32,6 +37,21 @@ class Settings(BaseSettings):
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
     API_V1_STR: str = "/api/v1"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
+    EXECUTION_LOG_PATH: str = str(STORAGE / "execution.jsonl")
+
+    @property
+    def model_key(self) -> str:
+        return self.DEEPSEEK_API_KEY if self.MODEL_PROVIDER == "deepseek" else self.MODEL_API_KEY
+
+    @property
+    def model_name(self) -> str:
+        return self.DEEPSEEK_MODEL if self.MODEL_PROVIDER == "deepseek" else self.MODEL_NAME
+
+    @property
+    def model_mode(self) -> str:
+        if self.DEMO_MODE:
+            return "demo"
+        return "live" if self.model_key else "configuration_error"
 
 
 settings = Settings()

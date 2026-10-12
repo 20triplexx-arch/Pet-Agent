@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from sqlmodel import Session, select
 from app.models import KnowledgeArticle, Bookmark
 from app.species import supports
+from app.execution import current_execution
 
 
 class Retriever(ABC):
@@ -173,11 +174,14 @@ def serialize_article(a, bookmarked=False):
 
 
 def search_knowledge(session, species, query, topic=None, limit=5, life_stage=None, breed_id=None, content_kind=None, personal=False):
-    return [
+    items = [
         a.model_dump()
         for a in [a for a in retriever.search(session, species, query, topic, life_stage, breed_id, content_kind)
                   if not personal or breed_id or not a.breed_ids][:limit]
     ]
+    if trace := current_execution.get():
+        trace.retrieved({article["id"]: article for article in items})
+    return items
 
 
 def multi_search(session, species, questions, **filters):

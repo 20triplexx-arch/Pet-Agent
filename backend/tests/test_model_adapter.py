@@ -8,7 +8,7 @@ from app.models import ModelUsage, Message, IdempotencyRecord
 from app.agent import agent
 
 
-def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_calls", citation_sections=None):
+def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_calls", citation_sections=None, model="mock-model"):
     captured = []
 
     def handler(request):
@@ -19,7 +19,7 @@ def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_ca
             payload = json.loads(body["messages"][-1]["content"])
             actual_source = payload["retrieved_data"][0]["id"] if payload["retrieved_data"] else None
         assert request.url.path.endswith("/chat/completions")
-        assert body["model"] == "mock-model"
+        assert body["model"] == model
         names = {t["function"]["name"] for t in body["tools"]}
         assert {
             "get_pet_profile",
@@ -99,7 +99,7 @@ def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_ca
     monkeypatch.setattr("app.model_adapter.AsyncOpenAI", factory)
     monkeypatch.setattr(settings, "DEMO_MODE", False)
     monkeypatch.setattr(settings, "MODEL_API_KEY", "test-key-not-live")
-    monkeypatch.setattr(settings, "MODEL_NAME", "mock-model")
+    monkeypatch.setattr(settings, "MODEL_NAME", model)
     return captured
 
 

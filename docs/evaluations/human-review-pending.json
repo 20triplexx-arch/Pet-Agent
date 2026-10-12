@@ -1,0 +1,593 @@
+{
+  "run_id": "20261012T075634-live",
+  "rubric": [
+    "相关性",
+    "当前宠物适用性",
+    "事实与引用支持",
+    "缺失信息处理"
+  ],
+  "scores": [
+    {
+      "case_id": "CB-001",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-002",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-003",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-004",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-005",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-006",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-007",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-008",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-009",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-010",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-011",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-012",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-013",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-014",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-015",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-016",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-017",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-018",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-019",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-020",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-021",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-022",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-023",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-024",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-025",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-026",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-027",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-028",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-029",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-030",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-031",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-032",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-033",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-034",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-035",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-036",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-037",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-038",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-039",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-040",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-041",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-042",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-043",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-044",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-045",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-046",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-047",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-048",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-049",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-050",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-051",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-052",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-053",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-054",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-055",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-056",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-057",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-058",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-059",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-060",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-061",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-062",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-063",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-064",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-065",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-066",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-067",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-068",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-069",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-070",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-071",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-072",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-073",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-074",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-075",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-076",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-077",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-078",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-079",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-080",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-081",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-082",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-083",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-084",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-085",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-086",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-087",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-088",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-089",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-090",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-091",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-092",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-095",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-097",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-098",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-099",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    },
+    {
+      "case_id": "CB-100",
+      "quality_0_to_2": null,
+      "citations_supported": null,
+      "notes": ""
+    }
+  ]
+}
