@@ -18,6 +18,7 @@ from app.knowledge import retriever, serialize_article
 from app.agent import *
 from app.species import registry
 from app.breeds import validate_breed
+from app.execution import current_execution
 
 router = APIRouter(prefix="/api/v1")
 Key = Annotated[str | None, Header(alias="Idempotency-Key")]
@@ -88,10 +89,10 @@ def settings_update(data: SettingsUpdate, session: SessionDep, user: CurrentUser
 @router.get("/status")
 def status(user: CurrentUser):
     return {
-        "mode": "demo" if settings.DEMO_MODE or not settings.MODEL_API_KEY else "live",
+        "mode": settings.model_mode,
         "model": None
-        if settings.DEMO_MODE or not settings.MODEL_API_KEY
-        else settings.MODEL_NAME,
+        if settings.DEMO_MODE
+        else settings.model_name,
         "reminder_delivery": "in_app_only",
     }
 
@@ -555,6 +556,8 @@ async def chat(
     fp = fingerprint("chat", data.model_dump())
     old = lookup_idempotent(session, user.id, key, fp)
     if old is not None:
+        if trace := current_execution.get():
+            trace.replayed = True
         return old
     if data.pet_id:
         owned(session, Pet, data.pet_id, user.id)
@@ -597,7 +600,7 @@ async def chat(
                 result = {
                     "answer": "还没有可保存的草稿，请先生成计划。",
                     "mode": "demo"
-                    if settings.DEMO_MODE or not settings.MODEL_API_KEY
+                    if settings.DEMO_MODE
                     else "tools",
                     "sources": [],
                     "draft": None,
@@ -633,6 +636,10 @@ async def chat(
                 }
         else:
             result = await respond(ctx, data.text, history, data.available_minutes)
+        if trace := current_execution.get():
+            trace.mode = result["mode"]
+            trace.retrieved(ctx.retrieved)
+            result["execution"] = trace.summary()
         session.add(Message(conversation_id=c.id, role="user", content=data.text))
         m = Message(
             conversation_id=c.id,
@@ -649,8 +656,21 @@ async def chat(
         raise HTTPException(
             422, "写入参数无效：" + "; ".join(x["msg"] for x in e.errors())
         )
-    except Exception:
+    except Exception as exc:
+        if trace := current_execution.get():
+            trace.retrieved(ctx.retrieved)
+            trace.error_type = trace.error_type or type(exc).__name__
         session.rollback()
+        # A failed answer rolls back business data, not already consumed tokens.
+        # Persist known failure usage only after releasing the business transaction.
+        if trace and trace.model_requests and (trace.input_tokens or trace.output_tokens):
+            try:
+                session.add(ModelUsage(user_id=user.id, model=settings.model_name,
+                                       requests=trace.model_requests, input_tokens=trace.input_tokens,
+                                       output_tokens=trace.output_tokens))
+                session.commit()
+            except Exception:
+                session.rollback()
         raise
 
 

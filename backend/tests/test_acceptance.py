@@ -281,8 +281,8 @@ def test_user_isolation_all_routes(client, headers, cat, account):
 def test_no_key_mode_and_model_failure(client, headers, cat, monkeypatch, db):
     monkeypatch.setattr(settings, "DEMO_MODE", False)
     monkeypatch.setattr(settings, "MODEL_API_KEY", "")
-    assert client.get("/api/v1/status", headers=headers).json()["mode"] == "demo"
-    assert chat(client, headers, cat["id"], "喂食").json()["mode"] == "demo"
+    assert client.get("/api/v1/status", headers=headers).json()["mode"] == "configuration_error"
+    assert chat(client, headers, cat["id"], "喂食").status_code == 503
     monkeypatch.setattr(settings, "MODEL_API_KEY", "fake")
 
     async def fail(*args):

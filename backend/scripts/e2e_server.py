@@ -8,8 +8,12 @@ def prepare():
     tempfile.mkdtemp(prefix="e2e-", dir=Path(__file__).resolve().parents[1] / "storage")
     )
     os.environ["DATABASE_URL"] = "sqlite:///" + (folder / "e2e.db").as_posix()
+    os.environ["EXECUTION_LOG_PATH"] = str(folder / "execution.jsonl")
     os.environ["DEMO_MODE"] = "true"
     os.environ["MODEL_API_KEY"] = ""
+    os.environ["DEEPSEEK_API_KEY"] = ""
+    os.environ["MODEL_PROVIDER"] = "compatible"
+    os.environ["SECRET_KEY"] = "isolated-browser-test-key-not-for-production"
     os.environ["AMAP_ENABLED"] = "false"
     os.environ["AMAP_API_KEY"] = ""
     from scripts.init_db import initialize

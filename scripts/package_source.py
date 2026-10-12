@@ -58,7 +58,7 @@ def source_files():
         for path in sorted(review.iterdir()):
             if path.is_file() and path.suffix in {".md", ".json", ".png"}:
                 yield path
-    for directory in ("backend", "frontend", "scripts", "docs"):
+    for directory in ("backend", "frontend", "scripts", "docs", ".github"):
         for parent, dirs, files in os.walk(ROOT / directory):
             dirs[:] = [d for d in dirs if d not in EXCLUDED_DIRS and not d.startswith("pytest-cache-files-")]
             for name in sorted(files):
