@@ -4,6 +4,8 @@ React + TypeScript / FastAPI / SQLModel + Alembic / SQLite / Pydantic AI。官�
 
 代码仓库：[20triplexx-arch/Pet-Agent](https://github.com/20triplexx-arch/Pet-Agent)，GitHub发布分支为 `main`。本地整合工作分支为 `Pet-Agent`，向该仓库发布时使用 `git push origin HEAD:main`。仓库包含源码、迁移、知识、测试、许可、配置示例与启动脚本；本地数据库、签名密钥、实际环境配置、依赖目录和生成的源码包由 `.gitignore` 排除。
 
+2026-10-12 Git交付进度：本轮深度问答升级已创建分支 `codex/deep-chat-upgrade`，功能提交 `ed8d452`（46个文件，包含本轮界面审查证据）。用户要求合并回 `Pet-Agent`；检查时目标原目录正由“规划项目成熟优化方案”任务使用，有另一批重叠的未提交改动，尚未进行合并。需先协调保存该批工作再合并，不能覆盖它或把未执行的合并写为完成。本次尚未推送GitHub。
+
 ## 给后续模型的接续说明
 
 本节是项目的长期交接记录，用于在新会话或上下文丢失后恢复背景。文档更新日期：**2026-10-12（Asia/Shanghai）**。后续工作应结合用户最新要求与当前代码；这里记录的是已经确认的选择和历史状态，不代表服务此刻仍在运行。
