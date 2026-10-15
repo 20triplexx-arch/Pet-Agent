@@ -25,11 +25,11 @@ test("long input, supplement persistence, source sections and deeper followup", 
   await page.getByRole("button", { name: "补充资料", exact: true }).click();
   await page.getByLabel("照护目标", { exact: true }).fill("减少抓沙发，同时改善多猫相处");
   await page.getByLabel("时间线", { exact: true }).fill("上周新猫到家，原住猫最近开始回避");
+  await page.getByLabel("回答深度", { exact: true }).selectOption("detailed");
   await page.getByRole("button", { name: "回到提问" }).click();
   const text = "猫抓沙发怎么办？另外多猫如何相处？" + "补充家庭环境记录。".repeat(460);
   await page.getByLabel("提问内容").fill(text);
   await expect(page.locator("#chat-input-count")).toContainText(`${text.length} / 12000`);
-  await page.getByLabel("回答深度", { exact: true }).selectOption("detailed");
   await page.getByRole("button", { name: "发送", exact: true }).click();
   await expect(page.locator(".message.assistant").last()).toContainText("上周新猫到家");
   await expect(page.locator(".answer-content h3").first()).toBeVisible();
@@ -60,14 +60,16 @@ test("nutrition table and sources come from local assessment without new plan", 
   const profile = { life_stage: "adult", health_status: "healthy", bcs: 5, muscle: "normal", assessed_on: new Date().toISOString().slice(0, 10), assessor: "owner", activity_level: "normal", pregnancy_lactation: "no", weight_confirmed: true, treats_confirmed: true, food_shares_confirmed: true, foods: [{ name: "已核对主粮", complete_adult_food: true, energy: 400, energy_unit: "kcal_100g", daily_grams: 60 }] };
   await page.request.put(`/api/v1/pets/${pet.id}/nutrition/profile`, { headers: { ...headers, "Idempotency-Key": crypto.randomUUID() }, data: { profile, revision: 0 } });
   await page.getByLabel("提问内容").fill("请深入分析目前营养摄入、热量依据，以及后续该观察什么");
+  await page.getByRole("button", { name: "补充资料", exact: true }).click();
   await page.getByLabel("回答深度", { exact: true }).selectOption("detailed");
+  await page.getByRole("button", { name: "回到提问" }).click();
   await page.getByRole("button", { name: "发送", exact: true }).click();
   await expect(page.locator(".answer-table table")).toBeVisible();
   await expect(page.locator(".answer-table")).toContainText("240");
   await expect(page.locator(".answer-content")).toContainText("保存目标后才改变任务");
   const plans = await page.request.get(`/api/v1/pets/${pet.id}/plans`, { headers });
   expect(await plans.json()).toHaveLength(0);
-  await page.locator(".sources summary").last().click();
+  await page.locator(".sources > summary").last().click();
   await expect(page.locator(".source-section").first()).toBeVisible();
   const firstSection = page.locator(".source-section").first();
   await firstSection.click();
@@ -92,7 +94,7 @@ test("oversized text, context validation, copy recovery and no raw HTML", async 
   await expect(page.getByRole("button", { name: "发送", exact: true })).toBeDisabled();
   await expect(page.getByRole("alert")).toContainText("请分次发送");
   await page.getByLabel("提问内容").fill("普通提问");
-  await page.route("**/api/v1/chat", route => route.fulfill({ json: { conversation_id: "mock", answer: "## 对照说明\n\n| 条件 | 做法 |\n| --- | --- |\n| 已知 | **核对** |\n\n<script>window.injected=true</script> [not-a-source]", mode: "demo", sources: [], draft: null, message: { id: "safe-render", role: "assistant", content: "## 对照说明\n\n| 条件 | 做法 |\n| --- | --- |\n| 已知 | **核对** |\n\n<script>window.injected=true</script> [not-a-source]", metadata_json: { mode: "demo", sources: [] } } } }));
+  await page.route("**/api/v1/chat{,/stream}", route => route.fulfill({ json: { conversation_id: "mock", answer: "## 对照说明\n\n| 条件 | 做法 |\n| --- | --- |\n| 已知 | **核对** |\n\n<script>window.injected=true</script> [not-a-source]", mode: "demo", sources: [], draft: null, message: { id: "safe-render", role: "assistant", content: "## 对照说明\n\n| 条件 | 做法 |\n| --- | --- |\n| 已知 | **核对** |\n\n<script>window.injected=true</script> [not-a-source]", metadata_json: { mode: "demo", sources: [] } } } }));
   await page.getByRole("button", { name: "发送", exact: true }).click();
   await expect(page.locator(".answer-content h3")).toHaveText("对照说明");
   await expect(page.locator(".answer-content strong")).toHaveText("核对");
@@ -114,7 +116,7 @@ test("supplement inputs are usable and request errors preserve data", async ({ p
   await page.getByRole("button", { name: "回到提问" }).click();
   await page.getByLabel("提问内容").fill("需要记录什么，哪些变化会改变就医优先级");
   let calls = 0;
-  await page.route("**/api/v1/chat", async route => { if (++calls === 1) await route.fulfill({ status: 503, json: { detail: "本次回答未完成，可手动重试" } }); else await route.continue(); });
+  await page.route("**/api/v1/chat{,/stream}", async route => { if (++calls === 1) await route.fulfill({ status: 503, json: { detail: "本次回答未完成，可手动重试" } }); else await route.continue(); });
   await page.getByRole("button", { name: "发送", exact: true }).click();
   await expect(page.getByRole("alert")).toContainText("未完成");
   await expect(page.getByLabel("提问内容")).toHaveValue(/需要记录什么/);

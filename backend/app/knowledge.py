@@ -102,9 +102,7 @@ class BM25Retriever(Retriever):
         vocabulary = [k for a in filtered for k in a.keywords] + [w for g in SYNONYMS for w in g]
         generic = {"宠物", "动物", "怎么", "如何", "什么", "怎样", "需要", "注意", "是否", "可以", "照护", "我的", "你的"}
         query_tokens = set(tokenize(expanded_query(query), vocabulary)) - generic
-        docs = [Counter(tokenize(a.title + " " + a.body + " " + " ".join(a.keywords), vocabulary)) for a in filtered]
-        average = sum(sum(d.values()) for d in docs) / len(docs) or 1
-        frequencies = Counter(t for doc in docs for t in doc)
+        docs, average, frequencies = corpus_index(tuple((a.id, a.title, a.body, tuple(a.keywords)) for a in filtered), tuple(vocabulary))
         ranked = []
         for a, doc in zip(filtered, docs):
             length = sum(doc.values())
@@ -124,15 +122,27 @@ KeywordRetriever = BM25Retriever  # compatibility for existing integrations
 retriever: Retriever = BM25Retriever()
 
 
-def sections(article):
-    chunks = re.split(r"(?m)^##\s+", article["body"])
+@lru_cache(maxsize=8)
+def corpus_index(articles, vocabulary):
+    docs = tuple(Counter(tokenize(title + ' ' + body + ' ' + ' '.join(keywords), vocabulary))
+                 for _, title, body, keywords in articles)
+    return docs, sum(sum(doc.values()) for doc in docs) / len(docs) or 1, Counter(term for doc in docs for term in doc)
+
+
+@lru_cache(maxsize=512)
+def _sections(body):
+    chunks = re.split(r"(?m)^##\s+", body)
     result = []
     for chunk in chunks:
         if not chunk.strip():
             continue
         heading, _, body = chunk.partition("\n")
-        result.append({"heading": heading.strip(), "text": body.strip() or heading.strip()})
-    return result
+        result.append((heading.strip(), body.strip() or heading.strip()))
+    return tuple(result)
+
+
+def sections(article):
+    return [{'heading': heading, 'text': text} for heading, text in _sections(article['body'])]
 
 
 def evidence_sections(article, query, count=3):
@@ -140,6 +150,16 @@ def evidence_sections(article, query, count=3):
     scored = sorted(enumerate(sections(article)), key=lambda item: (
         -len(terms & set(tokenize(item[1]["heading"] + " " + item[1]["text"], article["keywords"]))), item[0]))
     return [section for _, section in sorted(scored[:count])]
+
+
+def model_sections(article):
+    """Complete matched passages plus their scope and safety boundaries, once."""
+    complete = sections(article)
+    chosen = {s["heading"] for s in article.get("matched_sections", complete)}
+    if complete:
+        chosen.add(complete[0]["heading"])
+    chosen.update(s["heading"] for s in complete if re.search(r"适用|边界|限制|风险|安全|就医|求助|停止", s["heading"]))
+    return [s for s in complete if s["heading"] in chosen]
 
 
 def reading_excerpt(article, query, max_chars=420):
@@ -186,14 +206,19 @@ def search_knowledge(session, species, query, topic=None, limit=5, life_stage=No
 
 def multi_search(session, species, questions, **filters):
     """Reserve coverage per subquestion before filling remaining evidence slots."""
-    groups = [search_knowledge(session, species, question, limit=4, **filters) for question in questions[:3]]
+    groups = [search_knowledge(session, species, question, limit=3, **filters) for question in questions]
     selected = {}
-    for rank in range(4):
+    for rank in range(3):
         for question, articles in zip(questions, groups):
             if rank < len(articles):
                 article = articles[rank]
-                if article["id"] not in selected and len(selected) < 9:
+                if article["id"] not in selected and len(selected) < max(6, len(questions)):
                     selected[article["id"]] = {**article, "matched_sections": evidence_sections(article, question), "matched_questions": []}
                 if article["id"] in selected:
-                    selected[article["id"]]["matched_questions"].append(question)
+                    current = selected[article["id"]]
+                    if question not in current["matched_questions"]:
+                        current["matched_questions"].append(question)
+                    headings = {s["heading"] for s in current["matched_sections"]}
+                    headings.update(s["heading"] for s in evidence_sections(article, question))
+                    current["matched_sections"] = [s for s in sections(article) if s["heading"] in headings]
     return list(selected.values())

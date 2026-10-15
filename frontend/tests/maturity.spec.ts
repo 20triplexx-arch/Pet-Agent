@@ -13,7 +13,7 @@ test("配置缺失清楚显示，问答失败保留输入并可重试", async ({
   await expect(page.getByText("模型配置待补充", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("真实模式已选择，但服务端密钥未配置。", { exact: false })).toBeVisible();
   await page.goto("/chat");
-  await page.route("**/api/v1/chat", (route) => route.fulfill({
+  await page.route("**/api/v1/chat{,/stream}", (route) => route.fulfill({
     status: 503, json: { detail: "模型请求失败，本次未完成。" },
   }));
   await page.getByLabel("提问内容").fill("喂食建议");

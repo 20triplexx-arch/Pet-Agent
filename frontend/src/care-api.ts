@@ -82,6 +82,18 @@ export type HospitalItem = {
   map_url: string;
   navigation_url: string;
   match_reason: string;
+  map_number?: string;
+  rating_status?: "unavailable";
+  rating_note?: string;
+  rating_source_url?: string;
+  registered_region?: string;
+  poi_type?: string;
+  verification_status?: string;
+  distance_kind?: "estimated";
+  navigation_label?: string;
+  sources?: { provider: string; provider_name: string; queried_at: string; name: string; address: string; phone: string; opening_hours: string; source: string; source_url: string }[];
+  conflicts?: string[];
+  field_sources?: Record<string, string>;
 };
 export type HospitalResult = {
   mode: "map_link" | "external";
@@ -90,8 +102,25 @@ export type HospitalResult = {
   message: string;
   search_url: string;
   queried_at: string;
+  map_preview_token?: string | null;
+  scope_label?: string;
+  scope_note?: string;
+  provider?: "auto" | "amap" | "tianditu";
+  provider_name?: string;
+  search_label?: string;
+  map_note?: string;
+  partial?: boolean;
+  provider_results?: { provider: string; provider_name: string; status: "ok" | "empty" | "unavailable" | "skipped"; item_count: number; message: string; queried_at: string; scope_label?: string; scope_note?: string }[];
+  agent_summary?: { mode: "local_rules"; merged_duplicates: number; unique_candidates: number; basis: string };
 };
+export type Region = { adcode: string; name: string; level: "province" | "city" | "district" | "street"; children: Region[] };
+export type RegionResult = { status: "ok" | "empty" | "unavailable"; regions: Region[]; message: string; source_url: string; queried_at: string; cached: boolean };
 export type MapUsage = {
+  provider?: "auto" | "amap" | "tianditu";
+  provider_name?: string;
+  region_enabled?: boolean;
+  region_provider_name?: string;
+  providers?: { provider: "amap" | "tianditu"; provider_name: string; enabled: boolean; day_requests: number; month_requests: number; day_limit: number; month_limit: number }[];
   enabled: boolean;
   day_requests: number;
   month_requests: number;

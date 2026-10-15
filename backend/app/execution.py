@@ -34,6 +34,15 @@ class Execution:
     mode: str | None = None
     error_type: str | None = None
     replayed: bool = False
+    model_finalization_forced: bool = False
+    answer_path: str | None = None
+    stages_ms: dict = field(default_factory=dict)
+    cached_input_tokens: int = 0
+    application_status: int | None = None
+
+    def mark(self, name, *, once=False):
+        if not once or name not in self.stages_ms:
+            self.stages_ms[name] = round((time.perf_counter() - self.started) * 1000, 2)
 
     def retrieved(self, articles):
         for article in articles.values():
@@ -50,6 +59,10 @@ class Execution:
             "elapsed_ms": round((time.perf_counter() - self.started) * 1000, 2),
             "retrieval": list(self.retrieval.values()), "tools": list(self.tools),
             "error_type": self.error_type, "replayed": self.replayed,
+            "model_finalization_forced": self.model_finalization_forced,
+            "answer_path": self.answer_path,
+            "stages_ms": dict(self.stages_ms), "cached_input_tokens": self.cached_input_tokens,
+            "application_status": self.application_status,
         }
 
 
@@ -67,8 +80,19 @@ def traced_tool(fn):
         token = current_tool.set(name)
         started = time.perf_counter()
         event = {"name": name, "status": "failed"}
+        deps = getattr(ctx, "deps", ctx)
+        cache = getattr(deps, "read_cache", None)
+        reads = {"get_pet_profile", "search_pet_knowledge", "get_breed_knowledge", "assess_pet_products",
+                 "get_care_history", "get_current_care_plans", "assess_nutrition", "get_care_review",
+                 "search_nearby_hospitals", "build_vet_visit_summary"}
+        cache_key = (name, json.dumps([args, kwargs], sort_keys=True, ensure_ascii=False, default=str))
         try:
+            if cache is not None and name in reads and cache_key in cache:
+                event.update(status="succeeded", cached=True)
+                return cache[cache_key]
             value = fn(ctx, *args, **kwargs)
+            if cache is not None and name in reads:
+                cache[cache_key] = value
             event["status"] = "succeeded"
             return value
         except Exception as exc:

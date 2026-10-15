@@ -113,7 +113,7 @@ test("五项手机导航、更多焦点与关闭、路由选中", async ({ page 
   await expect(dialog).not.toBeVisible();
   await expect(
     page.getByRole("navigation", { name: "主要导航" }).getByRole("link"),
-  ).toHaveCount(7);
+  ).toHaveCount(8);
 });
 
 test("全站六种宽度与双倍缩放等效视口，完整宠物插画", async ({ page }, info) => {
@@ -453,7 +453,7 @@ test("长对话最近消息定位与向上阅读时的新回复入口", async ({
   const requestArrived = new Promise<void>((resolve) => {
     requested = resolve;
   });
-  await page.route("**/api/v1/chat", async (route) => {
+  await page.route("**/api/v1/chat{,/stream}", async (route) => {
     requested();
     await blocked;
     await route.continue();

@@ -1,0 +1,1185 @@
+{
+  "created_at": "2026-10-15T10:16:18.215603+00:00",
+  "answer_build_sha256": "0f78b2d6f7872260a7d9fa91007b15646127ee2fbd761d206667992d58d20f2a",
+  "reports": {
+    "snapshot37_paired60": {
+      "id": "20261015T092745-streaming-paired",
+      "model": "qwen3.7-flash-2026-07-15",
+      "metrics": {
+        "baseline": {
+          "cases": 60,
+          "passed": 58,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 63,
+            "p50_ms": 5135.27,
+            "p95_ms": 7373.45
+          },
+          "first_visible_successful_model_answers": {
+            "count": 63,
+            "p50_ms": 5135.27,
+            "p95_ms": 7373.45
+          },
+          "ordinary": {
+            "turns": 58,
+            "failures": 1,
+            "complete": {
+              "count": 57,
+              "p50_ms": 4932.54,
+              "p95_ms": 7373.45
+            },
+            "first_section": {
+              "count": 57,
+              "p50_ms": 4932.54,
+              "p95_ms": 7373.45
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3
+            ]
+          },
+          "detailed": {
+            "turns": 6,
+            "failures": 0,
+            "complete": {
+              "count": 6,
+              "p50_ms": 5818.15,
+              "p95_ms": 12062.31
+            },
+            "first_section": {
+              "count": 6,
+              "p50_ms": 5818.15,
+              "p95_ms": 12062.31
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              3
+            ]
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 64,
+            "failures": 1,
+            "complete": {
+              "count": 63,
+              "p50_ms": 5135.27,
+              "p95_ms": 7373.45
+            },
+            "first_section": {
+              "count": 63,
+              "p50_ms": 5135.27,
+              "p95_ms": 7373.45
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3,
+              1,
+              3
+            ]
+          },
+          "model_requests": 69,
+          "input_tokens": 259799,
+          "output_tokens": 19368
+        },
+        "optimized": {
+          "cases": 60,
+          "passed": 55,
+          "failed": 5,
+          "complete_successful_model_answers": {
+            "count": 60,
+            "p50_ms": 4793.77,
+            "p95_ms": 6429.58
+          },
+          "first_visible_successful_model_answers": {
+            "count": 60,
+            "p50_ms": 2099.11,
+            "p95_ms": 3921.22
+          },
+          "ordinary": {
+            "turns": 64,
+            "failures": 4,
+            "complete": {
+              "count": 60,
+              "p50_ms": 4793.77,
+              "p95_ms": 6429.58
+            },
+            "first_section": {
+              "count": 60,
+              "p50_ms": 2099.11,
+              "p95_ms": 3921.22
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              2,
+              1,
+              1,
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 3,
+            "failures": 0,
+            "complete": {
+              "count": 3,
+              "p50_ms": 5457.35,
+              "p95_ms": 6429.58
+            },
+            "first_section": {
+              "count": 3,
+              "p50_ms": 4143.19,
+              "p95_ms": 6429.58
+            },
+            "request_counts": [
+              2,
+              3,
+              3
+            ]
+          },
+          "uncached": {
+            "turns": 61,
+            "failures": 4,
+            "complete": {
+              "count": 57,
+              "p50_ms": 4780.17,
+              "p95_ms": 6763.99
+            },
+            "first_section": {
+              "count": 57,
+              "p50_ms": 2084.74,
+              "p95_ms": 3023.97
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 69,
+          "input_tokens": 155497,
+          "output_tokens": 18470
+        }
+      },
+      "generated_build_sha256": "0341ffbbae8804fc7772a872dc72c76b43c9b0253f3f78dc998384ccfcd74543",
+      "stopped_reason": null,
+      "report_sha256": "d9f988a187a83d90e95bb6fbc0f220e25c2c1d513ef477241f4737acf754b6a8"
+    },
+    "flash_quality30": {
+      "id": "20261015T094346-streaming-optimized",
+      "model": "qwen-flash",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 1965.32,
+            "p95_ms": 3029.2
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 917.75,
+            "p95_ms": 1349.91
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 1965.32,
+              "p95_ms": 3029.2
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 917.75,
+              "p95_ms": 1349.91
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 14,
+            "failures": 0,
+            "complete": {
+              "count": 14,
+              "p50_ms": 2027.23,
+              "p95_ms": 3996.58
+            },
+            "first_section": {
+              "count": 14,
+              "p50_ms": 917.75,
+              "p95_ms": 1796.74
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 18,
+            "failures": 2,
+            "complete": {
+              "count": 16,
+              "p50_ms": 1953.49,
+              "p95_ms": 3029.2
+            },
+            "first_section": {
+              "count": 16,
+              "p50_ms": 914.51,
+              "p95_ms": 1349.91
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 95972,
+          "output_tokens": 7213
+        }
+      },
+      "generated_build_sha256": "6bd464fdec69ad10ac89d53c3280712f37fe2f2da8e32c8d6860810bcd514634",
+      "stopped_reason": null,
+      "report_sha256": "f75283a73e4d7d95d753888214a5cb366362ef3d96cd00fbd43f35a61bab15ad"
+    },
+    "flash_paired_incomplete": {
+      "id": "20261015T094532-streaming-paired",
+      "model": "qwen-flash",
+      "metrics": {
+        "baseline": {
+          "cases": 40,
+          "passed": 36,
+          "failed": 4,
+          "complete_successful_model_answers": {
+            "count": 36,
+            "p50_ms": 8235.44,
+            "p95_ms": 11263.29
+          },
+          "first_visible_successful_model_answers": {
+            "count": 36,
+            "p50_ms": 8235.44,
+            "p95_ms": 11263.29
+          },
+          "ordinary": {
+            "turns": 40,
+            "failures": 4,
+            "complete": {
+              "count": 36,
+              "p50_ms": 8235.44,
+              "p95_ms": 11263.29
+            },
+            "first_section": {
+              "count": 36,
+              "p50_ms": 8235.44,
+              "p95_ms": 11263.29
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 40,
+            "failures": 4,
+            "complete": {
+              "count": 36,
+              "p50_ms": 8235.44,
+              "p95_ms": 11263.29
+            },
+            "first_section": {
+              "count": 36,
+              "p50_ms": 8235.44,
+              "p95_ms": 11263.29
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 40,
+          "input_tokens": 172564,
+          "output_tokens": 30093
+        },
+        "optimized": {
+          "cases": 40,
+          "passed": 38,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 38,
+            "p50_ms": 2101.23,
+            "p95_ms": 4371.69
+          },
+          "first_visible_successful_model_answers": {
+            "count": 38,
+            "p50_ms": 1109.31,
+            "p95_ms": 1871.83
+          },
+          "ordinary": {
+            "turns": 40,
+            "failures": 2,
+            "complete": {
+              "count": 38,
+              "p50_ms": 2101.23,
+              "p95_ms": 4371.69
+            },
+            "first_section": {
+              "count": 38,
+              "p50_ms": 1109.31,
+              "p95_ms": 1871.83
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 9,
+            "failures": 2,
+            "complete": {
+              "count": 7,
+              "p50_ms": 2163.7,
+              "p95_ms": 3632.45
+            },
+            "first_section": {
+              "count": 7,
+              "p50_ms": 1244.13,
+              "p95_ms": 1367.75
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 31,
+            "failures": 0,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2097.52,
+              "p95_ms": 4371.69
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1107.46,
+              "p95_ms": 1871.83
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 40,
+          "input_tokens": 121143,
+          "output_tokens": 9120
+        }
+      },
+      "generated_build_sha256": "6bd464fdec69ad10ac89d53c3280712f37fe2f2da8e32c8d6860810bcd514634",
+      "stopped_reason": "Budget, quota, provider, timeout or completeness failure; no automatic retry",
+      "report_sha256": "0e0fe4022e34c16fe3dc60416ea5d888fade4ee6f97f46f92a8278ca401604f1"
+    },
+    "selected38_quality30": {
+      "id": "20261015T095611-streaming-optimized",
+      "model": "qwen3.8-flash",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 4916.95,
+            "p95_ms": 6755.96
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2360.74,
+            "p95_ms": 3131.75
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 4916.95,
+              "p95_ms": 6755.96
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2360.74,
+              "p95_ms": 3131.75
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 23,
+            "failures": 2,
+            "complete": {
+              "count": 21,
+              "p50_ms": 5025.55,
+              "p95_ms": 6752.85
+            },
+            "first_section": {
+              "count": 21,
+              "p50_ms": 2321.8,
+              "p95_ms": 3131.75
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 9,
+            "failures": 0,
+            "complete": {
+              "count": 9,
+              "p50_ms": 4857.13,
+              "p95_ms": 6755.96
+            },
+            "first_section": {
+              "count": 9,
+              "p50_ms": 2412.29,
+              "p95_ms": 2900.71
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 81898,
+          "output_tokens": 7629
+        }
+      },
+      "generated_build_sha256": "0f78b2d6f7872260a7d9fa91007b15646127ee2fbd761d206667992d58d20f2a",
+      "stopped_reason": null,
+      "report_sha256": "10adf62e16418ebddbcd71521197d90d45ea99485c35af3a28991d3fc00cf3ca"
+    },
+    "offline100": {
+      "id": "20261015T101236-offline",
+      "model": null,
+      "metrics": {
+        "passed": 100,
+        "completed": 100,
+        "mode_counts": {
+          "demo": 98,
+          "tools": 6,
+          "error": 5
+        },
+        "successful_response_model_requests": 0,
+        "all_observed_model_requests": 0,
+        "retrieval_hit_rate": 1.0,
+        "p50_case_ms": 35.71,
+        "p95_case_ms": 80.74
+      },
+      "generated_build_sha256": null,
+      "stopped_reason": null,
+      "report_sha256": "eb0679274c360e34f3915bb70aea0f19b10d3410451c0fa2a88314a4ee094a2b"
+    }
+  },
+  "selected_model": "qwen3.8-flash",
+  "budget": {
+    "limit_cny": 10.0,
+    "conservative_used_cny": 6.828585,
+    "run_id": "alibaba-chat-streaming-20261015",
+    "run_limit_cny": 3.0,
+    "run_used_cny": 1.053174,
+    "reserved_or_billed_requests": 2117,
+    "unresolved_reservations": 41,
+    "pricing": {
+      "currency": "CNY",
+      "model": "qwen3.8-flash",
+      "checked_at": "2026-10-15T09:47:39.240129+00:00",
+      "source": "https://help.aliyun.com/zh/model-studio/qwen3-8-flash",
+      "table_sha256": "7d2dfdcd278ce5d650cdd44de6bfe60a565e86bfc3193add8bcd14a14e221095",
+      "tiers": [
+        {
+          "max_input_tokens": 1000000,
+          "input_per_million": 0.8,
+          "output_per_million": 2.7
+        }
+      ]
+    },
+    "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+  },
+  "browser": {
+    "synthetic": true,
+    "model": "qwen3.8-flash",
+    "results": [
+      {
+        "kind": "desktop",
+        "depth": "brief",
+        "first_ms": 1854.0999999046326,
+        "complete_ms": 3476.399999976158,
+        "final": true,
+        "status": 200
+      },
+      {
+        "kind": "desktop",
+        "depth": "detailed",
+        "first_ms": 1876.7999999523163,
+        "complete_ms": 3961.7999999523163,
+        "final": true,
+        "status": 200
+      },
+      {
+        "kind": "mobile",
+        "depth": "brief",
+        "first_ms": 2048.5,
+        "complete_ms": 4478.900000095367,
+        "final": true,
+        "status": 200
+      },
+      {
+        "kind": "mobile",
+        "depth": "detailed",
+        "first_ms": 2591.899999976158,
+        "complete_ms": 6511,
+        "final": true,
+        "status": 200
+      }
+    ]
+  },
+  "qualification": {
+    "qwen3.8-flash": {
+      "approved": true,
+      "case_count": 30,
+      "delivery_rate": 0.9333333333333333,
+      "major_source_support_rate": 0.9666666666666667,
+      "major_source_supported": 29,
+      "major_source_total": 30,
+      "severe_delivered_issues": 0,
+      "raw_severe_generation_issues": 1,
+      "automated_passed_cases": 27,
+      "reason": "Eligible only with the current application validators. Overall quality and speed upgrade acceptance remains unmet."
+    }
+  },
+  "unmet": [
+    "One qualified free candidate only; no real multi-model exhaustion transition yet.",
+    "Known raw model errors still occur and can produce explicit rejection; not a medical accuracy claim.",
+    "At least 20 improved and all remaining cases non-regressive has not been demonstrated.",
+    "Selected model latency targets are not met; its 60-pair run lacks sufficient free headroom."
+  ],
+  "measurement_note": "Historical full comparison and final candidate review are separate runs. Browser timing has only four synthetic samples; no P95 inference.",
+  "paired_comparisons": {
+    "snapshot37_paired60": {
+      "both_successful_turn_pairs": 60,
+      "before_complete": {
+        "count": 60,
+        "p50_ms": 5041.83,
+        "p95_ms": 7373.45
+      },
+      "after_complete": {
+        "count": 60,
+        "p50_ms": 4793.775,
+        "p95_ms": 6429.58
+      },
+      "median_reduction_percent": 4.92
+    },
+    "flash_paired_incomplete": {
+      "both_successful_turn_pairs": 34,
+      "before_complete": {
+        "count": 34,
+        "p50_ms": 8235.439999999999,
+        "p95_ms": 11130.83
+      },
+      "after_complete": {
+        "count": 34,
+        "p50_ms": 2101.23,
+        "p95_ms": 4371.69
+      },
+      "median_reduction_percent": 74.49
+    }
+  },
+  "checks": {
+    "backend_passed": 384,
+    "backend_seconds": 259.41,
+    "browser_passed": 24,
+    "browser_seconds": 53.0,
+    "frontend_build_seconds": 5.85,
+    "offline_completed": 100,
+    "offline_passed": 100,
+    "offline_real_model_requests": 0
+  },
+  "runtime": {
+    "health": {
+      "status": "ok",
+      "mode": "live",
+      "model": {
+        "id": "alibaba-auto",
+        "name": "qwen3.8-flash",
+        "label": "阿里千问 · 免费优先（自动）",
+        "provider": "alibaba",
+        "available": true,
+        "mode": "live"
+      }
+    },
+    "business_tables": 19,
+    "business_rows_unchanged": true,
+    "foreign_key_errors": 0,
+    "configuration_preserved_except_two_switches": true,
+    "signing_key_preserved": true,
+    "historical_budget_rows_preserved": true,
+    "historical_rows_checked": 1464,
+    "stream_endpoint_registered": true,
+    "status_endpoint_registered": true,
+    "backup": "20261015-180958-chat-streaming",
+    "github_push": false
+  }
+}

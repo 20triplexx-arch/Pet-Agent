@@ -1,0 +1,25 @@
+{
+  "health": {
+    "status": "ok",
+    "mode": "live",
+    "model": {
+      "id": "alibaba-auto",
+      "name": "qwen3.8-flash",
+      "label": "阿里千问 · 免费优先（自动）",
+      "provider": "alibaba",
+      "available": true,
+      "mode": "live"
+    }
+  },
+  "business_tables": 19,
+  "business_rows_unchanged": true,
+  "foreign_key_errors": 0,
+  "configuration_preserved_except_two_switches": true,
+  "signing_key_preserved": true,
+  "historical_budget_rows_preserved": true,
+  "historical_rows_checked": 1464,
+  "stream_endpoint_registered": true,
+  "status_endpoint_registered": true,
+  "backup": "20261015-180958-chat-streaming",
+  "github_push": false
+}

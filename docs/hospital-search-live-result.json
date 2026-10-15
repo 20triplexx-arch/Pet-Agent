@@ -1,0 +1,44 @@
+{
+  "province_status": "ok",
+  "cities_count": 21,
+  "expected_cities_found": {
+    "成都市": true,
+    "绵阳市": true,
+    "南充市": true
+  },
+  "city_status": "ok",
+  "district_count": 20,
+  "hospitals_status": "ok",
+  "hospital_count": 10,
+  "map_status": {
+    "http": 503,
+    "message": "地图图片暂不可用，医院列表仍可查看。"
+  },
+  "map_dimensions": null,
+  "request_delta": 4,
+  "no_model_calls": true,
+  "no_precise_location_used": true,
+  "business_tables_preserved": 18,
+  "configuration_and_signing_key_preserved": true,
+  "map_final_status": 200,
+  "map_final_dimensions": [
+    600,
+    320
+  ],
+  "final_hospital_labels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J"
+  ],
+  "final_verification_requests": 2,
+  "diagnostic_requests": 1,
+  "total_batch_requests": 7,
+  "first_map_failure": "第十家医院标记使用双字符，已修正为A-J"
+}

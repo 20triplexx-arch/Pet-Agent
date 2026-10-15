@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "status": "connected",
+  "provider": "tianditu",
+  "public_region": "四川省成都市彭州市",
+  "provider_endpoint": "https://api.tianditu.gov.cn/v2/search",
+  "initial_key_error": {
+    "http_status": 403,
+    "code": 301012,
+    "key_type_reported_by_provider": "browser",
+    "diagnostic_calls": 2,
+    "authentic_server_user_agent_check": "same_permission_error"
+  },
+  "first_application_case": {
+    "case": "public_pengzhou_district",
+    "status": "unavailable",
+    "item_count": 0,
+    "request_delta": 1,
+    "scope": "行政区：成都市 · 彭州市",
+    "source_urls": []
+  },
+  "user_replaced_and_saved_server_key": true,
+  "after_key_replacement": {
+    "case": "public_pengzhou_district_after_replacement",
+    "status": "ok",
+    "item_count": 10,
+    "request_delta": 1,
+    "scope": "行政区：成都市 · 彭州市",
+    "source_urls": [
+      "https://lbs.tianditu.gov.cn/server/search2.html"
+    ]
+  },
+  "initial_parser_stopped_cases": [
+    {
+      "case": "manual_city_county",
+      "status": "unavailable",
+      "item_count": 0,
+      "request_delta": 1,
+      "scope": null,
+      "source_urls": []
+    },
+    {
+      "case": "public_government_landmark_one_km",
+      "status": "unavailable",
+      "item_count": 0,
+      "request_delta": 1,
+      "scope": null,
+      "source_urls": []
+    }
+  ],
+  "schema_diagnostic_calls": 2,
+  "final_cases": [
+    {
+      "case": "manual_city_county_after_parser_fix",
+      "status": "ok",
+      "item_count": 10,
+      "request_delta": 2,
+      "scope": "行政区：彭州市",
+      "source_urls": [
+        "https://lbs.tianditu.gov.cn/server/search2.html"
+      ]
+    },
+    {
+      "case": "public_government_landmark_one_km_after_parser_fix",
+      "status": "ok",
+      "item_count": 3,
+      "request_delta": 2,
+      "scope": "彭州市人民政府附近 1 公里",
+      "source_urls": [
+        "https://lbs.tianditu.gov.cn/server/search2.html"
+      ],
+      "within_one_km": true
+    }
+  ],
+  "requests_in_this_check": 12,
+  "automatic_fallback_requests": 0,
+  "model_requests": 0,
+  "private_locations_used": false,
+  "browser_gps_tested": false,
+  "poi_mirror_stored": false,
+  "credential_or_token_stored_in_report": false,
+  "preservation": {
+    "business_tables_preserved": 18,
+    "foreign_keys_clean": true,
+    "original_credentials_preserved": true,
+    "user_saved_configuration_preserved": true,
+    "signing_preserved": true,
+    "provider_enabled": {
+      "amap": true,
+      "tianditu": true
+    },
+    "default_provider": "amap",
+    "tianditu_counter_delta": 12,
+    "amap_counter_delta": 0
+  },
+  "medical_quality_verified": false,
+  "site_map_for_tianditu": false
+}

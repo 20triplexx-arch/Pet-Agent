@@ -1,0 +1,29 @@
+{
+  "regions_status": "ok",
+  "street_count": 13,
+  "expected_streets_found": {
+    "天彭街道": true,
+    "致和街道": true,
+    "九尺镇": true
+  },
+  "manual_status": "ok",
+  "manual_scope": "行政区：四川省成都市彭州市",
+  "manual_count": 10,
+  "manual_no_beijing": true,
+  "specific_status": "ok",
+  "specific_message": "已取得地图候选，接诊能力需电话核实。",
+  "specific_scope": "四川省成都市彭州市天彭街道彭州市人民政府附近 1 公里",
+  "specific_count": 4,
+  "all_reported_distances_within_1km": true,
+  "map_http": 200,
+  "map_dimensions": [
+    600,
+    320
+  ],
+  "request_delta": 6,
+  "no_real_browser_geolocation": true,
+  "no_model_call": true,
+  "location_used": "public government office landmark",
+  "business_tables_preserved": 18,
+  "configuration_and_signing_key_preserved": true
+}

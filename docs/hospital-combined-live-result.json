@@ -1,0 +1,106 @@
+{
+  "checked_at": "2026-10-14T08:16:18.437281+00:00",
+  "mode": "real_server_services",
+  "cases": [
+    {
+      "case": "selected_public_region",
+      "http_status": 200,
+      "provider": "auto",
+      "status": "ok",
+      "displayed_count": 10,
+      "partial": false,
+      "source_statuses": [
+        {
+          "provider": "amap",
+          "status": "ok",
+          "item_count": 10
+        },
+        {
+          "provider": "tianditu",
+          "status": "ok",
+          "item_count": 10
+        }
+      ],
+      "source_names": [
+        "amap",
+        "tianditu"
+      ],
+      "merged_duplicates": 0,
+      "map_markers": 5,
+      "all_nearby_inside_radius": null,
+      "no_synthetic_rating": true,
+      "no_internal_map_points": true,
+      "map_status": 200,
+      "map_is_png": true
+    },
+    {
+      "case": "public_landmark_nearby_1km",
+      "http_status": 200,
+      "provider": "auto",
+      "status": "ok",
+      "displayed_count": 7,
+      "partial": false,
+      "source_statuses": [
+        {
+          "provider": "amap",
+          "status": "ok",
+          "item_count": 4
+        },
+        {
+          "provider": "tianditu",
+          "status": "ok",
+          "item_count": 3
+        }
+      ],
+      "source_names": [
+        "amap",
+        "tianditu"
+      ],
+      "merged_duplicates": 0,
+      "map_markers": 4,
+      "all_nearby_inside_radius": true,
+      "no_synthetic_rating": true,
+      "no_internal_map_points": true,
+      "map_status": 200,
+      "map_is_png": true
+    }
+  ],
+  "model_calls": 0,
+  "private_location_used": false,
+  "hospital_quality_verified": false,
+  "before": [
+    {
+      "provider": "amap",
+      "enabled": true,
+      "day_requests": 32,
+      "month_requests": 32,
+      "day_limit": 50,
+      "month_limit": 500
+    },
+    {
+      "provider": "tianditu",
+      "enabled": true,
+      "day_requests": 12,
+      "month_requests": 12,
+      "day_limit": 50,
+      "month_limit": 500
+    }
+  ],
+  "after": [
+    {
+      "provider": "amap",
+      "day_requests": 37,
+      "month_requests": 37
+    },
+    {
+      "provider": "tianditu",
+      "day_requests": 15,
+      "month_requests": 15
+    }
+  ],
+  "requests_this_check": {
+    "amap": 5,
+    "tianditu": 3
+  },
+  "status": "connected"
+}

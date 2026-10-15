@@ -1,0 +1,16 @@
+{
+  "all_19_tables_unchanged": true,
+  "foreign_key_errors": 0,
+  "other_configuration_unchanged": true,
+  "user_env_after_policy_unchanged": true,
+  "signing_file_unchanged": true,
+  "health": 200,
+  "runtime_policy": {
+    "limits_enabled": false,
+    "daily_limit": null,
+    "remaining_turns": null,
+    "request_limit": null,
+    "tool_calls_limit": null
+  },
+  "new_frontend_served": true
+}

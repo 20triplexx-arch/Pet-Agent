@@ -980,6 +980,10 @@ button[data-slot="button"].check-button {
 .chat-compose-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .chat-compose-controls label { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 0; }
 .chat-compose-controls select { width: auto; min-height: 44px; padding: 6px 8px; margin-top: 0; }
+.chat-compose-controls .chat-model-control { flex: 1 1 240px; min-width: 0; font-size: 14px; }
+.chat-compose-controls .chat-model-control select { flex: 1; min-width: 0; max-width: 280px; width: 100%; }
+.chat-model-error { font-size: 13px; color: var(--color-danger); }
+.chat-depth-setting { margin: 20px 0; }
 .deep-chat-layout .chat-panel { height: calc(100dvh - 180px); }
 .chat-compose-controls span { margin-left: auto; font-variant-numeric: tabular-nums; }
 .chat-compose-controls .input-over-limit { color: var(--color-danger); }
@@ -995,9 +999,10 @@ button[data-slot="button"].check-button {
 @media (max-width: 767px) {
   .deep-chat-layout .chat-panel { height: calc(100dvh - 280px); min-height: 410px; }
   .chat-input textarea { min-height: 68px; }
-  .chat-compose-controls { gap: 6px; flex-wrap: nowrap; }
+  .chat-compose-controls { gap: 8px; flex-wrap: wrap; }
   .chat-compose-controls label { font-size: 13px; white-space: nowrap; }
-  .chat-compose-controls select { width: 68px; }
+  .chat-compose-controls .chat-model-control { flex-basis: 100%; }
+  .chat-compose-controls .chat-model-control select { max-width: none; }
   .chat-compose-controls button { padding-inline: 10px; }
   .chat-compose-controls span { text-align: right; }
   .answer-content h3 { font-size: 19px; }
@@ -1574,6 +1579,55 @@ dd {
   margin-top: 16px;
   font-size: 13px;
 }
+.region-field {
+  position: relative;
+  min-width: 0;
+}
+.region-field label { display: block; margin-bottom: 8px; }
+.region-hint { margin: 8px 0 0; }
+.region-dropdown {
+  position: absolute;
+  inset: auto 0;
+  z-index: 12;
+  margin-top: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-control-line);
+  border-radius: var(--radius-control);
+  padding: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.region-dropdown p { padding: 4px 8px; font-size: 13px; }
+.region-dropdown [role="option"] {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  white-space: normal;
+}
+.region-dropdown [role="option"]:hover,
+.region-dropdown [aria-selected="true"] { background: var(--color-peach-soft); color: var(--color-primary); }
+.hospital-map { margin: 24px 0; }
+.hospital-map-frame {
+  aspect-ratio: 600 / 320;
+  min-height: 180px;
+  overflow: hidden;
+  background: var(--color-ground);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+}
+.hospital-map img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.hospital-map-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: 100%; padding: 16px; color: var(--color-muted); text-align: center; }
+.hospital-map-placeholder p { font-size: 14px; }
+.hospital-map figcaption { margin-top: 8px; }
+.hospital-map > a { display: inline-block; margin-top: 8px; font-size: 14px; }
+.hospital-map-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; margin-right: 8px; border-radius: var(--radius-control); background: var(--color-peach); color: var(--color-primary); font-size: 14px; }
+.hospital-row .hospital-evidence { color: var(--color-muted); }
 .visit-panel {
   margin-top: 8px;
 }
@@ -2133,4 +2187,39 @@ dd {
   .comparison-history { flex-direction:column; align-items:flex-start; gap:12px; }
   .assessment-column + .assessment-column { border-top:1px solid var(--line); padding-top:24px; }
   .knowledge-domains { gap:6px; }
+}
+
+/* Care review extends the existing journal surface. */
+.care-review { scroll-margin-top: 90px; }
+.review-heading { flex-wrap: wrap; gap: var(--space-2); }
+.review-period { color: var(--color-muted); font-size: 13px; margin: 20px 0 12px; }
+.review-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 32px; margin: 0 0 20px; }
+.review-facts > div { min-width: 0; }
+.review-facts dt { color: var(--color-muted); font-size: 13px; }
+.review-facts dd { margin: 4px 0 0; font-size: 16px; font-weight: 600; }
+.review-kind-counts { font-size: 13px; color: var(--color-muted); }
+.care-review h3 { margin-top: 28px; margin-bottom: 12px; }
+.review-suggestions { padding-left: 22px; }
+.review-suggestions li { margin-bottom: 20px; }
+.review-suggestions p { margin-top: 6px; }
+.review-observations, .review-boundaries { margin: 24px 0; }
+.review-observation { padding: 16px 0; border-bottom: 1px solid var(--color-line); }
+.review-observation p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.quick-care { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-line); }
+.quick-care > summary, .review-observations > summary, .review-boundaries > summary, .source-evidence > summary { cursor: pointer; font-weight: 600; }
+.quick-care-fields { border: 0; padding: 0; margin: 16px 0 0; min-width: 0; }
+.quick-care-fields label { display: block; margin-bottom: 16px; }
+.quick-care-fields .care-check { display: flex; }
+.source-evidence { margin-top: 12px; font-size: 14px; }
+.source-evidence p { white-space: pre-wrap; overflow-wrap: anywhere; margin: 8px 0 16px; font-size: 16px; }
+@media (max-width: 600px) { .review-facts { gap: 16px; } .review-heading .button-row { margin: 0; } .care-review { scroll-margin-top: 76px; } }
+.answer-section + .answer-section { margin-top: 1rem; }
+.generating .generation-status { color: var(--muted); font-size: 0.875rem; margin: 1rem 0 0; }
+.generating .sources { margin-top: 0.5rem; }
+.generating .message-label { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.generation-stop { margin-left: auto; min-height: 44px; }
+@media (max-width: 767px) {
+  .deep-chat-layout .chat-panel { height: auto; min-height: 0; }
+  .deep-chat-layout .messages { flex: 0 0 auto; height: clamp(240px, 45dvh, 420px); min-height: 240px; }
+  .deep-chat-layout .chat-input, .deep-chat-layout .chat-toolbar { flex-shrink: 0; }
 }

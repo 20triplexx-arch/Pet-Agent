@@ -20,20 +20,22 @@ def fake_provider(monkeypatch, answer, source="cat-food", finish_reason="tool_ca
             actual_source = payload["retrieved_data"][0]["id"] if payload["retrieved_data"] else None
         assert request.url.path.endswith("/chat/completions")
         assert body["model"] == model
+        if not body.get("tools"):
+            return httpx2.Response(200, json={
+                "id": "mock-json", "object": "chat.completion", "created": 1, "model": model,
+                "choices": [{"index": 0, "message": {"role": "assistant", "content": json.dumps({
+                    "answer": answer, "citation_ids": [actual_source] if actual_source else [], "draft": None,
+                    "citation_sections": citation_sections or []}, ensure_ascii=False)},
+                    "finish_reason": "stop" if finish_reason == "tool_calls" else finish_reason}],
+                "usage": {"prompt_tokens": 320, "completion_tokens": 70, "total_tokens": 390}})
         names = {t["function"]["name"] for t in body["tools"]}
-        assert {
-            "get_pet_profile",
-            "search_pet_knowledge",
-            "save_care_plan",
-            "create_reminder",
-            "record_care_log",
-        }.issubset(names)
         output = next(
             n
             for n in names
             if n
             not in {
                 "get_pet_profile",
+                "get_care_review",
                 "search_pet_knowledge",
                 "save_care_plan",
                 "create_reminder",
@@ -140,8 +142,9 @@ def test_unretrieved_citation_rejected_and_rolled_back(
         )
 
 
-def test_twelve_pydantic_tools_registered():
+def test_thirteen_pydantic_tools_registered():
     assert set(agent._function_toolset.tools) == {
+        "get_care_review",
         "get_pet_profile",
         "search_pet_knowledge",
         "save_care_plan",

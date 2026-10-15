@@ -20,7 +20,9 @@ import type {
   HospitalResult,
   MapUsage,
   VisitSummary,
+  Region,
 } from "./care-api";
+import { RegionInput, HospitalMap } from "./hospital-search";
 import { useRemote, useAction } from "./hooks";
 import {
   PageTitle,
@@ -798,10 +800,17 @@ export function Hospitals() {
   const { pet } = useApp();
   const location = useLocation();
   const usage = useRemote<MapUsage>("/hospitals/usage");
+  const regionsEnabled = usage.data?.region_enabled ?? usage.data?.enabled ?? false;
+  const amapUsage = usage.data?.providers?.find(row => row.provider === "amap");
+  const mapAvailable = amapUsage ? amapUsage.enabled && amapUsage.day_requests < amapUsage.day_limit && amapUsage.month_requests < amapUsage.month_limit : regionsEnabled;
   const action = useAction();
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
-  const [radius, setRadius] = useState(5);
+  const [cityRegion, setCityRegion] = useState<Region | null>(null);
+  const [districtRegion, setDistrictRegion] = useState<Region | null>(null);
+  const [street, setStreet] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+  const [radius, setRadius] = useState(1);
   const [coords, setCoords] = useState<{
     longitude: number;
     latitude: number;
@@ -809,7 +818,10 @@ export function Hospitals() {
   const [locationError, setLocationError] = useState("");
   const [locating, setLocating] = useState(false);
   const [result, setResult] = useState<HospitalResult | null>(null);
+  const clearQuery = () => { setCoords(null); setResult(null); setLocationError(""); action.clear(); };
+  const clearSmaller = () => { setStreet(""); setAddressDetail(""); };
   const locate = () => {
+    action.clear();
     setLocationError("");
     setLocating(true);
     setCoords(null);
@@ -821,6 +833,7 @@ export function Hospitals() {
     }
     navigator.geolocation.getCurrentPosition(
       (p) => {
+        clearSmaller();
         setCoords({
           longitude: p.coords.longitude,
           latitude: p.coords.latitude,
@@ -837,8 +850,8 @@ export function Hospitals() {
   return (
     <>
       <PageTitle
-        title="需要帮助时，找到接诊入口"
-        desc="中国大陆医院查询 · 接诊与营业情况请电话核实"
+        title="医院查询"
+        desc="中国大陆医院查询 · 自动综合可用地图资料"
       />
       {location.state?.urgent && (
         <div className="alert" role="alert">
@@ -854,9 +867,17 @@ export function Hospitals() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              if (!coords && /省$|自治区$/.test(city.trim()) && !cityRegion) {
+                setLocationError("请选择下方的具体城市，再查询医院。");
+                return;
+              }
+              setLocationError("");
               const payload = {
                 city,
                 district,
+                street,
+                address_detail: addressDetail,
+                region_adcode: districtRegion?.adcode ?? cityRegion?.adcode ?? null,
                 ...coords,
                 radius_km: radius,
                 pet_id: pet?.id ?? null,
@@ -879,53 +900,42 @@ export function Hospitals() {
               className="care-fieldset"
             >
               <div className="form-grid">
-                <label>
-                  城市
-                  <input
-                    name="city"
-                    value={city}
-                    onChange={(e) => {
-                      setCity(e.target.value);
-                      setCoords(null);
-                      setResult(null);
-                    }}
-                    placeholder="例如：杭州"
-                    required={!coords}
-                    maxLength={80}
-                  />
-                </label>
-                <label>
-                  区县（可选）
-                  <input
-                    name="district"
-                    value={district}
-                    onChange={(e) => {
-                      setDistrict(e.target.value);
-                      setCoords(null);
-                      setResult(null);
-                    }}
-                    placeholder="例如：西湖区"
-                    maxLength={80}
-                  />
-                </label>
+                <RegionInput label="城市" value={city} required={!coords} enabled={regionsEnabled}
+                  onChange={value => { setCity(value); setCityRegion(null); setDistrict(""); setDistrictRegion(null); clearSmaller(); clearQuery(); }}
+                  onSelect={region => { setCity(region.name); setCityRegion(region); setDistrict(""); setDistrictRegion(null); clearSmaller(); clearQuery(); }} />
+                <RegionInput label="区县（可选）" value={district} city={city} parent={cityRegion} enabled={regionsEnabled}
+                  onChange={value => { setDistrict(value); setDistrictRegion(null); clearSmaller(); clearQuery(); }}
+                  onSelect={region => { setDistrict(region.name); setDistrictRegion(region); clearSmaller(); clearQuery(); }} />
+                <RegionInput label="街道 / 乡镇（可选）" value={street} kind="street" city={district} parent={districtRegion} enabled={regionsEnabled && !!districtRegion}
+                  onChange={value => { setStreet(value); setAddressDetail(""); clearQuery(); }}
+                  onSelect={region => { setStreet(region.name); setAddressDetail(""); clearQuery(); }} />
+                <div className="region-field">
+                  <label htmlFor="hospital-address-detail">具体地点（可选）</label>
+                  <input id="hospital-address-detail" name="address_detail" value={addressDetail} maxLength={160} placeholder="小区、路名或门牌，例如：XX路20号"
+                    onChange={event => { setAddressDetail(event.target.value); clearQuery(); }} />
+                  <p className="small muted region-hint">填写后查找此地点附近，不保存地址</p>
+                </div>
               </div>
               <label>
-                定位查询范围
+                附近查询范围
                 <select
                   name="radius_km"
+                  aria-label="附近查询范围"
                   value={radius}
                   onChange={(e) => {
                     setRadius(Number(e.target.value));
                     setResult(null);
+                    action.clear();
                   }}
                 >
-                  {[5, 10, 20].map((k) => (
+                  {[1, 3, 5, 10, 20].map((k) => (
                     <option key={k} value={k}>
                       {k} 公里
                     </option>
                   ))}
                 </select>
               </label>
+              <p className="small muted">选到区县仍是行政区查询；填写街道、具体地点或使用定位后，才按公里范围找附近医院。</p>
               <div className="button-row">
                 <Button type="button" onClick={locate}>
                   <Navigation size={16} />
@@ -954,6 +964,7 @@ export function Hospitals() {
               当前未启用地图接口。查询后可打开高德搜索，不会生成模拟医院。
             </p>
           )}
+          <HospitalMap result={result} available={mapAvailable} onLoaded={usage.reload} />
           <p className="small muted">
             如有呼吸困难、昏倒或严重异常，请及时联系兽医；不要等待完善资料。
           </p>
@@ -975,21 +986,34 @@ export function Hospitals() {
               </p>
               {result.mode === "external" && (
                 <p className="small muted">
-                  外部地图查询 ·{" "}
+                  {result.provider_name ? `${result.provider_name}查询` : "外部地图查询"} ·{" "}
                   {new Date(result.queried_at).toLocaleString("zh-CN")}
                 </p>
               )}
+              {result.scope_label && <div className="hospital-search-scope"><p>查询范围：{result.scope_label}</p><p className="small muted">{result.scope_note}</p></div>}
+              {result.agent_summary && <details className="care-details">
+                <summary>综合依据与查询状态</summary>
+                <p>{result.agent_summary.basis}</p>
+                <p>确认合并 {result.agent_summary.merged_duplicates} 条重复登记；共取得 {result.agent_summary.unique_candidates} 家不同候选，本页最多展示 10 家。</p>
+                {result.provider_results?.map(source => <p className="small muted" key={source.provider}>
+                  {source.provider_name} · {source.status === "ok" ? `${source.item_count} 条候选` : source.status === "empty" ? "本次没有候选" : source.status === "skipped" ? "未调用" : "查询未完成"} · {source.message}
+                  {source.scope_label && <> · {source.scope_label}</>}
+                </p>)}
+              </details>}
               {result.items.map((h, i) => (
-                <article className="hospital-row" key={h.id || i}>
+                <article className="hospital-row" key={`${h.sources?.[0]?.provider || h.source}-${h.id || i}-${i}`}>
                   <div className="section-heading">
-                    <h3>{h.name}</h3>
+                    <h3>{h.map_number && <span className="hospital-map-number">{h.map_number}</span>}{h.name}</h3>
                     <span>
                       {h.distance_m === null
                         ? "距离未知"
-                        : `${fmt(h.distance_m / 1000)} km（地图距离）`}
+                        : `${fmt(h.distance_m / 1000)} km（${h.distance_kind === "estimated" ? "坐标估算" : "地图距离"}）`}
                     </span>
                   </div>
                   <p>{h.address || "地址未提供"}</p>
+                  <p className="small hospital-evidence">暂无可靠评分 <span>· {h.verification_status || "地图登记，未电话核实"}</span></p>
+                  {h.sources && <p className="small muted">资料来自{h.sources.map(source => source.provider_name).join("、")}</p>}
+                  {!!h.conflicts?.length && <p className="small note">登记信息存在差异，请展开核对各来源。</p>}
                   <p className="small muted">
                     {h.opening_hours || "营业时间未提供"} · {h.opening_status}
                   </p>
@@ -1008,7 +1032,7 @@ export function Hospitals() {
                     )}
                     <a href={h.navigation_url} target="_blank" rel="noreferrer">
                       <Navigation size={16} />
-                      导航
+                      {h.navigation_label || "导航"}
                     </a>
                     <a href={h.map_url} target="_blank" rel="noreferrer">
                       查看地图
@@ -1017,9 +1041,16 @@ export function Hospitals() {
                   <details>
                     <summary>资料来源与匹配依据</summary>
                     <p>{h.match_reason}</p>
-                    <a href={h.source_url} target="_blank" rel="noreferrer">
-                      {h.source}
-                    </a>
+                    {h.registered_region && <p>登记区域：{h.registered_region}</p>}
+                    {h.poi_type && <p>地图分类：{h.poi_type}</p>}
+                    <p>{h.rating_note || "当前地图接口未提供可靠医院评分，不显示推测星级。"}</p>
+                    <p>电话核实：当前是否营业并接诊、是否处理本次症状或接收急诊、接诊物种，以及收费项目、机构资质与医生执业信息。</p>
+                    {h.sources ? h.sources.map((source, index) => <div key={`${source.provider}-${index}`}>
+                      <p>{source.provider_name} · {new Date(source.queried_at).toLocaleString("zh-CN")}</p>
+                      <p className="small muted">{source.address || "地址未提供"} · 电话：{source.phone || "未提供"} · 营业时间：{source.opening_hours || "未提供"}</p>
+                      <a href={source.source_url} target="_blank" rel="noreferrer">{source.source}</a>
+                    </div>) : <a href={h.source_url} target="_blank" rel="noreferrer">{h.source}</a>}
+                    {h.conflicts?.map(conflict => <p className="small note" key={conflict}>{conflict}</p>)}
                   </details>
                 </article>
               ))}
@@ -1029,7 +1060,7 @@ export function Hospitals() {
                 target="_blank"
                 rel="noreferrer"
               >
-                打开高德搜索 <ArrowUpRight size={16} />
+                {result.search_label || "打开高德搜索"} <ArrowUpRight size={16} />
               </a>
             </>
           )}

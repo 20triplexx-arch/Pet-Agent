@@ -1,0 +1,325 @@
+{
+  "answer_build_sha256": "0f78b2d6f7872260a7d9fa91007b15646127ee2fbd761d206667992d58d20f2a",
+  "reviewed_at": "2026-10-15T10:16:18.207654+00:00",
+  "review_method": "Assistant manual comparison with actual supplied passages; one main conclusion unit per successful model turn, including follow-ups. Rejected turns and local rules excluded; not veterinary review.",
+  "case_reviews": [
+    {
+      "case": "CB-001",
+      "sources": [
+        "cat-scratching",
+        "supply-scratch"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-002",
+      "sources": [
+        "cat-body-language",
+        "cat-play"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-003",
+      "sources": [
+        "cat-carrier",
+        "supply-carriers",
+        "cat-low-stress-care"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-004",
+      "sources": [
+        "cat-grooming",
+        "cat-low-stress-care"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-005",
+      "sources": [
+        "cat-play",
+        "supply-toys",
+        "cat-home"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-006",
+      "sources": [
+        "cat-prepare"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-008",
+      "sources": [
+        "cat-food",
+        "nutrition-feeding"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "10%条件完整，但后段偏长并重复记录要求。"
+    },
+    {
+      "case": "CB-009",
+      "sources": [
+        "cat-clean",
+        "supply-litter",
+        "care-record-quality"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-010",
+      "sources": [
+        "cat-dental"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-011",
+      "sources": [
+        "cat-multi",
+        "cat-home",
+        "cat-play"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-012",
+      "sources": [
+        "food-storage",
+        "food-formats"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-013",
+      "sources": [
+        "pet-travel",
+        "supply-carriers",
+        "visit-preparation"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-015",
+      "sources": [
+        "cat-vaccination"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-017",
+      "sources": [
+        "cat-vomiting",
+        "visit-preparation"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-018",
+      "sources": [],
+      "delivered_model_units": 0,
+      "major_unsupported_units": 0,
+      "review": "BCS定义并入肌肉的原始严重错误被拦截；无半截保存。"
+    },
+    {
+      "case": "CB-021",
+      "sources": [
+        "dog-crate",
+        "dog-home"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-022",
+      "sources": [
+        "dog-alone"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-024",
+      "sources": [
+        "dog-dental",
+        "supply-dental"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-025",
+      "sources": [
+        "dog-play",
+        "supply-toys"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-026",
+      "sources": [
+        "dog-prepare"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-028",
+      "sources": [],
+      "delivered_model_units": 0,
+      "major_unsupported_units": 0,
+      "review": "比例条件或段落依据不一致被拒绝，不计入成功来源分母。"
+    },
+    {
+      "case": "CB-033",
+      "sources": [
+        "dog-adolescent"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-034",
+      "sources": [
+        "heat-safety",
+        "dog-play",
+        "pet-travel"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-037",
+      "sources": [
+        "dog-stage",
+        "dog-clean",
+        "food-stage"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-040",
+      "sources": [
+        "nutrition-muscle",
+        "nutrition-dog-bcs",
+        "nutrition-risk"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "脂肪与肌肉分别记录的核心结论支持；生活观察与正式MCS评分仍有措辞边界。"
+    },
+    {
+      "case": "CB-043",
+      "sources": [
+        "food-energy",
+        "food-labels",
+        "food-formats"
+      ],
+      "delivered_model_units": 1,
+      "major_unsupported_units": 0,
+      "review": "不能给克数的核心结论支持；仍重复索取已知年龄，自动边界检查未过。"
+    },
+    {
+      "case": "CB-049",
+      "sources": [],
+      "delivered_model_units": 0,
+      "major_unsupported_units": 0,
+      "review": "本地品种范围回答，非模型生成，不计模型来源分母。"
+    },
+    {
+      "case": "CB-053",
+      "sources": [
+        "cat-carrier",
+        "supply-carriers"
+      ],
+      "delivered_model_units": 2,
+      "major_unsupported_units": 1,
+      "review": "首问支持；追问把食物诱导写成被动服从，绑定章节未直接支持，计一个不支持单元。"
+    },
+    {
+      "case": "CB-057",
+      "sources": [
+        "dog-crate",
+        "dog-home"
+      ],
+      "delivered_model_units": 2,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    },
+    {
+      "case": "CB-059",
+      "sources": [
+        "dog-dental",
+        "supply-dental",
+        "dog-fear-support"
+      ],
+      "delivered_model_units": 2,
+      "major_unsupported_units": 0,
+      "review": "主要结论与本轮实际提供章节相符；未发现新的严重结论错误。"
+    }
+  ],
+  "order": [
+    "qwen3.8-flash"
+  ],
+  "models": {
+    "qwen3.8-flash": {
+      "approved": true,
+      "case_count": 30,
+      "delivery_rate": 0.9333333333333333,
+      "major_source_support_rate": 0.9666666666666667,
+      "major_source_supported": 29,
+      "major_source_total": 30,
+      "severe_delivered_issues": 0,
+      "raw_severe_generation_issues": 1,
+      "automated_passed_cases": 27,
+      "reason": "Eligible only with the current application validators. Overall quality and speed upgrade acceptance remains unmet."
+    }
+  },
+  "limitations": [
+    "One qualified free candidate only; no real multi-model exhaustion transition yet.",
+    "Known raw model errors still occur and can produce explicit rejection; not a medical accuracy claim.",
+    "At least 20 improved and all remaining cases non-regressive has not been demonstrated.",
+    "Selected model latency targets are not met; its 60-pair run lacks sufficient free headroom."
+  ]
+}

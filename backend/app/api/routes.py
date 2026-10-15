@@ -1,4 +1,5 @@
 import json
+import asyncio
 from datetime import timedelta, date
 from typing import Annotated
 from pathlib import Path
@@ -95,6 +96,12 @@ def status(user: CurrentUser):
         else settings.model_name,
         "reminder_delivery": "in_app_only",
     }
+
+
+@router.get("/chat/models")
+def chat_models(user: CurrentUser):
+    from app.chat_models import catalog
+    return catalog()
 
 
 @router.post("/time/convert")
@@ -553,7 +560,20 @@ def messages(ident: str, session: SessionDep, user: CurrentUser):
 async def chat(
     data: ChatInput, session: SessionDep, user: CurrentUser, key: Key = None
 ):
-    fp = fingerprint("chat", data.model_dump())
+    from app.chat_requests import begin_chat, run_registered
+    registry, replay = begin_chat(data, session, user, key)
+    if replay is not None:
+        if trace := current_execution.get():
+            trace.replayed = True
+        return replay
+    return await run_registered(data, session, user, key, registry)
+
+
+async def perform_chat(data, session, user, key):
+    payload = data.model_dump()
+    if data.model_id == "default":
+        payload.pop("model_id")  # Preserve fingerprints for clients predating model selection.
+    fp = fingerprint("chat", payload)
     old = lookup_idempotent(session, user.id, key, fp)
     if old is not None:
         if trace := current_execution.get():
@@ -567,8 +587,6 @@ async def chat(
             raise HTTPException(409, "会话与当前宠物不匹配")
     else:
         c = Conversation(user_id=user.id, pet_id=data.pet_id)
-        session.add(c)
-        session.flush()
     history = [
         m.model_dump()
         for m in session.exec(
@@ -577,7 +595,9 @@ async def chat(
             .order_by(Message.created_at)
         ).all()
     ]
-    ctx = AgentContext(session, user, data.pet_id, supplement=data.context.model_dump(mode="json", exclude_none=True) if data.context else {}, answer_depth=data.answer_depth)
+    ctx = AgentContext(session, user, data.pet_id, supplement=data.context.model_dump(mode="json", exclude_none=True) if data.context else {}, answer_depth=data.answer_depth, model_selection=select_model(data.model_id))
+    # No provisional inserts hold SQLite's writer lock while awaiting a model.
+    session.commit()
     try:
         p = profile(ctx)
         risk_text = data.text + " " + " ".join(v for v in ctx.supplement.values() if isinstance(v, str))
@@ -603,7 +623,7 @@ async def chat(
                 result = {
                     "answer": "还没有可保存的草稿，请先生成计划。",
                     "mode": "demo"
-                    if settings.DEMO_MODE
+                    if ctx.selected_model.demo
                     else "tools",
                     "sources": [],
                     "draft": None,
@@ -639,13 +659,19 @@ async def chat(
                 }
         else:
             result = await respond(ctx, data.text, history, data.available_minutes)
+        result["model_selection"] = ctx.selected_model.public()
+        result["model_used"] = ctx.selected_model.name if ctx.model_attempt else None
+        if data.pet_id:
+            owned(session, Pet, data.pet_id, user.id)
+        if data.conversation_id:
+            owned(session, Conversation, data.conversation_id, user.id)
         c.summary_json = ctx.memory
         session.add(c)
         if trace := current_execution.get():
             trace.mode = result["mode"]
             trace.retrieved(ctx.retrieved)
             result["execution"] = trace.summary()
-        user_message = Message(conversation_id=c.id, role="user", content=data.text, metadata_json={"context": ctx.supplement, "answer_depth": data.answer_depth, "source": "用户本次提供，未自动更新档案"})
+        user_message = Message(conversation_id=c.id, role="user", content=data.text, metadata_json={"context": ctx.supplement, "answer_depth": data.answer_depth, "model_id": ctx.selected_model.id, "source": "用户本次提供，未自动更新档案"})
         session.add(user_message)
         for provenance in result.get("context_provenance", {}).values():
             if provenance["message_id"] == "current":
@@ -659,13 +685,18 @@ async def chat(
         session.add(m)
         session.flush()
         response = {"conversation_id": c.id, "message": m.model_dump(), **result}
-        return commit_idempotent(session, user.id, key, fp, response)
+        if trace:
+            trace.mark('commit_started')
+        committed = commit_idempotent(session, user.id, key, fp, response)
+        if trace:
+            trace.mark('committed')
+        return committed
     except ValidationError as e:
         session.rollback()
         raise HTTPException(
             422, "写入参数无效：" + "; ".join(x["msg"] for x in e.errors())
         )
-    except Exception as exc:
+    except (Exception, asyncio.CancelledError) as exc:
         if trace := current_execution.get():
             trace.retrieved(ctx.retrieved)
             trace.error_type = trace.error_type or type(exc).__name__
@@ -678,7 +709,7 @@ async def chat(
             if known:
                 session.add(known)
             elif trace and trace.model_requests and (trace.input_tokens or trace.output_tokens):
-                session.add(ModelUsage(user_id=user.id, model=settings.model_name,
+                session.add(ModelUsage(user_id=user.id, model=ctx.selected_model.name,
                                        requests=trace.model_requests, input_tokens=trace.input_tokens,
                                        output_tokens=trace.output_tokens))
             session.commit()

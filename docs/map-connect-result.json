@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-14",
+  "test_region": "杭州市西湖区",
+  "status": "ok",
+  "mode": "external",
+  "returned_count": 10,
+  "application_requests_added": 1,
+  "verified_fields": [
+    "name",
+    "address",
+    "phone",
+    "navigation_url"
+  ],
+  "regional_distances": "unknown",
+  "clinical_capabilities": "unverified",
+  "coordinates_used": false,
+  "browser_geolocation_tested": false,
+  "coordinate_conversion_tested": false,
+  "nearby_search_tested": false,
+  "real_model_calls": 0,
+  "database_business_tables_preserved": true,
+  "signing_key_preserved": true,
+  "credentials_in_evidence": false,
+  "poi_mirror_saved": false
+}

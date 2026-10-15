@@ -61,12 +61,16 @@ class NutritionSave(NutritionProfileSave):
 
 
 class HospitalQuery(Strict):
+    provider: Literal["auto", "amap", "tianditu"] | None = None
     city: str = Field(default="", max_length=80)
     district: str = Field(default="", max_length=80)
+    street: str = Field(default="", max_length=80)
+    address_detail: str = Field(default="", max_length=160)
+    region_adcode: str | None = Field(default=None, pattern=r"^[1-6]\d{5}$")
     longitude: float | None = Field(default=None, ge=73, le=136, allow_inf_nan=False)
     latitude: float | None = Field(default=None, ge=18, le=54, allow_inf_nan=False)
     coordinate_system: Literal["wgs84", "gcj02"] = "wgs84"
-    radius_km: Literal[5, 10, 20] = 5
+    radius_km: Literal[1, 3, 5, 10, 20] = 5
     pet_id: str | None = None
 
     @model_validator(mode="after")
@@ -75,7 +79,13 @@ class HospitalQuery(Strict):
             raise ValueError("经纬度需要成对提供")
         if self.longitude is None and not self.city.strip():
             raise ValueError("请提供城市或授权定位")
+        if self.longitude is not None and (self.street.strip() or self.address_detail.strip()):
+            raise ValueError("具体地点与浏览器定位请选择一种查询方式")
         return self
+
+
+class HospitalMapInput(Strict):
+    token: str = Field(min_length=32, max_length=64, pattern=r"^[A-Za-z0-9_-]+$")
 
 
 class VisitInput(Strict):

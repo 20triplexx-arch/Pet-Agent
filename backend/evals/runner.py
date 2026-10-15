@@ -58,7 +58,7 @@ def setup_database(folder):
     os.environ.update({"DATABASE_URL": "sqlite:///" + (folder / "evaluation.db").as_posix(),
                        "EXECUTION_LOG_PATH": str(folder / "execution.jsonl"),
                        "SECRET_KEY": "synthetic-evaluation-key-not-for-production", "AMAP_ENABLED": "false",
-                       "AMAP_API_KEY": "", "OCR_ENABLED": "false"})
+                       "AMAP_API_KEY": "", "TIANDITU_ENABLED": "false", "TIANDITU_API_KEY": "", "OCR_ENABLED": "false"})
     from scripts.init_db import initialize
     initialize(demo=False)
     from app.core.db import engine
@@ -180,7 +180,8 @@ def run_case(client, headers, pets, case):
     conversation, turns, checks = None, [], {}
     for index, text in enumerate(case["turns"]):
         response = client.post("/api/v1/chat", headers={**headers, "Idempotency-Key": case["id"] + "-" + str(index)},
-                               json={"pet_id": pets.get(case.get("pet", "cat")), "conversation_id": conversation, "text": text})
+                               json={"pet_id": pets.get(case.get("pet", "cat")), "conversation_id": conversation, "text": text,
+                                     "answer_depth": case.get("answer_depth", "auto")})
         result = response.json()
         request_id = response.headers.get("x-request-id")
         from app.core.config import settings
@@ -256,6 +257,8 @@ def main():
     parser.add_argument("--only", help="Comma-separated fixed case IDs for targeted reruns")
     parser.add_argument("--budget-cny", default="10")
     args = parser.parse_args()
+    if args.mode == "offline":
+        os.environ.update({"DASHSCOPE_API_KEY": "", "DEEPSEEK_API_KEY": "", "MODEL_API_KEY": ""})
     dataset, checksum = load_cases()
     cases = dataset["cases"]
     if args.only:

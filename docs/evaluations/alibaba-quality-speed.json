@@ -1,0 +1,2647 @@
+{
+  "date": "2026-10-15",
+  "model": "qwen3.7-flash",
+  "region": "cn-beijing",
+  "report": "20261015T071431-alibaba-paired",
+  "report_sha256": "7dfe703e06e97a0895cd09b64bacba87ad742d1f4231a459901517b76ec41835",
+  "implementation_sha256": "3195a9302df1d76112aa5d48ee3aa71061eecc3e6fe04ff8171807ed55b00366",
+  "baseline_manifest_sha256": "82c327a63a6be0ee7605688881699b4a4382f3120f5d292d26506b8849062d55",
+  "benchmark_sha256": "c6ff5163d21999f793a8a449277a46b59ebc44c64e3d91c6379c1cf3fcc0f84b",
+  "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+  "dataset_version": "care-baseline-v1.1",
+  "method": "Separate processes/databases; alternating A/B dispatch order per case. Concurrent pair by default (max two workers), then wait for both. Same endpoint/model/configuration. Shared atomic spending ledger; baseline inference preserved.",
+  "dispatch": "paired_concurrent",
+  "case_metrics": {
+    "baseline": {
+      "completed": 60,
+      "passed": 40,
+      "failed_cases": 20,
+      "p50_case_ms": 8367.25,
+      "p95_case_ms": 19394.49,
+      "model_requests": 158,
+      "input_tokens": 1097494,
+      "output_tokens": 30979,
+      "model_turns": 63,
+      "direct_turns": 0
+    },
+    "optimized": {
+      "completed": 60,
+      "passed": 59,
+      "failed_cases": 1,
+      "p50_case_ms": 5430.8,
+      "p95_case_ms": 13203.88,
+      "model_requests": 69,
+      "input_tokens": 258929,
+      "output_tokens": 21087,
+      "model_turns": 64,
+      "direct_turns": 61
+    }
+  },
+  "successful_case_pairs": 40,
+  "successful_case_pair_metrics": {
+    "baseline": {
+      "completed": 40,
+      "passed": 40,
+      "failed_cases": 0,
+      "p50_case_ms": 9085.52,
+      "p95_case_ms": 19989.28,
+      "model_requests": 113,
+      "input_tokens": 796024,
+      "output_tokens": 22419,
+      "model_turns": 40,
+      "direct_turns": 0
+    },
+    "optimized": {
+      "completed": 40,
+      "passed": 40,
+      "failed_cases": 0,
+      "p50_case_ms": 5278.55,
+      "p95_case_ms": 10301.0,
+      "model_requests": 38,
+      "input_tokens": 146750,
+      "output_tokens": 12640,
+      "model_turns": 37,
+      "direct_turns": 36
+    }
+  },
+  "successful_model_answer_pairs": {
+    "baseline": {
+      "count": 41,
+      "median_ms": 9077.7,
+      "p95_ms": 16166.8
+    },
+    "optimized": {
+      "count": 41,
+      "median_ms": 5270.36,
+      "p95_ms": 7776.0
+    },
+    "median_reduction": 0.419417,
+    "p95_not_worse": true
+  },
+  "daily_one_request_requirement": {
+    "turns": 40,
+    "single_request_turns": 40,
+    "http_200_turns": 40
+  },
+  "budget": {
+    "run_id": "alibaba-quality-speed-20261015",
+    "run_used_cny": 1.850805,
+    "run_limit_cny": 3.0,
+    "conservative_lifetime_cny": 5.775411,
+    "lifetime_limit_cny": 10.0,
+    "unresolved_reservations": 14,
+    "unknown_usage_reserved_cny": 0.27371,
+    "historical_rows_preserved": 283,
+    "historical_charges_unchanged": true,
+    "billing": "Conservative cache-miss estimate plus unknown-usage reservations; not actual provider charges or remaining free quota"
+  },
+  "pricing": {
+    "currency": "CNY",
+    "model": "qwen3.7-flash",
+    "region": "cn-beijing",
+    "checked_at": "2026-10-15T07:14:31.949237+00:00",
+    "source": "https://help.aliyun.com/zh/model-studio/qwen3-7-flash",
+    "table_sha256": "c3d46d096f661cffaafc83f7578eea7848d49075763077282f2721b5049b88aa",
+    "tiers": [
+      {
+        "max_input_tokens": 32768,
+        "input_per_million": 0.2,
+        "output_per_million": 0.8
+      },
+      {
+        "max_input_tokens": 262144,
+        "input_per_million": 0.6,
+        "output_per_million": 2.4
+      },
+      {
+        "max_input_tokens": 1000000,
+        "input_per_million": 1.2,
+        "output_per_million": 4.8
+      }
+    ]
+  },
+  "cases": {
+    "baseline": [
+      {
+        "id": "CB-001",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7965.64,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 20965,
+            "output_tokens": 399,
+            "answer_path": null,
+            "elapsed_ms": 7952.58,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-002",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 6327.07,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 1,
+            "input_tokens": 5760,
+            "output_tokens": 450,
+            "answer_path": null,
+            "elapsed_ms": 6323.75,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-003",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 16174.23,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 25431,
+            "output_tokens": 516,
+            "answer_path": null,
+            "elapsed_ms": 16166.8,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-004",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 5626.7,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 7226,
+            "output_tokens": 370,
+            "answer_path": null,
+            "elapsed_ms": 5623.11,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-005",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 5186.98,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 6652,
+            "output_tokens": 355,
+            "answer_path": null,
+            "elapsed_ms": 5183.93,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-006",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8650.85,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22696,
+            "output_tokens": 499,
+            "answer_path": null,
+            "elapsed_ms": 8641.11,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-007",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9666.96,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 21374,
+            "output_tokens": 433,
+            "answer_path": null,
+            "elapsed_ms": 9657.59,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-008",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9988.48,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 25799,
+            "output_tokens": 481,
+            "answer_path": null,
+            "elapsed_ms": 9978.84,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-009",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 16324.08,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22509,
+            "output_tokens": 1231,
+            "answer_path": null,
+            "elapsed_ms": 16314.43,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-010",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 12387.9,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 27280,
+            "output_tokens": 648,
+            "answer_path": null,
+            "elapsed_ms": 12379.65,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-011",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 7763.42,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 6961,
+            "output_tokens": 482,
+            "answer_path": null,
+            "elapsed_ms": 7759.94,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-012",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5697.42,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 24980,
+            "output_tokens": 177,
+            "answer_path": null,
+            "elapsed_ms": 5688.91,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-013",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 11353.55,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18917,
+            "output_tokens": 871,
+            "answer_path": null,
+            "elapsed_ms": 11345.23,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-014",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9450.22,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18647,
+            "output_tokens": 683,
+            "answer_path": null,
+            "elapsed_ms": 9441.94,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-015",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6769.28,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 24741,
+            "output_tokens": 383,
+            "answer_path": null,
+            "elapsed_ms": 6760.87,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-016",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 14354.82,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 2,
+            "input_tokens": 16225,
+            "output_tokens": 985,
+            "answer_path": null,
+            "elapsed_ms": 14346.42,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-017",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 2917.74,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 2,
+            "input_tokens": 13704,
+            "output_tokens": 126,
+            "answer_path": null,
+            "elapsed_ms": 2914.16,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-018",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8966.95,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 8443,
+            "output_tokens": 721,
+            "answer_path": null,
+            "elapsed_ms": 8957.77,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-019",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 8188.46,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 3,
+            "input_tokens": 27987,
+            "output_tokens": 366,
+            "answer_path": null,
+            "elapsed_ms": 8184.21,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-020",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 9777.64,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 3,
+            "input_tokens": 17928,
+            "output_tokens": 395,
+            "answer_path": null,
+            "elapsed_ms": 9773.89,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-021",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 13940.77,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22398,
+            "output_tokens": 884,
+            "answer_path": null,
+            "elapsed_ms": 13932.96,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-022",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 4109.79,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 2,
+            "input_tokens": 16990,
+            "output_tokens": 176,
+            "answer_path": null,
+            "elapsed_ms": 4105.96,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-023",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8589.52,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 20210,
+            "output_tokens": 441,
+            "answer_path": null,
+            "elapsed_ms": 8581.31,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-024",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 8367.25,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 5431,
+            "output_tokens": 437,
+            "answer_path": null,
+            "elapsed_ms": 8363.44,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-025",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 11467.01,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22146,
+            "output_tokens": 533,
+            "answer_path": null,
+            "elapsed_ms": 11454.22,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-026",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 5199.48,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 1,
+            "input_tokens": 6229,
+            "output_tokens": 315,
+            "answer_path": null,
+            "elapsed_ms": 5195.7,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-027",
+        "category": "daily",
+        "passed": false,
+        "elapsed_ms": 8331.28,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 6610,
+            "output_tokens": 575,
+            "answer_path": null,
+            "elapsed_ms": 8327.42,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-028",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 11061.66,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22727,
+            "output_tokens": 729,
+            "answer_path": null,
+            "elapsed_ms": 11052.54,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-029",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 11612.66,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 2,
+            "input_tokens": 14960,
+            "output_tokens": 924,
+            "answer_path": null,
+            "elapsed_ms": 11605.07,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-030",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9004.42,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 23226,
+            "output_tokens": 477,
+            "answer_path": null,
+            "elapsed_ms": 8996.84,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-031",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7241.11,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 2,
+            "input_tokens": 14464,
+            "output_tokens": 386,
+            "answer_path": null,
+            "elapsed_ms": 7233.23,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-032",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7927.45,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 15068,
+            "output_tokens": 484,
+            "answer_path": null,
+            "elapsed_ms": 7919.23,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-033",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 18390.83,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 16933,
+            "output_tokens": 896,
+            "answer_path": null,
+            "elapsed_ms": 18382.99,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-034",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9062.52,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 17871,
+            "output_tokens": 561,
+            "answer_path": null,
+            "elapsed_ms": 9052.24,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-035",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8333.54,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 6939,
+            "output_tokens": 581,
+            "answer_path": null,
+            "elapsed_ms": 8325.52,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-036",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 9085.52,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 21950,
+            "output_tokens": 540,
+            "answer_path": null,
+            "elapsed_ms": 9077.7,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-037",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8006.76,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 17866,
+            "output_tokens": 531,
+            "answer_path": null,
+            "elapsed_ms": 7999.51,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-038",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 11831.81,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 16778,
+            "output_tokens": 852,
+            "answer_path": null,
+            "elapsed_ms": 11822.43,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-039",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 10417.08,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 29977,
+            "output_tokens": 461,
+            "answer_path": null,
+            "elapsed_ms": 10408.77,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-040",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7450.04,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 27130,
+            "output_tokens": 482,
+            "answer_path": null,
+            "elapsed_ms": 7433.93,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-041",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 11.74,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 3.01,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-042",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 10.73,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 3.17,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-043",
+        "category": "missing_info",
+        "passed": false,
+        "elapsed_ms": 5703.77,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 3,
+            "input_tokens": 18127,
+            "output_tokens": 194,
+            "answer_path": null,
+            "elapsed_ms": 5699.28,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-044",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 6622.14,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18867,
+            "output_tokens": 345,
+            "answer_path": null,
+            "elapsed_ms": 6613.45,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-045",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 10.06,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 3.27,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-046",
+        "category": "missing_info",
+        "passed": false,
+        "elapsed_ms": 3999.24,
+        "failed_checks": [
+          "turn_0_expected_boundary"
+        ],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 2,
+            "input_tokens": 9804,
+            "output_tokens": 145,
+            "answer_path": null,
+            "elapsed_ms": 3992.35,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-047",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 3508.96,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 10085,
+            "output_tokens": 119,
+            "answer_path": null,
+            "elapsed_ms": 3501.45,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-048",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 5289.6,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 10062,
+            "output_tokens": 194,
+            "answer_path": null,
+            "elapsed_ms": 5282.18,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-049",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 19989.28,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 10048,
+            "output_tokens": 255,
+            "answer_path": null,
+            "elapsed_ms": 19981.04,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-050",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 4556.02,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18483,
+            "output_tokens": 128,
+            "answer_path": null,
+            "elapsed_ms": 4547.69,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-051",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 5479.89,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 503,
+            "model_requests": 2,
+            "input_tokens": 11481,
+            "output_tokens": 333,
+            "answer_path": null,
+            "elapsed_ms": 5475.8,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-052",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 14867.53,
+        "failed_checks": [
+          "turn_1_responded"
+        ],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 12487,
+            "output_tokens": 526,
+            "answer_path": null,
+            "elapsed_ms": 8348.6,
+            "error": null
+          },
+          {
+            "status": 502,
+            "model_requests": 3,
+            "input_tokens": 13581,
+            "output_tokens": 415,
+            "answer_path": null,
+            "elapsed_ms": 6508.85,
+            "error": "模型提供的核对片段不在实际知识章节内，本次回答未保存"
+          }
+        ]
+      },
+      {
+        "id": "CB-053",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 20661.34,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 19320,
+            "output_tokens": 763,
+            "answer_path": null,
+            "elapsed_ms": 11155.31,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 33956,
+            "output_tokens": 417,
+            "answer_path": null,
+            "elapsed_ms": 9492.05,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-054",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 23356.73,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 21268,
+            "output_tokens": 965,
+            "answer_path": null,
+            "elapsed_ms": 13886.36,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 24033,
+            "output_tokens": 540,
+            "answer_path": null,
+            "elapsed_ms": 9457.04,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-055",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 17563.1,
+        "failed_checks": [
+          "turn_1_responded"
+        ],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22752,
+            "output_tokens": 402,
+            "answer_path": null,
+            "elapsed_ms": 8506.9,
+            "error": null
+          },
+          {
+            "status": 503,
+            "model_requests": 3,
+            "input_tokens": 22390,
+            "output_tokens": 512,
+            "answer_path": null,
+            "elapsed_ms": 9045.65,
+            "error": "模型请求失败、输出未完成或超出限制，本次未完成。可手动重试；不会自动重复调用。"
+          }
+        ]
+      },
+      {
+        "id": "CB-056",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 2538.57,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 7198,
+            "output_tokens": 139,
+            "answer_path": null,
+            "elapsed_ms": 2534.26,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-057",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 17265.63,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18974,
+            "output_tokens": 463,
+            "answer_path": null,
+            "elapsed_ms": 8493.99,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 22278,
+            "output_tokens": 441,
+            "answer_path": null,
+            "elapsed_ms": 8757.59,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-058",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 19394.49,
+        "failed_checks": [
+          "turn_1_responded"
+        ],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 18200,
+            "output_tokens": 591,
+            "answer_path": null,
+            "elapsed_ms": 10718.84,
+            "error": null
+          },
+          {
+            "status": 502,
+            "model_requests": 3,
+            "input_tokens": 32018,
+            "output_tokens": 428,
+            "answer_path": null,
+            "elapsed_ms": 8665.1,
+            "error": "模型引用了不存在的知识章节，本次回答未保存"
+          }
+        ]
+      },
+      {
+        "id": "CB-059",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 6583.82,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 5427,
+            "output_tokens": 451,
+            "answer_path": null,
+            "elapsed_ms": 6579.15,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      },
+      {
+        "id": "CB-060",
+        "category": "multi_turn",
+        "passed": false,
+        "elapsed_ms": 6525.83,
+        "failed_checks": [
+          "turn_0_responded"
+        ],
+        "turns": [
+          {
+            "status": 403,
+            "model_requests": 1,
+            "input_tokens": 6527,
+            "output_tokens": 377,
+            "answer_path": null,
+            "elapsed_ms": 6521.36,
+            "error": "未获得对本次载荷的明确写入指令"
+          }
+        ]
+      }
+    ],
+    "optimized": [
+      {
+        "id": "CB-001",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6750.18,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3583,
+            "output_tokens": 350,
+            "answer_path": "direct",
+            "elapsed_ms": 6737.89,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-002",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4771.43,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3337,
+            "output_tokens": 290,
+            "answer_path": "direct",
+            "elapsed_ms": 4761.72,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-003",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5223.93,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3915,
+            "output_tokens": 306,
+            "answer_path": "direct",
+            "elapsed_ms": 5215.42,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-004",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5220.61,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4046,
+            "output_tokens": 347,
+            "answer_path": "direct",
+            "elapsed_ms": 5212.44,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-005",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8705.2,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3666,
+            "output_tokens": 554,
+            "answer_path": "direct",
+            "elapsed_ms": 8696.75,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-006",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5205.78,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3960,
+            "output_tokens": 262,
+            "answer_path": "direct",
+            "elapsed_ms": 5198.03,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-007",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7009.39,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3584,
+            "output_tokens": 403,
+            "answer_path": "direct",
+            "elapsed_ms": 7000.37,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-008",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6068.97,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3953,
+            "output_tokens": 384,
+            "answer_path": "direct",
+            "elapsed_ms": 6061.28,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-009",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7321.14,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3945,
+            "output_tokens": 412,
+            "answer_path": "direct",
+            "elapsed_ms": 7312.61,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-010",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5758.4,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3826,
+            "output_tokens": 285,
+            "answer_path": "direct",
+            "elapsed_ms": 5748.73,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-011",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4902.22,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3678,
+            "output_tokens": 333,
+            "answer_path": "direct",
+            "elapsed_ms": 4894.03,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-012",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 3876.35,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3952,
+            "output_tokens": 244,
+            "answer_path": "direct",
+            "elapsed_ms": 3868.99,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-013",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5217.85,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3487,
+            "output_tokens": 396,
+            "answer_path": "direct",
+            "elapsed_ms": 5207.87,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-014",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 10301.0,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3640,
+            "output_tokens": 354,
+            "answer_path": "direct",
+            "elapsed_ms": 10291.43,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-015",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5278.55,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3972,
+            "output_tokens": 326,
+            "answer_path": "direct",
+            "elapsed_ms": 5270.36,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-016",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5182.04,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4103,
+            "output_tokens": 310,
+            "answer_path": "direct",
+            "elapsed_ms": 5172.54,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-017",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6451.49,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3606,
+            "output_tokens": 438,
+            "answer_path": "direct",
+            "elapsed_ms": 6443.68,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-018",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4315.62,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5048,
+            "output_tokens": 273,
+            "answer_path": "direct",
+            "elapsed_ms": 4307.12,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-019",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6296.52,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5082,
+            "output_tokens": 322,
+            "answer_path": "direct",
+            "elapsed_ms": 6288.62,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-020",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4963.27,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3482,
+            "output_tokens": 284,
+            "answer_path": "direct",
+            "elapsed_ms": 4954.35,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-021",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5430.8,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3611,
+            "output_tokens": 326,
+            "answer_path": "direct",
+            "elapsed_ms": 5423.13,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-022",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5224.34,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3994,
+            "output_tokens": 357,
+            "answer_path": "direct",
+            "elapsed_ms": 5216.66,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-023",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 2984.38,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3552,
+            "output_tokens": 197,
+            "answer_path": "direct",
+            "elapsed_ms": 2976.59,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-024",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5538.66,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3023,
+            "output_tokens": 418,
+            "answer_path": "direct",
+            "elapsed_ms": 5531.12,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-025",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 8107.35,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3601,
+            "output_tokens": 578,
+            "answer_path": "direct",
+            "elapsed_ms": 8099.32,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-026",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 3764.68,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3504,
+            "output_tokens": 207,
+            "answer_path": "direct",
+            "elapsed_ms": 3757.09,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-027",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5276.71,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3659,
+            "output_tokens": 327,
+            "answer_path": "direct",
+            "elapsed_ms": 5268.38,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-028",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4626.31,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3683,
+            "output_tokens": 325,
+            "answer_path": "direct",
+            "elapsed_ms": 4618.37,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-029",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5788.31,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3763,
+            "output_tokens": 396,
+            "answer_path": "direct",
+            "elapsed_ms": 5780.43,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-030",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6964.46,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3549,
+            "output_tokens": 401,
+            "answer_path": "direct",
+            "elapsed_ms": 6956.89,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-031",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6174.42,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3445,
+            "output_tokens": 403,
+            "answer_path": "direct",
+            "elapsed_ms": 6165.2,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-032",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 4769.19,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2880,
+            "output_tokens": 321,
+            "answer_path": "direct",
+            "elapsed_ms": 4761.43,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-033",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6790.31,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3467,
+            "output_tokens": 486,
+            "answer_path": "direct",
+            "elapsed_ms": 6774.31,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-034",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6325.09,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3690,
+            "output_tokens": 400,
+            "answer_path": "direct",
+            "elapsed_ms": 6315.82,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-035",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 3659.91,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4037,
+            "output_tokens": 228,
+            "answer_path": "direct",
+            "elapsed_ms": 3651.82,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-036",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 6100.2,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3565,
+            "output_tokens": 396,
+            "answer_path": "direct",
+            "elapsed_ms": 6092.56,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-037",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 7130.2,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3483,
+            "output_tokens": 451,
+            "answer_path": "direct",
+            "elapsed_ms": 7122.59,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-038",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5626.97,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3378,
+            "output_tokens": 362,
+            "answer_path": "direct",
+            "elapsed_ms": 5619.42,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-039",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 3708.45,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5017,
+            "output_tokens": 170,
+            "answer_path": "direct",
+            "elapsed_ms": 3700.75,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-040",
+        "category": "daily",
+        "passed": true,
+        "elapsed_ms": 5121.51,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5121,
+            "output_tokens": 273,
+            "answer_path": "direct",
+            "elapsed_ms": 5113.07,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-041",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 9.78,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 2.83,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-042",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 9.09,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 2.77,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-043",
+        "category": "missing_info",
+        "passed": false,
+        "elapsed_ms": 3751.43,
+        "failed_checks": [
+          "turn_0_expected_boundary"
+        ],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4105,
+            "output_tokens": 160,
+            "answer_path": "direct",
+            "elapsed_ms": 3742.71,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-044",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 4162.23,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4032,
+            "output_tokens": 219,
+            "answer_path": "direct",
+            "elapsed_ms": 4152.85,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-045",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 10.37,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 3.49,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-046",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 1763.16,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2814,
+            "output_tokens": 74,
+            "answer_path": "direct",
+            "elapsed_ms": 1756.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-047",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 3569.28,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 2,
+            "input_tokens": 6386,
+            "output_tokens": 149,
+            "answer_path": "agent",
+            "elapsed_ms": 3561.78,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-048",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 10.25,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 3.99,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-049",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 10.68,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 4.14,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-050",
+        "category": "missing_info",
+        "passed": true,
+        "elapsed_ms": 12.35,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "answer_path": null,
+            "elapsed_ms": 5.09,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-051",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 7968.28,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2562,
+            "output_tokens": 282,
+            "answer_path": "direct",
+            "elapsed_ms": 4878.7,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2892,
+            "output_tokens": 219,
+            "answer_path": "direct",
+            "elapsed_ms": 3077.02,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-052",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 6968.22,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2554,
+            "output_tokens": 210,
+            "answer_path": "direct",
+            "elapsed_ms": 3814.65,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 2840,
+            "output_tokens": 201,
+            "answer_path": "direct",
+            "elapsed_ms": 3140.72,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-053",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 14654.94,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3741,
+            "output_tokens": 407,
+            "answer_path": "direct",
+            "elapsed_ms": 6865.51,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5260,
+            "output_tokens": 601,
+            "answer_path": "direct",
+            "elapsed_ms": 7776.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-054",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 9074.31,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4052,
+            "output_tokens": 251,
+            "answer_path": "direct",
+            "elapsed_ms": 4972.84,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4399,
+            "output_tokens": 287,
+            "answer_path": "direct",
+            "elapsed_ms": 4088.06,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-055",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 7562.68,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3784,
+            "output_tokens": 244,
+            "answer_path": "direct",
+            "elapsed_ms": 4154.88,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4102,
+            "output_tokens": 167,
+            "answer_path": "direct",
+            "elapsed_ms": 3394.63,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-056",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 14771.49,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3817,
+            "output_tokens": 449,
+            "answer_path": "direct",
+            "elapsed_ms": 6568.96,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5834,
+            "output_tokens": 606,
+            "answer_path": "direct",
+            "elapsed_ms": 8188.9,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-057",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 12418.91,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3669,
+            "output_tokens": 307,
+            "answer_path": "direct",
+            "elapsed_ms": 5705.84,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 4401,
+            "output_tokens": 401,
+            "answer_path": "direct",
+            "elapsed_ms": 6697.38,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-058",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 13203.88,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3570,
+            "output_tokens": 320,
+            "answer_path": "direct",
+            "elapsed_ms": 5253.2,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 5657,
+            "output_tokens": 609,
+            "answer_path": "direct",
+            "elapsed_ms": 7937.26,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-059",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 13457.85,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3017,
+            "output_tokens": 188,
+            "answer_path": "direct",
+            "elapsed_ms": 3791.47,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 11940,
+            "output_tokens": 289,
+            "answer_path": "agent",
+            "elapsed_ms": 9653.48,
+            "error": null
+          }
+        ]
+      },
+      {
+        "id": "CB-060",
+        "category": "multi_turn",
+        "passed": true,
+        "elapsed_ms": 12107.14,
+        "failed_checks": [],
+        "turns": [
+          {
+            "status": 200,
+            "model_requests": 1,
+            "input_tokens": 3312,
+            "output_tokens": 283,
+            "answer_path": "direct",
+            "elapsed_ms": 5035.0,
+            "error": null
+          },
+          {
+            "status": 200,
+            "model_requests": 3,
+            "input_tokens": 8302,
+            "output_tokens": 269,
+            "answer_path": "agent",
+            "elapsed_ms": 7060.04,
+            "error": null
+          }
+        ]
+      }
+    ]
+  },
+  "quality_review": "ALIBABA_SOURCE_REVIEW.md; assistant review only, not medical accuracy",
+  "retained_intermediate_comparisons": [
+    "20261015T061636-alibaba-paired",
+    "20261015T064101-alibaba-paired",
+    "20261015T065340-alibaba-paired"
+  ],
+  "wire_profile_checks": {
+    "prompts_checked": 69,
+    "profiles_present": 65,
+    "sdk_capabilities_in_pet_context": false
+  },
+  "released_implementation_sha256": "692e81bd90a5c0776287fb4b39f825a7becc28025259c2b13bba8161eefed771",
+  "post_comparison_validation_change": {
+    "measured_implementation_sha256": "3195a9302df1d76112aa5d48ee3aa71061eecc3e6fe04ff8171807ed55b00366",
+    "report": "20261015T071431-alibaba-paired",
+    "released_implementation_sha256": "692e81bd90a5c0776287fb4b39f825a7becc28025259c2b13bba8161eefed771",
+    "changed_file": "app/answer_quality.py",
+    "change": "After paired measurement, accept explicitly linked adjacent health/adult qualifications with up to 12 leading characters (e.g. 注意： or 需注意，). Local validation only; model input, routing, tools and token limits unchanged. Full regression plus focused final checks; paired data not relabelled."
+  },
+  "depth_validation": [
+    {
+      "report": "20261015T072506-alibaba-optimized",
+      "id": "CB-008",
+      "depth": "detailed",
+      "passed": false,
+      "status": 502,
+      "elapsed_ms": 7141.73,
+      "model_requests": 1,
+      "answer_characters": 0,
+      "source_count": 0,
+      "error": "模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。",
+      "implementation_sha256": "3195a9302df1d76112aa5d48ee3aa71061eecc3e6fe04ff8171807ed55b00366",
+      "max_tokens": [
+        null
+      ],
+      "enable_thinking": [
+        null
+      ],
+      "has_tools": [
+        null
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    },
+    {
+      "report": "20261015T072518-alibaba-optimized",
+      "id": "CB-001",
+      "depth": "brief",
+      "passed": true,
+      "status": 200,
+      "elapsed_ms": 4937.24,
+      "model_requests": 1,
+      "answer_characters": 306,
+      "source_count": 3,
+      "error": null,
+      "implementation_sha256": "3195a9302df1d76112aa5d48ee3aa71061eecc3e6fe04ff8171807ed55b00366",
+      "max_tokens": [
+        null
+      ],
+      "enable_thinking": [
+        null
+      ],
+      "has_tools": [
+        null
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    },
+    {
+      "report": "20261015T072806-alibaba-optimized",
+      "id": "CB-008",
+      "depth": "detailed",
+      "passed": false,
+      "status": 502,
+      "elapsed_ms": 7966.52,
+      "model_requests": 1,
+      "answer_characters": 0,
+      "source_count": 0,
+      "error": "模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。",
+      "implementation_sha256": "3d4f49ca4d87bc6f899588bc1d1abf108a9d6767ca3664722481e5d75311e48e",
+      "max_tokens": [
+        4096
+      ],
+      "enable_thinking": [
+        false
+      ],
+      "has_tools": [
+        false
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    },
+    {
+      "report": "20261015T072932-alibaba-optimized",
+      "id": "CB-033",
+      "depth": "detailed",
+      "passed": true,
+      "status": 200,
+      "elapsed_ms": 6438.01,
+      "model_requests": 1,
+      "answer_characters": 371,
+      "source_count": 3,
+      "error": null,
+      "implementation_sha256": "3d4f49ca4d87bc6f899588bc1d1abf108a9d6767ca3664722481e5d75311e48e",
+      "max_tokens": [
+        4096
+      ],
+      "enable_thinking": [
+        false
+      ],
+      "has_tools": [
+        false
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    },
+    {
+      "report": "20261015T073147-alibaba-optimized",
+      "id": "CB-001",
+      "depth": "brief",
+      "passed": true,
+      "status": 200,
+      "elapsed_ms": 5352.52,
+      "model_requests": 1,
+      "answer_characters": 295,
+      "source_count": 3,
+      "error": null,
+      "implementation_sha256": "692e81bd90a5c0776287fb4b39f825a7becc28025259c2b13bba8161eefed771",
+      "max_tokens": [
+        1024
+      ],
+      "enable_thinking": [
+        false
+      ],
+      "has_tools": [
+        false
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    },
+    {
+      "report": "20261015T073159-alibaba-optimized",
+      "id": "CB-008",
+      "depth": "detailed",
+      "passed": true,
+      "status": 200,
+      "elapsed_ms": 9547.8,
+      "model_requests": 1,
+      "answer_characters": 1097,
+      "source_count": 4,
+      "error": null,
+      "implementation_sha256": "692e81bd90a5c0776287fb4b39f825a7becc28025259c2b13bba8161eefed771",
+      "max_tokens": [
+        4096
+      ],
+      "enable_thinking": [
+        false
+      ],
+      "has_tools": [
+        false
+      ],
+      "finish_reasons": [
+        "stop"
+      ]
+    }
+  ],
+  "backend_regression": "345 full-suite passed; final validation wording change then 71 focused passed; simulated credentials only"
+}

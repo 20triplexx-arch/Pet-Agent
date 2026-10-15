@@ -12,10 +12,16 @@ def prepare():
     os.environ["DEMO_MODE"] = "true"
     os.environ["MODEL_API_KEY"] = ""
     os.environ["DEEPSEEK_API_KEY"] = ""
+    os.environ["DASHSCOPE_API_KEY"] = ""
+    os.environ["DASHSCOPE_WORKSPACE_ID"] = ""
+    os.environ["DASHSCOPE_BASE_URL"] = ""
     os.environ["MODEL_PROVIDER"] = "compatible"
     os.environ["SECRET_KEY"] = "isolated-browser-test-key-not-for-production"
     os.environ["AMAP_ENABLED"] = "false"
     os.environ["AMAP_API_KEY"] = ""
+    os.environ["HOSPITAL_MAP_PROVIDER"] = "amap"
+    os.environ["TIANDITU_ENABLED"] = "false"
+    os.environ["TIANDITU_API_KEY"] = ""
     from scripts.init_db import initialize
     initialize(demo=True)
 if __name__ == "__main__":

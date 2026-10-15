@@ -273,7 +273,7 @@ def map_mock(monkeypatch, response):
 
 
 def test_map_conversion_real_fields_not_ratings_and_no_persistence(client,headers,db,monkeypatch):
-    captured=map_mock(monkeypatch,{"status":"1","pois":[{"id":"fixture-only","name":"测试接口医院","address":"测试地址","location":"120.1,30.2","distance":"300","business":{"tel":"0571-12345678","rating":"5","opentime_today":"全天"}}]})
+    captured=map_mock(monkeypatch,{"status":"1","pois":[{"id":"fixture-only","name":"测试接口医院","address":"测试地址","adcode":"330106","location":"120.1,30.2","distance":"300","business":{"tel":"0571-12345678","rating":"5","opentime_today":"全天"}}]})
     query={"longitude":120.12345678,"latitude":30.12345678,"radius_km":10}
     r=post(client,headers,"/hospitals/search",query)
     assert r.status_code==200, r.text
@@ -285,7 +285,7 @@ def test_map_conversion_real_fields_not_ratings_and_no_persistence(client,header
     assert usage["day_requests"]==2 and usage["month_requests"]==2
     with Session(db) as s:
         assert not s.exec(select(IdempotencyRecord).where(IdempotencyRecord.key==r.request.headers['Idempotency-Key'])).all()
-    regional=post(client,headers,"/hospitals/search",{"city":"杭州","district":"西湖区"}).json()
+    regional=post(client,headers,"/hospitals/search",{"city":"杭州","district":"西湖区","region_adcode":"330106"}).json()
     assert regional["items"][0]["distance_m"] is None
 
 
@@ -293,9 +293,9 @@ def test_map_conversion_real_fields_not_ratings_and_no_persistence(client,header
 def test_map_failure_counts_and_limit(client,headers,db,monkeypatch,response,expected):
     captured=map_mock(monkeypatch,response)
     monkeypatch.setattr(settings,"MAP_REQUESTS_PER_DAY",1)
-    r=post(client,headers,"/hospitals/search",{"city":"上海"}).json()
+    r=post(client,headers,"/hospitals/search",{"city":"上海","region_adcode":"310000"}).json()
     assert r["status"]==expected and not r["items"]
-    again=post(client,headers,"/hospitals/search",{"city":"上海"}).json()
+    again=post(client,headers,"/hospitals/search",{"city":"上海","region_adcode":"310000"}).json()
     assert again["status"]=="unavailable" and "上限" in again["message"]
     assert len(captured)==1
     usage=client.get("/api/v1/hospitals/usage",headers=headers).json()
@@ -316,7 +316,7 @@ def test_monthly_cap_rolls_back_day_reservation(client,headers,db,monkeypatch):
     with Session(db) as s:
         s.add(ExternalApiUsage(provider="amap",period=periods()[1],requests=1))
         s.commit()
-    r=post(client,headers,"/hospitals/search",{"city":"上海"}).json()
+    r=post(client,headers,"/hospitals/search",{"city":"上海","region_adcode":"310000"}).json()
     assert r["status"]=="unavailable" and not captured
     usage=client.get("/api/v1/hospitals/usage",headers=headers).json()
     assert usage["month_requests"]==1 and usage["day_requests"]==0 and usage["timezone"]=="Asia/Shanghai"

@@ -14,6 +14,15 @@ def ask(client, headers, pid, text, **extra):
     return client.post("/api/v1/chat", headers={**headers, "Idempotency-Key": str(uuid4())}, json={"pet_id": pid, "text": text, **extra})
 
 
+def test_elliptical_followup_resolves_latest_topic_without_reviving_older_topic():
+    from app.deep_chat import followup_background
+    history = [{'role': 'user', 'content': '猫吃多少？'}, {'role': 'user', 'content': '狗刷牙怎么练习？'}]
+    assert followup_background(history, '抗拒时怎么办？') == '狗刷牙怎么练习？'
+    assert followup_background(history, '猫抓沙发怎么办？') == ''
+    assert followup_background(history, '猫砂怎么选择？') == ''
+    assert followup_background([{'role': 'user', 'content': '猫航空箱如何适应？'}], '练习时怎么奖励？') == '猫航空箱如何适应？'
+
+
 def test_legacy_request_setting_is_accepted_and_capped(client, headers, cat, monkeypatch):
     from app.core.config import Settings
     from app.model_adapter import UsageLimits
@@ -28,7 +37,7 @@ def test_legacy_request_setting_is_accepted_and_capped(client, headers, cat, mon
     response = ask(client, headers, cat["id"], "喂食建议")
     assert response.status_code == 200, response.text
     assert limits[0]["request_limit"] == 4
-    assert limits[0]["output_tokens_limit"] == settings.MODEL_MAX_OUTPUT_TOKENS * 4
+    assert limits[0]["output_tokens_limit"] == 2048 * 4
 
 
 QUALITY_CASES = [

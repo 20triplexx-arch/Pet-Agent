@@ -7,11 +7,13 @@ import type { FieldIssue, Source } from "./api";
 export function Panel({
   children,
   className = "",
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
-  return <section className={"panel " + className}>{children}</section>;
+  return <section id={id} className={"panel " + className}>{children}</section>;
 }
 export function State({
   loading,
@@ -176,6 +178,7 @@ export function Sources({ items }: { items: Source[] }) {
           </span>
         </a>
           {s.sections?.map((heading) => <Link key={heading} to={`/knowledge/${s.id}#${encodeURIComponent(heading)}`} className="source-section">查看章节：{heading}</Link>)}
+          {!!s.evidence?.length && <details className="source-evidence"><summary>核对本地知识片段</summary>{s.evidence.map(e => <div key={e.heading}><strong>{e.heading}</strong><p>{e.text}</p></div>)}<small>片段来自本次实际检索的中文摘要，未经兽医审核；片段匹配不代表整段回答已获专业核实。</small></details>}
           </div>
       ))}
     </details>

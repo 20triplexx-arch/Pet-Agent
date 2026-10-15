@@ -1,4 +1,7 @@
 from pathlib import Path
+from contextlib import asynccontextmanager
+import asyncio
+from contextlib import suppress
 import math
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,12 +12,30 @@ from fastapi.exceptions import RequestValidationError
 from app.api.routes import router
 from app.api.care_routes import router as care_router
 from app.api.product_routes import router as product_router
+from app.api.chat_stream import router as chat_stream_router
 from app.core.config import settings
 from app.execution import ExecutionMiddleware, configure_logging
 
 configure_logging(settings.EXECUTION_LOG_PATH)
 
-app = FastAPI(title="宠伴", version="0.2.0")
+@asynccontextmanager
+async def lifespan(app):
+    refresh = None
+    if not settings.DEMO_MODE and settings.DASHSCOPE_API_KEY and settings.DASHSCOPE_FREE_ONLY:
+        from app.alibaba_quota import refresh_loop
+        refresh = asyncio.create_task(refresh_loop())
+    try:
+        yield
+    finally:
+        if refresh:
+            refresh.cancel()
+            with suppress(asyncio.CancelledError):
+                await refresh
+        from app.model_runtime import close_clients
+        await close_clients()
+
+
+app = FastAPI(title="宠伴", version="0.2.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS.split(","),
@@ -26,6 +47,7 @@ app.add_middleware(
 app.include_router(router)
 app.include_router(care_router)
 app.include_router(product_router)
+app.include_router(chat_stream_router)
 
 
 @app.exception_handler(RequestValidationError)
@@ -78,9 +100,12 @@ app.add_middleware(ExecutionMiddleware)
 
 @app.get("/health")
 def health():
+    from app.chat_models import select_model
+    model = select_model().public()
     return {
         "status": "ok",
-        "mode": settings.model_mode,
+        "mode": model['mode'],
+        "model": model,
     }
 
 

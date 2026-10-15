@@ -32,10 +32,10 @@ def questions_for(text):
     meaningful = [query_excerpt(p) for p in parts if re.search(r"怎么|如何|怎样|什么|是否|能否|注意|比较|建议|帮|为什么|分析|评估|说明|安排|选择", p)]
     if len(meaningful) > 1:
         topics = [label for pattern, label in TOPICS if re.search(pattern, text)]
-        return [((topics[0] + "：") if topics and re.match(r"后续|继续|它|这个|其|接下来|还", p) else "") + p for p in meaningful[:3]]
+        return list(dict.fromkeys(((topics[0] + "：") if topics and re.match(r"后续|继续|它|这个|其|接下来|还", p) else "") + p for p in meaningful))
     topics = [label for pattern, label in TOPICS if re.search(pattern, text)]
     if len(topics) > 1 and re.search(r"和|与|并且|另外|同时|还有|以及", text):
-        return [meaningful[0] if meaningful else text[-800:]] + topics[1:3]
+        return list(dict.fromkeys([meaningful[0] if meaningful else text[-800:]] + topics[1:]))
     return [meaningful[0] if meaningful else text[-800:]]
 
 
@@ -59,13 +59,14 @@ def summarize_history(history, query):
     """Extractive summary: every statement retains its original message ID/date."""
     terms = set(tokenize(query))
     candidates = []
-    for index, message in enumerate(history[:-24]):
+    for index, message in enumerate(history[:-4]):
         if message["role"] != "user":
             continue
         sentences = [s.strip() for s in re.split(r"(?<=[。！？\n])", message["content"]) if s.strip()]
-        priority = sorted(sentences, key=lambda s: (bool(re.search(r"过敏|病史|兽医|处方|限制|症状|体重", s)), len(terms & set(tokenize(s)))), reverse=True)
-        excerpt = "\n".join(priority[:4])
-        if len(excerpt) > 1000:
+        protected = [s for s in sentences if re.search(r"过敏|病史|兽医|处方|限制|确诊", s)]
+        priority = sorted((s for s in sentences if s not in protected), key=lambda s: len(terms & set(tokenize(s))), reverse=True)
+        excerpt = "\n".join(protected + priority[:max(0, 4-len(protected))])
+        if len(excerpt) > 1000 and not protected:
             excerpt = excerpt[:1000] + "（原消息还有内容，可按消息ID查看）"
         candidates.append((bool(re.search(r"过敏|病史|兽医|处方|限制", excerpt)), index, {
             "message_id": message["id"], "date": message["created_at"], "user_report_excerpt": excerpt,
@@ -74,18 +75,45 @@ def summarize_history(history, query):
     result, size = [], 0
     for _, _, entry in sorted(candidates, reverse=True):
         cost = len(json.dumps(entry, ensure_ascii=False))
-        if size + cost <= 8000:
+        if entry.get('user_report_excerpt') and re.search(r'过敏|病史|兽医|处方|限制|确诊', entry['user_report_excerpt']) or size + cost <= 8000:
             result.append(entry)
             size += cost
-    return {"method": "extractive-v1", "items": result, "older_messages": max(0, len(history) - 24), "omitted_entries": len(candidates) - len(result)}
+    return {"method": "extractive-v2", "items": result, "older_messages": max(0, len(history) - 4), "omitted_entries": len(candidates) - len(result)}
+
+
+def followup_background(history, text):
+    """Resolve actual follow-ups without appending every recent topic to retrieval."""
+    explicit = re.match(r'^(那|它|这个|这样|这种|上述|继续|进一步|后续|接下来|还需要|为什么呢|还有呢|请结合上面)', text.strip())
+    elliptical = len(text.strip()) <= 35 and re.search(r'抗拒|不配合|不愿意|做不到|没效果|多久|多长|一次|频率|怎么办|怎么继续|练习|奖励|呢[？?]?$', text)
+    if not explicit and not elliptical:
+        return ''
+    previous = [m['content'] for m in history if m['role'] == 'user']
+    if not previous:
+        return ''
+    topics = {label for pattern, label in TOPICS if re.search(pattern, text)}
+    old_topics = {label for pattern, label in TOPICS if re.search(pattern, previous[-1])}
+    if topics and old_topics and not topics & old_topics:
+        return ''
+    if not explicit and (topics or re.search(r'猫|狗|犬|兔|鸟|仓鼠', text)):
+        return ''
+    return previous[-1]
+
+
+def question_species(text):
+    # A dog's food mentioned in a cat question must not change the subject to dog.
+    mentions = re.findall(r'(?:^|关于|想问|咨询|养|给|我家|一只|另一只|这只|那只|新来的)(猫|狗|犬)', text.strip())
+    kinds = {'cat' if word == '猫' else 'dog' for word in mentions}
+    return next(iter(kinds)) if len(kinds) == 1 else None
 
 
 def source_cards(ctx, articles):
     cards = []
     for a in articles:
+        selected = getattr(ctx, "citation_headings", {}).get(a["id"], [s["heading"] for s in a.get("matched_sections", evidence_sections(a, "", 3))])
         cards.append({"id": a["id"], "title": a["title"], "url": a["source_url"],
             "organization": a["source_organization"], "sections": getattr(ctx, "citation_headings", {}).get(a["id"], [s["heading"] for s in a.get("matched_sections", evidence_sections(a, "", 3))]),
-            "references": a.get("references", []), "review_status": a["review_status"]})
+            "references": a.get("references", []), "review_status": a["review_status"],
+            "evidence": [{"heading": s["heading"], "text": s["text"][:400]} for s in sections(a) if s["heading"] in selected][:3]})
     return cards
 
 
@@ -226,24 +254,40 @@ def demo_answer(p, facts, conflicts, questions, articles, health_questions, tool
     return "\n\n".join(answer)
 
 
+def evidence_is_ready(articles, questions):
+    return all(any(question in a.get("matched_questions", []) and a.get("matched_sections")
+                   for a in articles) for question in questions)
+
+
 async def answer_question(ctx, text, history, minutes):
     from app.agent import profile, infer_species, profile_stage, make_draft, assess_pet_products, clean_answer
     from app.breeds import AMBIGUOUS
     p = profile(ctx)
     context = conversation_context(history, ctx.supplement)
     values = context["values"]
-    user_history = " ".join(m["content"] for m in history[-12:] if m["role"] == "user")
-    background = " ".join(v for v in values.values() if isinstance(v, str))
-    contextual = text + " " + background + (" " + user_history if len(text) < 140 else "")
+    from app.execution import current_execution
+    trace = current_execution.get()
+    user_history = followup_background(history, text)
+    # Health restrictions stay in the model context, but old goals do not become new queries.
+    background = " ".join(str(values[k]) for k in ('observations', 'timeline') if values.get(k))
+    contextual = text + (" " + user_history if user_history else '')
+    if trace:
+        trace.mark('context_prepared')
     breeds = ctx.session.exec(select(Breed)).all()
     explicit = [b for b in breeds if any(term.lower() in text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
     target = explicit[0] if len(explicit) == 1 else None
-    species = (target.species if target else (p["species"] if p else infer_species(contextual)))
-    demo = settings.DEMO_MODE
+    species = target.species if target else (question_species(text) or (p['species'] if p else ctx.species_scope or infer_species(contextual)))
+    original_profile = p
+    foreign_species = bool(p and species and p['species'] != species)
+    ctx.foreign_species = foreign_species
+    if foreign_species:
+        p = None
+    demo = ctx.selected_model.demo
     mode = "demo" if demo else "live"
     cards, tools = [], {}
     ambiguous = next((word for word in AMBIGUOUS if word in text), None)
-    if ambiguous and not target and not species:
+    identifying_breed = bool(re.search(r'什么.*(?:品种|属于)|确定.*品种|规范品种|品种.*(?:确认|确定|判断)|具体属于', text))
+    if ambiguous and not target and (not species or identifying_breed):
         return {"answer": AMBIGUOUS[ambiguous] + "未知时仍可使用猫狗通用照护，档案不会自动改写。", "mode": "demo" if demo else "scope", "urgent": False, "sources": [], "draft": None, "cards": [{"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"}]}
     if not species or not supports(species, "knowledge"):
         message = "为了检索适用资料，请告诉我想了解猫还是狗；普通知识无需建档。" if not species else "首版完整支持猫和狗。当前具体物种暂缺已收录的可靠资料，不能套用猫狗方法。请提供具体物种或学名。"
@@ -254,12 +298,19 @@ async def answer_question(ctx, text, history, minutes):
         cards.append({"type": "knowledge", "title": "确认品种与浏览资料", "href": "/knowledge?content_kind=breed"})
     ctx.species_scope = species
     ctx.breed_scope = target.id if target else (p.get("breed_id") if p else None)
-    questions = questions_for(text if len(text) >= 25 else contextual)
-    other_nutrition = bool(target and p and target.id != p.get("breed_id") and re.search(r"营养|吃多少|喂多少|几克|热量", text))
-    queries = [question + " 热量 食物标签" for question in questions] if other_nutrition else questions
+    questions = questions_for(text)
+    other_nutrition = bool(target and original_profile and target.id != original_profile.get("breed_id") and re.search(r"营养|吃多少|喂多少|几克|热量", text))
+    queries = [question + " 热量 食物标签" for question in questions] if other_nutrition else (
+        [user_history.rstrip('？?') + '，' + question for question in questions] if user_history else questions)
     articles = multi_search(ctx.session, species, queries, breed_id=ctx.breed_scope,
         life_stage=profile_stage(p) if p and (not target or target.id == p.get("breed_id")) else None,
         content_kind="food" if other_nutrition else None, personal=True)
+    if user_history:
+        for article in articles:
+            article['matched_questions'] = [question for query, question in zip(queries, questions)
+                                            if query in article.get('matched_questions', [])]
+    if trace:
+        trace.mark('retrieval_finished')
     if other_nutrition:
         for a in articles:
             a["matched_questions"] = questions
@@ -270,10 +321,12 @@ async def answer_question(ctx, text, history, minutes):
         cards.append({"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + target.article_id})
     ctx.retrieved.update({a["id"]: a for a in articles})
     facts, conflicts = facts_and_conflicts(p, values)
-    if target and p and target.id != p.get("breed_id"):
-        conflicts.append(f"这是关于{target.name}的普通知识；当前档案为{p['name']}，不会自动关联或修改，不能使用它的资料替另一只宠物确定食量。")
+    if foreign_species and not target:
+        conflicts.append('当前是另一物种的普通知识，不使用已选宠物的个体数值或照护记录。')
+    if target and original_profile and target.id != original_profile.get("breed_id"):
+        conflicts.append(f"这是关于{target.name}的普通知识；当前档案为{original_profile['name']}，不会自动关联或修改，不能使用它的资料替另一只宠物确定食量。")
     health = bool(re.search(HEALTH + r"|疫苗|驱虫|健康观察|绝育", contextual))
-    health_questions = missing_health_info(contextual, values) if health else None
+    health_questions = missing_health_info(contextual + ' ' + background, values) if health else None
     if health:
         emergency_article = ctx.session.get(KnowledgeArticle, "first-aid")
         if emergency_article:
@@ -299,15 +352,20 @@ async def answer_question(ctx, text, history, minutes):
     draft = make_draft(ctx, minutes).model_dump(mode="json") if wants_draft and p and not nutrition and not (target and target.id != p.get("breed_id")) else None
     if draft:
         tools["plan_draft"] = draft
-    if p and (not target or target.id == p.get("breed_id")):
+    needs_records = bool(re.search(r'记录|打卡|复盘|最近|近期|趋势|计划|执行|饮食|喂食|营养|热量|体重|照护安排', contextual))
+    if p and needs_records and (not target or target.id == p.get("breed_id")):
         tools["recent_care"] = care_history(ctx.session, ctx.user, p["id"])[:20]
         tools["active_plans"] = current_plans(ctx.session, ctx.user, p["id"])
         row = get_profile(ctx.session, ctx.user, p["id"])
         tools["saved_nutrition"] = row.data if row else None
     ctx.effective_context = context
     ctx.analysis = {"questions": questions, "facts": facts, "conflicts": conflicts, "health_questions": health_questions, "tool_results": tools}
+    # Missing user measurements are explicit facts, not a reason to ask the
+    # provider to re-read the same profile. Only an uncovered topic needs tools.
+    ctx.analysis["evidence_ready"] = evidence_is_ready(articles, questions)
+    ctx.analysis["retrieval_queries"] = queries
     ctx.memory = summarize_history(history, contextual)
-    depth = ctx.answer_depth if ctx.answer_depth != "auto" else ("detailed" if len(questions) > 1 or len(text) > 180 or bool(values) else "standard")
+    depth = ctx.answer_depth if ctx.answer_depth != "auto" else ("detailed" if len(questions) > 2 or len(text) > 350 or re.search(r'详细|深入|全面分析|逐项比较', text) else "standard")
     ctx.resolved_depth = depth
     if demo:
         answer = demo_answer(p if not target or not p or target.id == p.get("breed_id") else None, facts, conflicts, questions, articles, health_questions, tools, depth)

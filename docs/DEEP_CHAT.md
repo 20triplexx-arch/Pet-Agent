@@ -1,5 +1,11 @@
 # Agent 深度问答：接口、使用与验证边界
 
+> 2026-10-15当前本地策略已取消每日/单轮调用次数上限，使用重复读取检测维持收敛。本文固定次数说明仅适用于历史或重新启用限制的模式；现行配置见 [本地调用策略](LOCAL_MODEL_LIMITS.md)。
+
+
+> 2026-10-14：已修复真实DeepSeek重复检索导致超限。资料收集后转为独立无工具JSON回答，两阶段共用原预算；当前失败处理与真实验证见 [聊天完成机制](CHAT_COMPLETION.md)。下文的“真实服务商尚未联调”是历史范围，不代表本次截图问题的验证状态。
+
+
 更新：2026-10-12。沿用现有 React / FastAPI / SQLite / Pydantic AI，无新增付费服务或向量库。此次升级改善问题覆盖、资料利用、可执行步骤与来源核对；真实服务商生成质量仍待联调。
 
 ## 使用流程
@@ -38,6 +44,8 @@
 
 answer_depth为`auto | brief | detailed`，默认auto。补充资料最大字符数：goal/timeline/environment_changes各2000，observations/diet_activity/professional_advice各3000。nutrition可选，复用`backend/app/care_schemas.py`的NutritionInput；拒绝未知字段、错误枚举、负数与非有限数值。text上限12000，空白问题422。
 
+2026-10-13聊天输入区改为模型选择，回答深度移到补充资料中。请求新增`model_id=default | demo | deepseek | compatible`，默认兼容旧客户端；每次请求独立选择已配置模型，返回`model_selection`与实际调用的`model_used`，没有调用模型则null。目录、配置和费用边界见 [聊天模型选择](CHAT_MODELS.md)。
+
 原answer、mode、sources、draft、cards、message及conversation_id保持。新增可选字段：
 
 | 字段 | 含义 |
@@ -50,6 +58,7 @@ answer_depth为`auto | brief | detailed`，默认auto。补充资料最大字符
 | context_budget_notes | 为预算选择历史、记录或完整相关章节的提示 |
 | complete | 完成结果为true；未完成返回错误，不保存半截回答 |
 | sources[].sections | 当前知识文章的真实章节名，链接到详情页对应标题 |
+| sources[].evidence | 2026-10-13新增：服务器提取的最多3段实际章节文字，每段最多400字符；可能为章节前部，完整内容可从章节链接核对 |
 
 `GET /api/v1/usage/quota`返回当前用户的daily_limit、attempted_turns、failed_turns、remaining_turns、timezone、output_token_limit、note。既有`GET /usage`数组形状保持，设置页合并展示。身份取自服务端，客户端不能指定其他用户的配额。
 
@@ -91,9 +100,11 @@ API失败/工具失败503、配额耗尽429、输出截断或引用无效502、�
 
 迁移`20261012_deep_chat`以`20261011_products`为前置，仅新增Conversation.summary_json与ModelAttempt表/索引。已有账户、宠物、会话消息、收藏、记录和计划不删除；下行迁移只删除本批衍生摘要与尝试计数。
 
-升级运行库前备份数据库与签名密钥，停止目标服务；在backend执行`python -m scripts.init_db`可升级并按旧ID导入最新知识。`--demo`仅在示例用户不存在时创建数据。此次开发只使用当前worktree隔离库，没有迁移或覆盖原D盘运行库。
+升级运行库前备份数据库与签名密钥，停止目标服务；在backend执行`python -m scripts.init_db`可升级并按旧ID导入最新知识。`--demo`仅在示例用户不存在时创建数据。2026-10-12独立开发仅使用worktree隔离库；2026-10-13后续批次已备份并升级原D盘运行库到本迁移，15张旧业务表原列逐行保留、签名密钥不变，见README与TEST_RESULTS顶部当前记录。
 
-提示词：`backend/app/agent_system.txt`；12个工具：`backend/app/agent.py`；审查结构：`backend/data/tool_definitions.json`，可通过`python -m scripts.export_tools`重新生成。新能力主要重构事实组装与模型表达，没有给模型追加任意写入、位置或身份参数。
+提示词：`backend/app/agent_system.txt`；当前13个工具：`backend/app/agent.py`；审查结构：`backend/data/tool_definitions.json`，可通过`python -m scripts.export_tools`重新生成。2026-10-13新增只读`get_care_review`，聊天中的明确照护周报/月报请求走本地事实计算，mode为`local_review`（演示配置仍标demo），不调用模型或自动改变计划。详见 [照护复盘](CARE_REVIEW.md)。没有给模型追加任意写入、位置或身份参数。
+
+可选`citation_sections[].evidence_text`必须是所引真实章节的文字片段（仅忽略空白差异），否则502并回滚回答。界面可展开本地摘要片段核对；这不等于自动语义审核、来源机构背书或兽医审核，不保证所有模型论断有据。
 
 ## 验证与后续联调
 

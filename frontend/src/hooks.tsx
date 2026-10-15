@@ -103,5 +103,6 @@ export function useAction() {
     fieldErrors,
     validationRoot,
     retry: () => void retryRef.current(),
+    clear: () => { setError(""); setSuccess(""); setFieldErrors([]); retryRef.current = () => Promise.resolve(); },
   };
 }

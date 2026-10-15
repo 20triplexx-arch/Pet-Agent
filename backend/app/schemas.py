@@ -90,6 +90,32 @@ class LogInput(Strict):
         return self
 
 
+class LogBatchInput(Strict):
+    entries: list[LogInput] = Field(min_length=1, max_length=5)
+    confirm: Literal[True]
+
+    @model_validator(mode="after")
+    def distinct_kinds(self):
+        if len({entry.kind for entry in self.entries}) != len(self.entries):
+            raise ValueError("同次录入每种类型最多一条")
+        if any(entry.kind != "weight" and entry.value is not None for entry in self.entries):
+            raise ValueError("只有体重记录使用公斤数值；其他数量请在内容中注明单位")
+        return self
+
+
+class LogBatchInput(Strict):
+    entries: list[LogInput] = Field(min_length=1, max_length=5)
+    confirm: Literal[True]
+
+    @model_validator(mode="after")
+    def distinct_kinds(self):
+        if len({entry.kind for entry in self.entries}) != len(self.entries):
+            raise ValueError("同次录入每种类型最多一条")
+        if any(entry.kind != "weight" and entry.value is not None for entry in self.entries):
+            raise ValueError("只有体重记录使用公斤数值；其他数量请在内容中注明单位")
+        return self
+
+
 class TaskDraft(Strict):
     title: str = Field(min_length=1, max_length=100)
     instructions: str = Field(min_length=1, max_length=2000)
@@ -171,6 +197,7 @@ class ChatInput(Strict):
     available_minutes: int = Field(default=30, ge=5, le=240)
     context: ChatContext | None = None
     answer_depth: Literal["auto", "brief", "detailed"] = "auto"
+    model_id: Literal["default", "demo", "deepseek", "compatible", "alibaba", "alibaba-auto"] = "default"
 
     @field_validator("text")
     @classmethod
@@ -204,6 +231,7 @@ class TimeConvert(Strict):
 class CitationSection(Strict):
     article_id: str
     heading: str
+    evidence_text: str = Field(default="", max_length=1500)
 
 
 class AgentAnswer(Strict):

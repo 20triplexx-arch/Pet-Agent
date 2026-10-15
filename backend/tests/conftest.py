@@ -12,12 +12,33 @@ from app.breeds import seed_breeds
 
 @pytest.fixture(autouse=True)
 def no_live_services(monkeypatch):
+    # Developer .env files must not silently change the tested release defaults.
+    # Pytest captures execution metadata; never rotate the running app's log.
+    from app.execution import log
+    monkeypatch.setattr(log, "handlers", [])
+    monkeypatch.setattr(settings, "MODEL_LIMITS_ENABLED", True)
+    monkeypatch.setattr(settings, "MODEL_MAX_REQUESTS", 4)
+    monkeypatch.setattr(settings, "MODEL_MAX_OUTPUT_TOKENS", 4096)
+    monkeypatch.setattr(settings, "MODEL_MAX_INPUT_TOKENS", 32000)
+    monkeypatch.setattr(settings, "MODEL_CONTEXT_CHARS", 48000)
+    monkeypatch.setattr(settings, "MODEL_TURNS_PER_DAY", 20)
     monkeypatch.setattr(settings, "DEMO_MODE", True)
     monkeypatch.setattr(settings, "MODEL_API_KEY", "")
     monkeypatch.setattr(settings, "MODEL_PROVIDER", "compatible")
     monkeypatch.setattr(settings, "DEEPSEEK_API_KEY", "")
+    monkeypatch.setattr(settings, "DASHSCOPE_API_KEY", "")
+    monkeypatch.setattr(settings, "DASHSCOPE_WORKSPACE_ID", "")
+    monkeypatch.setattr(settings, "DASHSCOPE_BASE_URL", "")
+    monkeypatch.setattr(settings, 'DASHSCOPE_AUTO_SELECT', False)
+    monkeypatch.setattr(settings, 'DASHSCOPE_FREE_ONLY', False)
+    monkeypatch.setattr(settings, 'DASHSCOPE_CLI', '')
     monkeypatch.setattr(settings, "AMAP_ENABLED", False)
     monkeypatch.setattr(settings, "AMAP_API_KEY", "")
+    monkeypatch.setattr(settings, "HOSPITAL_MAP_PROVIDER", "amap")
+    monkeypatch.setattr(settings, "TIANDITU_ENABLED", False)
+    monkeypatch.setattr(settings, "TIANDITU_API_KEY", "")
+    monkeypatch.setattr(settings, "TIANDITU_REQUESTS_PER_DAY", 50)
+    monkeypatch.setattr(settings, "TIANDITU_REQUESTS_PER_MONTH", 500)
 
 
 @pytest.fixture

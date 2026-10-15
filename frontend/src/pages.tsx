@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { CareReviewPanel, QuickCareLog } from "./care-review";
 import {
   Link,
   useNavigate,
@@ -33,6 +34,10 @@ import { Button } from "./components/ui/button";
 import { useApp } from "./App";
 import {
   api,
+  streamChat,
+  type ChatSection,
+  type ChatReply,
+  type ChatStatus,
   dateText,
   localNow,
   petLabel,
@@ -49,7 +54,7 @@ import {
 import { useAction, useEditorFocus, useRemote } from "./hooks";
 import { AnswerContent } from "./answer-content";
 import { ChatSupplement, type Supplement } from "./chat-supplement";
-import type { ModelQuota } from "./api";
+import type { ModelQuota, ChatModels } from "./api";
 import type { MapUsage } from "./care-api";
 import type { BreedList } from "./product-api";
 import {
@@ -1175,7 +1180,7 @@ export function Plans() {
   );
 }
 export function Chat() {
-  const { pet } = useApp(),
+  const { pet, user } = useApp(),
     navigate = useNavigate(),
     [query] = useSearchParams(),
     action = useAction();
@@ -1189,6 +1194,14 @@ export function Chat() {
     [localMessages, setLocalMessages] = useState<Message[]>([]);
   const [context, setContext] = useState<Supplement>({});
   const [depth, setDepth] = useState("auto");
+  const models = useRemote<ChatModels>("/chat/models");
+  const modelStorageKey = `chongban-chat-model:${user.id}`;
+  const [modelId, setModelId] = useState(() => sessionStorage.getItem(modelStorageKey) || "default");
+  useEffect(() => {
+    if (models.data && (modelId === "default" || !models.data.options.some(option => option.id === modelId))) setModelId(models.data.default_id);
+  }, [models.data, modelId]);
+  const modelOptions = models.data?.options || [{ id: "demo", name: "本地演示", label: "演示模式 · 本地", provider: null, available: true, mode: "demo" }];
+  const selectedModel = modelOptions.find(option => option.id === modelId);
   const [contextOpen, setContextOpen] = useState(false);
   const [copied, setCopied] = useState("");
   const [copyError, setCopyError] = useState("");
@@ -1202,6 +1215,15 @@ export function Chat() {
   const positionHistoryRef = useRef(true);
   const lastMessageRef = useRef<string | null>(null);
   const [hasNewMessages, setHasNewMessages] = useState(false);
+  const [pendingUser, setPendingUser] = useState<{key: string; text: string} | null>(null);
+  const [sections, setSections] = useState<ChatSection[]>([]);
+  const [stopNote, setStopNote] = useState("");
+  const controllerRef = useRef<AbortController | null>(null);
+  const generationRef = useRef(0);
+  useEffect(() => {
+    setPendingUser(null); setSections([]); setStopNote("");
+    return () => { generationRef.current++; controllerRef.current?.abort(); };
+  }, [pet?.id]);
   const showLatest = () => {
     const list = messageListRef.current;
     const latest = list?.querySelector<HTMLElement>(".message:last-child");
@@ -1218,13 +1240,13 @@ export function Chat() {
     setHasNewMessages(false);
   };
   useLayoutEffect(() => {
-    if (!localMessages.length) return;
-    const latestId = localMessages.at(-1)!.id;
+    if (!localMessages.length && !pendingUser) return;
+    const latestId = pendingUser?.key || localMessages.at(-1)!.id;
     if (positionHistoryRef.current || followLatestRef.current) showLatest();
     else if (latestId !== lastMessageRef.current) setHasNewMessages(true);
     positionHistoryRef.current = false;
     lastMessageRef.current = latestId;
-  }, [localMessages]);
+  }, [localMessages, pendingUser, sections]);
   const messages = useRemote<Message[]>(
     cid ? "/conversations/" + cid + "/messages" : null,
   );
@@ -1236,24 +1258,44 @@ export function Chat() {
     if (messages.data) setLocalMessages(messages.data);
   }, [messages.data]);
   const send = (value: string) => {
-    if (value.length > 12000 || action.busy) return;
+    if (value.length > 12000 || action.busy || controllerRef.current) return;
     followLatestRef.current = true;
     setHasNewMessages(false);
+    setStopNote("");
+    let attempted = false;
+    const generation = ++generationRef.current;
+    const payload = { pet_id: pet?.id || null, conversation_id: cid, text: value,
+      available_minutes: minutes, context, answer_depth: depth, model_id: modelId };
     action.run(
       async (key) => {
-        const r = await api<Reply & { message: Message }>(
-          "/chat",
-          "POST",
-          {
-            pet_id: pet?.id || null,
-            conversation_id: cid,
-            text: value,
-            available_minutes: minutes,
-            context,
-            answer_depth: depth,
-          },
-          key,
-        );
+        const controller = new AbortController();
+        controllerRef.current = controller;
+        setPendingUser({ key, text: value });
+        setSections([]);
+        let r: ChatReply;
+        try {
+          const status = attempted ? await api<ChatStatus>("/chat/status", "GET", undefined, key) : null;
+          if (status?.state === "pending" || status?.state === "unknown") throw new Error("本次请求仍在核对中，请稍后重试；不会重复生成。");
+          attempted = true;
+          r = status?.state === "complete" && status.response ? status.response
+            : await streamChat(payload, key, section => {
+              if (generation === generationRef.current) setSections(current => [...current, section]);
+            }, controller.signal);
+        } catch (error) {
+          if (generation === generationRef.current) {
+            setPendingUser(null);
+            setSections([]);
+            setText(value);
+            if ((error as Error).name === "AbortError") { setStopNote("已停止生成，未完成的回答未保存。"); return; }
+            throw error;
+          }
+          return;
+        } finally {
+          if (controllerRef.current === controller) controllerRef.current = null;
+        }
+        if (generation !== generationRef.current) return;
+        setPendingUser(null);
+        setSections([]);
         setCid(r.conversation_id);
         setNewChat(false);
         setText("");
@@ -1292,6 +1334,7 @@ export function Chat() {
             <span className="badge green">{pet ? pet.name : "普通知识"}</span>
             <select
               aria-label="历史会话"
+              disabled={action.busy}
               value={cid || ""}
               onChange={(e) => {
                 positionHistoryRef.current = true;
@@ -1312,6 +1355,7 @@ export function Chat() {
               ))}
             </select>
             <Button
+              disabled={action.busy}
               onClick={() => {
                 positionHistoryRef.current = true;
                 followLatestRef.current = true;
@@ -1346,7 +1390,7 @@ export function Chat() {
               if (followLatestRef.current) setHasNewMessages(false);
             }}
           >
-            {!localMessages.length && (
+            {!localMessages.length && !pendingUser && (
               <div className="chat-welcome">
                 <h2>你好，我是宠伴。</h2>
                 <p>可以问饮食、日常照护，或一起安排计划。</p>
@@ -1378,9 +1422,11 @@ export function Chat() {
                       {m.metadata_json.mode === "demo"
                         ? "演示模式"
                         : m.metadata_json.mode === "live"
-                          ? "模型回答"
+                          ? (m.metadata_json.model_used || "模型回答")
                           : m.metadata_json.mode === "tools"
                             ? "工具执行结果"
+                            : m.metadata_json.mode === "local_review"
+                              ? "本地照护复盘"
                             : "规则 / 计划引擎"}
                     </span>
                   )}
@@ -1403,6 +1449,7 @@ export function Chat() {
                         "/hospitals",
                         "/hospitals#visit-summary",
                         "/products",
+                        "/logs#care-review",
                       ].includes(card.href) ||
                       /^\/knowledge(?:\/[^/?#]+)?(?:\?[^#]*)?$/.test(
                         card.href,
@@ -1447,6 +1494,17 @@ export function Chat() {
                 )}
               </div>
             ))}
+            {pendingUser && <>
+              <div className="message user"><div className="message-label">你</div><div className="message-text">{pendingUser.text}</div></div>
+              <div className="message assistant generating" aria-busy="true">
+                <div className="message-label">宠伴{sections[0]?.model_used && <span className="badge quiet">{sections[0].model_used}</span>}<Button type="button" className="text-button generation-stop" onClick={() => controllerRef.current?.abort()}>停止生成</Button></div>
+                {sections.map(section => <div className="answer-section" key={section.index}>
+                  <AnswerContent text={section.text} sources={section.sources} />
+                  <Sources items={section.sources} />
+                </div>)}
+                <p className="generation-status" role="status">{sections.length ? "正在补充后续内容…" : "正在整理回答…"}</p>
+              </div>
+            </>}
           </div>
           {hasNewMessages && (
             <Button
@@ -1464,6 +1522,7 @@ export function Chat() {
             <Link to="/hospitals">医院与就医资料</Link>
           </div>
           <Feedback action={action} />
+          {stopNote && <p className="muted small" role="status">{stopNote}</p>}
           <form
             className="chat-input"
             onSubmit={(e) => {
@@ -1488,10 +1547,14 @@ export function Chat() {
               disabled={action.busy}
             />
             <div className="chat-compose-controls">
-              <label>深度<select aria-label="回答深度" value={depth} disabled={action.busy} onChange={e => setDepth(e.target.value)}><option value="auto">自动</option><option value="brief">简短</option><option value="detailed">深入</option></select></label>
+              <label className="chat-model-control">模型<select aria-label="模型选择" aria-describedby="chat-model-note" value={modelId} title={selectedModel?.label} disabled={action.busy || models.loading} onChange={e => { setModelId(e.target.value); sessionStorage.setItem(modelStorageKey, e.target.value); action.clear(); }}>
+                {modelId === "default" && <option value="default">{models.loading ? "正在读取模型…" : "服务端默认"}</option>}
+                {modelOptions.map(option => <option key={option.id} value={option.id} disabled={!option.available}>{option.label}{option.available ? "" : " · " + (option.availability_reason || "未配置")}</option>)}
+              </select></label>
               <Button type="button" disabled={action.busy} aria-expanded={contextOpen} aria-controls="chat-supplement" onClick={() => setContextOpen(!contextOpen)}>补充资料</Button>
               <span id="chat-input-count" role={text.length > 12000 ? "alert" : undefined} className={text.length > 12000 ? "input-over-limit" : ""}>{text.length} / 12000 字{text.length > 12000 ? "，请分次发送" : ""}</span>
             </div>
+            {models.error && <p className="chat-model-error" role="alert">模型列表读取失败，可选本地演示或<Button type="button" className="text-button" disabled={models.loading} onClick={models.reload}>重读模型列表</Button></p>}
             <div>
               <span>健康问题提供观察与就医准备建议</span>
               <Button className="primary" disabled={action.busy || text.length > 12000} type="submit">
@@ -1506,6 +1569,7 @@ export function Chat() {
             <details ref={supplementRef} className="chat-supplement" id="chat-supplement" open={contextOpen} onToggle={e => setContextOpen(e.currentTarget.open)}>
               <summary>补充本次照护资料</summary>
               <ChatSupplement value={context} change={setContext} busy={action.busy} />
+              <label className="chat-depth-setting">回答详细程度<select aria-label="回答深度" value={depth} disabled={action.busy} onChange={e => setDepth(e.target.value)}><option value="auto">自动</option><option value="brief">简短</option><option value="detailed">深入</option></select></label>
               <Button type="button" onClick={() => { setContextOpen(false); inputRef.current?.focus(); }}>回到提问</Button>
             </details>
           <Panel className="chat-context">
@@ -1548,8 +1612,8 @@ export function Chat() {
                   onChange={(e) => setMinutes(Number(e.target.value))}
                 />
               </label>
-              <div className="note">
-                演示模式采用真实检索和受控模板。真实模型需在服务端配置，不会自动产生费用。
+              <div className="note" id="chat-model-note">
+                {selectedModel?.mode === "demo" ? "当前选择本地演示：使用真实知识检索和受控模板，不调用外部模型。" : selectedModel?.available ? selectedModel.id === "alibaba-auto" ? "仅使用已核实的阿里免费额度；额度不足或无法核实时停止调用。回答旁显示实际使用模型。" : "当前选择真实模型：发送需要模型回答的问题会调用服务端接口，可能产生供应商费用。" : selectedModel?.availability_reason ? `此模型暂不可用：${selectedModel.availability_reason}。可选择其他可用模型。` : selectedModel ? "此模型的服务端密钥未配置。可以选择本地演示，或在服务端完成配置。" : "正在核对服务端模型配置。紧急风险提示和照护复盘仍由本地规则提供。"}
               </div>
             </details>
           </Panel>
@@ -1858,6 +1922,7 @@ const kindNames: Record<string, string> = {
   observation: "异常观察",
 };
 export function Logs() {
+  const [reviewVersion, setReviewVersion] = useState(0);
   const { pet, user, refresh } = useApp(),
     action = useAction(),
     logs = useRemote<Log[]>(pet ? "/pets/" + pet.id + "/logs" : null),
@@ -1927,6 +1992,7 @@ export function Logs() {
                     setNote("");
                     setValue("");
                     logs.reload();
+                    setReviewVersion(v => v + 1);
                     refresh();
                   }, "照护记录已保存");
                 }}
@@ -1995,8 +2061,10 @@ export function Logs() {
               <p className="muted small">
                 异常观察不会自动作出诊断。有紧急症状时优先联系兽医。
               </p>
+              <QuickCareLog saved={() => { logs.reload(); setReviewVersion(v => v + 1); refresh(); }} />
             </Panel>
           </div>
+          <CareReviewPanel version={reviewVersion} />
           <Panel>
             <h2>
               <Activity size={20} />
@@ -2040,6 +2108,7 @@ export function Logs() {
                         action.run(async () => {
                           await api("/logs/" + l.id, "DELETE");
                           logs.reload();
+                          setReviewVersion(v => v + 1);
                           refresh();
                         }, "记录已删除");
                     }}
@@ -2265,7 +2334,10 @@ export function SettingsPage() {
           )}
           <State {...usage} retry={usage.reload} />
           <State {...quota} retry={quota.reload} />
-          {quota.data && <p className="model-quota">今日真实问答 {quota.data.attempted_turns} / {quota.data.daily_limit} 次，剩余 {quota.data.remaining_turns} 次；失败 {quota.data.failed_turns} 次。按上海时区计算，应用统计不是供应商账单。</p>}
+          {quota.data && <p className="model-quota">{quota.data.daily_limit === null
+            ? <>本地不限次数 · 今日真实问答 {quota.data.attempted_turns} 次，失败 {quota.data.failed_turns} 次。模型与工具调用次数不设应用上限。</>
+            : <>今日真实问答 {quota.data.attempted_turns} / {quota.data.daily_limit} 次，剩余 {quota.data.remaining_turns} 次；失败 {quota.data.failed_turns} 次。</>}
+            按上海时区统计，实际 API 费用以服务商账单为准。</p>}
           {usage.data && (
             <dl>
               <dt>已记录模型请求</dt>
@@ -2298,6 +2370,11 @@ export function SettingsPage() {
                 <p className="small muted">
                   按上海时区计数，含坐标转换和失败请求；不是供应商余额。免费资格由账号确认后手动启用。
                 </p>
+                {mapUsage.data.providers && <div>
+                  {mapUsage.data.providers.map(provider => <p className="small muted" key={provider.provider}>
+                    {provider.provider_name} · {provider.enabled ? "已配置" : "未配置"} · 今日 {provider.day_requests}/{provider.day_limit} · 本月 {provider.month_requests}/{provider.month_limit}
+                  </p>)}
+                </div>}
               </>
             )}
           </details>

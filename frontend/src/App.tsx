@@ -19,6 +19,7 @@ import {
   ChevronDown,
   DotsThree,
   X,
+  MapPin,
 } from "./icons";
 import { Button } from "./components/ui/button";
 import { api, login, token, type User, type Pet, petLabel } from "./api";
@@ -48,13 +49,14 @@ export function useApp() {
   return useContext(Ctx)!;
 }
 const nav = [
-  ["/", "首页", House],
-  ["/pets", "宠物档案", Cat],
-  ["/chat", "AI 对话", MessageCircle],
-  ["/knowledge", "知识库", BookOpen],
-  ["/plans", "计划与提醒", CalendarCheck],
-  ["/logs", "照护记录", ChartNoAxesCombined],
-  ["/settings", "账户与设置", Settings],
+  ["/", "首页", House, "首页"],
+  ["/pets", "宠物档案", Cat, "档案"],
+  ["/chat", "AI 对话", MessageCircle, "问答"],
+  ["/knowledge", "知识库", BookOpen, "知识"],
+  ["/plans", "计划与提醒", CalendarCheck, "计划"],
+  ["/logs", "照护记录", ChartNoAxesCombined, "记录"],
+  ["/hospitals", "医院查询", MapPin, "医院"],
+  ["/settings", "账户与设置", Settings, "设置"],
 ] as const;
 function Login({ done }: { done: () => void }) {
   const [signup, setSignup] = useState(false),
@@ -250,7 +252,7 @@ export default function App() {
             <span>宠伴</span>
           </NavLink>
           <nav aria-label="主要导航">
-            {nav.map(([path, label, Icon], i) => (
+            {nav.map(([path, label, Icon, shortLabel]) => (
               <NavLink
                 key={path}
                 to={path}
@@ -263,7 +265,7 @@ export default function App() {
                 <Icon size={19} />
                 <span className="nav-label">{label}</span>
                 <span className="nav-short" aria-hidden="true">
-                  {["首页", "档案", "问答", "知识", "计划", "记录", "设置"][i]}
+                  {shortLabel}
                 </span>
               </NavLink>
             ))}
@@ -299,10 +301,10 @@ export default function App() {
                   : !status.data
                     ? "读取模式…"
                     : status.data.mode === "live"
-                      ? "真实模型模式"
+                      ? "默认真实模型"
                       : status.data.mode === "configuration_error"
                         ? "模型配置待补充"
-                        : "演示模式"}
+                        : "默认演示模式"}
               </span>
               <div className="pet-switch">
                 {pet ? (
@@ -421,7 +423,7 @@ export default function App() {
             <nav aria-label="更多导航">
               {nav
                 .filter(([path]) =>
-                  ["/pets", "/logs", "/settings"].includes(path),
+                  ["/pets", "/logs", "/hospitals", "/settings"].includes(path),
                 )
                 .map(([path, label, Icon]) => (
                   <NavLink

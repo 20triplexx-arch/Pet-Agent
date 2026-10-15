@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-10-14T13:15:04.762509+00:00",
+  "question": "母猫一般多久绝育合适",
+  "synthetic_data_only": true,
+  "user_database_modified": false,
+  "automatic_provider_retries": false,
+  "http_status": 200,
+  "elapsed_ms": 7711.6,
+  "complete": true,
+  "mode": "live",
+  "model_used": "deepseek-flash",
+  "answer_characters": 685,
+  "sources_count": 3,
+  "execution": {
+    "model_requests": 3,
+    "input_tokens": 17370,
+    "output_tokens": 956,
+    "error_type": null,
+    "model_finalization_forced": true
+  },
+  "tool_calls": [
+    {
+      "name": "search_pet_knowledge",
+      "status": "succeeded"
+    },
+    {
+      "name": "search_pet_knowledge",
+      "status": "succeeded"
+    }
+  ],
+  "successful_retry_replays_same_message": true,
+  "citation_ids": [
+    "cat-life-stages",
+    "breed-cat-mixed",
+    "nutrition-energy"
+  ],
+  "budget": {
+    "lifetime_limit_cny": 10.0,
+    "lifetime_conservative_used_cny": 3.924606,
+    "this_check_conservative_cny": 0.042388,
+    "provider_requests_this_check": 3,
+    "unresolved_reservations": 0,
+    "pricing_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+  },
+  "earlier_check": {
+    "checked_at": "2026-10-14T13:10:00.008288+00:00",
+    "http_status": 503,
+    "complete": false,
+    "failure_message": "本轮模型调用次数达到应用上限，回答未完成且未保存。可手动重试；不会自动重复调用。",
+    "budget": {
+      "lifetime_limit_cny": 10.0,
+      "lifetime_conservative_used_cny": 3.882218,
+      "this_check_conservative_cny": 0.0549,
+      "provider_requests_this_check": 4,
+      "unresolved_reservations": 0,
+      "pricing_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+    }
+  }
+}

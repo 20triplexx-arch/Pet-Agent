@@ -17,6 +17,7 @@ from app.nutrition import care_history, current_plans, assess, get_profile
 from app.care_schemas import NutritionInput, VisitInput
 from app.visit import build_summary
 from app.execution import traced_tool
+from app.chat_models import ModelSelection, select_model
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 SYSTEM = Path(__file__).with_name("agent_system.txt").read_text(encoding="utf-8")
@@ -41,6 +42,13 @@ class AgentContext:
     analysis: dict = field(default_factory=dict)
     memory: dict = field(default_factory=dict)
     model_attempt: object | None = None
+    model_selection: ModelSelection | None = None
+    sent_evidence: dict = field(default_factory=dict)
+    read_cache: dict = field(default_factory=dict)
+
+    @property
+    def selected_model(self):
+        return self.model_selection or select_model()
 
 
 def profile(ctx):
@@ -214,6 +222,29 @@ def get_current_care_plans(ctx: RunContext[AgentContext]) -> list[dict]:
 
 @agent.tool(sequential=True)
 @traced_tool
+def get_care_review(ctx: RunContext[AgentContext], days: Literal[7, 30] = 7) -> dict:
+    """按用户时区复盘当前宠物7/30天真实记录和打卡，不推断漏做或自动改计划。"""
+    if not ctx.deps.pet_id:
+        return {"status": "needs_info", "message": "请先选择要复盘的宠物。"}
+    p = profile(ctx.deps)
+    if ctx.deps.breed_scope and ctx.deps.breed_scope != p.get("breed_id"):
+        return {"status": "needs_info", "message": "提问品种与当前宠物不同，请切换到对应档案后读取复盘。"}
+    from app.care_review import build_review
+    result = build_review(ctx.deps.session, ctx.deps.user, ctx.deps.pet_id, days)
+    result["observations"] = [{**o, "note": o["note"][:500]} for o in result["observations"][:5]]
+    result["weight"]["points"] = result["weight"]["points"][:1] + result["weight"]["points"][-1:] if len(result["weight"]["points"]) > 1 else result["weight"]["points"]
+    result.pop("daily", None)
+    result.pop("record_ids", None)
+    result.pop("completion_ids", None)
+    for source in result["sources"]:
+        article = ctx.deps.session.get(KnowledgeArticle, source["id"])
+        if article:
+            ctx.deps.retrieved[article.id] = article.model_dump()
+    return result
+
+
+@agent.tool(sequential=True)
+@traced_tool
 def assess_nutrition(ctx: RunContext[AgentContext]) -> dict:
     """评估当前用户确认的档案及会话营养资料；不写入，不接受模型编造数值。"""
     if not ctx.deps.pet_id:
@@ -230,8 +261,8 @@ def assess_nutrition(ctx: RunContext[AgentContext]) -> dict:
 @agent.tool(sequential=True)
 @traced_tool
 def search_nearby_hospitals(ctx: RunContext[AgentContext]) -> dict:
-    """返回独立查询入口；位置只能由用户在该页面提供，不向模型传坐标。"""
-    return {"type": "hospitals", "title": "找附近宠物医院", "href": "/hospitals", "status": "needs_user_location"}
+    """打开医院综合查询工具入口；两家地图由本地 Agent 统筹，位置仅在页面提供，不向模型传坐标。"""
+    return {"type": "hospitals", "title": "找附近宠物医院", "href": "/hospitals", "status": "needs_user_location", "strategy": "combined_maps", "text": "输入地点后自动结合可用地图资料，核对重复登记并保留来源差异。"}
 
 
 @agent.tool(sequential=True)
@@ -458,7 +489,7 @@ async def respond(ctx, text, history, minutes):
     if ctx.supplement.get("nutrition"):
         risk_text += " " + ctx.supplement["nutrition"].get("current_symptoms", "")
     found = risks(risk_text, species)
-    demo = settings.DEMO_MODE
+    demo = ctx.selected_model.demo
     if found:
         for r in found:
             items = search_knowledge(ctx.session, None, "")
@@ -482,6 +513,16 @@ async def respond(ctx, text, history, minutes):
             "cards": [{"type": "hospitals", "title": "找附近宠物医院", "href": "/hospitals"}, {"type": "visit_summary", "title": "整理就医资料", "href": "/hospitals#visit-summary"}],
         }
     from app.deep_chat import answer_question
+    if re.search(r"照护复盘|照护周报|照护月报|复盘.{0,8}(?:照护|记录)|总结.{0,8}(?:照护|记录)", text):
+        named_species = infer_species(text)
+        if p and named_species and named_species != p["species"]:
+            return {"answer": "本次提问的物种与当前宠物不同，请切换到对应宠物档案再复盘。没有它的实际记录，不能套用当前宠物的照护历史。", "mode": "demo" if demo else "local_review", "urgent": False, "sources": [], "draft": None}
+        if not ctx.pet_id:
+            return {"answer": "请先选择需要复盘的宠物。复盘只读取该宠物的真实记录，不会推断未记录的照护或修改计划。", "mode": "demo" if demo else "local_review", "urgent": False, "sources": [], "draft": None}
+        from app.care_review import build_review, review_text
+        review = build_review(ctx.session, ctx.user, ctx.pet_id, 30 if re.search(r"30天|一个月|月报", text) else 7)
+        return {"answer": review_text(review), "mode": "demo" if demo else "local_review", "urgent": bool(review["alerts"]), "sources": review["sources"], "draft": None,
+            "cards": [{"type": "care_review", "title": "查看照护复盘与记录", "href": "/logs#care-review"}]}
     try:
         return await answer_question(ctx, text, history, minutes)
     except HTTPException:
