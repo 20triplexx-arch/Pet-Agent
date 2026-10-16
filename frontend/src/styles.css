@@ -2219,7 +2219,12 @@ dd {
 .generating .message-label { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
 .generation-stop { margin-left: auto; min-height: 44px; }
 @media (max-width: 767px) {
-  .deep-chat-layout .chat-panel { height: auto; min-height: 0; }
-  .deep-chat-layout .messages { flex: 0 0 auto; height: clamp(240px, 45dvh, 420px); min-height: 240px; }
-  .deep-chat-layout .chat-input, .deep-chat-layout .chat-toolbar { flex-shrink: 0; }
+  .deep-chat-layout .chat-panel { height: calc(100dvh - 240px - env(safe-area-inset-bottom)); min-height: 0; }
+  .deep-chat-layout .messages { flex: 1 1 0; min-height: 0; overflow-anchor: none; }
+  .deep-chat-layout .chat-input, .deep-chat-layout .chat-toolbar,
+  .deep-chat-layout .chat-care-links, .deep-chat-layout .latest-message { flex-shrink: 0; }
+  .deep-chat-layout .chat-input { gap: 8px; }
+  .deep-chat-layout .chat-input textarea { height: 68px; min-height: 68px; }
+  .deep-chat-layout .chat-compose-controls .chat-model-control { flex-basis: 170px; }
 }
+.deep-chat-layout .messages { overflow-anchor: none; }

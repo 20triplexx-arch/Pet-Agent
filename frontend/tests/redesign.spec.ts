@@ -443,6 +443,8 @@ test("长对话最近消息定位与向上阅读时的新回复入口", async ({
   ).toBe(16);
   await page.getByLabel("提问内容").fill("日常喂食要注意什么？");
   await page.getByRole("button", { name: "发送", exact: true }).click();
+  // Optimistic streaming adds two message nodes before the reply is committed.
+  await expect(page.locator(".message.assistant:not(.generating)")).toHaveCount(5);
   await expect(page.locator(".message")).toHaveCount(10);
   await latestInView();
   let release!: () => void;

@@ -5,15 +5,25 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+env:
+  DEMO_MODE: "true"
+  MODEL_PROVIDER: compatible
+  MODEL_API_KEY: ""
+  DEEPSEEK_API_KEY: ""
+  DASHSCOPE_API_KEY: ""
+  DASHSCOPE_WORKSPACE_ID: ""
+  DASHSCOPE_BASE_URL: ""
+  DASHSCOPE_AUTO_SELECT: "false"
+  DASHSCOPE_CLI: ""
+  AMAP_ENABLED: "false"
+  AMAP_API_KEY: ""
+  TIANDITU_ENABLED: "false"
+  TIANDITU_API_KEY: ""
 jobs:
   application:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     env:
-      DEMO_MODE: "true"
-      MODEL_PROVIDER: compatible
-      MODEL_API_KEY: ""
-      DEEPSEEK_API_KEY: ""
-      AMAP_ENABLED: "false"
       SECRET_KEY: ci-only-isolated-key-not-for-production
       CHONGBAN_TEST_PYTHON: python
     steps:
@@ -48,9 +58,41 @@ jobs:
           path: |
             artifacts/evaluations/*/report.*
             frontend/playwright-report
+            frontend/test-results
+  fresh-install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: python scripts/verify_fresh_install.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fresh-install-${{ runner.os }}
+          path: |
+            artifacts/installation/*.json
+            artifacts/installation/*.log
   container:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - run: docker build -t chongban-ci .
       - run: python3 scripts/verify_container.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-verification
+          path: |
+            artifacts/installation/*.json
+            artifacts/installation/*.log

@@ -139,9 +139,10 @@ test("医院无密钥、定位拒绝、无结果与手动重试", async ({ page 
   await page.getByLabel("城市", { exact: true }).fill("杭州");
   await page.getByLabel("区县（可选）").fill("西湖区");
   await page.getByRole("button", { name: "查询医院", exact: true }).click();
-  await expect(page.locator(".hospital-results")).toContainText(
-    "未取得医院列表",
-  );
+  await expect(page.locator(".hospital-results")).toContainText("地图查询未能完成");
+  await expect(page.locator(".hospital-results")).toContainText("共取得 0 家不同候选");
+  await expect(page.locator(".hospital-results")).toContainText("高德 · 未调用");
+  await expect(page.locator(".hospital-results")).toContainText("天地图 · 未调用");
   await expect(
     page.getByRole("link", { name: "打开高德搜索" }),
   ).toHaveAttribute("href", /uri.amap.com\/search/);
@@ -157,12 +158,18 @@ test("医院无密钥、定位拒绝、无结果与手动重试", async ({ page 
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        mode: "external",
+        mode: "combined",
+        provider: "auto",
         status: "empty",
         items: [],
         message: "当前范围没有返回医院",
         queried_at: new Date().toISOString(),
         search_url: "https://uri.amap.com/search?keyword=test",
+        provider_results: [
+          { provider: "amap", provider_name: "高德", status: "empty", item_count: 0, message: "测试空结果", queried_at: new Date().toISOString() },
+          { provider: "tianditu", provider_name: "天地图", status: "skipped", item_count: 0, message: "未配置", queried_at: new Date().toISOString() },
+        ],
+        agent_summary: { mode: "local_rules", merged_duplicates: 0, unique_candidates: 0, basis: "测试响应" },
       }),
     }),
   );

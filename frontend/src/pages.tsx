@@ -1213,7 +1213,7 @@ export function Chat() {
   const chatRootRef = useRef<HTMLDivElement>(null);
   const followLatestRef = useRef(true);
   const positionHistoryRef = useRef(true);
-  const lastMessageRef = useRef<string | null>(null);
+  const lastContentRef = useRef<string | null>(null);
   const [hasNewMessages, setHasNewMessages] = useState(false);
   const [pendingUser, setPendingUser] = useState<{key: string; text: string} | null>(null);
   const [sections, setSections] = useState<ChatSection[]>([]);
@@ -1233,7 +1233,7 @@ export function Chat() {
           latest.getBoundingClientRect().top -
           list.getBoundingClientRect().top +
           list.scrollTop -
-          24,
+          Math.min(24, Math.max(0, list.clientHeight - 60)),
         behavior: "instant",
       });
     }
@@ -1241,11 +1241,15 @@ export function Chat() {
   };
   useLayoutEffect(() => {
     if (!localMessages.length && !pendingUser) return;
-    const latestId = pendingUser?.key || localMessages.at(-1)!.id;
+    // A pending question keeps its ID while paragraphs arrive. Track delivered
+    // content, not the pending user ID, and ignore equivalent history refreshes.
+    const content = pendingUser
+      ? `${pendingUser.key}:${sections.length}`
+      : localMessages.at(-1)!.id;
     if (positionHistoryRef.current || followLatestRef.current) showLatest();
-    else if (latestId !== lastMessageRef.current) setHasNewMessages(true);
+    else if (content !== lastContentRef.current) setHasNewMessages(true);
     positionHistoryRef.current = false;
-    lastMessageRef.current = latestId;
+    lastContentRef.current = content;
   }, [localMessages, pendingUser, sections]);
   const messages = useRemote<Message[]>(
     cid ? "/conversations/" + cid + "/messages" : null,
@@ -1521,7 +1525,7 @@ export function Chat() {
             <Link to="/nutrition">营养方案</Link>
             <Link to="/hospitals">医院与就医资料</Link>
           </div>
-          <Feedback action={action} />
+          {!pendingUser && <Feedback action={action} />}
           {stopNote && <p className="muted small" role="status">{stopNote}</p>}
           <form
             className="chat-input"

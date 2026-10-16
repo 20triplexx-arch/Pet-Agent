@@ -4,9 +4,9 @@ import os, tempfile
 from pathlib import Path
 
 def prepare():
-    folder = Path(
-    tempfile.mkdtemp(prefix="e2e-", dir=Path(__file__).resolve().parents[1] / "storage")
-    )
+    storage = Path(__file__).resolve().parents[1] / 'storage'
+    storage.mkdir(parents=True, exist_ok=True)
+    folder = Path(tempfile.mkdtemp(prefix="e2e-", dir=storage))
     os.environ["DATABASE_URL"] = "sqlite:///" + (folder / "e2e.db").as_posix()
     os.environ["EXECUTION_LOG_PATH"] = str(folder / "execution.jsonl")
     os.environ["DEMO_MODE"] = "true"

@@ -14,6 +14,7 @@ powershell -ExecutionPolicy Bypass -File scripts/start.ps1
 - 页面：<http://127.0.0.1:8000>
 - API 文档：<http://127.0.0.1:8000/docs>
 - `Ctrl+C` 停止服务；前端修改后运行 `scripts/start.ps1 -Rebuild`。
+- 需要独立端口时用 `scripts/start.ps1 -Port 8013`；Linux/macOS 可设置 `CHONGBAN_PORT=8013`。
 - 需要本地标签识别时，安装用 `scripts/setup.ps1 -WithOCR`。
 
 Linux/macOS 提供 `sh scripts/setup.sh`、`sh scripts/start.sh`；本机验收主要使用 Windows。
@@ -51,6 +52,10 @@ npm test
 ```
 
 离线测试清空外部服务凭证。Playwright 使用独立测试数据库，默认端口 8011；占用时可设置 `CHONGBAN_E2E_PORT`。完整浏览器套件需要 OCR 依赖，桌面和手机尺寸均使用 Chromium。真实模型评测另受预算和免费额度检查，不能用离线通过率代表医学准确率。实际结果见 [TEST_RESULTS.md](../TEST_RESULTS.md)。
+
+GitHub CI 使用 Python 3.13、Node.js 24，运行 Ubuntu 24.04 完整回归、Windows/Linux 全新安装及 Linux Docker 验证。`python scripts/verify_fresh_install.py` 会将源码复制到含空格和中文的全新隔离目录，执行安装、重复安装、合成操作与重启，不修改现有配置和账户库。基础安装不依赖 OCR。报告在 `artifacts/installation/`，保留隔离副本供诊断；上传 CI 证据时只收集指定日志和汇总，不上传运行库或配置。
+
+容器验证通过 `python scripts/verify_container.py` 执行（先构建镜像 `chongban-ci`）。知识 ID 和迁移版本按当前源码核对，新增健康字段不会造成误报；失败先收集日志，再清理本次创建的随机容器与卷。
 
 ## 数据与升级
 
