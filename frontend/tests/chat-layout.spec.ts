@@ -50,6 +50,11 @@ test('unread paragraphs and final survive history refresh while reading older me
   expect(await messages.evaluate(el => el.scrollTop)).toBeLessThan(1);
   await latest.click();
   await expect(latest).toHaveCount(0);
+  await page.evaluate(() => (window as unknown as { deliver: (e: string, d: unknown) => void }).deliver('section', { index: 1, text: '观察是否主动使用替代抓挠位置。'.repeat(30), sources: [], question_ids: [1] }));
+  await expect(page.locator('.answer-section')).toHaveCount(2);
+  await page.evaluate(() => (window as unknown as { deliver: (e: string, d: unknown) => void }).deliver('section', { index: 2, text: '结合反应继续调整。', sources: [], question_ids: [1] }));
+  await expect(page.locator('.answer-section')).toHaveCount(3);
+  await expect(latest).toHaveCount(0);
   await scrollUp();
   const final = await (await page.request.post('/api/v1/chat', { headers: { ...headers, 'Idempotency-Key': crypto.randomUUID() }, data: { pet_id: pet.id, conversation_id: conversation, text: '猫抓沙发如何调整？' } })).json();
   const refreshed = page.waitForResponse(response => response.url().endsWith(`/conversations/${conversation}/messages`) && response.request().method() === 'GET');

@@ -463,12 +463,9 @@ test("长对话最近消息定位与向上阅读时的新回复入口", async ({
   await page.getByLabel("提问内容").fill("猫的日常清洁怎样安排？");
   await page.getByRole("button", { name: "发送", exact: true }).click();
   await requestArrived;
-  await list.evaluate(async (el) => {
-    el.scrollTop = 0;
-    await new Promise((resolve) =>
-      requestAnimationFrame(() => requestAnimationFrame(resolve)),
-    );
-  });
+  await list.hover();
+  await page.mouse.wheel(0, -100000);
+  await expect.poll(() => list.evaluate(el => el.scrollTop)).toBeLessThan(1);
   release();
   await expect(
     page.getByRole("button", { name: "查看最新回复", exact: true }),

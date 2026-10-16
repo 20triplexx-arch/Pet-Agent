@@ -1212,6 +1212,7 @@ export function Chat() {
   const messageListRef = useRef<HTMLDivElement>(null);
   const chatRootRef = useRef<HTMLDivElement>(null);
   const followLatestRef = useRef(true);
+  const programmedScrollRef = useRef<number | null>(null);
   const positionHistoryRef = useRef(true);
   const lastContentRef = useRef<string | null>(null);
   const [hasNewMessages, setHasNewMessages] = useState(false);
@@ -1236,6 +1237,7 @@ export function Chat() {
           Math.min(24, Math.max(0, list.clientHeight - 60)),
         behavior: "instant",
       });
+      programmedScrollRef.current = list.scrollTop;
     }
     setHasNewMessages(false);
   };
@@ -1387,8 +1389,18 @@ export function Chat() {
             className="messages"
             ref={messageListRef}
             aria-live="polite"
+            tabIndex={0}
+            onWheel={(e) => { if (e.deltaY < 0) followLatestRef.current = false; }}
+            onTouchMove={() => { followLatestRef.current = false; }}
+            onKeyDown={(e) => { if (["ArrowUp", "PageUp", "Home"].includes(e.key)) followLatestRef.current = false; }}
             onScroll={(e) => {
               const list = e.currentTarget;
+              // Our own positioning must not be mistaken for a reader gesture.
+              if (programmedScrollRef.current !== null && Math.abs(list.scrollTop - programmedScrollRef.current) < 1) {
+                programmedScrollRef.current = null;
+                return;
+              }
+              programmedScrollRef.current = null;
               followLatestRef.current =
                 list.scrollHeight - list.scrollTop - list.clientHeight < 80;
               if (followLatestRef.current) setHasNewMessages(false);

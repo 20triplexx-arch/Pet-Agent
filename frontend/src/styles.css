@@ -2227,4 +2227,4 @@ dd {
   .deep-chat-layout .chat-input textarea { height: 68px; min-height: 68px; }
   .deep-chat-layout .chat-compose-controls .chat-model-control { flex-basis: 170px; }
 }
-.deep-chat-layout .messages { overflow-anchor: none; }
+.deep-chat-layout .messages { overflow-anchor: none; scroll-behavior: auto; }
