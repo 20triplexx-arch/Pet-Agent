@@ -1,0 +1,144 @@
+{
+  "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
+  "reviewed_at": "2026-10-16T09:31:27.437751+00:00",
+  "order": [
+    "qwen3.6-flash",
+    "qwen3.5-flash"
+  ],
+  "review_method": "Single assistant read all 30 fixed cases, every actual raw paragraph and its actually supplied passages. Main conclusion unit per successful model turn incl. followups; local breed answer and rejected turns excluded. Secondary issues recorded separately. Not clinical accuracy. 36 paired labels reviewed before key reveal.",
+  "models": {
+    "qwen3.6-flash": {
+      "approved": true,
+      "case_count": 30,
+      "delivery_rate": 1.0,
+      "major_source_support_rate": 0.96875,
+      "main_source_units": 32,
+      "supported_main_source_units": 31,
+      "severe_delivered_issues": 0,
+      "known_severe_raw_issues": 0,
+      "reasked_known_fields": 0,
+      "automatic_passed_cases": 29,
+      "reviewed_case_ids": [
+        "CB-001",
+        "CB-002",
+        "CB-003",
+        "CB-004",
+        "CB-005",
+        "CB-006",
+        "CB-008",
+        "CB-009",
+        "CB-010",
+        "CB-011",
+        "CB-012",
+        "CB-013",
+        "CB-015",
+        "CB-017",
+        "CB-018",
+        "CB-021",
+        "CB-022",
+        "CB-024",
+        "CB-025",
+        "CB-026",
+        "CB-028",
+        "CB-033",
+        "CB-034",
+        "CB-037",
+        "CB-040",
+        "CB-043",
+        "CB-049",
+        "CB-053",
+        "CB-057",
+        "CB-059"
+      ],
+      "report": "20261016T083301-quality-step2",
+      "timing": {
+        "complete_successful_model_answers": {
+          "count": 32,
+          "p50_ms": 2045.72,
+          "p95_ms": 4006.72
+        },
+        "first_visible_successful_model_answers": {
+          "count": 32,
+          "p50_ms": 1198.11,
+          "p95_ms": 1820.95
+        }
+      },
+      "case_notes": {
+        "CB-002": "Stop-contact conclusion supported, but keeping still instruction absent from bound passage: one unsupported main unit.",
+        "CB-001": "Both directions wording can overstate the need; scope reviewed as alternatives, not mandatory purchase.",
+        "CB-043": "Primary cannot provide grams is supported; prerequisites should name health/muscle conditions more clearly."
+      }
+    },
+    "qwen3.5-flash": {
+      "approved": true,
+      "case_count": 30,
+      "delivery_rate": 0.9666666666666667,
+      "major_source_support_rate": 0.967741935483871,
+      "main_source_units": 31,
+      "supported_main_source_units": 30,
+      "severe_delivered_issues": 0,
+      "known_severe_raw_issues": 0,
+      "reasked_known_fields": 0,
+      "automatic_passed_cases": 29,
+      "reviewed_case_ids": [
+        "CB-001",
+        "CB-002",
+        "CB-003",
+        "CB-004",
+        "CB-005",
+        "CB-006",
+        "CB-008",
+        "CB-009",
+        "CB-010",
+        "CB-011",
+        "CB-012",
+        "CB-013",
+        "CB-015",
+        "CB-017",
+        "CB-018",
+        "CB-021",
+        "CB-022",
+        "CB-024",
+        "CB-025",
+        "CB-026",
+        "CB-028",
+        "CB-033",
+        "CB-034",
+        "CB-037",
+        "CB-040",
+        "CB-043",
+        "CB-049",
+        "CB-053",
+        "CB-057",
+        "CB-059"
+      ],
+      "report": "20261016T092541-quality-step2",
+      "timing": {
+        "complete_successful_model_answers": {
+          "count": 31,
+          "p50_ms": 2940.64,
+          "p95_ms": 3878.7
+        },
+        "first_visible_successful_model_answers": {
+          "count": 31,
+          "p50_ms": 1698.24,
+          "p95_ms": 2417.38
+        }
+      },
+      "case_notes": {
+        "CB-013": "Health records expanded to health certificate: one unsupported main unit; second paragraph correctly requires actual destination rules.",
+        "CB-021": "Initial do not close door wording is ambiguous; later paragraph permits gradual closure.",
+        "CB-009": "Third paragraph urine/appetite comparison is awkward, main cleaning/observation conclusion supported.",
+        "CB-043": "One rejected turn retained; excluded from successful source denominator."
+      }
+    }
+  },
+  "limitations": [
+    "Source-support rate covers main conclusion units, not every sentence.",
+    "No veterinary or independent second reviewer.",
+    "Current 36 paired review: 12 improved,10 regressed,6 equivalent,2 failed/incomparable; 20/no-regression target not met.",
+    "Current 36 CB-043 automated boundary-wording check failed despite delivered answer.",
+    "Current 35 CB-043 rejected: asking for missing BCS field was treated as an unbound scoring claim; rejected turn is not a quality improvement.",
+    "Actual browser waiting time and detailed-answer performance not measured in this batch."
+  ]
+}

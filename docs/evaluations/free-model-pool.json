@@ -35,11 +35,14 @@
       "qwen3.8-max",
       "qwen3.8-max-0902"
     ],
-    "automatically_qualified_models_current_build": []
+    "automatically_qualified_models_current_build": [
+      "qwen3.6-flash",
+      "qwen3.5-flash"
+    ]
   },
   "budget": {
-    "conservative_used_cny": 7.678743,
-    "run_used_cny": 1.903332,
+    "conservative_used_cny": 7.768869,
+    "run_used_cny": 1.993458,
     "unresolved_reservations": 41,
     "cumulative_limit_cny": 10,
     "run_limit_cny": 3,
@@ -64,28 +67,28 @@
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "model_requests": 0,
           "input_tokens": 0,
@@ -127,47 +130,16 @@
               "p50_ms": 2774.58,
               "p95_ms": 3542.61
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 29,
@@ -182,37 +154,9 @@
               "p50_ms": 2764.83,
               "p95_ms": 3542.61
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 29
+            }
           },
           "uncached": {
             "turns": 3,
@@ -227,11 +171,9 @@
               "p50_ms": 3215.17,
               "p95_ms": 3391.64
             },
-            "request_counts": [
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 3
+            }
           },
           "model_requests": 32,
           "input_tokens": 89373,
@@ -273,36 +215,23 @@
               "p50_ms": 1332.82,
               "p95_ms": 1792.75
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 14
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 14,
@@ -317,22 +246,9 @@
               "p50_ms": 1332.82,
               "p95_ms": 1792.75
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 14
+            }
           },
           "model_requests": 14,
           "input_tokens": 43220,
@@ -374,54 +290,24 @@
               "p50_ms": 1189.57,
               "p95_ms": 1764.18
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              3,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 31,
+              "3": 1
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 32,
@@ -436,40 +322,10 @@
               "p50_ms": 1189.57,
               "p95_ms": 1764.18
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              3,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 31,
+              "3": 1
+            }
           },
           "model_requests": 34,
           "input_tokens": 102107,
@@ -511,54 +367,23 @@
               "p50_ms": 1663.53,
               "p95_ms": 2560.81
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 32,
@@ -573,40 +398,9 @@
               "p50_ms": 1663.53,
               "p95_ms": 2560.81
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "model_requests": 32,
           "input_tokens": 90731,
@@ -648,54 +442,23 @@
               "p50_ms": 1892.83,
               "p95_ms": 3837.33
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 32,
@@ -710,40 +473,9 @@
               "p50_ms": 1892.83,
               "p95_ms": 3837.33
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "model_requests": 32,
           "input_tokens": 91155,
@@ -776,54 +508,23 @@
               "p50_ms": 1774.05,
               "p95_ms": 2126.39
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 32,
@@ -838,40 +539,9 @@
               "p50_ms": 1774.05,
               "p95_ms": 2126.39
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "model_requests": 32,
           "input_tokens": 90489,
@@ -913,53 +583,24 @@
               "p50_ms": 1028.46,
               "p95_ms": 1684.87
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              3,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 30,
+              "3": 1
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 31,
@@ -974,39 +615,10 @@
               "p50_ms": 1028.46,
               "p95_ms": 1684.87
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              3,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 30,
+              "3": 1
+            }
           },
           "model_requests": 33,
           "input_tokens": 99748,
@@ -1032,32 +644,32 @@
             "failures": 1,
             "complete": null,
             "first_section": null,
-            "request_counts": [
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 1
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 1,
             "failures": 1,
             "complete": null,
             "first_section": null,
-            "request_counts": [
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 1
+            }
           },
           "model_requests": 1,
           "input_tokens": 2672,
@@ -1074,28 +686,28 @@
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "model_requests": 0,
           "input_tokens": 0,
@@ -1108,243 +720,220 @@
       "model": "qwen3.6-flash",
       "variant": "paired",
       "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
-      "status": "blocked",
+      "status": "awaiting_source_review",
       "metrics": {
         "baseline": {
-          "cases": 25,
-          "passed": 23,
-          "failed": 2,
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
           "complete_successful_model_answers": {
-            "count": 23,
-            "p50_ms": 2716.51,
+            "count": 30,
+            "p50_ms": 2622.77,
             "p95_ms": 4111.17
           },
           "first_visible_successful_model_answers": {
-            "count": 23,
-            "p50_ms": 1432.19,
-            "p95_ms": 1712.7
+            "count": 30,
+            "p50_ms": 1409.4,
+            "p95_ms": 1782.93
           },
           "ordinary": {
-            "turns": 25,
+            "turns": 32,
             "failures": 2,
             "complete": {
-              "count": 23,
-              "p50_ms": 2716.51,
+              "count": 30,
+              "p50_ms": 2622.77,
               "p95_ms": 4111.17
             },
             "first_section": {
-              "count": 23,
-              "p50_ms": 1432.19,
-              "p95_ms": 1712.7
+              "count": 30,
+              "p50_ms": 1409.4,
+              "p95_ms": 1782.93
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
-            "turns": 25,
+            "turns": 32,
             "failures": 2,
             "complete": {
-              "count": 23,
-              "p50_ms": 2716.51,
+              "count": 30,
+              "p50_ms": 2622.77,
               "p95_ms": 4111.17
             },
             "first_section": {
-              "count": 23,
-              "p50_ms": 1432.19,
-              "p95_ms": 1712.7
+              "count": 30,
+              "p50_ms": 1409.4,
+              "p95_ms": 1782.93
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
-          "model_requests": 25,
-          "input_tokens": 71692,
-          "output_tokens": 5490
+          "model_requests": 32,
+          "input_tokens": 91440,
+          "output_tokens": 6950
         },
         "optimized": {
-          "cases": 26,
-          "passed": 25,
+          "cases": 30,
+          "passed": 29,
           "failed": 1,
           "complete_successful_model_answers": {
-            "count": 26,
-            "p50_ms": 2109.74,
+            "count": 32,
+            "p50_ms": 2045.72,
             "p95_ms": 4006.72
           },
           "first_visible_successful_model_answers": {
-            "count": 26,
-            "p50_ms": 1221.86,
+            "count": 32,
+            "p50_ms": 1198.11,
             "p95_ms": 1820.95
           },
           "ordinary": {
-            "turns": 26,
+            "turns": 32,
             "failures": 0,
             "complete": {
-              "count": 26,
-              "p50_ms": 2109.74,
+              "count": 32,
+              "p50_ms": 2045.72,
               "p95_ms": 4006.72
             },
             "first_section": {
-              "count": 26,
-              "p50_ms": 1221.86,
+              "count": 32,
+              "p50_ms": 1198.11,
               "p95_ms": 1820.95
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
           "detailed": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "cached": {
             "turns": 0,
             "failures": 0,
             "complete": null,
             "first_section": null,
-            "request_counts": []
+            "request_counts_histogram": {}
           },
           "uncached": {
-            "turns": 26,
+            "turns": 32,
             "failures": 0,
             "complete": {
-              "count": 26,
-              "p50_ms": 2109.74,
+              "count": 32,
+              "p50_ms": 2045.72,
               "p95_ms": 4006.72
             },
             "first_section": {
-              "count": 26,
-              "p50_ms": 1221.86,
+              "count": 32,
+              "p50_ms": 1198.11,
               "p95_ms": 1820.95
             },
-            "request_counts": [
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1,
-              1
-            ]
+            "request_counts_histogram": {
+              "1": 32
+            }
           },
-          "model_requests": 26,
-          "input_tokens": 74144,
-          "output_tokens": 4404
+          "model_requests": 32,
+          "input_tokens": 91379,
+          "output_tokens": 5304
+        }
+      }
+    },
+    {
+      "report": "20261016T092541-quality-step2",
+      "model": "qwen3.5-flash",
+      "variant": "optimized",
+      "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 2940.64,
+            "p95_ms": 3878.7
+          },
+          "first_visible_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 1698.24,
+            "p95_ms": 2417.38
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2940.64,
+              "p95_ms": 3878.7
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1698.24,
+              "p95_ms": 2417.38
+            },
+            "request_counts_histogram": {
+              "1": 32
+            }
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts_histogram": {}
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts_histogram": {}
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2940.64,
+              "p95_ms": 3878.7
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1698.24,
+              "p95_ms": 2417.38
+            },
+            "request_counts_histogram": {
+              "1": 32
+            }
+          },
+          "model_requests": 32,
+          "input_tokens": 91329,
+          "output_tokens": 5233
         }
       }
     }
   ],
-  "qualification_status": "pending_console_login_and_remaining_fixed_cases",
-  "runtime_switched": false,
+  "qualification_status": "two_current_build_candidates_approved",
+  "runtime_switched": true,
   "issues": {
     "qwen3.7-plus": [
       "CB-013 unsupported mandatory document",
@@ -1366,10 +955,196 @@
     ]
   },
   "limitations": [
-    "No new candidate is approved merely from automatic pass rates.",
-    "Current-build qwen3.6-flash paired batch interrupted at quota login expiration; original results retained.",
-    "Earlier qwen3.5-flash blind review: 11 improvements,11 regressions,4 equivalent,4 incomparable; target not met.",
-    "Detailed-answer speed, final browser actual model and current-build 30-case source review remain unverified.",
-    "Budget estimates ignore free/cache discounts and preserve 41 unresolved reservations; not a provider bill."
-  ]
+    "Source-support rate covers main conclusion units, not every sentence.",
+    "No veterinary or independent second reviewer.",
+    "Current 36 paired review: 12 improved,10 regressed,6 equivalent,2 failed/incomparable; 20/no-regression target not met.",
+    "Current 36 CB-043 automated boundary-wording check failed despite delivered answer.",
+    "Current 35 CB-043 rejected: asking for missing BCS field was treated as an unbound scoring claim; rejected turn is not a quality improvement.",
+    "Actual browser waiting time and detailed-answer performance not measured in this batch."
+  ],
+  "quality_review": {
+    "models": {
+      "qwen3.6-flash": {
+        "approved": true,
+        "case_count": 30,
+        "delivery_rate": 1.0,
+        "major_source_support_rate": 0.96875,
+        "main_source_units": 32,
+        "supported_main_source_units": 31,
+        "severe_delivered_issues": 0,
+        "known_severe_raw_issues": 0,
+        "reasked_known_fields": 0,
+        "automatic_passed_cases": 29,
+        "reviewed_case_ids": [
+          "CB-001",
+          "CB-002",
+          "CB-003",
+          "CB-004",
+          "CB-005",
+          "CB-006",
+          "CB-008",
+          "CB-009",
+          "CB-010",
+          "CB-011",
+          "CB-012",
+          "CB-013",
+          "CB-015",
+          "CB-017",
+          "CB-018",
+          "CB-021",
+          "CB-022",
+          "CB-024",
+          "CB-025",
+          "CB-026",
+          "CB-028",
+          "CB-033",
+          "CB-034",
+          "CB-037",
+          "CB-040",
+          "CB-043",
+          "CB-049",
+          "CB-053",
+          "CB-057",
+          "CB-059"
+        ],
+        "report": "20261016T083301-quality-step2",
+        "timing": {
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2045.72,
+            "p95_ms": 4006.72
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 1198.11,
+            "p95_ms": 1820.95
+          }
+        },
+        "case_notes": {
+          "CB-002": "Stop-contact conclusion supported, but keeping still instruction absent from bound passage: one unsupported main unit.",
+          "CB-001": "Both directions wording can overstate the need; scope reviewed as alternatives, not mandatory purchase.",
+          "CB-043": "Primary cannot provide grams is supported; prerequisites should name health/muscle conditions more clearly."
+        }
+      },
+      "qwen3.5-flash": {
+        "approved": true,
+        "case_count": 30,
+        "delivery_rate": 0.9666666666666667,
+        "major_source_support_rate": 0.967741935483871,
+        "main_source_units": 31,
+        "supported_main_source_units": 30,
+        "severe_delivered_issues": 0,
+        "known_severe_raw_issues": 0,
+        "reasked_known_fields": 0,
+        "automatic_passed_cases": 29,
+        "reviewed_case_ids": [
+          "CB-001",
+          "CB-002",
+          "CB-003",
+          "CB-004",
+          "CB-005",
+          "CB-006",
+          "CB-008",
+          "CB-009",
+          "CB-010",
+          "CB-011",
+          "CB-012",
+          "CB-013",
+          "CB-015",
+          "CB-017",
+          "CB-018",
+          "CB-021",
+          "CB-022",
+          "CB-024",
+          "CB-025",
+          "CB-026",
+          "CB-028",
+          "CB-033",
+          "CB-034",
+          "CB-037",
+          "CB-040",
+          "CB-043",
+          "CB-049",
+          "CB-053",
+          "CB-057",
+          "CB-059"
+        ],
+        "report": "20261016T092541-quality-step2",
+        "timing": {
+          "complete_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 2940.64,
+            "p95_ms": 3878.7
+          },
+          "first_visible_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 1698.24,
+            "p95_ms": 2417.38
+          }
+        },
+        "case_notes": {
+          "CB-013": "Health records expanded to health certificate: one unsupported main unit; second paragraph correctly requires actual destination rules.",
+          "CB-021": "Initial do not close door wording is ambiguous; later paragraph permits gradual closure.",
+          "CB-009": "Third paragraph urine/appetite comparison is awkward, main cleaning/observation conclusion supported.",
+          "CB-043": "One rejected turn retained; excluded from successful source denominator."
+        }
+      }
+    },
+    "paired_36": {
+      "counts": {
+        "improved": 12,
+        "regressed": 10,
+        "tie": 6,
+        "incomparable": 2
+      },
+      "target_met": false,
+      "method": "Single assistant A/B review before key reveal; compare actual outbound evidence, not clinical review"
+    },
+    "method": "Single assistant read all 30 fixed cases, every actual raw paragraph and its actually supplied passages. Main conclusion unit per successful model turn incl. followups; local breed answer and rejected turns excluded. Secondary issues recorded separately. Not clinical accuracy. 36 paired labels reviewed before key reveal."
+  },
+  "enabled_free_quota": [
+    {
+      "model": "qwen3.5-flash",
+      "remaining": 612488,
+      "expires": "2026-12-25",
+      "autoStop": true
+    },
+    {
+      "model": "qwen3.6-flash",
+      "remaining": 649012,
+      "expires": "2026-12-25",
+      "autoStop": true
+    }
+  ],
+  "runtime": {
+    "health": {
+      "status": "ok",
+      "mode": "live",
+      "model": {
+        "id": "alibaba-auto",
+        "name": "qwen3.6-flash",
+        "label": "阿里千问 · 免费优先（自动）",
+        "provider": "alibaba",
+        "available": true,
+        "mode": "live"
+      }
+    },
+    "model_limits_enabled": false,
+    "auto_select": true,
+    "free_only": true,
+    "output_tokens": 4096
+  },
+  "preservation": {
+    "original_business_rows_unchanged_after_synthetic_cleanup": true,
+    "env_and_signing_secret_unchanged": true,
+    "unresolved_reservations": 41,
+    "backup": "20261016-173127-chat-streaming"
+  },
+  "paired_latency": {
+    "jointly_successful_turns": 30,
+    "baseline_p50_ms": 2622.77,
+    "optimized_p50_ms": 2109.745,
+    "p50_improvement_percent": 19.56,
+    "target_30_percent_met": false
+  }
 }
