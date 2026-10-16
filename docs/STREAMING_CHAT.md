@@ -63,7 +63,7 @@
 
 共享账本沿用 `backend/storage/evals/stage-one-budget.sqlite`，本轮ID `alibaba-chat-streaming-20261015`：请求前同一事务检查本轮3元和累计10元。价格取24小时内官方北京阶梯价，预算估算不使用免费或缓存折扣。旧费用和未决预留全部保留；未知用量不算零。保守金额不代表现金账单或实际余额。
 
-部署前执行 `python -m scripts.snapshot_chat_upgrade --runtime-only` 备份运行数据和私有计量文件，不迁移业务库。分发 `.env.example` 保持演示。源码包排除本机环境、数据、CLI授权、账本和运行日志；继续不推送 GitHub。
+部署前执行 `python -m scripts.snapshot_chat_upgrade --runtime-only` 备份运行数据和私有计量文件，不迁移业务库。分发 `.env.example` 保持演示。源码仓库和源码包均排除本机环境、数据、CLI授权、账本和运行日志。
 
 ## 官方依据
 
