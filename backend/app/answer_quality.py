@@ -75,7 +75,11 @@ def factual_error(text, profile, ctx):
     for timing in re.finditer(r'\d+(?:\s*[-—～至到]\s*\d+)?\s*(?:分钟|小时|周|个月|天)(?:一次|左右|后|内|以上|以下)?', text):
         value = re.sub(r'\s+', '', timing.group())
         age_prefix = text[max(0, timing.start()-14):timing.start()]
-        if profile and value == str(profile.get('age_months')) + '个月':
+        known_age = (profile or {}).get('age_months')
+        if known_age is None:
+            known_age = analysis.get('answer_context', {}).get('known_fields', {}).get('age_months', {}).get('value')
+        age_value = re.fullmatch(r'(\d+(?:\.\d+)?)个月', value)
+        if age_value and known_age is not None and float(age_value[1]) == float(known_age):
             if re.match(r'大|龄', text[timing.end():]) or (re.search(r'年龄|月龄|已知|档案|猫|狗|犬', age_prefix)
                                                        and not re.search(r'每|隔|等待|再过|建议', age_prefix)):
                 continue  # Known age is a profile fact, not a care schedule.

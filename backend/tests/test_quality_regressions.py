@@ -55,6 +55,15 @@ def test_known_age_is_not_confused_with_an_invented_care_interval():
         check_text('建议猫每24个月重新检查一次。', {'age_months':24}, ctx)
 
 
+def test_age_from_dated_user_history_is_also_a_fact_not_a_schedule():
+    history = [{'role':'user', 'id':'u1', 'created_at':'2026-10-01', 'content':'我家猫2岁。'}]
+    facts = answer_context(None, {}, history, '练习时怎么奖励？', {})
+    ctx = SimpleNamespace(effective_context={}, analysis={'answer_context':facts}, current_text='', sent_evidence={})
+    check_text('用户报告猫24个月大，年龄无需再填。', None, ctx)
+    with pytest.raises(HTTPException, match='固定安排'):
+        check_text('建议每24个月练习一次。', None, ctx)
+
+
 def test_actual_cb043_reask_is_detected_even_in_a_long_list():
     case = next(case for case in FIXTURES['context_cases'] if case['id'] == 'CB-043')
     assert repeated_known_question(case['bad'], case['known'])
