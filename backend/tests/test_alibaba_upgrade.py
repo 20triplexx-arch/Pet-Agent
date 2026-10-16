@@ -46,10 +46,10 @@ def test_environment_precedes_dotenv_and_addresses_are_explicit(tmp_path, monkey
 
 
 def test_alibaba_catalog_and_real_routing_use_own_key(client, headers, cat, monkeypatch):
-    seen = fake_provider(monkeypatch, '提供稳定抓板并按反应调整。', source='__first__')
+    seen = fake_provider(monkeypatch, '提供稳定抓板并按反应调整。', source='__first__', model='qwen3.7-plus')
     monkeypatch.setattr(settings, 'MODEL_PROVIDER', 'alibaba')
     monkeypatch.setattr(settings, 'DASHSCOPE_API_KEY', 'ali-only-private')
-    monkeypatch.setattr(settings, 'DASHSCOPE_MODEL', 'mock-model')
+    monkeypatch.setattr(settings, 'DASHSCOPE_MODEL', 'qwen3.7-plus')
     monkeypatch.setattr(settings, 'DASHSCOPE_WORKSPACE_ID', 'test-space')
     import app.model_adapter as adapter
     real_factory = adapter.AsyncOpenAI
@@ -60,7 +60,7 @@ def test_alibaba_catalog_and_real_routing_use_own_key(client, headers, cat, monk
     monkeypatch.setattr(adapter, 'AsyncOpenAI', factory)
     catalog = client.get('/api/v1/chat/models', headers=headers).json()
     ali = next(o for o in catalog['options'] if o['id'] == 'alibaba')
-    assert catalog['default_id'] == 'alibaba' and ali['label'] == '阿里千问 · mock-model' and ali['available']
+    assert catalog['default_id'] == 'alibaba' and ali['label'] == '阿里千问 · qwen3.7-plus' and ali['available']
     response = ask(client, headers, cat)
     assert response.status_code == 200, response.text
     assert options[0]['api_key'] == 'ali-only-private' and options[0]['base_url'] == settings.dashscope_url

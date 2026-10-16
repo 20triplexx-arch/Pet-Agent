@@ -54,8 +54,16 @@ def factual_error(text, profile, ctx):
             for clause in re.split(r'[。！？；;\n]', text):
                 if re.search(r'已绝育|绝育后的(?:猫|狗|犬)|成年绝育(?:猫|狗|犬)', clause) and not re.search(r'如果|若|假如|是否|未知|未确认|尚未|不能确定|需(?:要)?确认', clause):
                     return '把未知或相反的绝育状态写成了当前宠物事实'
-    if re.search(r'(?:肌肉(?:流失|损失|减少)).{0,12}(?:导致|造成).{0,8}BCS(?:异常|升高|偏高)', text, re.I):
-        return '混淆肌肉状况与脂肪体况'
+    for clause in re.split(r'[，,。！？；;\n]', text):
+        for match in re.finditer(r'肌肉(?:流失|损失|减少).{0,12}(?:导致|造成).{0,8}BCS(?:异常|升高|偏高)', clause, re.I):
+            prefix = clause[:match.start()]
+            negated = re.search(r'(?:不是|并非|而非|不能说|不应说|不能认为)$', prefix)
+            double_negative = re.search(r'(?:不是不是|并非不是|不能不说|不是不能说)$', prefix)
+            if double_negative or not negated:
+                return '混淆肌肉状况与脂肪体况'
+        if re.search(r'BCS|体况评分', text + getattr(ctx, 'current_text', ''), re.I):
+            if re.search(r'因肌肉(?:流失|损失|减少).{0,6}导致体况变差', clause):
+                return '用肌肉减少解释脂肪体况变化'
     for clause in re.split(r'[，,。！？；;\n]', text):
         # Inspect the BCS proposition itself; a correct MCS definition later in
         # the sentence must not excuse a contradictory BCS definition.
@@ -145,9 +153,13 @@ def unsupported_advice(text, article_ids):
                 return '奖励资料未支持对服从或恐惧学习机制的解释'
     if ids & {'nutrition-muscle', 'nutrition-cat-bcs', 'nutrition-dog-bcs'}:
         for clause in re.split(r'[。！？;；\n]', text):
+            if re.search(r'起身|背部.{0,6}触感', clause):
+                assertion = re.search(r'(?:应视为|视为|表明|说明|属于|是)(?:一种)?肌肉(?:损失|减少)(?:迹象|信号)', clause)
+                if assertion and not re.search(r'(?:不能|不可|不应|不宜)(?:据此|直接)?$', clause[:assertion.start()]):
+                    return '把生活观察直接当作肌肉减少迹象'
             if re.search(r'起身|背部触感', clause) and re.search(r'肌肉指标|肌肉损失信号|MCS评分标准', clause) and not re.search(r'不能|不代表|并非|不可', clause):
                 return '把生活观察直接当作肌肉评分指标或肌肉损失结论'
-            if re.search(r'MCS.{0,18}(?:需要|通过|依据|根据|评估|判断).{0,22}(?:起身|背部触感)', clause, re.I) and not re.search(r'不能|不代表|并非|不可|只是|仅是|仅作', clause):
+            if re.search(r'MCS.{0,18}(?:需(?:要)?|通过|依据|根据|评估|判断|结合).{0,22}(?:起身|背部触感)', clause, re.I) and not re.search(r'不能|不代表|并非|不可|只是|仅是|仅作', clause):
                 return '把生活观察当成正式MCS评估方法'
     if ids & {'cat-carrier', 'dog-crate'}:
         for material in ('零食', '玩具', '食物类奖励'):

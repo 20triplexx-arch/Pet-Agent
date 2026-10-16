@@ -7,7 +7,7 @@ from fastapi import HTTPException
 from app.answer_context import answer_context, repeated_known_question, response_focus
 from app.answer_sections import check_text, bind_section, AnswerSection
 from app.deep_chat import evidence_is_ready
-from app.knowledge import multi_search, evidence_sections
+from app.knowledge import multi_search, evidence_sections, passage_questions
 from sqlmodel import Session
 
 FIXTURES = json.loads((Path(__file__).parents[1] / 'evals/answer_quality_regressions.json').read_text(encoding='utf-8'))
@@ -125,6 +125,43 @@ def test_source_question_mapping_is_checked_before_emitting():
         bind_section(AnswerSection(text='包装热量需要核对单位。', evidence_ids=['e1'], question_ids=[2]),
                      {'e1': {'article_id':'cat-carrier', 'heading':'练习', 'text':'自主接近运输箱。'}},
                      ['如何练习航空箱', '食品标签怎么看'], None, ctx)
+
+
+def test_scope_supplements_only_questions_with_primary_evidence():
+    article = {'body': '## 适用范围\n健康成年个体。\n## 比例\n按总能量计算。\n## 无关章节\n其他内容。',
+               'matched_questions': ['零食占比', '无关提问'],
+               'section_questions': {'比例': ['零食占比']}}
+    assert passage_questions(article, '适用范围') == ['零食占比']
+    assert passage_questions(article, '比例') == ['零食占比']
+    assert passage_questions(article, '无关章节') == []
+    assert passage_questions({**article, 'section_questions': {}}, '适用范围') == []
+
+
+@pytest.mark.parametrize('text', ['脂肪较多仍可能同时肌肉损失，而不是肌肉损失导致BCS升高。',
+                                '不能说肌肉流失导致BCS偏高。'])
+def test_negated_bcs_error_is_a_correct_restatement(text):
+    ctx = SimpleNamespace(effective_context={}, sent_evidence={}, analysis={})
+    check_text(text, None, ctx)
+
+
+@pytest.mark.parametrize('text', ['肌肉损失导致BCS升高。', '不能不说肌肉损失导致BCS升高。',
+                                '并非肌肉损失导致BCS升高，而是肌肉减少造成BCS异常。'])
+def test_positive_bcs_error_stays_rejected(text):
+    ctx = SimpleNamespace(effective_context={}, sent_evidence={}, analysis={})
+    with pytest.raises(HTTPException, match='混淆肌肉'):
+        check_text(text, None, ctx)
+
+
+@pytest.mark.parametrize('bad,good', [
+    ('起身费力、背部触感变薄应视为肌肉减少迹象，而非疾病。', '起身费力、背部触感变化不能直接视为肌肉减少迹象。'),
+    ('MCS需结合起身费力、背部触感变化进行评估。', '起身费力、背部触感变化仅作为主人描述，不能据此给出MCS评分。'),
+    ('BCS可能因肌肉流失导致体况变差。', 'BCS评估脂肪储备，肌肉状况需要分别记录。')])
+def test_newly_captured_scoring_claims_and_correct_alternatives(bad, good):
+    ctx = SimpleNamespace(effective_context={}, analysis={}, current_text='BCS与MCS是什么',
+                          sent_evidence={'nutrition-muscle': {'概念': good}})
+    with pytest.raises(HTTPException):
+        check_text(bad, None, ctx)
+    check_text(good, None, ctx)
 
 
 @pytest.mark.parametrize('text,concept', [('猫的BCS体况与体重有什么区别？', True),

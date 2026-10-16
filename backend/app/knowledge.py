@@ -163,6 +163,23 @@ def model_sections(article):
     return [s for s in complete if s["heading"] in chosen]
 
 
+def passage_questions(article, heading):
+    """A scope passage supplements the questions its primary passages support.
+
+    It never makes an unmatched article sufficient or links an unrelated chapter.
+    """
+    mapping = article.get('section_questions', {})
+    if heading in mapping:
+        return mapping[heading]
+    complete = sections(article) if article.get('body') else []
+    is_scope = any(s['heading'] == heading and (index == 0 or re.search(
+        r'适用|边界|限制|风险|安全|就医|求助|停止', heading)) for index, s in enumerate(complete))
+    if is_scope:
+        primary = {q for linked in mapping.values() for q in linked}
+        return [q for q in article.get('matched_questions', []) if q in primary]
+    return []
+
+
 def reading_excerpt(article, query, max_chars=420):
     """Select a scope, a relevant/action section and a boundary, without copying the article."""
     blocks = [b.strip() for b in article["body"].split("\n\n") if b.strip()]

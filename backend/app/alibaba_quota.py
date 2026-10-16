@@ -13,8 +13,9 @@ from pathlib import Path
 from uuid import uuid4
 from fastapi import HTTPException
 from app.core.config import settings, ROOT
+from app.alibaba_models import DEFAULT_MODELS, family, ordered_candidates
 
-KNOWN_MODELS = ('qwen3.7-flash', 'qwen3.7-flash-2026-07-15', 'qwen3.8-flash', 'qwen-flash')
+KNOWN_MODELS = DEFAULT_MODELS  # Retained for integrations importing the old constant.
 
 
 def credential_scope():
@@ -24,14 +25,16 @@ def credential_scope():
 
 def answer_build_hash():
     digest = hashlib.sha256()
-    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'answer_context.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py'):
+    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'answer_context.py', 'alibaba_models.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py'):
         digest.update(name.encode())
         digest.update(Path(__file__).with_name(name).read_bytes())
     return digest.hexdigest()
 
 
 def configured_models():
-    return list(dict.fromkeys(name.strip() for name in settings.DASHSCOPE_FREE_MODELS.split(',') if name.strip() in KNOWN_MODELS))
+    if settings.DASHSCOPE_FREE_MODELS.strip() == 'auto':
+        return ordered_candidates(read_json(settings.DASHSCOPE_QUOTA_FILE).get('models', [])) or list(DEFAULT_MODELS)
+    return list(dict.fromkeys(name.strip() for name in settings.DASHSCOPE_FREE_MODELS.split(',') if family(name.strip())))
 
 
 def read_json(path):
@@ -198,17 +201,17 @@ def refresh_quotas(*, enable_stop=False):
     workspaces = cli_call(['workspace', 'list'])
     if not contains_workspace(workspaces, settings.DASHSCOPE_WORKSPACE_ID):
         raise RuntimeError('Console login does not match the configured workspace')
-    models = configured_models()
-    rows = cli_call(['usage', 'free', '--model', ','.join(models), '--console-region', 'cn-beijing'])
+    rows = cli_call(['usage', 'free', '--all', '--console-region', 'cn-beijing'])
     if not isinstance(rows, list):
         raise RuntimeError('Unknown free quota response format')
+    models = ordered_candidates(rows) if settings.DASHSCOPE_FREE_MODELS.strip() == 'auto' else configured_models()
     pending = [row['model'] for row in rows if row.get('model') in models
                and type(row.get('remaining')) is int and row['remaining'] > 0 and row.get('autoStop') is False]
     if enable_stop and pending:
         cli_call(['usage', 'freetier', '--model', ','.join(pending), '--on', '--console-region', 'cn-beijing'])
-        rows = cli_call(['usage', 'free', '--model', ','.join(models), '--console-region', 'cn-beijing'])
-    cleaned = [{key: row.get(key) for key in ('model', 'remaining', 'expires', 'autoStop')}
-               for row in rows if row.get('model') in models]
+        rows = cli_call(['usage', 'free', '--all', '--console-region', 'cn-beijing'])
+    cleaned = [{key: row.get(key) for key in ('model', 'type', 'remaining', 'expires', 'autoStop')}
+               for row in rows if isinstance(row, dict) and isinstance(row.get('model'), str)]
     result = {'schema_version': 1, 'credential_scope': credential_scope(), 'workspace_verified': True,
               'checked_at': time.time(), 'models': cleaned}
     target = Path(settings.DASHSCOPE_QUOTA_FILE)

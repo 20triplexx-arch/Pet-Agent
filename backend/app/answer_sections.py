@@ -9,6 +9,7 @@ from app.answer_quality import has_disallowed_health_claim, unsupported_advice, 
 from app.answer_context import repeated_known_question
 from app.model_runtime import section_sink
 from app.execution import current_execution
+from app.knowledge import passage_questions
 
 
 class AnswerSection(BaseModel):
@@ -108,8 +109,8 @@ def bind_section(section, evidence, questions, profile, ctx):
         raise HTTPException(502, '模型回答的问题对应关系无效，本次未保存。')
     mappings = [ctx.retrieved.get(evidence[ref]['article_id'], {}).get('section_questions') for ref in refs]
     if refs and all(mapping is not None for mapping in mappings):
-        linked = {question for ref, mapping in zip(refs, mappings)
-                  for question in mapping.get(evidence[ref]['heading'], [])}
+        linked = {question for ref in refs for question in passage_questions(
+            ctx.retrieved[evidence[ref]['article_id']], evidence[ref]['heading'])}
         if any(questions[q - 1] not in linked for q in section.question_ids):
             raise HTTPException(502, '模型段落所引章节与对应问题不匹配，本次未保存。')
     if evidence and not refs:
@@ -145,11 +146,13 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
     payload['evidence'] = {ref: {'source': ctx.retrieved[passage['article_id']]['title'],
         'section': passage['heading'], 'text': passage['text'],
         'questions': [i for i, question in enumerate(questions, 1)
-                      if question in ctx.retrieved[passage['article_id']].get('section_questions', {}).get(passage['heading'], [])]}
+                      if question in passage_questions(ctx.retrieved[passage['article_id']], passage['heading'])]}
         for ref, passage in evidence.items()}
     payload.pop('retrieved_data', None)
     payload['subquestions'] = {str(i): q for i, q in enumerate(questions, 1)}
     source_rules = payload.pop('source_specific_rules', [])
+    if not re.search(r'零食|奖励|比例|百分|10\s*[%％]', getattr(ctx, 'current_text', '')):
+        source_rules.append('当前问题未询问零食配额，不主动引入10%等比例；直接回答当前喂食、饮水或记录原则。')
     instructions = ('只输出JSON对象sections数组，每段含text、evidence_ids、question_ids三个字段。'
         '首段通常用25—45字直接回答当前问题，必要条件必须说全，可以适当更长；不先复述问题。'
         'text为完整自然段或完整列表项，不含引用标记、链接或内部编号；evidence_ids只取本轮evidence的编号。'
@@ -188,12 +191,14 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
     fields['question_ids']['items'] = {'type': 'integer', 'enum': list(range(1, len(questions)+1))}
     ctx.segment_schema = schema
     # SDK schema requires all declared properties, which these models already provide.
-    if ctx.selected_model.provider == 'alibaba' and ctx.selected_model.name != 'qwen-flash':
+    from app.alibaba_models import supports_schema
+    if ctx.selected_model.provider == 'alibaba' and supports_schema(ctx.selected_model.name):
         request['response_format'] = {'type': 'json_schema', 'json_schema': {
             'name': 'CareAnswerSections', 'strict': True, 'schema': schema}}
     else:
         request['response_format'] = {'type': 'json_object'}
-        request['messages'][0]['content'] += '\nJSON结构：' + json.dumps(schema, ensure_ascii=False)
+        request['messages'][0]['content'] += ('\n输出正文对象，不输出JSON Schema或字段定义。格式：'
+            '{"sections":[{"text":"完整正文","evidence_ids":["本轮证据编号"],"question_ids":[1]}]}')
     parser, emitted, sections = ClosedSections(), [], []
     usage = None
     finish = None
@@ -237,7 +242,10 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
             raise invalid
         raise HTTPException(502, '模型段落结构未通过检查，本次未保存。') from invalid
     # Require syntactically complete JSON, every question, and an explicit clean stop.
-    final = SectionAnswer.model_validate_json(parser.text)
+    try:
+        final = SectionAnswer.model_validate_json(parser.text)
+    except ValidationError as error:
+        raise HTTPException(502, '模型回答结构未通过检查，本次未保存。') from error
     if finish != 'stop' or not parser.ended or final.sections != sections:
         raise HTTPException(502, '模型输出未完整结束，本次回答未保存。')
     covered = {q for section in sections for q in section.question_ids}

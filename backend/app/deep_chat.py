@@ -315,6 +315,10 @@ async def answer_question(ctx, text, history, minutes):
     other_nutrition = bool(target and original_profile and target.id != original_profile.get("breed_id") and re.search(r"营养|吃多少|喂多少|几克|热量", text))
     queries = [question + " 热量 食物标签" for question in questions] if other_nutrition else (
         [user_history.rstrip('？?') + '，' + question for question in questions] if user_history else questions)
+    # Colloquial quantity questions otherwise have no lexical overlap with the
+    # label/energy prerequisites, despite the local assessment already reading them.
+    queries = [query + ' 喂食 克数 热量 食物标签' if re.search(r'吃多少|喂多少|几克', question) else query
+               for query, question in zip(queries, questions)]
     articles = multi_search(ctx.session, species, queries, breed_id=ctx.breed_scope,
         life_stage=profile_stage(p) if p and (not target or target.id == p.get("breed_id")) else None,
         content_kind="food" if other_nutrition else None, personal=True)

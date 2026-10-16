@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     DASHSCOPE_MODEL: str = "qwen3.7-flash"
     DASHSCOPE_AUTO_SELECT: bool = False
     DASHSCOPE_FREE_ONLY: bool = True
-    DASHSCOPE_FREE_MODELS: str = "qwen3.7-flash,qwen3.7-flash-2026-07-15,qwen3.8-flash,qwen-flash"
+    DASHSCOPE_FREE_MODELS: str = "auto"
     DASHSCOPE_QUOTA_FILE: str = str(STORAGE / 'alibaba-quota.json')
     DASHSCOPE_QUALIFIED_FILE: str = str(STORAGE / 'alibaba-qualified.json')
     DASHSCOPE_QUOTA_MAX_AGE_SECONDS: int = Field(default=180, ge=60, le=300)

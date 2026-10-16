@@ -3,7 +3,8 @@ import argparse
 import json
 from pathlib import Path
 from datetime import datetime, UTC
-from app.alibaba_quota import answer_build_hash, KNOWN_MODELS
+from app.alibaba_quota import answer_build_hash
+from app.alibaba_models import family
 from app.core.config import settings
 
 
@@ -14,7 +15,7 @@ def qualify(review):
     approved = {}
     for model in review['order']:
         item = review['models'][model]
-        if model not in KNOWN_MODELS or not item.get('approved'):
+        if not family(model) or not item.get('approved'):
             continue
         if not (item['case_count'] >= 30 and item['delivery_rate'] >= .9
                 and item['major_source_support_rate'] >= .95 and item['severe_delivered_issues'] == 0):

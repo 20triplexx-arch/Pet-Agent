@@ -1,0 +1,1375 @@
+{
+  "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
+  "catalog": {
+    "entries": 236,
+    "positive_remaining_entries": 236,
+    "text_entries": 68,
+    "general_chat_candidates": [
+      "qwen3.7-plus",
+      "qwen3.6-flash",
+      "qwen3.5-flash",
+      "qwen-flash-2025-07-28",
+      "qwen3.8-flash",
+      "qwen3.7-flash-2026-07-15",
+      "qwen-flash",
+      "qwen-plus",
+      "qwen-plus-latest",
+      "qwen3.7-max",
+      "qwen-max",
+      "qwen-plus-2025-01-25",
+      "qwen-plus-2025-04-28",
+      "qwen-plus-2025-07-14",
+      "qwen-plus-2025-12-01",
+      "qwen3.5-flash-2026-02-23",
+      "qwen3.5-plus",
+      "qwen3.5-plus-2026-02-15",
+      "qwen3.5-plus-2026-04-20",
+      "qwen3.6-flash-2026-04-16",
+      "qwen3.6-plus",
+      "qwen3.6-plus-2026-04-02",
+      "qwen3.7-max-2026-05-17",
+      "qwen3.7-max-2026-05-20",
+      "qwen3.7-max-2026-06-08",
+      "qwen3.7-max-preview",
+      "qwen3.7-plus-2026-05-26",
+      "qwen3.8-max",
+      "qwen3.8-max-0902"
+    ],
+    "automatically_qualified_models_current_build": []
+  },
+  "budget": {
+    "conservative_used_cny": 7.678743,
+    "run_used_cny": 1.903332,
+    "unresolved_reservations": 41,
+    "cumulative_limit_cny": 10,
+    "run_limit_cny": 3,
+    "run_id": "alibaba-chat-streaming-20261015"
+  },
+  "runs": [
+    {
+      "report": "20261016T080129-quality-step2",
+      "model": "qwen3.7-plus",
+      "variant": "optimized",
+      "answer_build_sha256": "359c338791ef406621b75ce5b130fac9631ff2e588265d97536e619eced44ef8",
+      "status": "stopped_without_retry",
+      "metrics": {
+        "optimized": {
+          "cases": 1,
+          "passed": 0,
+          "failed": 1,
+          "complete_successful_model_answers": null,
+          "first_visible_successful_model_answers": null,
+          "ordinary": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "model_requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "report": "20261016T080256-quality-step2",
+      "model": "qwen3.7-plus",
+      "variant": "optimized",
+      "answer_build_sha256": "359c338791ef406621b75ce5b130fac9631ff2e588265d97536e619eced44ef8",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 5991.49,
+            "p95_ms": 6898.95
+          },
+          "first_visible_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 2774.58,
+            "p95_ms": 3542.61
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 5991.49,
+              "p95_ms": 6898.95
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2774.58,
+              "p95_ms": 3542.61
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 29,
+            "failures": 0,
+            "complete": {
+              "count": 29,
+              "p50_ms": 5967.47,
+              "p95_ms": 6898.95
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 2764.83,
+              "p95_ms": 3542.61
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 3,
+            "failures": 1,
+            "complete": {
+              "count": 2,
+              "p50_ms": 6591.18,
+              "p95_ms": 6663.56
+            },
+            "first_section": {
+              "count": 2,
+              "p50_ms": 3215.17,
+              "p95_ms": 3391.64
+            },
+            "request_counts": [
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 89373,
+          "output_tokens": 9261
+        }
+      }
+    },
+    {
+      "report": "20261016T080639-quality-step2",
+      "model": "qwen3.6-flash",
+      "variant": "optimized",
+      "answer_build_sha256": "359c338791ef406621b75ce5b130fac9631ff2e588265d97536e619eced44ef8",
+      "status": "stopped_without_retry",
+      "metrics": {
+        "optimized": {
+          "cases": 14,
+          "passed": 11,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 11,
+            "p50_ms": 1921.69,
+            "p95_ms": 3360.3
+          },
+          "first_visible_successful_model_answers": {
+            "count": 11,
+            "p50_ms": 1332.82,
+            "p95_ms": 1792.75
+          },
+          "ordinary": {
+            "turns": 14,
+            "failures": 3,
+            "complete": {
+              "count": 11,
+              "p50_ms": 1921.69,
+              "p95_ms": 3360.3
+            },
+            "first_section": {
+              "count": 11,
+              "p50_ms": 1332.82,
+              "p95_ms": 1792.75
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 14,
+            "failures": 3,
+            "complete": {
+              "count": 11,
+              "p50_ms": 1921.69,
+              "p95_ms": 3360.3
+            },
+            "first_section": {
+              "count": 11,
+              "p50_ms": 1332.82,
+              "p95_ms": 1792.75
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 14,
+          "input_tokens": 43220,
+          "output_tokens": 2931
+        }
+      }
+    },
+    {
+      "report": "20261016T081640-quality-step2",
+      "model": "qwen3.6-flash",
+      "variant": "optimized",
+      "answer_build_sha256": "8bf2324980222f754a143a394cc5b028adc91080c5d951520eacd92399bc9430",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 2042.01,
+            "p95_ms": 3415.68
+          },
+          "first_visible_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 1189.57,
+            "p95_ms": 1764.18
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2042.01,
+              "p95_ms": 3415.68
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1189.57,
+              "p95_ms": 1764.18
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2042.01,
+              "p95_ms": 3415.68
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1189.57,
+              "p95_ms": 1764.18
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 34,
+          "input_tokens": 102107,
+          "output_tokens": 4688
+        }
+      }
+    },
+    {
+      "report": "20261016T081837-quality-step2",
+      "model": "qwen3.5-flash",
+      "variant": "optimized",
+      "answer_build_sha256": "8bf2324980222f754a143a394cc5b028adc91080c5d951520eacd92399bc9430",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 2994.25,
+            "p95_ms": 5418.59
+          },
+          "first_visible_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 1663.53,
+            "p95_ms": 2560.81
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2994.25,
+              "p95_ms": 5418.59
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1663.53,
+              "p95_ms": 2560.81
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2994.25,
+              "p95_ms": 5418.59
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1663.53,
+              "p95_ms": 2560.81
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 90731,
+          "output_tokens": 5932
+        }
+      }
+    },
+    {
+      "report": "20261016T082216-quality-step2",
+      "model": "qwen3.5-flash",
+      "variant": "paired",
+      "answer_build_sha256": "93b4e75d878344d89760c3ea798a04cfd5e8325fb6f916d093718a410c8a7094",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 3368.63,
+            "p95_ms": 6450.98
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 1892.83,
+            "p95_ms": 3837.33
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3368.63,
+              "p95_ms": 6450.98
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1892.83,
+              "p95_ms": 3837.33
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3368.63,
+              "p95_ms": 6450.98
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1892.83,
+              "p95_ms": 3837.33
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 91155,
+          "output_tokens": 6788
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 3103.23,
+            "p95_ms": 3805.88
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 1774.05,
+            "p95_ms": 2126.39
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3103.23,
+              "p95_ms": 3805.88
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1774.05,
+              "p95_ms": 2126.39
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3103.23,
+              "p95_ms": 3805.88
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1774.05,
+              "p95_ms": 2126.39
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 90489,
+          "output_tokens": 5855
+        }
+      }
+    },
+    {
+      "report": "20261016T082707-quality-step2",
+      "model": "qwen-flash-2025-07-28",
+      "variant": "optimized",
+      "answer_build_sha256": "93b4e75d878344d89760c3ea798a04cfd5e8325fb6f916d093718a410c8a7094",
+      "status": "awaiting_source_review",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 22,
+          "failed": 8,
+          "complete_successful_model_answers": {
+            "count": 23,
+            "p50_ms": 1904.01,
+            "p95_ms": 2699.65
+          },
+          "first_visible_successful_model_answers": {
+            "count": 23,
+            "p50_ms": 1028.46,
+            "p95_ms": 1684.87
+          },
+          "ordinary": {
+            "turns": 31,
+            "failures": 8,
+            "complete": {
+              "count": 23,
+              "p50_ms": 1904.01,
+              "p95_ms": 2699.65
+            },
+            "first_section": {
+              "count": 23,
+              "p50_ms": 1028.46,
+              "p95_ms": 1684.87
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 31,
+            "failures": 8,
+            "complete": {
+              "count": 23,
+              "p50_ms": 1904.01,
+              "p95_ms": 2699.65
+            },
+            "first_section": {
+              "count": 23,
+              "p50_ms": 1028.46,
+              "p95_ms": 1684.87
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 33,
+          "input_tokens": 99748,
+          "output_tokens": 6538
+        }
+      }
+    },
+    {
+      "report": "20261016T083105-quality-step2",
+      "model": "qwen3.6-flash",
+      "variant": "paired",
+      "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
+      "status": "stopped_without_retry",
+      "metrics": {
+        "baseline": {
+          "cases": 1,
+          "passed": 0,
+          "failed": 1,
+          "complete_successful_model_answers": null,
+          "first_visible_successful_model_answers": null,
+          "ordinary": {
+            "turns": 1,
+            "failures": 1,
+            "complete": null,
+            "first_section": null,
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 1,
+            "complete": null,
+            "first_section": null,
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 1,
+          "input_tokens": 2672,
+          "output_tokens": 297
+        },
+        "optimized": {
+          "cases": 0,
+          "passed": 0,
+          "failed": 0,
+          "complete_successful_model_answers": null,
+          "first_visible_successful_model_answers": null,
+          "ordinary": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "model_requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "report": "20261016T083301-quality-step2",
+      "model": "qwen3.6-flash",
+      "variant": "paired",
+      "answer_build_sha256": "6f6d957aed1fd9cf2397c8a8baecc99d5dbc8927c1058491d185deb4016debae",
+      "status": "blocked",
+      "metrics": {
+        "baseline": {
+          "cases": 25,
+          "passed": 23,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 23,
+            "p50_ms": 2716.51,
+            "p95_ms": 4111.17
+          },
+          "first_visible_successful_model_answers": {
+            "count": 23,
+            "p50_ms": 1432.19,
+            "p95_ms": 1712.7
+          },
+          "ordinary": {
+            "turns": 25,
+            "failures": 2,
+            "complete": {
+              "count": 23,
+              "p50_ms": 2716.51,
+              "p95_ms": 4111.17
+            },
+            "first_section": {
+              "count": 23,
+              "p50_ms": 1432.19,
+              "p95_ms": 1712.7
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 25,
+            "failures": 2,
+            "complete": {
+              "count": 23,
+              "p50_ms": 2716.51,
+              "p95_ms": 4111.17
+            },
+            "first_section": {
+              "count": 23,
+              "p50_ms": 1432.19,
+              "p95_ms": 1712.7
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 25,
+          "input_tokens": 71692,
+          "output_tokens": 5490
+        },
+        "optimized": {
+          "cases": 26,
+          "passed": 25,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 26,
+            "p50_ms": 2109.74,
+            "p95_ms": 4006.72
+          },
+          "first_visible_successful_model_answers": {
+            "count": 26,
+            "p50_ms": 1221.86,
+            "p95_ms": 1820.95
+          },
+          "ordinary": {
+            "turns": 26,
+            "failures": 0,
+            "complete": {
+              "count": 26,
+              "p50_ms": 2109.74,
+              "p95_ms": 4006.72
+            },
+            "first_section": {
+              "count": 26,
+              "p50_ms": 1221.86,
+              "p95_ms": 1820.95
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 26,
+            "failures": 0,
+            "complete": {
+              "count": 26,
+              "p50_ms": 2109.74,
+              "p95_ms": 4006.72
+            },
+            "first_section": {
+              "count": 26,
+              "p50_ms": 1221.86,
+              "p95_ms": 1820.95
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 26,
+          "input_tokens": 74144,
+          "output_tokens": 4404
+        }
+      }
+    }
+  ],
+  "qualification_status": "pending_console_login_and_remaining_fixed_cases",
+  "runtime_switched": false,
+  "issues": {
+    "qwen3.7-plus": [
+      "CB-013 unsupported mandatory document",
+      "CB-018 unsupported bone explanation",
+      "CB-040 unsupported formal MCS method"
+    ],
+    "qwen3.6-flash_earlier_build": [
+      "CB-008 condition omission rejected",
+      "CB-009 unsupported disease prevalence",
+      "CB-018 muscle/BCS confusion",
+      "CB-040 correct negation falsely rejected (fixed)"
+    ],
+    "qwen3.5-flash_earlier_build": [
+      "CB-008/028 condition omission rejected",
+      "CB-040 formal scoring/observation confusion (new guard added)"
+    ],
+    "qwen-flash-2025-07-28": [
+      "22/30 automatic pass; below qualification delivery threshold"
+    ]
+  },
+  "limitations": [
+    "No new candidate is approved merely from automatic pass rates.",
+    "Current-build qwen3.6-flash paired batch interrupted at quota login expiration; original results retained.",
+    "Earlier qwen3.5-flash blind review: 11 improvements,11 regressions,4 equivalent,4 incomparable; target not met.",
+    "Detailed-answer speed, final browser actual model and current-build 30-case source review remain unverified.",
+    "Budget estimates ignore free/cache discounts and preserve 41 unresolved reservations; not a provider bill."
+  ]
+}

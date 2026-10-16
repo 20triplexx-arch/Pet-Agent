@@ -92,6 +92,8 @@ powershell -ExecutionPolicy Bypass -File scripts/start.ps1 -Rebuild
 
 回答质量回归保留在 `backend/evals/answer_quality_regressions.json`。本轮同模型流式对照使用 `python -m evals.quality_compare`，固定基线 `8d8bfe7`；先运行 `--preflight-only` 核验免费余额及原共享预算。额度不足时不发起模型请求。审查方法、未达项及运行切换条件见[质量修复报告](evaluations/ANSWER_QUALITY_STEP2.md)。
 
+免费池默认 `DASHSCOPE_FREE_MODELS=auto`。`python -m evals.quality_compare --model qwen3.6-flash --variant paired` 使用相同模型与当前流式接口交错比较；`--variant optimized` 对新候选执行固定30组资格测试。两者沿用原共享账本与3元/10元上限。先设置隔离数据库环境再加载运行配置；旧版已知本地JSON拒绝保留失败状态并继续下一不同场景，网络、预算和未知服务错误仍停止，不重试失败输入。
+
 ## 容器与源码包
 
 ```powershell

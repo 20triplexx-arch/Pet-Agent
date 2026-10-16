@@ -23,8 +23,8 @@ BASELINE = '8d8bfe7ca4905aee73f5fd99163ffd8d99974b80'
 MODEL = 'qwen3.8-flash'
 
 
-def preflight(cases, safe_tokens, budget):
-    turns = sum(len(case.get('turns', [])) for case in cases) * 2
+def preflight(cases, safe_tokens, budget, *, variants=2):
+    turns = sum(len(case.get('turns', [])) for case in cases) * variants
     # The prior same-model review used ~2,800 tokens/turn. Reserve a forecast
     # of 4,000 plus room for the largest single wire reservation. Actual calls
     # still undergo the authoritative atomic token/price checks individually.
@@ -48,6 +48,18 @@ def budget_snapshot():
     return {'conservative_used_cny': (used or 0) / 1e6, 'run_used_cny': run_used / 1e6,
             'unresolved_reservations': pending or 0, 'cumulative_limit_cny': 10, 'run_limit_cny': 3,
             'run_id': 'alibaba-chat-streaming-20261015'}
+
+
+def stop_for_failure(row, wire):
+    """An old revision's locally rejected JSON is a result, not an outage.
+
+    Keep its original failure status and move to the next distinct case, without
+    retrying the failed input. Unknown service/budget failures still stop.
+    """
+    local_json_rejection = any(entry.get('internal_error') == 'ValidationError' and any(
+        frame.get('file') == 'answer_sections.py' for frame in entry.get('frames', [])) for entry in wire)
+    return any(turn['status'] in (429, 504) or (turn['status'] == 503 and not local_json_rejection)
+               for turn in row['turns'])
 
 
 def freeze_baseline(folder):
@@ -91,12 +103,18 @@ def main():
     parser.add_argument('--worker', action='store_true')
     parser.add_argument('--folder')
     parser.add_argument('--pricing')
+    parser.add_argument('--resume', type=Path, help='Complete only unexecuted cases from a compatible report folder')
+    parser.add_argument('--model', choices=('qwen3.8-flash', 'qwen3.7-plus', 'qwen3.6-flash', 'qwen3.5-flash', 'qwen-flash-2025-07-28'), default=MODEL)
+    parser.add_argument('--variant', choices=('paired', 'optimized'), default='paired')
     args = parser.parse_args()
     from evals import streaming_compare as shared
     if args.worker:
         # Both revisions already implement streaming; do not use the older
         # shared comparator's non-streaming baseline or its compatibility overlay.
-        args.worker, args.model = 'optimized', MODEL
+        args.worker = 'optimized'
+        # Only model capability/accounting glue is shared with the frozen
+        # baseline; its answer prompt, retrieval and validation stay unchanged.
+        args.capability_overlay = True
         shared.worker(args)
         return 0
     from evals.runner import load_cases
@@ -105,21 +123,35 @@ def main():
     cases = [case for case in dataset['cases'] if case['id'] in {'CB-' + i for i in shared.REVIEW_IDS}]
     if len(cases) != 30:
         raise ValueError('The fixed thirty-case review set changed')
-    folder = ROOT / 'artifacts/evaluations' / (datetime.now(UTC).strftime('%Y%m%dT%H%M%S') + '-quality-step2')
-    folder.mkdir(parents=True)
-    report = {'created_at': datetime.now(UTC).isoformat(), 'model': MODEL, 'baseline_commit': BASELINE, 'dataset_sha256': dataset_hash,
+    folder = args.resume or ROOT / 'artifacts/evaluations' / (datetime.now(UTC).strftime('%Y%m%dT%H%M%S') + '-quality-step2')
+    folder.mkdir(parents=True, exist_ok=bool(args.resume))
+    variants = ('baseline', 'optimized') if args.variant == 'paired' else ('optimized',)
+    report = {'created_at': datetime.now(UTC).isoformat(), 'model': args.model, 'variant':args.variant, 'baseline_commit': BASELINE, 'dataset_sha256': dataset_hash,
               'benchmark_sha256': hashlib.sha256(Path(__file__).read_bytes() + Path(shared.__file__).read_bytes()).hexdigest(),
-              'answer_build_sha256': quota.answer_build_hash(), 'results': {'baseline': [], 'optimized': []},
+              'answer_build_sha256': quota.answer_build_hash(), 'results': {variant:[] for variant in variants},
               'measurement': 'Both revisions use /chat/stream; first checked section and committed final, browser network excluded',
               'review_method': 'Assistant blind paired source review: facts, support, coverage, usefulness, conciseness; not veterinary accuracy',
               'quality_targets': {'improved_cases': 20, 'regressed_cases': 0, 'major_source_support_rate': .95,
                                   'known_severe_raw_issues': 0, 'reasked_known_fields': 0}}
+    if args.resume:
+        prior = json.loads((folder / 'report.json').read_text(encoding='utf-8'))
+        for key in ('model', 'variant', 'baseline_commit', 'dataset_sha256', 'answer_build_sha256'):
+            if prior[key] != report[key]:
+                raise ValueError('Resume identity changed: ' + key)
+        allowed = {case['id'] for case in cases}
+        for rows in prior['results'].values():
+            if len({row['id'] for row in rows}) != len(rows) or any(row['id'] not in allowed for row in rows):
+                raise ValueError('Resume contains duplicate or foreign cases')
+        report = prior
+    segment = {'started_at': datetime.now(UTC).isoformat(), 'resumed': bool(args.resume),
+               'benchmark_sha256': hashlib.sha256(Path(__file__).read_bytes() + Path(shared.__file__).read_bytes()).hexdigest()}
+    report.setdefault('segments', []).append(segment)
     try:
         quota.refresh_quotas()
         data = quota.snapshot()
         with quota.ledger() as db:
-            safe = next((quota.remaining(row, data['checked_at'], db) for row in data.get('models', []) if row['model'] == MODEL), 0)
-        report['preflight'] = preflight(cases, safe, budget_snapshot())
+            safe = next((quota.remaining(row, data['checked_at'], db) for row in data.get('models', []) if row['model'] == args.model), 0)
+        report['preflight'] = preflight(cases, safe, budget_snapshot(), variants=len(variants))
     except (OSError, RuntimeError, ValueError, sqlite3.Error, subprocess.SubprocessError):
         report['preflight'] = {'allowed': False, 'reasons': ['preflight_state_unverifiable']}
     def save():
@@ -128,32 +160,50 @@ def main():
     save()
     if not report['preflight']['allowed'] or args.preflight_only:
         report['status'] = 'blocked' if not report['preflight']['allowed'] else 'preflight_only'
-        report['real_model_requests'] = 0
+        segment['new_real_model_requests'] = 0
         save()
         print(json.dumps({'report': str(folder / 'report.json'), 'status': report['status'], 'preflight': report['preflight']}))
         return 2 if report['status'] == 'blocked' else 0
-    prices = shared.verified_price(MODEL)
+    prices = shared.verified_price(args.model)
     price_file = folder / 'pricing.json'
     price_file.write_text(json.dumps(prices), encoding='utf-8')
     baseline, checksum = freeze_baseline(folder / 'frozen')
+    if report.get('baseline_archive_sha256', checksum) != checksum:
+        raise ValueError('Frozen baseline changed')
     report['baseline_archive_sha256'] = checksum
+    if args.variant == 'paired':
+        import shutil
+        overlays = ('alibaba_models.py', 'alibaba_quota.py', 'evaluation_budget.py', 'core/config.py')
+        for relative in overlays:
+            shutil.copy2(BACKEND / 'app' / relative, baseline / 'app' / relative)
+        report['baseline_transport_overlays'] = {relative:hashlib.sha256((baseline/'app'/relative).read_bytes()).hexdigest() for relative in overlays}
     workers, logs = {}, []
     try:
         for variant, source in (('baseline', baseline), ('optimized', BACKEND)):
+            if variant not in variants:
+                continue
             work = Path(tempfile.mkdtemp(prefix='quality-' + variant + '-', dir=BACKEND / 'storage/evals'))
-            log = (folder / (variant + '-stderr.log')).open('w', encoding='utf-8')
+            if args.resume:
+                import shutil
+                previous = Path(report['private_worker_folders'][variant])
+                for row in report['results'][variant]:
+                    shutil.copy2(previous / (row['id'] + '-wire.json'), work)
+            log = (folder / (variant + '-stderr-' + str(len(report['segments'])) + '.log')).open('w', encoding='utf-8')
             logs.append(log)
             env = dict(os.environ, PYTHONUTF8='1', PYTHONPATH=str(source) + os.pathsep + str(BACKEND))
             process = subprocess.Popen([sys.executable, '-u', str(Path(__file__).resolve()), '--worker',
-                '--folder', str(work), '--pricing', str(price_file)], cwd=BACKEND, env=env, stdin=subprocess.PIPE,
+                '--folder', str(work), '--pricing', str(price_file), '--model', args.model], cwd=BACKEND, env=env, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=log, text=True, encoding='utf-8',
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
             workers[variant] = process
             shared.read_event(process, 'ready')
             report.setdefault('private_worker_folders', {})[variant] = str(work)
+            segment.setdefault('worker_folders', {})[variant] = str(work)
         for index, case in enumerate(cases):
             # Interleave sequentially, avoiding self-induced parallel latency.
-            for variant in (('baseline', 'optimized') if index % 2 == 0 else ('optimized', 'baseline')):
+            for variant in (variants if index % 2 == 0 else tuple(reversed(variants))):
+                if any(row['id'] == case['id'] for row in report['results'][variant]):
+                    continue
                 process = workers[variant]
                 process.stdin.write(json.dumps(case) + '\n')
                 process.stdin.flush()
@@ -161,11 +211,19 @@ def main():
                 report['results'][variant].append(event['row'])
                 report['budget'] = event['budget']
                 save()
-                if any(turn['status'] in (429, 503, 504) for turn in event['row']['turns']):
+                print(json.dumps({'case':case['id'], 'variant':variant, 'model':args.model,
+                    'passed':event['row']['passed'], 'run_used_cny':event['budget']['run_used_cny']}), flush=True)
+                wire = json.loads((Path(report['private_worker_folders'][variant]) / (case['id'] + '-wire.json')).read_text(encoding='utf-8'))
+                if stop_for_failure(event['row'], wire):
                     report['status'] = 'stopped_without_retry'
                     return 2
         report['status'] = 'awaiting_source_review'
-        blind_review(report, folder)
+        if args.variant == 'paired':
+            blind_review(report, folder)
+    except (OSError, RuntimeError, ValueError) as error:
+        report['status'] = 'worker_failed_without_retry'
+        segment['failure'] = type(error).__name__
+        return 2
     finally:
         for process in workers.values():
             process.stdin.close()

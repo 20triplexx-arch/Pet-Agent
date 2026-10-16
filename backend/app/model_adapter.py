@@ -58,7 +58,8 @@ def provider_options(selection):
 
 
 def native_schema(selection):
-    return selection.provider == 'alibaba' and selection.name != 'qwen-flash'
+    from app.alibaba_models import supports_schema
+    return selection.provider == 'alibaba' and supports_schema(selection.name)
 
 
 def remember_evidence(ctx, article_id, passages):
@@ -285,7 +286,8 @@ async def run_model(ctx, text, history, profile, articles):
                             'name': 'CareAnswerSections', 'strict': True, 'schema': ctx.segment_schema}}
                     else:
                         kwargs['response_format'] = {'type': 'json_object'}
-                        schema_hint = 'JSON结构：' + json.dumps(ctx.segment_schema, ensure_ascii=False)
+                        schema_hint = ('输出正文对象，不输出JSON Schema或字段定义。格式：'
+                            '{"sections":[{"text":"完整正文","evidence_ids":["本轮证据编号"],"question_ids":[1]}]}')
                         if schema_hint not in kwargs['messages'][0]['content']:
                             kwargs['messages'][0]['content'] += '\n' + schema_hint
                 elif not native_schema(selection) and isinstance(kwargs.get('response_format'), dict) and kwargs['response_format'].get('type') == 'json_schema':

@@ -15,11 +15,16 @@ from datetime import datetime, UTC
 BACKEND = Path(__file__).resolve().parents[1]
 ROOT = BACKEND.parent
 RUN_ID = 'alibaba-chat-streaming-20261015'
-MODELS = ('qwen3.7-flash-2026-07-15', 'qwen3.8-flash', 'qwen-flash')
+MODELS = ('qwen3.7-flash-2026-07-15', 'qwen3.8-flash', 'qwen-flash',
+          'qwen3.7-plus', 'qwen3.6-flash', 'qwen3.5-flash', 'qwen3.7-max', 'qwen-flash-2025-07-28')
 REVIEW_IDS = '001 003 004 008 009 012 017 018 021 022 024 025 028 033 037 040 043 049 053 057 002 005 006 010 011 013 015 026 034 059'.split()
 
 
 def verified_price(model):
+    from app.alibaba_models import family
+    from evals.alibaba_prices import TARIFFS, verified_price as reviewed_price
+    if family(model) in TARIFFS:
+        return reviewed_price(model)
     if model == MODELS[0]:
         from evals.alibaba_compare import verify_pricing
         result = verify_pricing()
@@ -27,12 +32,12 @@ def verified_price(model):
     import re
     import html
     import urllib.request
-    url = 'https://help.aliyun.com/zh/model-studio/' + ('qwen-flash' if model == 'qwen-flash' else 'qwen3-8-flash')
+    url = 'https://help.aliyun.com/zh/model-studio/' + ('qwen-flash' if family(model) == 'qwen-flash' else 'qwen3-8-flash')
     raw = urllib.request.urlopen(url, timeout=25).read().decode()
     text = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', raw)).replace('\\n', ' '))
     block = text[text.index('模型价格'):]
     block = block[block.index('华北'):block.index('新加坡')]
-    if model == 'qwen-flash':
+    if family(model) == 'qwen-flash':
         prices = re.findall(r'输入\s+([\d.]+)\s+每百万\s*tokens\s+输出\s+([\d.]+)\s+每百万\s*tokens', block)
         if prices != [('0.15', '1.5'), ('0.6', '6'), ('1.2', '12')]:
             raise ValueError('Official Qwen Flash tariff could not be verified')
@@ -91,6 +96,12 @@ def worker(args):
     folder = Path(args.folder)
     pets = setup_database(folder)
     from app.core.config import settings
+    if getattr(args, 'capability_overlay', False):
+        # Import after isolated worker environment initialization, otherwise a
+        # developer's .env can silently select the serving auto pool in evals.
+        import app.model_adapter as adapter
+        from app.alibaba_models import supports_schema
+        adapter.native_schema = lambda selection: selection.provider == 'alibaba' and supports_schema(selection.name)
     from app import alibaba_quota as free
     from app.evaluation_budget import EvaluationBudget, current_budget
     prices = json.loads(Path(args.pricing).read_text(encoding='utf-8'))

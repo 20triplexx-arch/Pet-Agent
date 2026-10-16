@@ -14,7 +14,7 @@ from app.core.config import settings
 from app.models import Message
 
 
-def fake_stream(monkeypatch, *, bad_ref=False, missing_question=False, finish='stop', truncated=False):
+def fake_stream(monkeypatch, *, bad_ref=False, missing_question=False, finish='stop', truncated=False, schema_echo=False):
     requests = []
     def handler(request):
         body = json.loads(request.content)
@@ -26,7 +26,7 @@ def fake_stream(monkeypatch, *, bad_ref=False, missing_question=False, finish='s
             {'text': '先提供稳定的替代抓挠位置，再观察实际使用情况。',
              'evidence_ids': ['invented'] if bad_ref else refs[:1], 'question_ids': questions[:1] if missing_question else questions},
             {'text': '根据实际反应调整位置，不强迫靠近。', 'evidence_ids': refs[:1], 'question_ids': questions[:1]}]}
-        content = json.dumps(output, ensure_ascii=False)
+        content = json.dumps({'type': 'object', 'properties': {'sections': {}}} if schema_echo else output, ensure_ascii=False)
         if truncated:
             content = content[:-2]
         events = []
@@ -85,7 +85,7 @@ def test_stream_checks_sections_then_commits_and_replays(client, headers, cat, m
 
 
 @pytest.mark.parametrize('options,early', [({'bad_ref': True}, False), ({'missing_question': True}, True),
-    ({'finish': 'length'}, True), ({'truncated': True}, True)])
+    ({'finish': 'length'}, True), ({'truncated': True}, True), ({'schema_echo': True}, False)])
 def test_invalid_final_retracts_and_never_saves_half_reply(client, headers, cat, db, monkeypatch, options, early):
     fake_stream(monkeypatch, **options)
     extra = {'text': '猫抓沙发怎么办？猫独处如何互动？'} if options.get('missing_question') else {}
@@ -97,6 +97,24 @@ def test_invalid_final_retracts_and_never_saves_half_reply(client, headers, cat,
     assert client.get('/api/v1/chat/status', headers={**headers, 'Idempotency-Key': 'stream'}).json()['state'] == 'failed'
     usage = client.get('/api/v1/usage', headers=headers).json()
     assert usage['input_tokens'] == 400  # Local rejection still consumes the final usage chunk.
+
+
+def test_older_free_model_receives_answer_shape_not_schema(client, headers, cat, monkeypatch):
+    calls = fake_stream(monkeypatch)
+    monkeypatch.setattr(settings, 'DASHSCOPE_MODEL', 'qwen3.6-flash')
+    result = events(ask(client, headers, cat))
+    assert result[-1][0] == 'final'
+    assert calls[0]['response_format'] == {'type': 'json_object'}
+    instructions = calls[0]['messages'][0]['content']
+    assert '不输出JSON Schema' in instructions and '$defs' not in instructions
+
+
+def test_colloquial_food_quantity_uses_preloaded_prerequisites_once(client, headers, cat, monkeypatch):
+    calls = fake_stream(monkeypatch)
+    result = events(ask(client, headers, cat, text='我家猫吃多少克？'))
+    assert result[-1][0] == 'final'
+    assert len(calls) == 1 and not calls[0].get('tools')
+    assert result[-1][1]['execution']['answer_path'] == 'direct'
 
 
 def test_parser_never_emits_unclosed_object_and_handles_escaped_braces():

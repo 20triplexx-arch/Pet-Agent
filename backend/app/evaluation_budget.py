@@ -18,7 +18,12 @@ class EvaluationBudget:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.pricing = pricing
-        if pricing["currency"] != "CNY" or pricing["model"] not in ("deepseek-flash", "qwen3.7-flash", "qwen3.7-flash-2026-07-15", "qwen3.8-flash", "qwen-flash"):
+        from app.alibaba_models import family
+        group = family(pricing['model'])
+        bounds = {'qwen3.7-flash':[32768, 262144, 1000000], 'qwen3.8-flash':[1000000],
+                  'qwen-flash':[131072, 262144, 1000000], 'qwen3.5-flash':[131072, 262144, 1000000],
+                  'qwen3.6-flash':[262144, 1000000], 'qwen3.7-plus':[262144, 1000000], 'qwen3.7-max':[1000000]}
+        if pricing["currency"] != "CNY" or (pricing['model'] != 'deepseek-flash' and group not in bounds):
             raise ValueError("Unsupported evaluation pricing")
         checked = datetime.fromisoformat(pricing["checked_at"])
         age = (datetime.now(UTC) - checked).total_seconds()
@@ -28,7 +33,7 @@ class EvaluationBudget:
         self.output_token_limit = 4096 if self.provider == "alibaba" else 1800
         if self.provider == "alibaba":
             tiers = pricing.get("tiers", [])
-            expected = [131072, 262144, 1000000] if pricing['model'] == 'qwen-flash' else [1000000] if pricing['model'] == 'qwen3.8-flash' else [32768, 262144, 1000000]
+            expected = bounds[group]
             if [t.get("max_input_tokens") for t in tiers] != expected:
                 raise ValueError("Verified Alibaba input tiers are required")
         else:
