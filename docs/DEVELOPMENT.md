@@ -90,6 +90,8 @@ powershell -ExecutionPolicy Bypass -File scripts/start.ps1 -Rebuild
 
 模型自由问答只读；保存计划、创建提醒和记录要求明确授权。用户与宠物范围由后端绑定，写入使用幂等键和事务。逐段回答、上下文及引用校验见 [STREAMING_CHAT.md](STREAMING_CHAT.md)，照护与医院工具见 [AGENT_UPGRADE.md](AGENT_UPGRADE.md)。
 
+回答质量回归保留在 `backend/evals/answer_quality_regressions.json`。本轮同模型流式对照使用 `python -m evals.quality_compare`，固定基线 `8d8bfe7`；先运行 `--preflight-only` 核验免费余额及原共享预算。额度不足时不发起模型请求。审查方法、未达项及运行切换条件见[质量修复报告](evaluations/ANSWER_QUALITY_STEP2.md)。
+
 ## 容器与源码包
 
 ```powershell

@@ -146,10 +146,11 @@ def sections(article):
 
 
 def evidence_sections(article, query, count=3):
-    terms = set(tokenize(expanded_query(query), article["keywords"]))
+    terms = set(tokenize(expanded_query(query), article["keywords"])) - {'如何', '怎么', '什么', '是否', '可以', '需要', '建议', '宠物', '照护', '安排'}
     scored = sorted(enumerate(sections(article)), key=lambda item: (
         -len(terms & set(tokenize(item[1]["heading"] + " " + item[1]["text"], article["keywords"]))), item[0]))
-    return [section for _, section in sorted(scored[:count])]
+    relevant = [(i, s) for i, s in scored if terms & set(tokenize(s['heading'] + ' ' + s['text'], article['keywords']))]
+    return [section for _, section in sorted(relevant[:count])]
 
 
 def model_sections(article):
@@ -213,12 +214,16 @@ def multi_search(session, species, questions, **filters):
             if rank < len(articles):
                 article = articles[rank]
                 if article["id"] not in selected and len(selected) < max(6, len(questions)):
-                    selected[article["id"]] = {**article, "matched_sections": evidence_sections(article, question), "matched_questions": []}
+                    selected[article["id"]] = {**article, "matched_sections": [], "matched_questions": [], "section_questions": {}}
                 if article["id"] in selected:
                     current = selected[article["id"]]
                     if question not in current["matched_questions"]:
                         current["matched_questions"].append(question)
                     headings = {s["heading"] for s in current["matched_sections"]}
-                    headings.update(s["heading"] for s in evidence_sections(article, question))
+                    for passage in evidence_sections(article, question):
+                        headings.add(passage['heading'])
+                        linked = current['section_questions'].setdefault(passage['heading'], [])
+                        if question not in linked:
+                            linked.append(question)
                     current["matched_sections"] = [s for s in sections(article) if s["heading"] in headings]
     return list(selected.values())

@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from fastapi import HTTPException
 from pydantic_ai.usage import RunUsage
 from app.answer_quality import has_disallowed_health_claim, unsupported_advice, factual_error
+from app.answer_context import repeated_known_question
 from app.model_runtime import section_sink
 from app.execution import current_execution
 
@@ -72,6 +73,9 @@ def check_text(text, profile, ctx):
         raise HTTPException(502, '模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。')
     if reason := factual_error(screened, profile, ctx):
         raise HTTPException(502, '模型回答未通过事实核对：' + reason + '。本次未保存，可手动重试。')
+    known = getattr(ctx, 'analysis', {}).get('answer_context', {}).get('known_fields', {})
+    if repeated_known_question(text, known):
+        raise HTTPException(502, '模型重复索取已明确提供的资料，本次未保存，可手动重试。')
 
 
 def evidence_map(ctx):
@@ -102,6 +106,12 @@ def bind_section(section, evidence, questions, profile, ctx):
         raise HTTPException(502, '模型正文格式或来源标记无效，本次未保存。')
     if any(q < 1 or q > len(questions) for q in section.question_ids):
         raise HTTPException(502, '模型回答的问题对应关系无效，本次未保存。')
+    mappings = [ctx.retrieved.get(evidence[ref]['article_id'], {}).get('section_questions') for ref in refs]
+    if refs and all(mapping is not None for mapping in mappings):
+        linked = {question for ref, mapping in zip(refs, mappings)
+                  for question in mapping.get(evidence[ref]['heading'], [])}
+        if any(questions[q - 1] not in linked for q in section.question_ids):
+            raise HTTPException(502, '模型段落所引章节与对应问题不匹配，本次未保存。')
     if evidence and not refs:
         # Facts and instructions need a bound source. A question about missing
         # user data can stand alone, but uncited care advice cannot.
@@ -134,7 +144,8 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
     questions = payload['subquestions']
     payload['evidence'] = {ref: {'source': ctx.retrieved[passage['article_id']]['title'],
         'section': passage['heading'], 'text': passage['text'],
-        'questions': [i for i, question in enumerate(questions, 1) if question in ctx.retrieved[passage['article_id']].get('matched_questions', [])]}
+        'questions': [i for i, question in enumerate(questions, 1)
+                      if question in ctx.retrieved[passage['article_id']].get('section_questions', {}).get(passage['heading'], [])]}
         for ref, passage in evidence.items()}
     payload.pop('retrieved_data', None)
     payload['subquestions'] = {str(i): q for i, q in enumerate(questions, 1)}
@@ -155,6 +166,11 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
         '原文“观察接受程度，逐步调整，不要求统一频率”只能改述接受度与调整；不能增加每天几次、分钟数或奖励种类。'
         '原文“需同时核对A、B、C；未知不推算”应明确缺口，不得说“补A就能准确确定”，也不生成假设数值示例。'
         '概念解释只能沿用资料的评估对象，生活观察不能改称正式评分指标。')
+    instructions += ('\n先按response_focus组织答案，answer_context.known_fields是已知信息，不列入补充清单。'
+        'necessary_gaps可能很多，只选阻碍当前判断的关键项，不复述整套表单；专业评估前提不可省略。'
+        'evidence.questions是章节直接关联的问题；空列表表示补充边界，不能单靠它回答不相干的问题。'
+        '回答“怎么奖励”就说明绑定原文支持的奖励时机与目标，不推论诱导、服从、动机或学习机理。'
+        '概念题先给清楚的区分，不展开无关喂食、记录或用品方案。已解释的风险没有新变化不反复铺陈。')
     if source_rules:
         # These rules are static server code, not instructions from documents.
         # Put their scope at system priority once, outside the evidence payload.

@@ -1,0 +1,24 @@
+{
+  "description": "Observed failure mechanisms with captured raw excerpts below. Correct alternatives use only the bound passages. Not a clinical accuracy dataset.",
+  "historical_report": "20261015T095611-streaming-optimized",
+  "captured_raw": [
+    {"id":"CB-018", "article":"nutrition-cat-bcs", "text":"体重是秤上的数字，BCS体况评分则是评估脂肪分布与肌肉状况的指标。"},
+    {"id":"CB-028", "article":"nutrition-feeding", "text":"具体执行时，需列出主粮、湿粮、零食及他人投喂的食物，记录实际吃下量而非投放量，并将零食计入总热量（健康成年犬零食不超过10%）。"},
+    {"id":"CB-040", "article":"nutrition-muscle", "text":"在记录时，BCS通常结合肋骨触感、俯视腰线和侧面腹部变化进行评估；而MCS则需要观察如“起身费力”“背部触感与以前不同”等具体可观察事实。"},
+    {"id":"CB-053", "article":"cat-carrier", "text":"练习时奖励的核心是“给予合适的奖励”，让猫在自愿靠近、进入或保持安静后获得正向反馈，而不是用食物诱导它被动服从。"}
+  ],
+  "cases": [
+    {"id":"CB-018", "article":"nutrition-cat-bcs", "bad":"BCS评估脂肪分布与肌肉状况，而MCS单看肌肉。", "good":"BCS关注脂肪分布，体重是秤上的数值；肌肉状况需要另行记录。"},
+    {"id":"CB-040", "article":"nutrition-muscle", "bad":"起身费力是MCS评分标准。", "good":"可以记录起身费力等变化，但不能据此判断肌肉损失或代替正式评分。"},
+    {"id":"CB-028", "article":"nutrition-feeding", "bad":"零食占每天热量10%即可。", "good":"仅对健康、体况合适的成年猫狗，零食热量以总热量10%为边界。"},
+    {"id":"CB-053", "article":"cat-carrier", "bad":"食物诱导只能让猫被动服从。", "good":"它自愿接近或进入时给予合适奖励；害怕或逃避时退回更容易的步骤。"},
+    {"id":"care-timing", "article":"cat-low-stress-care", "bad":"不要在刚睡醒或饭后护理。", "good":"根据参与意愿选择时机；发现回避、紧张或疼痛线索时停止操作。"},
+    {"id":"scratch-products", "article":"cat-scratching", "bad":"使用猫薄荷喷剂引导抓板。", "good":"提供稳固的替代抓挠位置，按实际使用情况调整。"},
+    {"id":"label-energy", "article":"food-labels", "bad":"不能只看品牌。保证分析中必须包括代谢能。", "good":"保证分析、营养适用声明和热量承担不同作用，需要分别核对。"},
+    {"id":"fixed-timing", "article":"cat-carrier", "bad":"每天练习5分钟。", "good":"按它的舒适反应逐步推进，抗拒时退回更容易的步骤。"}
+  ],
+  "context_cases": [
+    {"id":"CB-043", "known":{"age_months":{"value":24}}, "bad":"要确定食量，需提供产品全名、具体配方、销售市场、包装规格及标签日期，以及宠物物种、年龄依据、当前食物和已有专业饮食限制。", "good":"年龄已知，还需核对体况和主粮包装热量；不能仅凭年龄确定克数。"},
+    {"id":"CB-008", "kind":"conciseness", "captured_raw_excerpt":"记录每种食物的确切名称、主食或零食类别及每日实际吃下的克数。抄录包装热量及单位；每罐、每份热量还要填写相应克重。留意食物是否适合幼猫或成年等当前阶段，不用成年维持公式规划成长或孕哺。观察进食环境是否安静，碗是否清洁，其他动物是否造成压力。为每一种主粮、湿粮、零食和训练奖励单独填写名称与克数。记录实际吃下量，剩下、撒出或被其他宠物吃掉的部分不能直接算已摄入。", "requirement":"Manual paired review: only add information that changes the answer; do not repeat recording instructions. Length is a soft target, not a rejection rule."}
+  ]
+}

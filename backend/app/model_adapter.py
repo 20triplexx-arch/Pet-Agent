@@ -182,6 +182,8 @@ def assemble_prompt(ctx, text, history, profile, articles):
         "answer_depth": ctx.resolved_depth,
         "subquestions": ctx.analysis.get("questions", [text]),
         "context_conflicts": ctx.analysis.get("conflicts", []),
+        "answer_context": ctx.analysis.get('answer_context', {}),
+        "response_focus": ctx.analysis.get('response_focus', {}),
         "source_specific_rules": evidence_rules(a["id"] for a in articles),
         'quantitative_policy': '只有tool_results.nutrition.status为ready时才能引用其计算数值；否则不输出任何建议克数、每日热量、区间或假设计算示例。每100克可作为索取标签的单位。',
         'profile_unknown_fields': [key for key in ('age_months', 'weight', 'neutered', 'allergies', 'medical_history', 'vet_advice') if profile is not None and profile.get(key) is None],
@@ -193,6 +195,7 @@ def assemble_prompt(ctx, text, history, profile, articles):
                      "date": m["created_at"]} for m in history[-4:]],
         "retrieved_data": [{k: a[k] for k in ("id", "title", "species", "life_stages", "topic", "review_status")} |
                            {"matched_sections": model_sections(a), "matched_questions": a.get("matched_questions", []),
+                            "section_questions": a.get('section_questions', {}),
                             } for a in articles],
     }
     supplied = {a['id']:{s['heading'] for s in a['matched_sections']} for a in payload['retrieved_data']}
@@ -429,7 +432,7 @@ async def run_model(ctx, text, history, profile, articles):
                         {'max_tokens': output_limit, 'temperature': .2, **provider_options(selection)}, SYSTEM, usage)
                 output = NativeOutput(grounded_output(ctx), strict=True) if native_schema(selection) else PromptedOutput(AgentAnswer)
                 answer_agent = Agent(deps_type=AgentContext, output_type=output,
-                    system_prompt=SYSTEM, retries=0)
+                    system_prompt=SYSTEM + '\n本轮适用边界：\n' + '\n'.join(evidence_rules(ctx.sent_evidence)), retries=0)
                 return await answer_agent.run(final_prompt, model=model, deps=ctx,
                     instructions="只返回完整JSON回答；落实source_specific_rules，覆盖所有子问题，使用已提供章节及本地计算，缺失资料保持未知，不调用工具或声称保存。正文仅用[article-id]标记，准确章节放在citation_sections，每章只列一次。evidence_text通常留空，draft返回null。",
                     model_settings={"max_tokens": output_limit, "temperature": .2, **provider_options(selection)},

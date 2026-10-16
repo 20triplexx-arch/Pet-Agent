@@ -24,7 +24,7 @@ def credential_scope():
 
 def answer_build_hash():
     digest = hashlib.sha256()
-    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py'):
+    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'answer_context.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py'):
         digest.update(name.encode())
         digest.update(Path(__file__).with_name(name).read_bytes())
     return digest.hexdigest()

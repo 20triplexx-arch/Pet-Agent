@@ -255,8 +255,18 @@ def demo_answer(p, facts, conflicts, questions, articles, health_questions, tool
 
 
 def evidence_is_ready(articles, questions):
-    return all(any(question in a.get("matched_questions", []) and a.get("matched_sections")
-                   for a in articles) for question in questions)
+    # A matching article alone cannot establish even topical coverage. Require
+    # an actual passage for each question; this is still not semantic entailment.
+    for question in questions:
+        relevant = [a for a in articles if any(question in linked for linked in a.get('section_questions', {}).values())]
+        if not relevant:
+            return False
+        ids = {a['id'] for a in relevant}
+        if re.search(r'BCS|体况评分', question, re.I) and not ids & {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'}:
+            return False
+        if re.search(r'MCS|肌肉', question, re.I) and 'nutrition-muscle' not in ids:
+            return False
+    return True
 
 
 async def answer_question(ctx, text, history, minutes):
@@ -274,7 +284,10 @@ async def answer_question(ctx, text, history, minutes):
     if trace:
         trace.mark('context_prepared')
     breeds = ctx.session.exec(select(Breed)).all()
-    explicit = [b for b in breeds if any(term.lower() in text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
+    # "我家猫" names the selected pet, not the breed alias "家猫".
+    # Misreading it as a different breed discarded the pet's nutrition facts.
+    breed_text = re.sub(r'(我|你|他|她|它|您|咱|朋友|邻居)家(猫|狗)', r'\1的\2', text)
+    explicit = [b for b in breeds if any(term.lower() in breed_text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
     target = explicit[0] if len(explicit) == 1 else None
     species = target.species if target else (question_species(text) or (p['species'] if p else ctx.species_scope or infer_species(contextual)))
     original_profile = p
@@ -305,10 +318,11 @@ async def answer_question(ctx, text, history, minutes):
     articles = multi_search(ctx.session, species, queries, breed_id=ctx.breed_scope,
         life_stage=profile_stage(p) if p and (not target or target.id == p.get("breed_id")) else None,
         content_kind="food" if other_nutrition else None, personal=True)
-    if user_history:
-        for article in articles:
-            article['matched_questions'] = [question for query, question in zip(queries, questions)
-                                            if query in article.get('matched_questions', [])]
+    for article in articles:
+        article['matched_questions'] = [question for query, question in zip(queries, questions)
+                                        if query in article.get('matched_questions', [])]
+        article['section_questions'] = {heading: [question for query, question in zip(queries, questions) if query in linked]
+                                        for heading, linked in article.get('section_questions', {}).items()}
     if trace:
         trace.mark('retrieval_finished')
     if other_nutrition:
@@ -317,7 +331,9 @@ async def answer_question(ctx, text, history, minutes):
     if target and not other_nutrition:
         a = ctx.session.get(KnowledgeArticle, target.article_id)
         if a and a.id not in {a["id"] for a in articles}:
-            articles.append({**a.model_dump(), "matched_sections": evidence_sections(a.model_dump(), text), "matched_questions": questions})
+            passages = evidence_sections(a.model_dump(), text)
+            articles.append({**a.model_dump(), "matched_sections": passages, "matched_questions": questions,
+                             "section_questions": {s['heading']: questions for s in passages}})
         cards.append({"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + target.article_id})
     ctx.retrieved.update({a["id"]: a for a in articles})
     facts, conflicts = facts_and_conflicts(p, values)
@@ -332,6 +348,11 @@ async def answer_question(ctx, text, history, minutes):
         if emergency_article:
             ctx.retrieved[emergency_article.id] = {**emergency_article.model_dump(), "matched_sections": evidence_sections(emergency_article.model_dump(), "就医 观察 准备")}
     nutrition = bool(re.search(r"营养|吃多少|喂多少|几克|热量|体况|调整.*饮食|调整.*喂食", text))
+    concept_only = bool(re.search(r'BCS|MCS|体况评分|肌肉记录', text, re.I)
+                        and re.search(r'区别|区分|是什么|什么意思|怎么理解', text)
+                        and not re.search(r'吃多少|喂多少|几克|调整.*(?:饮食|喂食)|计算', text))
+    if concept_only:
+        nutrition = False
     if nutrition and (not target or (p and target.id == p.get("breed_id"))):
         tools["nutrition"] = nutrition_facts(ctx, p, values, contextual)
         cards.append({"type": "nutrition", "title": "核对并预览营养方案", "href": "/nutrition", "status": tools["nutrition"]["status"]})
@@ -353,7 +374,7 @@ async def answer_question(ctx, text, history, minutes):
     if draft:
         tools["plan_draft"] = draft
     needs_records = bool(re.search(r'记录|打卡|复盘|最近|近期|趋势|计划|执行|饮食|喂食|营养|热量|体重|照护安排', contextual))
-    if p and needs_records and (not target or target.id == p.get("breed_id")):
+    if p and needs_records and not concept_only and (not target or target.id == p.get("breed_id")):
         tools["recent_care"] = care_history(ctx.session, ctx.user, p["id"])[:20]
         tools["active_plans"] = current_plans(ctx.session, ctx.user, p["id"])
         row = get_profile(ctx.session, ctx.user, p["id"])
@@ -367,6 +388,9 @@ async def answer_question(ctx, text, history, minutes):
     ctx.memory = summarize_history(history, contextual)
     depth = ctx.answer_depth if ctx.answer_depth != "auto" else ("detailed" if len(questions) > 2 or len(text) > 350 or re.search(r'详细|深入|全面分析|逐项比较', text) else "standard")
     ctx.resolved_depth = depth
+    from app.answer_context import answer_context, response_focus
+    ctx.analysis['answer_context'] = answer_context(p, context, history, text, tools)
+    ctx.analysis['response_focus'] = response_focus(text, history, questions, depth)
     if demo:
         answer = demo_answer(p if not target or not p or target.id == p.get("breed_id") else None, facts, conflicts, questions, articles, health_questions, tools, depth)
         if ambiguous and not target:

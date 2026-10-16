@@ -57,19 +57,28 @@ def factual_error(text, profile, ctx):
     if re.search(r'(?:肌肉(?:流失|损失|减少)).{0,12}(?:导致|造成).{0,8}BCS(?:异常|升高|偏高)', text, re.I):
         return '混淆肌肉状况与脂肪体况'
     for clause in re.split(r'[，,。！？；;\n]', text):
-        if re.search(r'BCS|体况评分', clause, re.I) and not re.search(r'MCS|肌肉状况评分|而非|不是|不评估|不关注|不衡量', clause, re.I):
-            if re.search(r'(?:评估|衡量|关注|反映).{0,24}肌肉', clause):
+        # Inspect the BCS proposition itself; a correct MCS definition later in
+        # the sentence must not excuse a contradictory BCS definition.
+        definition = re.search(r'(?:BCS|体况评分)(.*?)(?=MCS|肌肉状况评分|$)', clause, re.I)
+        if definition:
+            claim = definition[1]
+            if re.search(r'(?:评估|衡量|关注|反映|包含|包括).{0,24}肌肉', claim) and not re.search(r'而非|不是|不评估|不关注|不衡量|不包括|不包含', claim):
                 return 'BCS只评估脂肪，不能把肌肉状况并入BCS定义'
-    if re.search(r'保证分析.{0,12}(?:中|内|里).{0,15}(?:能量|热量|kcal|代谢能)', text, re.I) and not re.search(r'不一定|未必|不能|分别|不同', text):
-        return '把能量误写成保证分析中的必备项目'
+            if re.search(r'(?:是|属于|反映).{0,6}整体健康', claim) and not re.search(r'不是|不属于|不代表|不能', claim):
+                return '把BCS当作整体健康结论'
+        if re.search(r'保证分析.{0,12}(?:中|内|里|包含|包括|涵盖).{0,15}(?:能量|热量|kcal|代谢能)', clause, re.I) and not re.search(r'不一定|未必|不能|分别|不同|不包含|不包括|不是', clause):
+            return '把能量误写成保证分析中的必备项目'
     # A provider must not turn qualitative guidance into invented schedules.
     evidence = getattr(ctx, 'sent_evidence', {})
     supplied = ' '.join(passage for article in evidence.values() for passage in article.values())
     supplied += ' ' + getattr(ctx, 'current_text', '')
     for timing in re.finditer(r'\d+(?:\s*[-—～至到]\s*\d+)?\s*(?:分钟|小时|周|个月|天)(?:一次|左右|后|内|以上|以下)?', text):
         value = re.sub(r'\s+', '', timing.group())
-        if profile and value == str(profile.get('age_months')) + '个月' and re.match(r'大|龄', text[timing.end():]):
-            continue  # Known age is a profile fact, not a care schedule.
+        age_prefix = text[max(0, timing.start()-14):timing.start()]
+        if profile and value == str(profile.get('age_months')) + '个月':
+            if re.match(r'大|龄', text[timing.end():]) or (re.search(r'年龄|月龄|已知|档案|猫|狗|犬', age_prefix)
+                                                       and not re.search(r'每|隔|等待|再过|建议', age_prefix)):
+                continue  # Known age is a profile fact, not a care schedule.
         if value not in re.sub(r'\s+', '', supplied):
             # Reporting the application's actual record windows is permitted.
             if value.rstrip('内') in ('7天', '30天') and re.search(r'记录|统计|复盘|窗口', text[max(0, timing.start()-12):timing.end()+12]):
@@ -88,13 +97,15 @@ def evidence_rules(article_ids):
     if ids & {'nutrition-feeding', 'nutrition-energy'}:
         rules.append('零食比例10%只适用于健康、体况合适的成年猫狗；引用这个比例时，在同一段自然说全上述对象及前提。其他个体不套用，不将未知健康状况当作健康，不承诺精确食量。')
     if ids & {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'}:
-        rules.append('BCS评估脂肪，MCS评估肌肉状况，不把BCS称为整体健康评分。脂肪较多仍可能同时肌肉损失；不能改写成肌肉流失导致高BCS，不补充资料未提供的严重程度或常见程度。引用定义应对应BCS或肌肉资料，不标到喂食条目。')
+        rules.append('概念题直接区分：BCS评估脂肪储备，MCS评估肌肉状况，二者分别记录；这是两个评估对象，不能合并为“BCS看脂肪与肌肉”或整体健康评分。脂肪较多仍可能同时肌肉损失，而不是肌肉损失导致BCS升高。日常起身、活动或触感变化只作为主人描述，不命名为MCS指标或据此判定肌肉损失。定义绑定BCS/肌肉章节，不标到喂食条目。')
     if ids & {'cat-dental', 'dog-dental', 'supply-dental'}:
         rules.append('只解释资料提供的口周接触、认识工具、按接受度推进及疼痛先评估。不添加漱口水、洁牙零食或具体刷牙部位等本次资料未给出的用品和操作推荐。')
     if ids & {'food-energy', 'nutrition-label', 'food-labels', 'nutrition-energy'}:
         rules.append('保证分析、营养适用声明和代谢能是不同标签项目；不说代谢能必定在保证分析内。每杯热量还需杯中实际克重。品牌名不能替代包装原文。年龄体重绝育等已知字段直接沿用当前档案，不再当成未知；还缺体况、肌肉、健康条件或标签时，不承诺补几项后就能精确给量。')
     if ids & {'dog-crate', 'dog-socialization'}:
         rules.append('只依据自愿接近、进入、能否舒适及整体反应推进，不把单次打哈欠当作放松证明。奖励目标行为与恐惧情绪分开，不补出只有完全放松才可获得奖励的条件。')
+    if ids & {'cat-carrier', 'supply-carriers'}:
+        rules.append('奖励追问只解释原文明示的自主接近、进入及按舒适反应推进；资料只说合适奖励时，保持该概括，不指定零食或玩具。不把食物诱导解释成被动服从、欺骗或恐惧强化。原文没有解释的机制不展开。')
     return rules
 
 
@@ -118,10 +129,22 @@ def has_disallowed_health_claim(text):
 def unsupported_advice(text, article_ids):
     ids = set(article_ids)
     supplied = ' '.join(p for article in article_ids.values() for p in article.values()) if isinstance(article_ids, dict) else ''
+    if isinstance(article_ids, dict):
+        for concept, sources in ((r'BCS|体况评分', {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'}),
+                                 (r'MCS|肌肉状况评分', {'nutrition-muscle'})):
+            if re.search(concept, text, re.I) and not ids & sources:
+                if re.search(r'(?:评估|评分|衡量|关注|反映)', text):
+                    return '评分定义未绑定实际提供的评分章节'
+    if ids & {'cat-carrier', 'supply-carriers', 'dog-crate'}:
+        for clause in re.split(r'[。！？；;\n]', text):
+            if re.search(r'被动服从|强化恐惧|强化害怕|学会恐惧', clause) and not re.search(r'不能|不要|不代表|并非|不等于|不应|不宜', clause):
+                return '奖励资料未支持对服从或恐惧学习机制的解释'
     if ids & {'nutrition-muscle', 'nutrition-cat-bcs', 'nutrition-dog-bcs'}:
         for clause in re.split(r'[。！？;；\n]', text):
             if re.search(r'起身|背部触感', clause) and re.search(r'肌肉指标|肌肉损失信号|MCS评分标准', clause) and not re.search(r'不能|不代表|并非|不可', clause):
                 return '把生活观察直接当作肌肉评分指标或肌肉损失结论'
+            if re.search(r'MCS.{0,18}(?:需要|通过|依据|根据|评估|判断).{0,22}(?:起身|背部触感)', clause, re.I) and not re.search(r'不能|不代表|并非|不可|只是|仅是|仅作', clause):
+                return '把生活观察当成正式MCS评估方法'
     if ids & {'cat-carrier', 'dog-crate'}:
         for material in ('零食', '玩具', '食物类奖励'):
             if material not in supplied and re.search(r'(?:优先使用|优先选择|建议.{0,8}选择|内部可放置|箱内放置).{0,25}' + material, text):
