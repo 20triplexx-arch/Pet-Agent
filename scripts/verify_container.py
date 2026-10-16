@@ -40,6 +40,9 @@ def main():
         before = json.loads(command('docker', 'exec', container, 'python', '-m', 'scripts.installation_checks'))
         command('docker', 'exec', container, 'python', '-m', 'scripts.init_db')
         command('docker', 'restart', container)
+        # An unspecified host port is allocated again when the container starts.
+        port = command('docker', 'port', container, '8000/tcp').splitlines()[0].rsplit(':', 1)[1]
+        base = 'http://127.0.0.1:' + port
         wait_health(base)
         check_public(base)
         check_persisted(base, state)
@@ -55,6 +58,7 @@ def main():
             (report / 'container.log').write_text(logs.stdout + logs.stderr, encoding='utf-8')
             status = subprocess.run(['docker', 'inspect', '--format', '{{json .State}}', container], capture_output=True, text=True)
             print('Container state: ' + status.stdout, file=sys.stderr)
+            print('Published ports: ' + subprocess.run(['docker', 'port', container], capture_output=True, text=True).stdout, file=sys.stderr)
             print((logs.stdout + logs.stderr)[-6000:], file=sys.stderr)
         raise
     finally:
