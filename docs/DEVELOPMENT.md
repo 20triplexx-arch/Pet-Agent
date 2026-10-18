@@ -94,6 +94,8 @@ powershell -ExecutionPolicy Bypass -File scripts/start.ps1 -Rebuild
 
 免费池默认 `DASHSCOPE_FREE_MODELS=auto`。`python -m evals.quality_compare --model qwen3.6-flash --variant paired` 使用相同模型与当前流式接口交错比较；`--variant optimized` 对新候选执行固定30组资格测试。两者沿用原共享账本与3元/10元上限。先设置隔离数据库环境再加载运行配置；旧版已知本地JSON拒绝保留失败状态并继续下一不同场景，网络、预算和未知服务错误仍停止，不重试失败输入。
 
+`--variant triple` 冻结8d8bfe7与d630845，三版本轮换执行；`--variant optimized --holdout` 单独执行预先冻结的10组组合集，不用于调参。隔离源码评测可设置 `CHONGBAN_EVAL_STATE_DIR` 指向原有storage，仅共享免费状态及原账本，不能创建新账本重置额度；应用导入前必须设置独立 `DATABASE_URL`，初始化还会核对引擎真实路径。预检同时检查整批预算和单次预留余量。逐句来源审查与不予上线条件见[本轮报告](evaluations/QUALITY_COMPLETION.md)。
+
 ## 容器与源码包
 
 ```powershell

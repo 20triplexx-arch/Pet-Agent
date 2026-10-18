@@ -20,10 +20,11 @@ import zipfile
 BACKEND = Path(__file__).resolve().parents[1]
 ROOT = BACKEND.parent
 BASELINE = '8d8bfe7ca4905aee73f5fd99163ffd8d99974b80'
+CURRENT = 'd630845d9eef826e14d53c72c363bdc775b0ce86'
 MODEL = 'qwen3.8-flash'
 
 
-def preflight(cases, safe_tokens, budget, *, variants=2):
+def preflight(cases, safe_tokens, budget, *, variants=2, pricing=None):
     turns = sum(len(case.get('turns', [])) for case in cases) * variants
     # The prior same-model review used ~2,800 tokens/turn. Reserve a forecast
     # of 4,000 plus room for the largest single wire reservation. Actual calls
@@ -34,13 +35,25 @@ def preflight(cases, safe_tokens, budget, *, variants=2):
         reasons.append('insufficient_verified_free_tokens')
     if budget['conservative_used_cny'] >= 10 or budget['run_used_cny'] >= 3:
         reasons.append('existing_budget_exhausted')
+    forecast_cny = None
+    if pricing:
+        from decimal import Decimal
+        tier = next(t for t in pricing['tiers'] if t['max_input_tokens'] >= 32000)
+        # Forecast is deliberately above the last measured input/output mix.
+        # Add a full request reservation; authoritative per-call checks remain.
+        inp, out = Decimal(str(tier['input_per_million'])), Decimal(str(tier['output_per_million']))
+        output_forecast = variants * sum(len(case.get('turns', [])) * (1500 if case.get('answer_depth') == 'detailed' else 500)
+                                        for case in cases)
+        forecast_cny = float((turns * 3500 * inp + output_forecast * out + 32000 * inp + 4096 * out) / 1000000)
+        if forecast_cny > min(10 - budget['conservative_used_cny'], 3 - budget['run_used_cny']):
+            reasons.append('insufficient_existing_budget_for_batch')
     return {'allowed': not reasons, 'reasons': reasons, 'case_count': len(cases),
             'planned_model_turns': turns, 'forecast_tokens': forecast,
-            'safe_remaining_tokens': safe_tokens, 'budget': budget}
+            'safe_remaining_tokens': safe_tokens, 'forecast_cny': forecast_cny, 'budget': budget}
 
 
 def budget_snapshot():
-    path = BACKEND / 'storage/evals/stage-one-budget.sqlite'
+    path = Path(os.environ.get('CHONGBAN_EVAL_STATE_DIR', BACKEND/'storage')).resolve() / 'evals/stage-one-budget.sqlite'
     with sqlite3.connect(path.as_uri() + '?mode=ro', uri=True) as db:
         used, pending = db.execute("SELECT SUM(amount_micro),SUM(state='reserved') FROM charges").fetchone()
         run_used = db.execute('SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE run_id=?',
@@ -62,24 +75,24 @@ def stop_for_failure(row, wire):
                for turn in row['turns'])
 
 
-def freeze_baseline(folder):
-    archive = subprocess.run(['git', 'archive', '--format=zip', BASELINE, 'backend/app', 'backend/data'],
+def freeze_baseline(folder, revision=BASELINE):
+    archive = subprocess.run(['git', 'archive', '--format=zip', revision, 'backend/app', 'backend/data'],
                              cwd=ROOT, capture_output=True, check=True).stdout
     with zipfile.ZipFile(io.BytesIO(archive)) as files:
         files.extractall(folder)
     return folder / 'backend', hashlib.sha256(archive).hexdigest()
 
 
-def blind_review(report, folder):
+def blind_review(report, folder, reference='baseline'):
     """No scores are invented: this creates inputs for an explicit source review."""
     rng = random.Random(report['answer_build_sha256'])
     pairs, key = [], {}
-    for before, after in zip(report['results']['baseline'], report['results']['optimized']):
+    for before, after in zip(report['results'][reference], report['results']['optimized']):
         if before['id'] != after['id']:
             raise ValueError('Paired case IDs differ')
-        variants = ['baseline', 'optimized']
+        variants = [reference, 'optimized']
         rng.shuffle(variants)
-        rows = {'baseline': before, 'optimized': after}
+        rows = {reference: before, 'optimized': after}
         key[before['id']] = dict(zip(('A', 'B'), variants))
         answers = {}
         for label, variant in key[before['id']].items():
@@ -91,10 +104,11 @@ def blind_review(report, folder):
                                                   for entry in wire if 'request' in entry]}
         pairs.append({'id': before['id'], 'answers': answers,
                       'review': {dimension: None for dimension in ('facts', 'support', 'coverage', 'usefulness', 'conciseness')},
-                      'major_claims': None, 'supported_major_claims': None, 'severe_raw_issues': None,
+                      'claim_review': [], 'major_claims': None, 'supported_major_claims': None, 'severe_raw_issues': None,
                       'reasked_known_fields': None, 'preference': None, 'reason': None})
-    (folder / 'blind-review.json').write_text(json.dumps(pairs, ensure_ascii=False, indent=2), encoding='utf-8')
-    (folder / 'private-review-key.json').write_text(json.dumps(key, indent=2), encoding='utf-8')
+    suffix = '' if reference == 'baseline' else '-current'
+    (folder / ('blind-review' + suffix + '.json')).write_text(json.dumps(pairs, ensure_ascii=False, indent=2), encoding='utf-8')
+    (folder / ('private-review-key' + suffix + '.json')).write_text(json.dumps(key, indent=2), encoding='utf-8')
 
 
 def main():
@@ -105,7 +119,8 @@ def main():
     parser.add_argument('--pricing')
     parser.add_argument('--resume', type=Path, help='Complete only unexecuted cases from a compatible report folder')
     parser.add_argument('--model', choices=('qwen3.8-flash', 'qwen3.7-plus', 'qwen3.6-flash', 'qwen3.5-flash', 'qwen-flash-2025-07-28'), default=MODEL)
-    parser.add_argument('--variant', choices=('paired', 'optimized'), default='paired')
+    parser.add_argument('--variant', choices=('paired', 'triple', 'optimized'), default='paired')
+    parser.add_argument('--holdout', action='store_true', help='Run the frozen ten-case generalization set separately')
     args = parser.parse_args()
     from evals import streaming_compare as shared
     if args.worker:
@@ -123,9 +138,17 @@ def main():
     cases = [case for case in dataset['cases'] if case['id'] in {'CB-' + i for i in shared.REVIEW_IDS}]
     if len(cases) != 30:
         raise ValueError('The fixed thirty-case review set changed')
+    if args.holdout:
+        if args.variant != 'optimized':
+            raise ValueError('Holdout is reported separately from the fixed comparison')
+        raw = (BACKEND/'evals/quality_holdout.json').read_bytes()
+        dataset_hash = hashlib.sha256(raw).hexdigest()
+        cases = json.loads(raw)['cases']
+        if len(cases) != 10 or len({case['id'] for case in cases}) != 10:
+            raise ValueError('The frozen ten-case holdout changed')
     folder = args.resume or ROOT / 'artifacts/evaluations' / (datetime.now(UTC).strftime('%Y%m%dT%H%M%S') + '-quality-step2')
     folder.mkdir(parents=True, exist_ok=bool(args.resume))
-    variants = ('baseline', 'optimized') if args.variant == 'paired' else ('optimized',)
+    variants = {'paired': ('baseline', 'optimized'), 'triple': ('baseline', 'current', 'optimized'), 'optimized': ('optimized',)}[args.variant]
     report = {'created_at': datetime.now(UTC).isoformat(), 'model': args.model, 'variant':args.variant, 'baseline_commit': BASELINE, 'dataset_sha256': dataset_hash,
               'benchmark_sha256': hashlib.sha256(Path(__file__).read_bytes() + Path(shared.__file__).read_bytes()).hexdigest(),
               'answer_build_sha256': quota.answer_build_hash(), 'results': {variant:[] for variant in variants},
@@ -133,11 +156,14 @@ def main():
               'review_method': 'Assistant blind paired source review: facts, support, coverage, usefulness, conciseness; not veterinary accuracy',
               'quality_targets': {'improved_cases': 20, 'regressed_cases': 0, 'major_source_support_rate': .95,
                                   'known_severe_raw_issues': 0, 'reasked_known_fields': 0}}
+    report.update(current_commit=CURRENT, holdout=args.holdout)
     if args.resume:
         prior = json.loads((folder / 'report.json').read_text(encoding='utf-8'))
         for key in ('model', 'variant', 'baseline_commit', 'dataset_sha256', 'answer_build_sha256'):
             if prior[key] != report[key]:
                 raise ValueError('Resume identity changed: ' + key)
+        if args.variant == 'triple' and prior.get('current_commit') != CURRENT:
+            raise ValueError('Resume identity changed: current_commit')
         allowed = {case['id'] for case in cases}
         for rows in prior['results'].values():
             if len({row['id'] for row in rows}) != len(rows) or any(row['id'] not in allowed for row in rows):
@@ -151,7 +177,10 @@ def main():
         data = quota.snapshot()
         with quota.ledger() as db:
             safe = next((quota.remaining(row, data['checked_at'], db) for row in data.get('models', []) if row['model'] == args.model), 0)
-        report['preflight'] = preflight(cases, safe, budget_snapshot(), variants=len(variants))
+        prices = shared.verified_price(args.model)
+        pending_cases = [case for variant in variants for case in cases
+                         if not any(row['id'] == case['id'] for row in report['results'][variant])]
+        report['preflight'] = preflight(pending_cases, safe, budget_snapshot(), variants=1, pricing=prices)
     except (OSError, RuntimeError, ValueError, sqlite3.Error, subprocess.SubprocessError):
         report['preflight'] = {'allowed': False, 'reasons': ['preflight_state_unverifiable']}
     def save():
@@ -164,24 +193,26 @@ def main():
         save()
         print(json.dumps({'report': str(folder / 'report.json'), 'status': report['status'], 'preflight': report['preflight']}))
         return 2 if report['status'] == 'blocked' else 0
-    prices = shared.verified_price(args.model)
     price_file = folder / 'pricing.json'
     price_file.write_text(json.dumps(prices), encoding='utf-8')
-    baseline, checksum = freeze_baseline(folder / 'frozen')
-    if report.get('baseline_archive_sha256', checksum) != checksum:
-        raise ValueError('Frozen baseline changed')
-    report['baseline_archive_sha256'] = checksum
-    if args.variant == 'paired':
+    sources = {'optimized': BACKEND}
+    for variant, revision in (('baseline', BASELINE), ('current', CURRENT)):
+        if variant not in variants:
+            continue
+        source, checksum = freeze_baseline(folder / ('frozen-' + variant), revision)
+        if report.get(variant + '_archive_sha256', checksum) != checksum:
+            raise ValueError('Frozen reference changed')
+        report[variant + '_archive_sha256'] = checksum
         import shutil
         overlays = ('alibaba_models.py', 'alibaba_quota.py', 'evaluation_budget.py', 'core/config.py')
         for relative in overlays:
-            shutil.copy2(BACKEND / 'app' / relative, baseline / 'app' / relative)
-        report['baseline_transport_overlays'] = {relative:hashlib.sha256((baseline/'app'/relative).read_bytes()).hexdigest() for relative in overlays}
+            shutil.copy2(BACKEND / 'app' / relative, source / 'app' / relative)
+        report[variant + '_transport_overlays'] = {relative:hashlib.sha256((source/'app'/relative).read_bytes()).hexdigest() for relative in overlays}
+        sources[variant] = source
     workers, logs = {}, []
     try:
-        for variant, source in (('baseline', baseline), ('optimized', BACKEND)):
-            if variant not in variants:
-                continue
+        for variant in variants:
+            source = sources[variant]
             work = Path(tempfile.mkdtemp(prefix='quality-' + variant + '-', dir=BACKEND / 'storage/evals'))
             if args.resume:
                 import shutil
@@ -201,7 +232,8 @@ def main():
             segment.setdefault('worker_folders', {})[variant] = str(work)
         for index, case in enumerate(cases):
             # Interleave sequentially, avoiding self-induced parallel latency.
-            for variant in (variants if index % 2 == 0 else tuple(reversed(variants))):
+            order = variants[index % len(variants):] + variants[:index % len(variants)]
+            for variant in order:
                 if any(row['id'] == case['id'] for row in report['results'][variant]):
                     continue
                 process = workers[variant]
@@ -218,8 +250,10 @@ def main():
                     report['status'] = 'stopped_without_retry'
                     return 2
         report['status'] = 'awaiting_source_review'
-        if args.variant == 'paired':
+        if args.variant in ('paired', 'triple'):
             blind_review(report, folder)
+        if args.variant == 'triple':
+            blind_review(report, folder, 'current')
     except (OSError, RuntimeError, ValueError) as error:
         report['status'] = 'worker_failed_without_retry'
         segment['failure'] = type(error).__name__

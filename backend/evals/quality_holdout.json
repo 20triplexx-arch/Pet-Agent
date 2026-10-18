@@ -1,0 +1,17 @@
+{
+  "version": "quality-completion-holdout-v1",
+  "synthetic_data_only": true,
+  "policy": "Frozen before live evaluation. Do not tune against these outputs or merge them into the original thirty-case score.",
+  "cases": [
+    {"id":"QH-001","category":"generalization","pet":"cat","answer_depth":"detailed","turns":["我准备领养成年猫，平日白天上班、偶尔出差。请详细讲清照护分工、家中空间和开支怎么安排，哪些信息应向送养方核对？不需要品牌推荐。"]},
+    {"id":"QH-002","category":"generalization","pet":"dog","answer_depth":"detailed","turns":["请详细说明体重、BCS和MCS分别告诉我什么。如果狗起身变慢，我能记录什么，又不能据此判断什么？怎样把这些信息交给兽医？"]},
+    {"id":"QH-003","category":"generalization","pet":"dog","turns":["狗进笼箱后不叫，但身体僵住，我该怎样判断能不能继续？","那这次练习应该怎么结束？只说接下来要做的。"]},
+    {"id":"QH-004","category":"generalization","pet":"cat","answer_depth":"brief","turns":["猫粮标签上有保证分析、全价声明和每杯热量。这三项各能说明什么，缺少杯中克重能直接换算吗？"]},
+    {"id":"QH-005","category":"generalization","pet":"cat","turns":["我家猫现在体重4.8公斤，已经绝育；档案里体重是以前称的。今天只想了解换粮时应记录什么，不计算食量。","我已经说过新体重和绝育情况。还有什么与换粮直接相关的信息值得确认？"]},
+    {"id":"QH-006","category":"generalization","pet":"cat","turns":["兽医限制：这只猫正在按原方案照护，不能自行换粮，对鸡肉过敏。以下都是上周已经结束的话题，今天不需要重新回答：窗边休息、猫抓板材质、航空箱存放、清洁量具、猫砂位置、家人分工、用品价格、外出路线、周末照护、工作日安排、沙发保护、旧玩具收纳、阳台门窗、食盆位置、过往出行。现在想了解梳毛时有哪些反应表示应停止。","请只说明奖励和护理时机的原则，沿用之前提到的过敏及兽医限制，不推荐新食品。"]},
+    {"id":"QH-007","category":"generalization","pet":"cat","answer_depth":"detailed","turns":["请分别回答五件事：猫抓沙发怎么办？梳毛紧张怎样停下来？航空箱平时怎样练习？干粮开封后如何储存？多猫如何安排各自的资源？每项保留必要条件，不需要整套购买清单。"]},
+    {"id":"QH-008","category":"generalization","pet":"dog","turns":["家里两个人会给狗奖励，怎样记录实际吃下的食物并核对包装热量？不要先替我们设定克数。","如果只是换了同品牌另一种配方，旧克数能直接沿用吗？"]},
+    {"id":"QH-009","category":"generalization","pet":"cat","turns":["自驾带猫出门，应整理哪些现有资料？健康文件是不是都等于必须另开健康证明？请保留需要向运营方和目的地核对的条件。"]},
+    {"id":"QH-010","category":"generalization","pet":"dog","turns":["我家狗认识刷牙工具后愿意靠近，但碰嘴就退开。怎样安排下一步？","那它退开以后，还要立刻再试一次吗？"]}
+  ]
+}

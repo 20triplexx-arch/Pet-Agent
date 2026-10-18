@@ -51,8 +51,15 @@ def factual_error(text, profile, ctx):
     if profile and profile.get('neutered') is not True:
         reported = getattr(ctx, 'current_text', '')
         if not re.search(r'已绝育|刚.{0,4}绝育|绝育手术后', reported):
+            facts = analysis.get('answer_context', {})
+            known = facts.get('known_fields', {}).get('neutered', {})
+            user_confirmed = known.get('value') is True and known.get('source') in ('user_report', 'supplemental_context')
+            conflict_report = any(r.get('field') == 'neutered' and r.get('value') is True
+                                  for r in facts.get('reported_restrictions_and_conflicts', []))
             for clause in re.split(r'[。！？；;\n]', text):
                 if re.search(r'已绝育|绝育后的(?:猫|狗|犬)|成年绝育(?:猫|狗|犬)', clause) and not re.search(r'如果|若|假如|是否|未知|未确认|尚未|不能确定|需(?:要)?确认', clause):
+                    if user_confirmed or (conflict_report and re.search(r'你(?:说|提到|提供|报告)|用户(?:自述|报告)|本次报告|此前报告', clause)):
+                        continue
                     return '把未知或相反的绝育状态写成了当前宠物事实'
     for clause in re.split(r'[，,。！？；;\n]', text):
         for match in re.finditer(r'肌肉(?:流失|损失|减少).{0,12}(?:导致|造成).{0,8}BCS(?:异常|升高|偏高)', clause, re.I):
@@ -62,8 +69,13 @@ def factual_error(text, profile, ctx):
             if double_negative or not negated:
                 return '混淆肌肉状况与脂肪体况'
         if re.search(r'BCS|体况评分', text + getattr(ctx, 'current_text', ''), re.I):
-            if re.search(r'因肌肉(?:流失|损失|减少).{0,6}导致体况变差', clause):
-                return '用肌肉减少解释脂肪体况变化'
+            for match in re.finditer(r'(?:因)?肌肉(?:流失|损失|减少).{0,6}(?:导致|造成)(?:实际|当前|脂肪)?体况(?:变差|不佳|下降|恶化)', clause):
+                prefix = clause[:match.start()]
+                negated = re.search(r'(?:不是|并非|不能说|不应说|不能认为)$', prefix)
+                uncertainty = re.search(r'不一定|不必然|不会|不能', match.group())
+                double_negative = re.search(r'(?:不是不是|并非不是|不能不说|不是不能说)$', prefix)
+                if double_negative or not (negated or uncertainty):
+                    return '用肌肉减少解释脂肪体况变化'
     for clause in re.split(r'[，,。！？；;\n]', text):
         # Inspect the BCS proposition itself; a correct MCS definition later in
         # the sentence must not excuse a contradictory BCS definition.
@@ -103,7 +115,7 @@ def evidence_rules(article_ids):
     ids = set(article_ids)
     rules = []
     if ids & {'cat-grooming', 'cat-low-stress-care'}:
-        rules.append('护理时机依据当前参与意愿；紧张、回避或疼痛时停止。不自行引入时间禁忌，不把恐惧状态与能否获得奖励混为一谈。自然回应实际问题。')
+        rules.append('护理按当前参与意愿推进；紧张、回避或疼痛时停止。分别回答梳毛与剪甲的操作及边界，保留所引章节的练习环境与退避要求。不自行引入时间禁忌，不把恐惧与能否获得奖励混为一谈。')
     if ids & {'cat-scratching', 'supply-scratch'}:
         rules.append('抓挠资料支持位置、方向、材质、稳固性、替代选择及奖励；不添加猫薄荷、喷剂或喷雾等未由这些资料支持的产品建议。')
     if ids & {'nutrition-feeding', 'nutrition-energy'}:
@@ -118,6 +130,12 @@ def evidence_rules(article_ids):
         rules.append('只依据自愿接近、进入、能否舒适及整体反应推进，不把单次打哈欠当作放松证明。奖励目标行为与恐惧情绪分开，不补出只有完全放松才可获得奖励的条件。')
     if ids & {'cat-carrier', 'supply-carriers'}:
         rules.append('奖励追问只解释原文明示的自主接近、进入及按舒适反应推进；资料只说合适奖励时，保持该概括，不指定零食或玩具。不把食物诱导解释成被动服从、欺骗或恐惧强化。原文没有解释的机制不展开。')
+    if 'cat-body-language' in ids:
+        rules.append('咬手或尾巴变化时仅用原文支持的停止接触、给予空间及观察，不补出保持手部静止、强行固定或其他未提供的动作。')
+    if 'pet-travel' in ids:
+        rules.append('健康文件不等于一律必须开具健康证明。证件须按实际运营方及目的地要求核实，不将清单升级为统一强制规定。')
+    if 'cat-clean' in ids:
+        rules.append('排泄异常的风险说明适用于资料中的猫，不自行缩成仅公猫或某一品种；清洁问题只讲清洁与观察，不展开未询问的自动设备或购买维护清单。')
     return rules
 
 
@@ -144,9 +162,21 @@ def unsupported_advice(text, article_ids):
     if isinstance(article_ids, dict):
         for concept, sources in ((r'BCS|体况评分', {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'}),
                                  (r'MCS|肌肉状况评分', {'nutrition-muscle'})):
-            if re.search(concept, text, re.I) and not ids & sources:
-                if re.search(r'(?:评估|评分|衡量|关注|反映)', text):
+            if not ids & sources:
+                # A missing field named "体况评分" is not a definition. Inspect
+                # each proposition, including assertions after a legitimate ask.
+                proposition = r'(?:' + concept + r')\s*(?:不|并非|并不|主要|通常|只|则)?(?:是(?!未知|空|缺失|尚未|未提供|未记录|待核对)|用于|用来|指|看|评估|衡量|关注|反映|包含|包括|通过|依据|根据|结合)'
+                inverse = r'(?:评估|衡量|评分|反映)[^，,。！？；;\n]{0,20}(?:称为|就是|叫作|叫做|即|是)\s*(?:' + concept + ')'
+                if re.search(proposition, text, re.I) or re.search(inverse, text, re.I):
                     return '评分定义未绑定实际提供的评分章节'
+    if 'cat-body-language' in ids and '静止' not in supplied:
+        for clause in re.split(r'[，,。！？；;\n]', text):
+            if re.search(r'(?:保持|让|要|应|不要移动).{0,8}(?:静止|不动)|手(?:部)?.{0,6}(?:不动|不能动)', clause) and not re.search(r'不能要求|不要强求|不建议|无需', clause):
+                return '咬手资料未支持保持静止的操作指令'
+    if 'pet-travel' in ids and '健康证明' not in supplied:
+        for clause in re.split(r'[，,。！？；;\n]', text):
+            if re.search(r'(?:必须|务必|需要|需|应|要|准备|携带|开具).{0,12}健康证明', clause) and not re.search(r'是否|核实|核对|确认|如果|若|按.{0,12}要求|并非|不一定|未必|不需|无需', clause):
+                return '把待核实的健康文件变成统一强制健康证明'
     if ids & {'cat-carrier', 'supply-carriers', 'dog-crate'}:
         for clause in re.split(r'[。！？；;\n]', text):
             if re.search(r'被动服从|强化恐惧|强化害怕|学会恐惧', clause) and not re.search(r'不能|不要|不代表|并非|不等于|不应|不宜', clause):
