@@ -20,7 +20,19 @@ MODELS = ('qwen3.7-flash-2026-07-15', 'qwen3.8-flash', 'qwen-flash',
 REVIEW_IDS = '001 003 004 008 009 012 017 018 021 022 024 025 028 033 037 040 043 049 053 057 002 005 006 010 011 013 015 026 034 059'.split()
 
 
-def verified_price(model):
+def verified_price(model, *, free_only=False):
+    if free_only:
+        from app import alibaba_quota as free
+        from app.alibaba_models import family
+        if family(model) is None or model not in free.available_models(qualified=False):
+            raise ValueError('Current model quota and free-only stop must be verified')
+        return {'currency':'CNY','provider':'alibaba','model':model,'billing_mode':'verified_free',
+                'checked_at':datetime.now(UTC).isoformat(),
+                'source':'Official Bailian CLI: workspace list and usage free; per-request free-only guard',
+                'input_cash_per_million':0,'output_cash_per_million':0}
+    if model == 'deepseek-flash':
+        from evals.runner import verify_pricing
+        return verify_pricing()
     from app.alibaba_models import family
     from evals.alibaba_prices import TARIFFS, verified_price as reviewed_price
     if family(model) in TARIFFS:
@@ -88,10 +100,12 @@ def worker(args):
     ledger = state / 'evals/stage-one-budget.sqlite'
     if not ledger.is_file():
         raise ValueError('The existing shared evaluation ledger is required; never create a replacement')
-    os.environ.update({'DEMO_MODE': 'false', 'MODEL_PROVIDER': 'alibaba', 'DASHSCOPE_MODEL': args.model,
-        'DASHSCOPE_AUTO_SELECT': 'false', 'DASHSCOPE_FREE_ONLY': 'true', 'MODEL_API_KEY': '', 'DEEPSEEK_API_KEY': '',
+    deepseek = args.model == 'deepseek-flash'
+    os.environ.update({'DEMO_MODE': 'false', 'MODEL_PROVIDER': 'deepseek' if deepseek else 'alibaba', 'DASHSCOPE_MODEL': args.model,
+        'DEEPSEEK_MODEL': args.model if deepseek else 'deepseek-flash',
+        'DASHSCOPE_AUTO_SELECT': 'false', 'DASHSCOPE_FREE_ONLY': 'true', 'MODEL_API_KEY': '',
         'MODEL_LIMITS_ENABLED': 'false', 'MODEL_MAX_REQUESTS': '4', 'MODEL_MAX_INPUT_TOKENS': '64000',
-        'MODEL_MAX_OUTPUT_TOKENS': '4096', 'MODEL_TIMEOUT_SECONDS': '60',
+        'MODEL_MAX_OUTPUT_TOKENS': '1800' if deepseek else '4096', 'MODEL_TIMEOUT_SECONDS': '60',
         'DASHSCOPE_QUOTA_FILE': str(state/'alibaba-quota.json'),
         'DASHSCOPE_QUALIFIED_FILE': str(state/'alibaba-qualified.json'),
         'DASHSCOPE_CLI': os.environ.get('DASHSCOPE_CLI') or str(ROOT/'.tools/bailian/2.3.0/bl.exe'),
@@ -109,10 +123,17 @@ def worker(args):
     from app import alibaba_quota as free
     from app.evaluation_budget import EvaluationBudget, current_budget
     prices = json.loads(Path(args.pricing).read_text(encoding='utf-8'))
-    budget = EvaluationBudget(ledger, prices, run_id=RUN_ID, run_limit_cny='3')
-    if not settings.DASHSCOPE_API_KEY or args.model not in free.available_models(qualified=False):
+    if prices.get('billing_mode')=='verified_free':
         free.refresh_quotas()
-    if args.model not in free.available_models(qualified=False):
+    ceiling = getattr(args, 'authorized_run_limit', None)
+    budget = EvaluationBudget(ledger, prices, run_id=RUN_ID, run_limit_cny=ceiling or '3',
+                              authorized_run_ceiling_cny=ceiling,
+                              authorized_budget_scope='paid_only' if getattr(args,'paid_only_budget',False) else None)
+    if not deepseek and (not settings.DASHSCOPE_API_KEY or args.model not in free.available_models(qualified=False)):
+        free.refresh_quotas()
+    if deepseek and not settings.DEEPSEEK_API_KEY:
+        raise ValueError('Configured DeepSeek inference credential is required')
+    if not deepseek and args.model not in free.available_models(qualified=False):
         raise ValueError('The selected model has no verified free-only quota')
     wire = []
     current = None
@@ -174,16 +195,22 @@ def worker(args):
     from fastapi.testclient import TestClient
     from app.main import app
     token = current_budget.set(budget)
+    browser = None
     try:
         with TestClient(app, raise_server_exceptions=False) as actual:
-            client = StreamingClient(actual, streaming=args.worker == 'optimized')
+            if getattr(args,'browser',False):
+                from evals.browser_client import BrowserClient
+                browser = BrowserClient(actual,app,folder,budget,observe,args.model)
+                client = browser
+            else:
+                client = StreamingClient(actual, streaming=args.worker == 'optimized')
             response = client.post('/api/v1/login/access-token', data={'username': 'synthetic-eval@example.com', 'password': 'SyntheticEval2026!'})
             headers = {'Authorization': 'Bearer '+response.json()['access_token']}
             print(json.dumps({'event': 'ready'}), flush=True)
             last_refresh = time.time()
             for line in sys.stdin:
                 case = json.loads(line)
-                if time.time()-last_refresh > 45:
+                if not deepseek and time.time()-last_refresh > 45:
                     free.refresh_quotas()
                     last_refresh = time.time()
                 wire.clear()
@@ -192,10 +219,12 @@ def worker(args):
                 for entry in wire:
                     entry.pop('started', None)
                 (folder/(case['id']+'-wire.json')).write_text(json.dumps(wire, ensure_ascii=False, indent=2), encoding='utf-8')
-                row = {'id': case['id'], 'category': case['category'], **result,
+                row = {'id': case['id'], 'category': case['category'], 'requested_answer_depth':case.get('answer_depth','auto'), **result,
                        'passed': all(result['checks'].values()), 'elapsed_ms': round((time.perf_counter()-started)*1000, 2)}
                 print(json.dumps({'event': 'result', 'row': row, 'budget': budget.summary()}, ensure_ascii=True), flush=True)
     finally:
+        if browser is not None:
+            browser.close()
         current_budget.reset(token)
         if observer_token is not None:
             request_observer.reset(observer_token)
@@ -214,8 +243,12 @@ def read_event(process, kind):
             return value
 
 
-def metrics(rows):
-    turns = [turn for row in rows for turn in row['turns']]
+def metrics(rows, requested_depths=None):
+    # Failed responses have no returned answer_depth. Keep the requested
+    # depth so a failed detailed answer is not silently counted as ordinary.
+    depths = requested_depths or {}
+    turns = [{**turn,'_depth':turn['result'].get('answer_depth') or row.get('requested_answer_depth') or depths.get(row['id'],'auto')}
+             for row in rows for turn in row['turns']]
     model_turns = [turn for turn in turns if (turn.get('execution') or {}).get('model_requests')]
     def distribution(values):
         values = sorted(values)
@@ -231,11 +264,13 @@ def metrics(rows):
         return {'turns': len(items), 'failures': len(items)-len(success),
             'complete': distribution([t['result'].get('delivery_timing', {}).get('complete_ms', t['execution']['elapsed_ms']) for t in success]),
             'first_section': distribution([t['execution'].get('stages_ms', {}).get('first_section', t['result'].get('delivery_timing', {}).get('complete_ms', t['execution']['elapsed_ms'])) for t in success]),
+            'browser_first_visible': distribution([t['result']['delivery_timing']['browser_first_visible_ms'] for t in success if t['result'].get('delivery_timing',{}).get('browser_first_visible_ms') is not None]),
+            'browser_complete_visible': distribution([t['result']['delivery_timing']['browser_complete_visible_ms'] for t in success if t['result'].get('delivery_timing',{}).get('browser_complete_visible_ms') is not None]),
             'request_counts': [t['execution']['model_requests'] for t in items]}
     return {'cases': len(rows), 'passed': sum(row['passed'] for row in rows), 'failed': sum(not row['passed'] for row in rows),
             'complete_successful_model_answers': distribution(complete), 'first_visible_successful_model_answers': distribution(first),
-            'ordinary': group([t for t in model_turns if t['result'].get('answer_depth') != 'detailed']),
-            'detailed': group([t for t in model_turns if t['result'].get('answer_depth') == 'detailed']),
+            'ordinary': group([t for t in model_turns if t['_depth'] != 'detailed']),
+            'detailed': group([t for t in model_turns if t['_depth'] == 'detailed']),
             'cached': group([t for t in model_turns if t['execution'].get('cached_input_tokens')]),
             'uncached': group([t for t in model_turns if not t['execution'].get('cached_input_tokens')]),
             'model_requests': sum((turn.get('execution') or {}).get('model_requests', 0) for turn in turns),

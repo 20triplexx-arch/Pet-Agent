@@ -1,0 +1,97 @@
+{
+  "version": "evidence-rebuild-holdout-v7-20261019",
+  "synthetic": true,
+  "frozen_before": "final source-clarification, predicate-scope repair and Qwen validation",
+  "cases": [
+    {
+      "id": "EQ-001",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫换新粮前还没核对完整饮食声明，也不知道是否有原兽医限制。怎样先补信息，再决定能否开始？"
+      ]
+    },
+    {
+      "id": "EQ-002",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "换粮记录里“准备喂的量”和“真正吃下的量”怎么分，出现不适时怎样处理？"
+      ]
+    },
+    {
+      "id": "EQ-003",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗在我拿钥匙时就紧张，怎样先观察再安排可承受的离开练习？"
+      ]
+    },
+    {
+      "id": "EQ-004",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "独处录像里它一直僵住但不叫，这能算适应了吗？还应记录什么、何时改变安排？"
+      ]
+    },
+    {
+      "id": "EQ-005",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫已经愿意在箱旁休息，怎样再练自主进入？请只说明资料支持的奖励原则，不指定零食种类。"
+      ]
+    },
+    {
+      "id": "EQ-006",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗运输箱站立转身没问题，还需核对哪些使用和出行条件，不能仅凭尺寸决定什么？"
+      ]
+    },
+    {
+      "id": "EQ-007",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫的碗清洗后还有清洁剂残留，怎样按器具和清洁剂标签处理，什么时候才能让猫接触？"
+      ]
+    },
+    {
+      "id": "EQ-008",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "干粮换到桶里但原袋还在，怎样保留批次、开封时间和储存要求，不能猜哪些保存时长？"
+      ]
+    },
+    {
+      "id": "EQ-009",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "包装上最低蛋白含量和营养适用声明有什么不同，能直接拿最低值当实测值排名吗？"
+      ]
+    },
+    {
+      "id": "EQ-010",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "比较两款狗粮，一个只有品牌宣传，一个有配方和市场版本。怎样整理可靠依据和缺口，不要声称认证。"
+      ]
+    }
+  ]
+}

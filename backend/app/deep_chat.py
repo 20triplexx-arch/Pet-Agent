@@ -6,7 +6,7 @@ from pydantic_ai import RunContext
 from sqlmodel import select
 from app.core.config import settings
 from app.models import Breed, KnowledgeArticle
-from app.knowledge import multi_search, evidence_sections, sections, tokenize
+from app.knowledge import multi_search, evidence_sections, grounded_sections, sections, tokenize
 from app.care_schemas import NutritionInput, VisitInput
 from app.nutrition import care_history, current_plans, get_profile, assess
 from app.species import supports
@@ -18,24 +18,24 @@ TOPICS = [
     (r"吃多少|喂多少|几克|营养|体重|体况|热量", "营养与体重"),
     (r"抓|啃咬|咬家具", "抓挠与啃咬"), (r"独处|独自|在家叫|分离", "独处与互动"),
     (r"多猫|多宠|相处|介绍新猫", "多宠相处"), (r"刷牙|牙齿|口腔", "口腔护理"),
-    (HEALTH, "健康观察与就医准备"), (r"新宠|到家|适应", "新宠适应"),
+    (HEALTH, "健康观察与就医准备"), (r"新宠|到家|新环境适应", "新宠适应"),
     (r"玩具|用品|航空箱|胸背|牵引|猫砂", "用品选择"),
 ]
 
 
 def questions_for(text):
+    from app.answer_context import current_focus
+    text = current_focus(text)
     def query_excerpt(value):
         # Retrieval query excerpts only; the original 12000-character message remains intact.
         return value if len(value) <= 800 else value[:500] + " " + value[-300:]
     parts = [p.strip(" ，。") for p in re.split(r"[？?；;\n]+|另外|同时|还有|以及", text) if p.strip(" ，。")]
     # Preserve explicit questions first, using the complete text in the model payload.
-    meaningful = [query_excerpt(p) for p in parts if re.search(r"怎么|如何|怎样|什么|是否|能否|注意|比较|建议|帮|为什么|分析|评估|说明|安排|选择", p)]
+    meaningful = [query_excerpt(p) for p in parts if re.search(r"怎么|如何|怎样|什么|哪些|是否|能否|注意|比较|建议|帮|为什么|分析|评估|说明|安排|选择|讲|解释|核对", p)]
     if len(meaningful) > 1:
         topics = [label for pattern, label in TOPICS if re.search(pattern, text)]
-        return list(dict.fromkeys(((topics[0] + "：") if topics and re.match(r"后续|继续|它|这个|其|接下来|还", p) else "") + p for p in meaningful))
-    topics = [label for pattern, label in TOPICS if re.search(pattern, text)]
-    if len(topics) > 1 and re.search(r"和|与|并且|另外|同时|还有|以及", text):
-        return list(dict.fromkeys([meaningful[0] if meaningful else text[-800:]] + topics[1:]))
+        return list(dict.fromkeys(((topics[0] + "：") if topics and not any(re.search(pattern,p) for pattern,_ in TOPICS)
+            and re.match(r"后续|继续|它|这个|其|接下来|还|请|讲|渐进|停止|练习",p) else "") + p for p in meaningful))
     return [meaningful[0] if meaningful else text[-800:]]
 
 
@@ -57,6 +57,8 @@ def conversation_context(history, supplied):
 
 def summarize_history(history, query):
     """Extractive summary: every statement retains its original message ID/date."""
+    from app.answer_context import current_focus
+    query=current_focus(query)
     terms = set(tokenize(query))
     candidates = []
     for index, message in enumerate(history[:-4]):
@@ -64,7 +66,7 @@ def summarize_history(history, query):
             continue
         sentences = [s.strip() for s in re.split(r"(?<=[。！？\n])", message["content"]) if s.strip()]
         protected = [s for s in sentences if re.search(r"过敏|病史|兽医|处方|限制|确诊", s)]
-        priority = sorted((s for s in sentences if s not in protected), key=lambda s: len(terms & set(tokenize(s))), reverse=True)
+        priority = sorted((s for s in sentences if s not in protected and len(terms & set(tokenize(s))) >= 2), key=lambda s: len(terms & set(tokenize(s))), reverse=True)
         excerpt = "\n".join(protected + priority[:max(0, 4-len(protected))])
         if len(excerpt) > 1000 and not protected:
             excerpt = excerpt[:1000] + "（原消息还有内容，可按消息ID查看）"
@@ -96,7 +98,8 @@ def followup_background(history, text):
         return ''
     if not explicit and (topics or re.search(r'猫|狗|犬|兔|鸟|仓鼠', text)):
         return ''
-    return previous[-1]
+    from app.answer_context import current_focus
+    return current_focus(previous[-1])
 
 
 def question_species(text):
@@ -107,12 +110,11 @@ def question_species(text):
 
 
 def source_cards(ctx, articles):
+    from app.evidence_index import public_citation_source
     cards = []
     for a in articles:
         selected = getattr(ctx, "citation_headings", {}).get(a["id"], [s["heading"] for s in a.get("matched_sections", evidence_sections(a, "", 3))])
-        cards.append({"id": a["id"], "title": a["title"], "url": a["source_url"],
-            "organization": a["source_organization"], "sections": getattr(ctx, "citation_headings", {}).get(a["id"], [s["heading"] for s in a.get("matched_sections", evidence_sections(a, "", 3))]),
-            "references": a.get("references", []), "review_status": a["review_status"],
+        cards.append({**public_citation_source(a,selected),
             "evidence": [{"heading": s["heading"], "text": s["text"][:400]} for s in sections(a) if s["heading"] in selected][:3]})
     return cards
 
@@ -150,7 +152,7 @@ def add_tool_sources(ctx, cards):
     for source in cards:
         a = ctx.session.get(KnowledgeArticle, source["id"])
         if a and a.id not in ctx.retrieved:
-            ctx.retrieved[a.id] = {**a.model_dump(), "matched_sections": evidence_sections(a.model_dump(), "营养 观察 依据")}
+            ctx.retrieved[a.id] = {**a.model_dump(), "matched_sections": grounded_sections(a.model_dump(), "营养 观察 依据")}
 
 
 def nutrition_facts(ctx, p, values, observation):
@@ -228,6 +230,8 @@ def demo_answer(p, facts, conflicts, questions, articles, health_questions, tool
         relevant = [a for a in articles if question in a.get("matched_questions", [])]
         if not relevant:
             relevant = articles[:1]
+        if not re.search(r'买|选购|挑选|用品|规格|材质|比较|多少钱|尺寸',question):
+            relevant.sort(key=lambda a:(a.get('content_kind')=='supplies',-len(a.get('direct_chunk_ids',[]))))
         chosen = next((a for a in relevant if a["id"] not in used), None)
         if not chosen:
             continue
@@ -288,10 +292,12 @@ async def answer_question(ctx, text, history, minutes):
     # Misreading it as a different breed discarded the pet's nutrition facts.
     breed_text = re.sub(r'(我|你|他|她|它|您|咱|朋友|邻居)家(猫|狗)', r'\1的\2', text)
     explicit = [b for b in breeds if any(term.lower() in breed_text.lower() for term in [b.name, *b.aliases] if len(term) >= 2)]
-    target = explicit[0] if len(explicit) == 1 else None
+    from app.question_scope import explicit_species
+    mixed_species = len(explicit_species(text)) > 1
+    target = explicit[0] if len(explicit) == 1 and not mixed_species else None
     species = target.species if target else (question_species(text) or (p['species'] if p else ctx.species_scope or infer_species(contextual)))
     original_profile = p
-    foreign_species = bool(p and species and p['species'] != species)
+    foreign_species = bool(p and (mixed_species or (species and p['species'] != species)))
     ctx.foreign_species = foreign_species
     if foreign_species:
         p = None
@@ -332,25 +338,24 @@ async def answer_question(ctx, text, history, minutes):
     if other_nutrition:
         for a in articles:
             a["matched_questions"] = questions
-    if target and not other_nutrition:
-        a = ctx.session.get(KnowledgeArticle, target.article_id)
-        if a and a.id not in {a["id"] for a in articles}:
-            passages = evidence_sections(a.model_dump(), text)
-            articles.append({**a.model_dump(), "matched_sections": passages, "matched_questions": questions,
-                             "section_questions": {s['heading']: questions for s in passages}})
-        cards.append({"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + target.article_id})
+    breed_target = target or (next((b for b in breeds if b.id == ctx.breed_scope),None) if '品种' in text else None)
+    if breed_target and not other_nutrition:
+        a = ctx.session.get(KnowledgeArticle, breed_target.article_id)
+        if a:
+            passages = grounded_sections(a.model_dump(), breed_target.name+' '+text)
+            guide = {**a.model_dump(), 'matched_sections':passages,'matched_questions':questions,
+                     'section_questions':{s['heading']:questions for s in passages}}
+            articles = [guide] + [item for item in articles if item['id'] != a.id]
+        cards.append({"type": "knowledge", "title": "查看完整品种指南", "href": "/knowledge/" + breed_target.article_id})
     ctx.retrieved.update({a["id"]: a for a in articles})
     facts, conflicts = facts_and_conflicts(p, values)
     if foreign_species and not target:
-        conflicts.append('当前是另一物种的普通知识，不使用已选宠物的个体数值或照护记录。')
+        conflicts.append('当前并列讨论猫与狗，分别绑定适用依据，不将已选宠物的数值或限制套给另一只。' if mixed_species else
+                         '当前是另一物种的普通知识，不使用已选宠物的个体数值或照护记录。')
     if target and original_profile and target.id != original_profile.get("breed_id"):
         conflicts.append(f"这是关于{target.name}的普通知识；当前档案为{original_profile['name']}，不会自动关联或修改，不能使用它的资料替另一只宠物确定食量。")
     health = bool(re.search(HEALTH + r"|疫苗|驱虫|健康观察|绝育", contextual))
     health_questions = missing_health_info(contextual + ' ' + background, values) if health else None
-    if health:
-        emergency_article = ctx.session.get(KnowledgeArticle, "first-aid")
-        if emergency_article:
-            ctx.retrieved[emergency_article.id] = {**emergency_article.model_dump(), "matched_sections": evidence_sections(emergency_article.model_dump(), "就医 观察 准备")}
     nutrition = bool(re.search(r"营养|吃多少|喂多少|几克|热量|体况|调整.*饮食|调整.*喂食", text))
     concept_only = bool(re.search(r'BCS|MCS|体况评分|肌肉记录', text, re.I)
                         and re.search(r'区别|区分|是什么|什么意思|怎么理解', text)
@@ -395,6 +400,15 @@ async def answer_question(ctx, text, history, minutes):
     from app.answer_context import answer_context, response_focus
     ctx.analysis['answer_context'] = answer_context(p, context, history, text, tools)
     ctx.analysis['response_focus'] = response_focus(text, history, questions, depth)
+    from app.answer_context import task_snapshot
+    ctx.analysis['task_snapshot'] = task_snapshot(text, questions, ctx.analysis['answer_context'], user_history)
+    for task in ctx.analysis['task_snapshot']['questions']:
+        for article in articles:
+            for passage in article.get('matched_sections', []):
+                if task['text'] in article.get('section_questions', {}).get(passage['heading'], []):
+                    task['evidence_ids'].append(passage.get('chunk_id', article['id']+'#'+passage['heading']))
+        task['evidence_ids'] = list(dict.fromkeys(task['evidence_ids']))
+        task['missing_evidence'] = not bool(task['evidence_ids'])
     if demo:
         answer = demo_answer(p if not target or not p or target.id == p.get("breed_id") else None, facts, conflicts, questions, articles, health_questions, tools, depth)
         if ambiguous and not target:

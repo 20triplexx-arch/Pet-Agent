@@ -1,0 +1,98 @@
+{
+  "version": "evidence-rebuild-holdout-v6-20261019",
+  "synthetic": true,
+  "frozen_before": "BCS parenthesized definition retrieval repair and final Pro model choice",
+  "cases": [
+    {
+      "id": "EX-001",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫口腔护理里说的“能正常吃饭”能证明不痛吗？开始接触嘴边之前要确认什么？"
+      ]
+    },
+    {
+      "id": "EX-002",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "狗运输箱平时用于休息，长途出行要不要重新核对用途？请分清自愿进入、空间和实际运输要求。"
+      ]
+    },
+    {
+      "id": "EX-003",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫粮袋破了但没有异味，怎样决定是否继续喂和保留哪些信息？"
+      ]
+    },
+    {
+      "id": "EX-004",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "给狗换主粮时，旧粮和新粮还没核对营养适用声明，先补哪些信息才开始安排？"
+      ]
+    },
+    {
+      "id": "EX-005",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "新猫已经在独立房间，老猫隔门低吼。怎样判断下一步保持、退回还是增加接触，哪些细微信号要分别记录？"
+      ]
+    },
+    {
+      "id": "EX-006",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "我家狗外观看着壮，体重也没变，就能说肌肉状况正常吗？请区分观察事实和正式评分。"
+      ]
+    },
+    {
+      "id": "EX-007",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫抓板放远处不用，怎么按抓挠方向和位置调整？",
+        "现在只想了解猫湿粮开封后怎么处理，不再讨论抓板。"
+      ]
+    },
+    {
+      "id": "EX-008",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "狗的玩具出现破口和细绳，怎样先处理安全问题，再记录是否要替换？别根据价格判断耐用。"
+      ]
+    },
+    {
+      "id": "EX-009",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "带猫去医院，想把近几次观察写成交接摘要。哪些是事实、哪些要标未知，什么时候资料不全也应先联系医院？"
+      ]
+    },
+    {
+      "id": "EX-010",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "有兽医要求不自行改饮食，给狗做独处奖励时这条限制怎样保留？请只讲现有依据能确认的部分。"
+      ]
+    }
+  ]
+}

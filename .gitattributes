@@ -1,0 +1,16 @@
+# Qualification and frozen datasets use exact bytes; retain the validated snapshot.
+backend/app/agent_system.txt -text
+backend/app/answer_sections.py -text
+backend/app/answer_quality.py -text
+backend/app/answer_context.py -text
+backend/app/alibaba_models.py -text
+backend/app/model_adapter.py -text
+backend/app/deep_chat.py -text
+backend/app/knowledge.py -text
+backend/app/question_scope.py -text
+backend/app/answer_contract.py -text
+backend/app/propositions.py -text
+backend/app/evidence_index.py -text
+backend/data/knowledge*.json -text
+backend/data/evidence/*.json -text
+backend/evals/*.json -text

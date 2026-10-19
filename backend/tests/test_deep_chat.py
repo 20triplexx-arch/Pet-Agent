@@ -90,7 +90,10 @@ def test_quality_questions(client, headers, name, species, text, required, terms
         assert len(reply["questions"]) <= 3
     for source in reply["sources"]:
         a = client.get("/api/v1/knowledge/" + source["id"], headers=headers).json()
-        assert source["url"] == a["source_url"] and species in a["species"]
+        # A selected chapter can have a more specific supporting page than the
+        # article's historical primary URL; both keep the existing API shape.
+        allowed_urls={a['source_url'], *(r['url'] for r in a.get('references',[]))}
+        assert source['url'] in allowed_urls and species in a['species']
         assert all(heading in a["body"] for heading in source.get("sections", []))
 
 

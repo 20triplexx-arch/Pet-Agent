@@ -5,6 +5,42 @@ import re
 PROFILE_FIELDS = ('age_months', 'weight', 'neutered', 'allergies', 'medical_history', 'vet_advice')
 
 
+def current_focus(text):
+    """Honor an explicit topic switch, without truncating the original report."""
+    switches = list(re.finditer(r'(?:^|[。！？?；;\n，,])\s*(?:换个话题[，,:：]?|现在(?:我)?(?:只想|只问|想问|想了解|要问|问的是|关心)|这次(?:我)?(?:只想|只问|想问|想了解|要问)|本次(?:我)?(?:只想|只问|想问|想了解|要问))', text))
+    return text[switches[-1].end():].strip() if switches else text
+
+
+def task_snapshot(text, questions, context, followup=''):
+    """One request-local task contract shared by retrieval, generation and checks."""
+    focus=current_focus(text)
+    return {'focus': focus if focus!=text else None, 'focus_reference':'user_message' if focus==text else None, 'questions': [
+        {'id': index, 'text': question, 'evidence_ids': [], 'missing_evidence': True}
+        for index, question in enumerate(questions, 1)],
+        'facts_reference': 'answer_context',
+        'followup_reference': followup or None}
+
+
+def relevant_history(history, focus, followup=False):
+    """Only topical turns enter the short conversational context.
+
+    Restrictions are independently retained with provenance by answer_context.
+    Assistant text never becomes a factual restriction or retrieval target.
+    """
+    from app.knowledge import tokenize
+    terms = set(tokenize(focus)) - {'怎么', '如何', '什么', '可以', '需要', '我的', '你的'}
+    result = []
+    active = False
+    for message in history[-4:]:
+        if message['role'] == 'user':
+            active = len(terms & set(tokenize(current_focus(message['content'])))) >= 2
+            if followup and message == next((m for m in reversed(history) if m['role']=='user'), None):
+                active = True
+        if active:
+            result.append(message)
+    return result
+
+
 def answer_context(profile, context, history, text, tools):
     dates = {'weight': (profile or {}).get('weight_date'),
              'age_months': (profile or {}).get('birthday') or (profile or {}).get('age_estimated_on')}

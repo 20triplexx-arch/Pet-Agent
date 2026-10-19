@@ -29,8 +29,12 @@ SYNONYMS = (
     ("独自在家", "独处", "分离", "叫"), ("刷牙", "口腔", "牙齿"),
     ("新猫", "新宠", "适应", "到家"), ("粮", "主粮", "食物"),
     ("胖", "肥胖", "体重", "体况"), ("多猫", "多宠", "相处"),
-    ("航空箱", "运输箱", "笼箱"), ("热量", "能量", "卡路里"),
+    ("航空箱", "运输箱", "笼箱", "犬箱", "猫箱", "可拆顶箱"), ("热量", "能量", "卡路里"),
+    ("剪指甲", "剪甲", "指甲护理", "指甲"),
+    ("食盆", "食碗", "狗碗", "猫碗", "食水器具"),
     ("保暖", "冬季"), ("玩具", "啃咬", "互动"),
+    ("袋开了", "开袋", "开封"), ("收好", "储存", "存放"),
+    ("粮袋破", "破粮袋", "破袋", "包装破损"), ("没有异味", "闻起来正常"),
 )
 
 
@@ -41,7 +45,7 @@ def expanded_query(query):
 
 def tokenize(text, vocabulary=()):
     """Deterministic dictionary maximum matching plus CJK bigrams; no remote service."""
-    return list(_tokenize(text, tuple(sorted(set(vocabulary)))))
+    return list(_tokenize(text, vocabulary if isinstance(vocabulary, tuple) else tuple(sorted(set(vocabulary)))))
 
 
 @lru_cache(maxsize=32)
@@ -149,6 +153,9 @@ def sections(article):
 
 
 def passage_role(passage):
+    if passage.get('roles'):
+        return next((role for role in ('action', 'boundary', 'observation', 'prerequisites', 'explanation', 'scope')
+                     if role in passage['roles']), 'explanation')
     heading, text = passage['heading'], passage['text']
     if re.search(r'深入分析前|需要哪些资料|填写|资料缺口', heading):
         return 'prerequisites'
@@ -162,6 +169,10 @@ def passage_role(passage):
 
 
 def evidence_sections(article, query, count=3):
+    from app.evidence_index import chunks_for, select_chunks
+    indexed = chunks_for(article)
+    if indexed is not None:
+        return select_chunks(indexed, query, count)
     def passage_terms(text):
         # Preserve compound substrings: 剪指甲 must still match 指甲护理.
         grams = {chunk[i:i+2] for chunk in re.findall(r'[\u3400-\u9fff]+', text) for i in range(len(chunk)-1)}
@@ -193,13 +204,9 @@ def evidence_sections(article, query, count=3):
 
 
 def model_sections(article):
-    """Complete matched passages plus their scope and safety boundaries, once."""
-    complete = sections(article)
-    chosen = {s["heading"] for s in article.get("matched_sections", complete)}
-    if complete:
-        chosen.add(complete[0]["heading"])
-    chosen.update(s["heading"] for s in complete if re.search(r"适用|边界|限制|风险|安全|就医|求助|停止", s["heading"]))
-    return [s for s in complete if s["heading"] in chosen]
+    """Only selected evidence and its explicit dependencies; never expand by title."""
+    passages = article.get('matched_sections', sections(article))
+    return list({s.get('chunk_id', s['heading']): s for s in passages}.values())
 
 
 def passage_questions(article, heading):
@@ -263,6 +270,21 @@ def search_knowledge(session, species, query, topic=None, limit=5, life_stage=No
 
 def multi_search(session, species, questions, **filters):
     """Reserve coverage per subquestion before filling remaining evidence slots."""
+    from app.evidence_index import manifest
+    if manifest() is not None:
+        return evidence_search(session, species, questions, **filters)
+    return legacy_multi_search(session, species, questions, **filters)
+
+
+def grounded_sections(article, query, count=3):
+    """Explicit tool/breed selections use the same managed units and dependencies."""
+    from app.evidence_index import chunks_for, select_chunks
+    available = chunks_for(article)
+    return select_chunks(available, query, count) if available is not None else evidence_sections(article, query, count)
+
+
+def legacy_multi_search(session, species, questions, **filters):
+    """Frozen article-first comparator and compatibility for installations without an index."""
     groups = [focused_articles(search_knowledge(session, species, question, limit=3, **filters), question)
               for question in questions]
     selected = {}
@@ -283,6 +305,74 @@ def multi_search(session, species, questions, **filters):
                         if question not in linked:
                             linked.append(question)
                     current["matched_sections"] = [s for s in sections(article) if s["heading"] in headings]
+    return list(selected.values())
+
+
+def evidence_search(session, species, questions, **filters):
+    from app.evidence_index import chunks_for, rank_chunks, dependency_closure, direct_chunks, manifest
+    from app.question_scope import explicit_species
+    index = manifest()
+    personal = filters.pop('personal', False)
+    detected = [explicit_species(q) for q in questions]
+    mixed = len(set().union(*detected)) > 1
+    scopes = [scope or ({species} if species else set()) for scope in detected] if mixed else [({species} if species else scope) for scope in detected]
+    requested = set().union(*scopes)
+    if mixed:
+        filters = {**filters, 'breed_id': None, 'life_stage': None}
+    eligible = {a.id: a.model_dump() for a in retriever.search(session, None if mixed else species, '', **filters)
+                if not personal or filters.get('breed_id') or not a.breed_ids}
+    available = []
+    legacy = []
+    for article in eligible.values():
+        chunks = chunks_for(article,index)
+        if chunks is None:
+            legacy.append(article)
+        else:
+            available.extend(c for c in chunks if not requested or requested.intersection(c['species']))
+    selected = {}
+    for question, scope in zip(questions, scopes):
+        applicable = [c for c in available if not scope or scope.intersection(c['species'])]
+        shopping = re.search(r'买|选购|挑选|用品|规格|材质|比较|多少钱|尺寸', question)
+        def relevant(ranked):
+            if shopping:
+                return ranked
+            return [c for c in ranked if (c['content_kind'] != 'supplies' or any(alias in question for alias in c.get('object_aliases',[])))
+                    and not re.search(r'购买|选购|辅助用品|(?:选择|比较).*用品', c['heading'])]
+        ranked = relevant(rank_chunks(applicable, question))
+        # A combined question still needs direct evidence for each animal.
+        # Shared introductory passages must not crowd out either species.
+        if len(scope) > 1:
+            direct_by_id = {}
+            for animal in sorted(scope):
+                animal_ranked = relevant(rank_chunks([c for c in applicable if animal in c['species']], question))
+                for c in direct_chunks(animal_ranked, question):
+                    direct_by_id[c['chunk_id']] = c
+            direct = list(direct_by_id.values())
+        else:
+            direct = direct_chunks(ranked, question)
+        if re.search(r'梳毛|剪甲|剪指甲', question) and re.search(r'紧张|害怕|抗拒|强迫', question):
+            support = next((c for c in ranked if c['article_id'] == 'cat-low-stress-care' and 'action' in c['roles']), None)
+            if support and support not in direct:
+                direct.append(support)
+        complete = dependency_closure(direct, applicable)
+        for chunk in complete:
+            aid = chunk['article_id']
+            current = selected.setdefault(aid, {**eligible[aid], 'matched_sections': [],
+                          'matched_questions': [], 'section_questions': {}, 'direct_chunk_ids': []})
+            if question not in current['matched_questions']:
+                current['matched_questions'].append(question)
+            mapping = current['section_questions'].setdefault(chunk['heading'], [])
+            if question not in mapping:
+                mapping.append(question)
+            if chunk['chunk_id'] not in {c['chunk_id'] for c in current['matched_sections']}:
+                current['matched_sections'].append(chunk)
+            if chunk in direct and chunk['chunk_id'] not in current['direct_chunk_ids']:
+                current['direct_chunk_ids'].append(chunk['chunk_id'])
+    # Extension articles have no managed index; retain the existing interface.
+    if legacy and not selected:
+        return legacy_multi_search(session, species, questions, personal=personal, **filters)
+    if trace := current_execution.get():
+        trace.retrieved(selected)
     return list(selected.values())
 
 

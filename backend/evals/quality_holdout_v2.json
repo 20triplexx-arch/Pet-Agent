@@ -1,0 +1,17 @@
+{
+  "version": "evidence-rebuild-holdout-v2-20261019",
+  "synthetic_data_only": true,
+  "policy": "Frozen before live evaluation. This set must not be used for tuning; failures remain in this report. Any later repair requires a newly identified build and a new independent holdout.",
+  "cases": [
+    {"id":"EH-001","category":"generalization","pet":"cat","answer_depth":"detailed","turns":["准备接一只猫回家，家人轮班、月底有人出差。怎样决定谁负责喂食、清洁、观察和临时接手？请把家中空间和实际开支也讲清楚，不指定品牌或固定月费。"]},
+    {"id":"EH-002","category":"generalization","pet":"cat","turns":["我以前问过怎么把运输箱收起来，那件事已经结束。现在只想问猫被梳子碰到就往后躲，该怎么处理？","刚才它没有叫但不再靠近，可以继续剪甲吗？只解释这次的判断。"]},
+    {"id":"EH-003","category":"generalization","pet":"dog","turns":["狗在笼内站立会低头，转身也困难。选箱和自愿进箱是同一件事吗，分别怎样核对？","如果换大箱后仍不停踱步和喘气，能不能等到它安静？"]},
+    {"id":"EH-004","category":"generalization","pet":"cat","turns":["看见洗手要讲时间，就照那个时间给食盆泡消毒液对吗？请分别说明手部、食盆和食品剩余怎样处理，不给我统一消毒配方。"]},
+    {"id":"EH-005","category":"generalization","pet":"dog","answer_depth":"brief","turns":["厂家说配方完整，还给了营养师名字，就能叫WSAVA认证吗？包装只有每杯热量，没有杯中克重。这些资料分别支持什么结论，哪些还不能下结论？"]},
+    {"id":"EH-006","category":"generalization","pet":"cat","turns":["我家猫有鸡肉过敏记录，兽医要求保持原饮食。今天问邻居的狗刷牙，别用我家猫的档案替它作判断。它一碰嘴就后退，怎样开始？"]},
+    {"id":"EH-007","category":"generalization","pet":"cat","answer_depth":"detailed","turns":["请回答五项：修剪爪尖前先做什么？运输箱关门后紧张怎样退一步？新粮不肯吃能否饿一顿？每杯热量怎样换成每克？猫狗能共用一套BCS观察描述吗？不用讲购买预算。"]},
+    {"id":"EH-008","category":"generalization","pet":"dog","turns":["狗平时独处会叫，记录下来后该怎样与兽医讨论，家人实际不得不出门时先安排什么？不要预设治疗周期。","应用一个月的复盘窗口能不能当成应该好转的期限？"]},
+    {"id":"EH-009","category":"generalization","pet":"dog","turns":["BCS不等于MCS，对吧？体重增加能否证明肌肉恢复？我可以把哪些观察交给兽医，哪些不能当成正式评分？"]},
+    {"id":"EH-010","category":"generalization","pet":"cat","turns":["我有猫的既往医疗资料，自驾出发前怎么整理联系人、运输和文件？请解释为什么资料准备不等于一律另开健康证明，哪些要求仍需核对。"]}
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "version": "evidence-rebuild-holdout-v4-20261019",
+  "synthetic_data_only": true,
+  "policy": "Frozen before source audit and third-candidate fixes. Run once on frozen candidate; retain every failure and never relabel tuned cases as fresh.",
+  "cases": [
+    {
+      "id": "EG-001",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "小猫到家后只敢夜里出来，白天家人想轮流抱它适应。休息点、接触和食水位置怎样安排？"
+      ]
+    },
+    {
+      "id": "EG-002",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "狗一看到钥匙就不安，但有人陪着时能在窝里休息。独处与笼箱练习应该分开记录什么，遇到挣扎怎样调整？"
+      ]
+    },
+    {
+      "id": "EG-003",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫粮袋子的代谢能是每杯的，家用杯又不一样。怎样核对食品数据，现阶段能不能直接给出每天精确克数？"
+      ]
+    },
+    {
+      "id": "EG-004",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "清洁狗碗后还摸得到清洁剂泡沫，能直接装水给狗吗？器具允许机洗与消毒剂接触时间分别看哪里？"
+      ]
+    },
+    {
+      "id": "EG-005",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫在换粮时食欲明显下降。哪些记录有助于联系兽医，哪些一般换粮建议不能继续机械执行？"
+      ]
+    },
+    {
+      "id": "EG-006",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "家人说肌肉少了所以BCS就一定更高。脂肪、肌肉和日常起身变化应怎样分别记录？"
+      ]
+    },
+    {
+      "id": "EG-007",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "上次狗的清洁问题已经处理完。这次猫剪甲时缩爪扭头，怎么停下来以及重新开始？",
+        "是否每次一定要剪完所有指甲？"
+      ]
+    },
+    {
+      "id": "EG-008",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "brief",
+      "turns": [
+        "周末开车带狗和猫去亲戚家，想分别核对两者运输箱和搬运方式；文件该向谁确认，能统一套一个要求吗？"
+      ]
+    },
+    {
+      "id": "EG-009",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "朋友把猫暂时交给我。食物、兽医原限制、联系人和未确认事项应怎样写在交接表中？哪些计划不能自行改？"
+      ]
+    },
+    {
+      "id": "EG-010",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "狗刷牙抗拒同时口气变化，哪些情况先做专业检查？请同时讲渐进适应和停止条件，不要给自行刮牙的办法。"
+      ]
+    }
+  ]
+}

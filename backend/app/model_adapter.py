@@ -173,6 +173,7 @@ def quota_status(session, user_id):
 
 
 def assemble_prompt(ctx, text, history, profile, articles):
+    from app.answer_context import relevant_history, current_focus
     tools = dict(ctx.analysis.get("tool_results", {}))
     if "recent_care" in tools:
         tools["recent_care"] = tools["recent_care"][:10]
@@ -185,6 +186,7 @@ def assemble_prompt(ctx, text, history, profile, articles):
         "context_conflicts": ctx.analysis.get("conflicts", []),
         "answer_context": ctx.analysis.get('answer_context', {}),
         "response_focus": ctx.analysis.get('response_focus', {}),
+        "task_snapshot": ctx.analysis.get('task_snapshot', {}),
         "source_specific_rules": evidence_rules(a["id"] for a in articles),
         'quantitative_policy': '只有tool_results.nutrition.status为ready时才能引用其计算数值；否则不输出任何建议克数、每日热量、区间或假设计算示例。每100克可作为索取标签的单位。',
         'profile_unknown_fields': [key for key in ('age_months', 'weight', 'neutered', 'allergies', 'medical_history', 'vet_advice')
@@ -195,9 +197,9 @@ def assemble_prompt(ctx, text, history, profile, articles):
         "history_summary": ctx.memory,
         "history": [{"id": m["id"], "role": m["role"],
                      "content": re.sub(r'\[[a-zA-Z][a-zA-Z0-9#_-]*\]', '', m['content']) if m['role'] == 'assistant' else m['content'],
-                     "date": m["created_at"]} for m in history[-4:]],
+                     "date": m["created_at"]} for m in relevant_history(history, current_focus(text), bool(ctx.analysis.get('task_snapshot', {}).get('followup_reference')))],
         "retrieved_data": [{k: a[k] for k in ("id", "title", "species", "life_stages", "topic", "review_status")} |
-                           {"matched_sections": model_sections(a), "matched_questions": a.get("matched_questions", []),
+                           {"matched_sections": [{'heading':s['heading'],'text':s['text']} for s in model_sections(a)], "matched_questions": a.get("matched_questions", []),
                             "section_questions": a.get('section_questions', {}),
                             } for a in articles],
     }

@@ -19,12 +19,12 @@ class ModelSelection:
         return self.id == "demo"
 
     def public(self):
-        prefixes = {"deepseek": "DeepSeek · ", "alibaba": "阿里千问 · ", "compatible": "兼容接口 · "}
+        prefixes = {"deepseek": "DeepSeek · ", "alibaba": "阿里百炼 · ", "compatible": "兼容接口 · "}
         label = "演示模式 · 本地" if self.demo else prefixes[self.provider] + self.name
         available = self.demo or bool(self.key)
         reason = None
         if self.id == 'alibaba-auto':
-            label = '阿里千问 · 免费优先（自动）'
+            label = '阿里百炼 · 免费优先（自动）'
         if self.provider == 'alibaba' and self.key and settings.DASHSCOPE_FREE_ONLY:
             from app.alibaba_quota import available_models
             available = self.name in available_models(qualified=self.id == 'alibaba-auto')

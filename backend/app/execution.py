@@ -49,6 +49,7 @@ class Execution:
             self.retrieval[article["id"]] = {
                 "id": article["id"], "source_version": article["source_version"],
                 "updated_at": article["updated_at"],
+                "evidence_ids": [p['chunk_id'] for p in article.get('matched_sections', []) if p.get('chunk_id')],
             }
 
     def summary(self):

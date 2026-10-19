@@ -3,6 +3,7 @@
 These are bounded heuristics, not a medical accuracy or semantic entailment judge.
 """
 import re
+from app.propositions import affirmative_schedules, clauses, negated, qualified
 
 
 def factual_error(text, profile, ctx):
@@ -10,8 +11,16 @@ def factual_error(text, profile, ctx):
     analysis = getattr(ctx, 'analysis', {})
     nutrition = analysis.get('tool_results', {}).get('nutrition') or {}
     ready = nutrition.get('status') == 'ready'
-    if nutrition and not ready and re.search(r'(?:获取|获得|补充|提供|确认|给出).{0,40}(?:后|即可|就能|便可).{0,30}(?:准确|精确|精准).{0,15}(?:克数|喂食量|食量|方案)', text):
-        return '营养评估未就绪，不能承诺少数资料就能产生精确个体食量'
+    if nutrition and not ready:
+        for part in clauses(text):
+            precision = re.search(r'(?:准确|精确|精准).{0,15}(?:克数|喂食量|食量|方案)',part)
+            predicates=list(re.finditer(r'算出|给出|得到|确定|计算|推算|生成|制定|产生|输出|保证|承诺',part[:precision.start()] if precision else ''))
+            denied=precision and (negated(part,precision.start()) or (predicates and (
+                negated(part,predicates[-1].start()) or any(
+                    p.group() in ('保证','承诺') and negated(part,p.start())
+                    and not re.search(r'却|仍然|反而',part[p.end():precision.start()]) for p in predicates))))
+            if precision and not denied:
+                return '营养评估未就绪，不能承诺少数资料就能产生精确个体食量'
     allowed = {'grams': [], 'kcal': []}
     def numeric_facts(value, key=''):
         if isinstance(value, dict):
@@ -62,27 +71,36 @@ def factual_error(text, profile, ctx):
                         continue
                     return '把未知或相反的绝育状态写成了当前宠物事实'
     for clause in re.split(r'[，,。！？；;\n]', text):
-        for match in re.finditer(r'肌肉(?:流失|损失|减少).{0,12}(?:导致|造成).{0,8}BCS(?:异常|升高|偏高)', clause, re.I):
-            prefix = clause[:match.start()]
-            negated = re.search(r'(?:不是|并非|而非|不能说|不应说|不能认为)$', prefix)
-            double_negative = re.search(r'(?:不是不是|并非不是|不能不说|不是不能说)$', prefix)
-            if double_negative or not negated:
+        for match in re.finditer(r'肌肉(?:流失|损失|减少).{0,12}(?P<causal>导致|造成).{0,8}BCS(?:异常|升高|偏高)', clause, re.I):
+            denied = negated(clause,match.start()) ^ negated(clause,match.start('causal'))
+            if not denied:
                 return '混淆肌肉状况与脂肪体况'
         if re.search(r'BCS|体况评分', text + getattr(ctx, 'current_text', ''), re.I):
             for match in re.finditer(r'(?:因)?肌肉(?:流失|损失|减少).{0,6}(?:导致|造成)(?:实际|当前|脂肪)?体况(?:变差|不佳|下降|恶化)', clause):
                 prefix = clause[:match.start()]
-                negated = re.search(r'(?:不是|并非|不能说|不应说|不能认为)$', prefix)
+                denied = re.search(r'(?:不是|并非|不能说|不应说|不能认为)$', prefix)
                 uncertainty = re.search(r'不一定|不必然|不会|不能', match.group())
                 double_negative = re.search(r'(?:不是不是|并非不是|不能不说|不是不能说)$', prefix)
-                if double_negative or not (negated or uncertainty):
+                if double_negative or not (denied or uncertainty):
                     return '用肌肉减少解释脂肪体况变化'
+    # Preserve an explicit scoring subject across an adjacent contrast. A
+    # correct negative definition must not hide its contradictory alternative.
+    for sentence in re.split(r'[。！？；;\n]',text):
+        alternative = re.search(r'而是(?:用来|用于)?(?:评估|衡量|关注|反映|包含|包括).{0,24}肌肉',sentence)
+        if alternative:
+            subjects = list(re.finditer(r'BCS|MCS|体况评分|肌肉状况评分',sentence[:alternative.start()],re.I))
+            if subjects and subjects[-1].group().upper() in ('BCS','体况评分') and not negated(sentence,subjects[-1].start()):
+                return 'BCS只评估脂肪，不能把肌肉状况并入BCS定义'
     for clause in re.split(r'[，,。！？；;\n]', text):
         # Inspect the BCS proposition itself; a correct MCS definition later in
         # the sentence must not excuse a contradictory BCS definition.
         definition = re.search(r'(?:BCS|体况评分)(.*?)(?=MCS|肌肉状况评分|$)', clause, re.I)
         if definition:
             claim = definition[1]
-            if re.search(r'(?:评估|衡量|关注|反映|包含|包括).{0,24}肌肉', claim) and not re.search(r'而非|不是|不评估|不关注|不衡量|不包括|不包含', claim):
+            # "评估日期/填写者、肌肉状况" enumerates missing inputs;
+            # its noun modifier is not a predicate defining the BCS object.
+            predicate = re.search(r'(?:评估(?!日期|时间|者|人员|人|结果|记录)|衡量|关注|反映|包含|包括).{0,24}肌肉', claim)
+            if predicate and not negated(claim,predicate.start()):
                 return 'BCS只评估脂肪，不能把肌肉状况并入BCS定义'
             if re.search(r'(?:是|属于|反映).{0,6}整体健康', claim) and not re.search(r'不是|不属于|不代表|不能', claim):
                 return '把BCS当作整体健康结论'
@@ -91,7 +109,6 @@ def factual_error(text, profile, ctx):
     # A provider must not turn qualitative guidance into invented schedules.
     evidence = getattr(ctx, 'sent_evidence', {})
     supplied = ' '.join(passage for article in evidence.values() for passage in article.values())
-    supplied += ' ' + getattr(ctx, 'current_text', '')
     for timing in re.finditer(r'\d+(?:\s*[-—～至到]\s*\d+)?\s*(?:分钟|小时|周|个月|天)(?:一次|左右|后|内|以上|以下)?', text):
         value = re.sub(r'\s+', '', timing.group())
         age_prefix = text[max(0, timing.start()-14):timing.start()]
@@ -104,6 +121,9 @@ def factual_error(text, profile, ctx):
                                                        and not re.search(r'每|隔|等待|再过|建议', age_prefix)):
                 continue  # Known age is a profile fact, not a care schedule.
         if value not in re.sub(r'\s+', '', supplied):
+            reported = re.search(r'你(?:提供|记录|提到)|您(?:提供|记录|提到)|已记录|实际观察|当前记录',age_prefix)
+            if reported and value in re.sub(r'\s+','',getattr(ctx,'current_text','')):
+                continue
             # Reporting the application's actual record windows is permitted.
             if value.rstrip('内') in ('7天', '30天') and re.search(r'记录|统计|复盘|窗口', text[max(0, timing.start()-12):timing.end()+12]):
                 continue
@@ -131,9 +151,9 @@ def evidence_rules(article_ids):
     if ids & {'cat-carrier', 'supply-carriers'}:
         rules.append('奖励追问只解释原文明示的自主接近、进入及按舒适反应推进；资料只说合适奖励时，保持该概括，不指定零食或玩具。不把食物诱导解释成被动服从、欺骗或恐惧强化。原文没有解释的机制不展开。')
     if 'cat-body-language' in ids:
-        rules.append('咬手或尾巴变化时仅用原文支持的停止接触、给予空间及观察，不补出保持手部静止、强行固定或其他未提供的动作。')
+        rules.append('咬手或尾巴变化时仅用原文支持的停止接触、给予空间及观察，不补出保持手部静止、强行固定或其他未提供的动作。人被咬伤的医疗意见与猫行为的兽医评估分别说明，不把人的伤口求助指向兽医。')
     if 'pet-travel' in ids:
-        rules.append('健康文件不等于一律必须开具健康证明。证件须按实际运营方及目的地要求核实，不将清单升级为统一强制规定。')
+        rules.append('健康文件不等于一律必须开具健康证明。证件须按实际运营方及目的地要求核实，不将清单升级为统一强制规定；资料未列出全国清单也不证明全国不存在统一要求。')
     if 'cat-clean' in ids:
         rules.append('排泄异常的风险说明适用于资料中的猫，不自行缩成仅公猫或某一品种；清洁问题只讲清洁与观察，不展开未询问的自动设备或购买维护清单。')
     return rules
@@ -144,14 +164,15 @@ def has_disallowed_health_claim(text):
     # Negations must immediately qualify the diagnostic verb; a later positive
     # assertion is still checked independently.
     assertion = re.compile(r'(?:确诊|肯定是|一定是|诊断为)[^，,。！？；;\n]{0,16}(?:疾病|肾病|肝病|糖尿病|感染|中毒|炎|病)')
-    negative = re.compile(r'(?:不|未|尚未|未能|没有|并非|并不|不能|无法|不应|不可|不宜)(?:据此|直接|仅凭这些|单凭这些|自行)?(?:作出|给出|判断|认定|说|称)?$')
+    negative = re.compile(r'(?:不|未|尚未|未能|没有|并非|并不|不能|无法|不应|不可|不宜)(?:据此|因此|就此|直接|仅凭这些|单凭这些|自行)?(?:作出|给出|判断|认定|说|称)?$')
     for clause in re.split(r'[，,。！？；;\n]', text):
         for match in assertion.finditer(clause):
             prefix = clause[:match.start()]
             if re.search(r'(?:既往|过去|历史|已知)(?:已)?$', prefix):
                 continue
-            double_negative = re.search(r'(?:不能不|不得不|不是不能|不是不|并非不能|并非不)$', prefix)
-            if double_negative or not negative.search(prefix):
+            double_negative = re.search(r'(?:不能不|不得不|不是不能|不是不|并非不能|并非不|不是不等于|并非不等于)(?:据此|直接)?(?:作出|给出|判断|认定|说|称)?$', prefix)
+            denied=bool(negative.search(prefix)) or negated(clause,match.start())
+            if double_negative or not denied:
                 return True
     return bool(re.search(r'(?:服用|用药|注射|给药).{0,40}\d+(?:\.\d+)?\s*(?:mg|毫克|毫升|ml|片)', text, re.I))
 
@@ -160,23 +181,30 @@ def unsupported_advice(text, article_ids):
     ids = set(article_ids)
     supplied = ' '.join(p for article in article_ids.values() for p in article.values()) if isinstance(article_ids, dict) else ''
     if isinstance(article_ids, dict):
-        for concept, sources in ((r'BCS|体况评分', {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'}),
-                                 (r'MCS|肌肉状况评分', {'nutrition-muscle'})):
-            if not ids & sources:
+        definitions_text=re.sub(r'BCS\s*[（(]\s*体况(?:评分)?\s*[）)]|体况评分\s*[（(]\s*BCS\s*[）)]','BCS',text,flags=re.I)
+        definitions_text=re.sub(r'MCS\s*[（(]\s*肌肉(?:状况)?(?:评分)?\s*[）)]|肌肉(?:状况)?评分\s*[（(]\s*MCS\s*[）)]','MCS',definitions_text,flags=re.I)
+        for concept, sources, definition in ((r'BCS|体况评分', {'nutrition-cat-bcs', 'nutrition-dog-bcs', 'nutrition-muscle'},r'脂肪'),
+                                 (r'MCS|肌肉状况评分', {'nutrition-muscle'},r'肌肉减少|肌肉状况.{0,6}(?:关注|评估)|MCS.{0,10}(?:肌肉|评分)')):
+            related=' '.join(value for aid,passages in article_ids.items() if aid in sources for value in passages.values())
+            if not re.search(definition,related,re.I):
                 # A missing field named "体况评分" is not a definition. Inspect
                 # each proposition, including assertions after a legitimate ask.
-                proposition = r'(?:' + concept + r')\s*(?:不|并非|并不|主要|通常|只|则)?(?:是(?!未知|空|缺失|尚未|未提供|未记录|待核对)|用于|用来|指|看|评估|衡量|关注|反映|包含|包括|通过|依据|根据|结合)'
+                proposition = r'(?:' + concept + r')\s*(?:不|并非|并不|主要|通常|只|则)?(?:是(?!未知|空|缺失|尚未|未提供|未记录|待核对)|用于|用来|指|看|评估(?!日期|时间|者|人员|人|结果|记录|为)|衡量|关注|反映|包含|包括|通过|依据|根据|结合)'
                 inverse = r'(?:评估|衡量|评分|反映)[^，,。！？；;\n]{0,20}(?:称为|就是|叫作|叫做|即|是)\s*(?:' + concept + ')'
-                if re.search(proposition, text, re.I) or re.search(inverse, text, re.I):
+                if re.search(proposition, definitions_text, re.I) or re.search(inverse, definitions_text, re.I):
                     return '评分定义未绑定实际提供的评分章节'
     if 'cat-body-language' in ids and '静止' not in supplied:
         for clause in re.split(r'[，,。！？；;\n]', text):
             if re.search(r'(?:保持|让|要|应|不要移动).{0,8}(?:静止|不动)|手(?:部)?.{0,6}(?:不动|不能动)', clause) and not re.search(r'不能要求|不要强求|不建议|无需', clause):
                 return '咬手资料未支持保持静止的操作指令'
-    if 'pet-travel' in ids and '健康证明' not in supplied:
-        for clause in re.split(r'[，,。！？；;\n]', text):
-            if re.search(r'(?:必须|务必|需要|需|应|要|准备|携带|开具).{0,12}健康证明', clause) and not re.search(r'是否|核实|核对|确认|如果|若|按.{0,12}要求|并非|不一定|未必|不需|无需', clause):
-                return '把待核实的健康文件变成统一强制健康证明'
+    if 'pet-travel' in ids:
+        for clause in clauses(text):
+            from app.propositions import unverified_nationwide_absence
+            if unverified_nationwide_absence(clause):
+                return '资料不足以断言全国不存在统一文件或证件规定'
+            for claim in re.finditer(r'(?:必须|务必|需要|需|应当|应|要|准备|携带|开具|另开)[^。！？；;]{0,12}健康证明|健康证明[^。！？；;]{0,8}(?:必须|务必|一定要)(?:携带|开具|准备)',clause):
+                if not negated(clause,claim.start()) and not qualified(clause):
+                    return '把待核实的健康文件变成统一强制健康证明'
     if ids & {'cat-carrier', 'supply-carriers', 'dog-crate'}:
         for clause in re.split(r'[。！？；;\n]', text):
             if re.search(r'被动服从|强化恐惧|强化害怕|学会恐惧', clause) and not re.search(r'不能|不要|不代表|并非|不等于|不应|不宜', clause):
@@ -196,10 +224,20 @@ def unsupported_advice(text, article_ids):
             if material not in supplied and re.search(r'(?:优先使用|优先选择|建议.{0,8}选择|内部可放置|箱内放置).{0,25}' + material, text):
                 return '运输箱资料未提供具体奖励物，不能补出用品建议'
     if ids & {'cat-grooming', 'cat-low-stress-care'}:
-        if re.search(r'(?:避免|不要|不应)(?:在)?(?:刚睡醒|饭后|吃完饭)', text):
-            return '护理时机被改写成资料没有规定的禁忌'
+        for clause in clauses(text):
+            for ban in re.finditer(r'(?:避免|不要|不应|不建议)(?:在)?(?:刚睡醒|饭后|(?:刚)?吃完饭)',clause):
+                if not negated(clause,ban.start()):
+                    return '护理时机被改写成资料没有规定的禁忌'
         if re.search(r'(?:仅|只)(?:在|有)?[^，,。；\n]{0,10}(?:放松|不害怕|平静)[^，,。；\n]{0,12}(?:奖励|零食)', text):
             return '把恐惧状态与能否获得奖励笼统绑定'
+    if ids & {'cat-carrier','dog-crate','dog-alone','cat-grooming','cat-low-stress-care'}:
+        for clause in clauses(text):
+            for timing in re.finditer(r'每天|每日|每周|每月|每晚',clause):
+                if timing.group() not in supplied and not negated(clause,timing.start()) and not re.search(r'不规定|不要求|不能规定|没有统一|不设统一',clause[:timing.start()]):
+                    return '把按反应推进改写成来源未给出的固定频率'
+    if 'cat-play' in ids:
+        if affirmative_schedules(text)-affirmative_schedules(supplied):
+            return '把按反应互动改写成来源未给出的次数或时长'
     if ids & {'cat-scratching', 'supply-scratch'}:
         for clause in re.split(r'[，,。！？；;\n]', text):
             for match in re.finditer(r'猫薄荷|喷剂|喷雾', clause):

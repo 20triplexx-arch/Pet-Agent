@@ -25,9 +25,14 @@ def credential_scope():
 
 def answer_build_hash():
     digest = hashlib.sha256()
-    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'answer_context.py', 'alibaba_models.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py'):
+    for name in ('agent_system.txt', 'answer_sections.py', 'answer_quality.py', 'answer_context.py', 'alibaba_models.py', 'model_adapter.py', 'deep_chat.py', 'knowledge.py', 'question_scope.py', 'answer_contract.py', 'propositions.py', 'evidence_index.py'):
         digest.update(name.encode())
-        digest.update(Path(__file__).with_name(name).read_bytes())
+        path = Path(__file__).with_name(name)
+        digest.update(path.read_bytes() if path.exists() else b'absent-in-frozen-baseline')
+    data = Path(__file__).resolve().parents[1] / 'data'
+    for path in sorted([*data.glob('knowledge*.json'), *data.glob('evidence/*.json')]):
+        digest.update(path.relative_to(data).as_posix().encode())
+        digest.update(path.read_bytes())
     return digest.hexdigest()
 
 
@@ -72,16 +77,18 @@ def ledger():
         db.close()
 
 
-def remaining(row, checked_at, db):
-    value = row.get('remaining')
-    if type(value) is not int or value < 0 or row.get('autoStop') is not True:
-        return 0
+def quota_unexpired(row):
     try:
         # CLI dates have day precision. Midnight UTC+8 is conservative.
         expires = datetime.fromisoformat(row['expires']).replace(tzinfo=UTC) - timedelta(hours=8)
     except (KeyError, TypeError, ValueError):
-        return 0
-    if expires.timestamp() <= time.time():
+        return False
+    return expires.timestamp() > time.time()
+
+
+def remaining(row, checked_at, db):
+    value = row.get('remaining')
+    if type(value) is not int or value < 0 or row.get('autoStop') is not True or not quota_unexpired(row):
         return 0
     blocked = db.execute('SELECT until FROM blocks WHERE scope=? AND model=?', (credential_scope(), row['model'])).fetchone()
     if blocked and (time.time() < blocked[0] or checked_at < blocked[0]):
@@ -178,6 +185,17 @@ def cli_call(args):
                '--output', 'json', '--timeout', '15']
     result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', env=env,
         timeout=22, creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0)
+    # Official CLI sends errors to stderr, with empty stdout. Preserve the
+    # actionable category without exposing provider bodies or credentials.
+    if result.returncode:
+        try:
+            failure = json.loads(result.stderr or result.stdout)
+            message = str(failure.get('error',{}).get('message','')).lower()
+        except (ValueError, AttributeError):
+            message = ''
+        if 'not logged in' in message or 'expired' in message:
+            raise RuntimeError('Quota console login is required: session expired')
+        raise RuntimeError('Quota console request failed; verify console login and connectivity')
     try:
         data = json.loads(result.stdout)
     except ValueError:

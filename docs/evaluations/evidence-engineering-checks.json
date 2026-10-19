@@ -1,0 +1,27 @@
+{
+  "full_backend": {
+    "passed": 607,
+    "seconds": 237.54,
+    "scope": "Final frozen candidate 123df52bf238 including unified IDs, negation, frequency, retrieval and all existing checks"
+  },
+  "final_affected_backend": {
+    "passed": 146,
+    "seconds": 5.23,
+    "scope": "evidence rebuild, answer quality and evaluation metrics before full regression"
+  },
+  "frontend": {
+    "typescript_vite": "passed",
+    "playwright_passed": 106,
+    "minutes": 4.2,
+    "scope": "Earlier 106 Chromium cases and TypeScript/Vite passed; frontend source unchanged since that run, not retested as a new frontend release."
+  },
+  "business_database_modified": false,
+  "activated": false,
+  "additional_repairs": [
+    "BCS/MCS括号别名必须绑定实际定义内容",
+    "概念查询不机械降权范围定义",
+    "正确不等于确诊与双重否定按动词作用域校验"
+  ],
+  "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+  "date": "2026-10-20"
+}

@@ -1,0 +1,52 @@
+{
+  "batch": "20261019-evidence-rebuild",
+  "article_count": 95,
+  "classification_count": {
+    "care": 49,
+    "breed": 24,
+    "food": 12,
+    "supplies": 10
+  },
+  "substantively_updated": [
+    "care-handoff",
+    "cat-carrier",
+    "cat-multi",
+    "cat-play",
+    "dog-alone",
+    "dog-crate",
+    "dog-play",
+    "food-labels",
+    "food-storage",
+    "food-transition",
+    "nutrition-label",
+    "nutrition-muscle",
+    "pet-travel",
+    "supply-bowls",
+    "supply-carriers",
+    "supply-cleaning",
+    "visit-preparation"
+  ],
+  "changed_metadata": [
+    "cat-dental",
+    "cat-grooming",
+    "dog-alone",
+    "dog-fear-support",
+    "food-adequacy",
+    "food-allergy",
+    "food-homemade",
+    "food-labels",
+    "food-stage",
+    "food-transition",
+    "nutrition-label",
+    "supply-dental"
+  ],
+  "rechecked_source_count": 78,
+  "pending_source_count": 0,
+  "limitations": [
+    "全文与来源支持检查为编辑审阅，未经兽医审核",
+    "原创清单、应用行为和专业结论分别标记，不代表机构为操作流程背书",
+    "外部真实质量与速度另行验收"
+  ],
+  "source_mapping_checked_articles": 95,
+  "section_review_count": 579
+}

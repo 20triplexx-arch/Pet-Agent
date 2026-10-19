@@ -1,0 +1,18 @@
+{
+  "releasable": false,
+  "errors": [
+    "quality_30_pairs",
+    "zero_regression",
+    "fresh_holdout",
+    "first_visible_latency",
+    "ordinary_complete_latency",
+    "median_speedup_30"
+  ],
+  "pending_source_ids": [],
+  "pending_claim_review_count": 0,
+  "article_count": 95,
+  "chunk_count": 579,
+  "return_code": 1,
+  "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+  "date": "2026-10-20"
+}

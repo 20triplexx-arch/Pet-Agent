@@ -1,0 +1,701 @@
+{
+  "review_date": "2026-10-19",
+  "reviewer": "editorial_primary_page_review_not_veterinary_review",
+  "policy": "只记录实际阅读到的正文。页面核对不等于逐结论支持检查；原始失效链接保留在替换记录中。",
+  "pages": [
+    {
+      "url": "https://www.merckvetmanual.com/cat-owners/selecting-and-providing-a-home-for-a-cat/selecting-a-cat",
+      "title": "Selecting a Cat",
+      "version": "Full review Jul 2025; v102055183",
+      "locator": "Is a Cat the Right Pet for Me?; Should I Get a Kitten?; judging physical and social health",
+      "supports": "猫的时间、环境、个体差异与领养前核对；不据品种保证性格或健康。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.merckvetmanual.com/dog-owners/selecting-and-providing-a-home-for-a-dog/selecting-a-dog",
+      "title": "Selecting a Dog",
+      "version": "Full review Jun 2025; v101586099",
+      "locator": "What Type of Dog Is Right for Me?; Should I Get a Puppy or an Older Dog?; What Questions Should I Ask?",
+      "supports": "犬的生活安排、个体活动及既往健康行为记录；不套用品种性格保证、气候剃毛建议或当地繁殖监管。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://catvets.com/wp-content/uploads/2026/07/FelineVMA-Step-by-Step-Guide-How-to-Introduce.pdf",
+      "title": "How to Introduce a New Cat to Other Cats in Your Home",
+      "version": "Copyright 2026; companion to 2024 intercat tension guidelines",
+      "locator": "pp1–2 steps 1–6; pp3–5 steps 8–11 and tension management",
+      "supports": "仅猫：健康核对、过渡房间、分开资源、分步接触、紧张时退回；不得把已适应箱子的有限情境扩大为强行关箱见面。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+      "title": "AAFP and ISFM Feline Environmental Needs Guidelines",
+      "version": "2013; DOI 10.1177/1098612X13477537",
+      "locator": "pp3–5 Five pillars, Pillars 1–2; p8 Pillar 4; p11 Summary points",
+      "supports": "猫的安全退避、分散资源、玩耍及由猫发起和结束的积极互动；主人记录表为原创整理，不构成固定训练疗程。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/",
+      "title": "What to do before you bring home a new puppy",
+      "version": "Published 2026-06-05",
+      "locator": "Build your support team; Ask the breeder or rescue; Get everyone on the same page; Setting up your home",
+      "supports": "仅幼犬：原照护记录、食物衔接、家庭分工与安全布置；不证明成年犬适用的全部细节。",
+      "species": [
+        "dog"
+      ],
+      "life_stages": [
+        "puppy"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+      "title": "Feline Lower Urinary Tract Disease",
+      "version": "网页正文；页面核对 2026-10-19",
+      "locator": "Clinical Signs; Urethral Obstruction; environmental management recommendations",
+      "supports": "猫排尿异常需专业评估，无尿和疑似尿道阻塞为急症；不能把砂盆清洁当作疾病诊断或治疗。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+      "title": "2019 Canine Life Stage Checklist",
+      "version": "Published 2019-10-08",
+      "locator": "Lifestyle and safety risk assessment—All ages; Behavior; Zoonoses and human safety",
+      "supports": "犬的环境卫生、粪便处理、适合个体的活动及渐进护理适应；不提供家庭诊疗操作。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/sites/default/files/WhatToExpect_Updated_2022.pdf",
+      "title": "What to Expect When Adopting a Feline Friend",
+      "version": "2022 文件版本",
+      "locator": "p1 Senior cats and End of life management; p2 Cat behavior and Husbandry",
+      "supports": "猫的不同阶段、可达资源、日常行为和个体照护；疫苗与就诊频次不自动成为本地通用医嘱。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/how-often-should-my-dog-go-to-the-vet-a-dog-life-stage-guide/",
+      "title": "How often should my dog go to the vet? A dog life stage guide",
+      "version": "Published 2025-06-18",
+      "locator": "Understanding your dog's life stages; veterinary visits by stage",
+      "supports": "犬生命阶段及体型、功能状态、健康需求个体化；不把阶段指南当作线上诊断或一律适用的检查套餐。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.petpoisonhelpline.com/pet-owners/basics/top-10-plants-poisonous-to-pets/",
+      "title": "Top 10 Plants Poisonous to Pets",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "Lilies; final plant identification and professional contact paragraphs",
+      "supports": "真百合属与萱草属对猫的中毒风险，包括花粉及花瓶水；疑似接触及时联系兽医，不据统一剂量等待观察。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+      "title": "Pet First Aid",
+      "version": "Copyright 2025; mcm-0825",
+      "locator": "p1 emergency information and transport; p2 If your pet has been poisoned; first aid does not replace veterinary care",
+      "supports": "猫狗联系急诊、保留容器和记录、安全转运；未经兽医指示不自行催吐或给药；不移植美国求助电话。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/",
+      "title": "Feline Life Stage Definitions",
+      "version": "Published 2021-02-17",
+      "locator": "Life Stage Definitions and Relevant Clinical Perspectives; Table 1; Discussion Items for All Life Stages",
+      "supports": "猫四个年龄阶段及任何年龄可能的临终阶段；年龄分组是起点，个体和兽医判断仍需保留。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia",
+      "title": "Anorexia",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "clinical sign and diagnostic workup paragraphs; consultation and force-feeding cautions",
+      "supports": "猫拒食是临床表现，需兽医评估；不可通过挨饿或强行喂食迫使接受新食物，不给任意等待天数。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/vomiting",
+      "title": "Vomiting",
+      "version": "Updated 2021",
+      "locator": "clinical signs; causes and diagnostic history; prompt veterinary care indications",
+      "supports": "猫反复呕吐或伴异常时及时联系兽医、提供时间线与接触史；不把所有呕吐归于毛球，不生成禁食或用药方案。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+      "title": "Diet History Form",
+      "version": "Copyright 2013",
+      "locator": "p1 all foods, treats, supplements, amounts, frequency and duration; BCS/MCS fields",
+      "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+      "title": "Nutritional Risk Factors",
+      "version": "Published 2021-06-21",
+      "locator": "Table 4; life stage, dietary history and physical examination risk factors",
+      "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/hypertrophic-cardiomyopathy",
+      "title": "Hypertrophic Cardiomyopathy",
+      "version": "Updated May 2025",
+      "locator": "intro; Clinical signs; Diagnosis",
+      "supports": "品种易感仅为风险背景；基因筛查不等于诊断，异常呼吸与急性后肢异常需专业处理；不采用药物段落。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+      "title": "Winter safety tips",
+      "version": "原页未标发布日期",
+      "locator": "Who is most at risk?; signs; Bundle up; Check paws; Monitor mobility",
+      "supports": "犬冷耐受的个体差异、寒冷信号及干燥保暖；该页不能支持各品种训练或全面健康建议。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-destructive-behavior",
+      "title": "Feline Behavior Problems: Destructive Behavior",
+      "version": "原页未标发布日期",
+      "locator": "Scratching; Identify scratching preferences; Provide items that match scratching preference",
+      "supports": "猫抓挠的功能、位置、方向、材质、稳固替代物与奖励；排除同页电击、惊吓和不适用治疗建议。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-vaccines-benefits-and-risks",
+      "title": "Feline Vaccines: Benefits and Risks",
+      "version": "Updated July 2022",
+      "locator": "Vaccinating Adult Cats; Non-core vaccines; Vaccines Truths and Myths",
+      "supports": "疫苗选择取决于生活方式、健康及既往记录，需兽医评估；不生成本地强制清单或自行补种医嘱。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/behavior-problems-in-dogs",
+      "title": "Behavior Problems in Dogs",
+      "version": "本次网页版本，页面核对2026-10-19",
+      "locator": "Behavior Problems Associated with Elimination—Treatment; medical causes paragraph",
+      "supports": "犬如厕的正向强化、频繁机会与记录；排除惊吓与惩罚，突发改变需排除医学问题。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
+      "title": "AVSAB Position Statement on Puppy Socialization",
+      "version": "Copyright 2008; file hosted 2024-12",
+      "locator": "p1 safe exposure without overstimulation; p2 The Process of Socialization",
+      "supports": "幼犬安全、渐进、正向社会化与兽医风险核对；文件上传时间不冒充2024新版，不外推统一疫苗日程。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs",
+      "title": "Routine Health Care of Dogs",
+      "version": "本次网页版本，页面核对2026-10-19",
+      "locator": "Should I Brush My Dog’s Hair?; Should I Brush My Dog’s Teeth?; safety paragraph",
+      "supports": "犬梳毛与打结、皮肤观察和适用品；不采用自行剪毛操作、固定洗澡或绝育年龄、强制给药细节。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/teenage-years-puppy-proofing-and-training-tips",
+      "title": "The teenage years: Puppy-proofing and training tips",
+      "version": "Cornell DogWatch转载；原页未标发布日期",
+      "locator": "Puppy-proofing your environment; Rules and routines; Mental stimulation",
+      "supports": "犬青春期环境防护、合适可啃物、稳定安排和拆小练习；箱内独处需另用笼箱来源保留停止条件。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/trends-magazine/publications/nutritional-guidelines/",
+      "title": "2021 AAHA Nutrition and Weight Management Guidelines Executive Summary",
+      "version": "2021 guidelines executive summary",
+      "locator": "A Team Approach; diet history before appointment and follow-up",
+      "supports": "猫狗营养史、评估、建议与随访流程；应用每周清单和字段属于原创组织，不是机构规定频率。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.cdc.gov/healthy-pets/about/pet-food-safety.html",
+      "title": "About Pet Food Safety",
+      "version": "网页版本，页面核对2026-10-19",
+      "locator": "Raw pet food; food poisoning; Raw pet food is not necessarily healthier; hand hygiene",
+      "supports": "猫狗生食的病原风险、家庭传播和冷冻/冻干不能保证灭菌；不单独支持自制食谱营养完整性。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/food-allergies",
+      "title": "Food Allergies",
+      "version": "原页未标发布日期",
+      "locator": "prompt veterinary care; rule out other causes; diet investigation paragraphs",
+      "supports": "仅猫：疑似过敏需兽医排查与完整饮食史；不外推犬诊断，不提供自选排除饮食或固定疗程。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-house-soiling",
+      "title": "Feline Behavior Problems: House Soiling",
+      "version": "Updated January 2015",
+      "locator": "Medical Problems; Identify the Cause; Quick Tips 1–3",
+      "supports": "猫砂盆可达性、安静分散位置、材质偏好与卫生；排除同页惊吓、电击及口服标记物建议，异常需专业排查。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/weight-reduction-in-the-obese-pet/0/",
+      "title": "Energy Requirement Calculations (Box 1)",
+      "version": "Published 2021-06-22",
+      "locator": "Box 1 formula, feline/canine adult factors, asterisk footnote",
+      "supports": "RER=70×kg^0.75，MER系数为起始估算并随体重/BCS复评；只采用成年维持行，不把减重/繁殖/生长行接入普通计算。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://cfa.org/breed/british-shorthair/",
+      "title": "British Shorthair",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/american-shorthair/",
+      "title": "American Shorthair",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/ragdoll/",
+      "title": "Ragdoll",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/siamese/",
+      "title": "Siamese",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/maine-coon-cat/",
+      "title": "Maine Coon Cat",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/persian/",
+      "title": "Persian",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/exotic/",
+      "title": "Exotic",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://cfa.org/breed/scottish-fold/",
+      "title": "Scottish Fold",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "About the Breed; Physical Attributes; Grooming",
+      "supports": "仅品种身份、毛发结构与品种介绍中的倾向；不据此断言个体性格、排除疾病或规定医学操作，健康风险另用专业来源。",
+      "species": [
+        "cat"
+      ],
+      "coverage": "breed_profile_not_clinical_guideline"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/golden-retriever/",
+      "title": "Golden Retriever",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/labrador-retriever/",
+      "title": "Labrador Retriever",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/poodle-standard/",
+      "title": "Poodle",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/bichon-frise/",
+      "title": "Bichon Frise",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/pomeranian/",
+      "title": "Pomeranian",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/shiba-inu/",
+      "title": "Shiba Inu",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/pembroke-welsh-corgi/",
+      "title": "Pembroke Welsh Corgi",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/border-collie/",
+      "title": "Border Collie",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/siberian-husky/",
+      "title": "Siberian Husky",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/samoyed/",
+      "title": "Samoyed",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/french-bulldog/",
+      "title": "French Bulldog",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.akc.org/dog-breeds/pug/",
+      "title": "Pug",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "opening breed description",
+      "supports": "仅页面可读取的品种身份和简介；动态护理页未读取，不支持该品种完整护理、健康、固定运动量或性格保证。",
+      "species": [
+        "dog"
+      ],
+      "coverage": "opening_description_only"
+    },
+    {
+      "url": "https://www.gov.wales/sites/default/files/publications/2025-01/animal-welfare-committee-opinion-on-the-welfare-implications-of-current-and-emergent-feline-breeding-practices.pdf",
+      "title": "Opinion on the welfare implications of current and emergent feline breeding practices",
+      "version": "政府2025-01发布文件版本",
+      "locator": "PDF pp19–20, welfare impact of genetic issues: Brachycephaly; Scottish Fold osteochondrodysplasia",
+      "supports": "仅猫：极端短头结构与折耳相关福利风险；不将英国繁殖许可规则写成中国法规，不做个体诊断。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/summer-heat-safety-tips-dogs",
+      "title": "Summer heat safety tips for dogs",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "Who is most at risk?; signs; prevention",
+      "supports": "犬高温风险、短头结构及个体差异，遮阴、饮水、避热与异常就医；不能据犬资料外推猫的具体风险分层。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+      "title": "Position Statement on Humane Dog Training",
+      "version": "Copyright 2021; PDF hosted 2024-12",
+      "locator": "p1 summary, environment management; p2 training examples and FAQ",
+      "supports": "犬训练采用奖励与环境管理，避免强迫、疼痛和惩罚；不支持具体胸背测量值、材质保证或犬种诊断。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.akc.org/canine-partners/a-guide-to-toy-shopping-for-your-pup/",
+      "title": "A Guide to Toy Shopping for Your Pup",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "safety opening; Stuffed Toys; Balls and Discs; Tug Toys; Puzzle Toys",
+      "supports": "仅犬：尺寸、可脱落部件、吞咽与破损风险及监督；猫玩具安全需另核对猫依据，不外推犬啃咬物。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+      "title": "Household Hazards",
+      "version": "Copyright 2020; filename hosted as 2022",
+      "locator": "p2 Cleaning products; labels and storage; p1 What to do if your pet is poisoned",
+      "supports": "猫狗清洁剂按标签使用、干燥后接触及安全存放；猫对部分成分敏感，疑似中毒联系兽医；不提供自配浓度。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+      "title": "Anxious behavior: How to help your dog cope with unsettling situations",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "Anxiety in dogs is seldom a simple diagnosis; Helping an anxious dog",
+      "supports": "犬焦虑评估、渐进环境管理与专业支持；不承诺疗程，不把停止叫喊等同改善。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-dental-disease",
+      "title": "Feline Dental Disease",
+      "version": "原页未标发布日期；2026-10-19正文核对",
+      "locator": "Gingivitis—Clinical signs/Diagnosis; Prevention and Treatment",
+      "supports": "仅猫：口腔疼痛和炎症先检查、专用牙膏和渐进适应；不能外推犬的所有口腔操作。",
+      "species": [
+        "cat"
+      ]
+    },
+    {
+      "url": "https://www.merckvetmanual.com/integumentary-system/food-allergy/cutaneous-food-allergy-in-animals",
+      "title": "Cutaneous Food Allergy in Animals",
+      "version": "Updated Aug 2025; v3277979",
+      "locator": "Diagnosis; Dietary Elimination Trials; Potential Pitfalls; diary paragraph",
+      "supports": "猫狗疑似食物过敏应由专业人员排查；完整饮食史、试验期间全部入口核对，营销词不能替代诊断；不采用用药或试验时长建议。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.merckvetmanual.com/special-pet-topics/emergencies/minor-injuries-and-accidents",
+      "title": "Minor Injuries and Accidents",
+      "version": "Updated Dec 2025; v104767940",
+      "locator": "Swallowed Objects, especially cats and string/fishing line paragraph",
+      "supports": "猫狗吞异物应联系兽医；不可拉扯口中线绳，避免肠道损伤；不采用同页家庭拔甲、鱼钩或止血操作。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8",
+      "title": "NIST Guide to the SI, Appendix B.8",
+      "version": "SP 811 conversion-factor table; page checked 2026-10-19",
+      "locator": "C table: calorie_th, kilogram (nutrition) to joule, factor 4.184 E+03",
+      "supports": "只支持营养热化学千卡与千焦的单位换算1 kcal=4.184 kJ，不支持个体热量或医疗需要。",
+      "species": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "url": "https://images.akc.org/pdf/breeds/standards/ShibaInu.pdf",
+      "organization": "AKC",
+      "title": "Official Standard of the Shiba Inu",
+      "version": "Approved 1997-02-07; effective 1997-03-31",
+      "published_at": "1997-02-07",
+      "locator": "PDF第1页 General Appearance、Coat；第2页 Temperament；第3页版本日期",
+      "supports": "仅支持柴犬紧凑体形、双层被毛和群体性格描述；不据品种标准推断个体行为或健康，也不采用展赛惩罚规则作为照护建议。",
+      "species": [
+        "dog"
+      ]
+    },
+    {
+      "url": "https://poodleclubofamerica.org/akc-breed-standard/",
+      "organization": "Poodle Club of America / AKC",
+      "title": "Official Standard of the Poodle",
+      "version": "Approved 1984-08-14; reformatted 1990-03-27",
+      "published_at": "1984-08-14",
+      "locator": "Size, Proportion, Substance 与 Coat；正文末尾批准及重排日期",
+      "supports": "仅支持贵宾犬不同体形规格、卷曲被毛及外形造型与实际尺寸分别核对；不把展赛剪毛要求、断尾或去趾建议用于家庭照护。",
+      "species": [
+        "dog"
+      ]
+    }
+  ],
+  "replacements": [
+    {
+      "url": "https://avma.org/resources/pet-owners/petcare/selecting-pet-dog",
+      "replacement": "https://www.merckvetmanual.com/dog-owners/selecting-and-providing-a-home-for-a-dog/selecting-a-dog",
+      "reason": "原页面仅返回 iframe，未把无法阅读的正文记为已核对。"
+    },
+    {
+      "url": "https://www.avma.org/resources/pet-owners/petcare/selecting-pet-dog",
+      "replacement": "https://www.merckvetmanual.com/dog-owners/selecting-and-providing-a-home-for-a-dog/selecting-a-dog",
+      "reason": "原页面仅返回 iframe，改用可核对的专业原始页面。"
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
+      "replacement": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+      "reason": "PMC 返回浏览器验证页；采用同篇指南的出版方 PDF。"
+    },
+    {
+      "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
+      "replacement": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+      "reason": "采用已阅读全文相关部分的 2025 版。"
+    },
+    {
+      "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
+      "replacement": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+      "reason": "保留旧链接，使用已核对2025版。"
+    },
+    {
+      "url": "https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety",
+      "replacement": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/summer-heat-safety-tips-dogs",
+      "reason": "原页面只返回iframe；改为已阅读的犬高温专业页面，猫范围另记缺口。"
+    },
+    {
+      "url": "https://avma.org/PetDental",
+      "replacement": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-dental-disease",
+      "reason": "聚合页正文不可读取；猫犬口腔分别保留已核对的Cornell具体页面。"
+    },
+    {
+      "url": "https://avsab.org/resources/position-statements/",
+      "replacement": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+      "reason": "目录不代替原文，改为当前2021声明；2025目录说明确认继续适用。"
+    },
+    {
+      "url": "https://vcahospitals.com/vetco/know-your-pet/overcoming-fears-with-desensitization-and-counterconditioning",
+      "replacement": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/anxious-behavior-how-help-your-dog-cope-unsettling-situations",
+      "reason": "不复用限制AI再利用的旧页面；采用已核对的专业原始页面，并收窄为其支持范围。"
+    }
+  ]
+}

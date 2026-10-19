@@ -12,17 +12,15 @@ from scripts.import_knowledge import import_file
 from app.breeds import seed_breeds
 
 
-def initialize(demo=False):
+def initialize(demo=False, *, data_root=None):
+    data_root = Path(data_root) if data_root is not None else Path(__file__).resolve().parents[1] / 'data'
     command.upgrade(
         Config(str(Path(__file__).resolve().parents[1] / "alembic.ini")), "head"
     )
     with Session(engine) as s:
         seed_breeds(s)
-        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge.json", s)
-        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_nutrition.json", s)
-        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_care.json", s)
-        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_breeds.json", s)
-        import_file(Path(__file__).resolve().parents[1] / "data" / "knowledge_products.json", s)
+        for name in ('knowledge.json','knowledge_nutrition.json','knowledge_care.json','knowledge_breeds.json','knowledge_products.json'):
+            import_file(data_root/name,s)
         if (
             demo
             and not s.exec(select(User).where(User.email == "demo@example.com")).first()

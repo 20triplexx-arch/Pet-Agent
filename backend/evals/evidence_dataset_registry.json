@@ -1,0 +1,65 @@
+{
+  "frozen_at": "2026-10-19",
+  "datasets": [
+    {
+      "file": "cases.v1.json",
+      "role": "existing_regression",
+      "sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5"
+    },
+    {
+      "file": "quality_holdout.json",
+      "role": "converted_to_regression_20261019",
+      "sha256": "cc7637dc071c9eaae91050e82c5b9c5353a92e82dab1caefb4a9274e17c8a57f"
+    },
+    {
+      "file": "evidence_cases.json",
+      "role": "development_regression",
+      "sha256": "add46ab52c27b3edb5e67c2e18de1029a41002c03380ddc1c8d35891708cf687"
+    },
+    {
+      "file": "evidence_article_cases.json",
+      "role": "development_regression",
+      "sha256": "cb48cbae70f3f8978be897b2672a88d6851ca981126f08bc436b18e91bb8e60e"
+    },
+    {
+      "file": "quality_holdout_v2.json",
+      "role": "evaluated_converted_to_regression_20261019",
+      "sha256": "df86a9e7b1e0f1b78b27e315aefde7190edb8c2d9f498258d59b6ebab0ad1876"
+    },
+    {
+      "file": "quality_holdout_v3.json",
+      "role": "evaluated_converted_to_regression_20261019",
+      "sha256": "9ae4c04beea8e0bb80029a05daf4cdc29eb9ca8d1be2050c51fcc0ccefc9941d"
+    },
+    {
+      "file": "quality_holdout_v4.json",
+      "role": "evaluated_converted_to_regression_20261019",
+      "sha256": "bda78fc10a50503a5b89ebfa3aa64706bbbf39bae49e37b0606b69b77350d58e"
+    },
+    {
+      "file": "quality_holdout_v5.json",
+      "role": "evaluated_regression_20261019_no_output_tuning",
+      "sha256": "a2f8aab995013d26437d3f8b86b1a9ca08db2da173e43483aaf7fbf081fc7c0f"
+    },
+    {
+      "file": "quality_holdout_v6.json",
+      "role": "evaluated_converted_to_regression_20261019",
+      "sha256": "348295f65f287f3be25604dbf5086b27f68c89966cb5bc62a7a2a77278367c44"
+    },
+    {
+      "file": "quality_holdout_v7.json",
+      "role": "evaluated_converted_to_regression_20261020_no_output_tuning",
+      "sha256": "20a9c6e45d2b9e25ce003ee5aad99750aad420994a37292bd8f3225b28c1a5c5"
+    },
+    {
+      "file": "quality_pair_selection_v2.json",
+      "role": "frozen_real_30_plus_local_guard",
+      "sha256": "f08d049712886c362b3eb0e01fb0ab28cda12a8c66d77067054ba7f01ca1994b"
+    },
+    {
+      "file": "quality_holdout_v8.json",
+      "role": "frozen_future_holdout_not_executed",
+      "sha256": "ed0b7ec15c93da92402ac57bfdac214a236863f77dea1c8af60611f6d295f739"
+    }
+  ]
+}

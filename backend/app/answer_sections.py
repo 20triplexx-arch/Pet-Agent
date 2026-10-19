@@ -80,10 +80,33 @@ def check_text(text, profile, ctx):
 
 
 def evidence_map(ctx):
-    return {f'e{index}': {'article_id': aid, 'heading': heading, 'text': text}
-            for index, (aid, heading, text) in enumerate(
-                ((aid, heading, text) for aid, passages in ctx.sent_evidence.items()
-                 for heading, text in passages.items()), 1)}
+    result = {}
+    for aid, passages in ctx.sent_evidence.items():
+        metadata = {p['heading']: p for p in ctx.retrieved.get(aid, {}).get('matched_sections', [])}
+        for heading, text in passages.items():
+            item = metadata.get(heading, {})
+            result['e'+str(len(result)+1)] = {'article_id':aid,'heading':heading,'text':text,
+                'chunk_id':item.get('chunk_id'), 'roles':item.get('roles', [passage_role({'heading':heading,'text':text})]),
+                'species':item.get('species',ctx.retrieved.get(aid,{}).get('species',[])),
+                'life_stages':item.get('life_stages',ctx.retrieved.get(aid,{}).get('life_stages',[])),
+                'depends_on':item.get('depends_on', []), 'conditions':item.get('conditions', [])}
+    return result
+
+
+def remap_task_snapshot(snapshot, evidence):
+    """One request namespace for tasks, evidence and returned JSON.
+
+    Stable chunk IDs stay in the server snapshot for traces and rebuilding;
+    the model only sees references that it can legally return this round.
+    """
+    import copy
+    result=copy.deepcopy(snapshot)
+    for task in result.get('questions',[]):
+        stable=set(task.get('evidence_ids',[]))
+        task['evidence_ids']=[ref for ref,item in evidence.items()
+            if item.get('chunk_id') in stable or item['article_id']+'#'+item['heading'] in stable]
+        task['missing_evidence']=not bool(task['evidence_ids'])
+    return result
 
 
 def bind_section(section, evidence, questions, profile, ctx):
@@ -128,11 +151,10 @@ def bind_section(section, evidence, questions, profile, ctx):
     text = prose.strip() + ''.join(f'[{aid}]' for aid in aids)
     sources = []
     for aid in aids:
+        from app.evidence_index import public_citation_source
         article = ctx.retrieved[aid]
         passages = [evidence[ref] for ref in refs if evidence[ref]['article_id'] == aid]
-        sources.append({'id': aid, 'title': article['title'], 'url': article['source_url'],
-                        'organization': article['source_organization'],
-                        'sections': [p['heading'] for p in passages],
+        sources.append({**public_citation_source(article,[p['heading'] for p in passages]),
                         'evidence': [{'heading': p['heading'], 'text': p['text'][:400]} for p in passages]})
     return {'text': text, 'question_ids': section.question_ids, 'sources': sources}
 
@@ -145,47 +167,26 @@ async def generate_sections(ctx, prompt, profile, create, model_settings, system
     questions = payload['subquestions']
     payload['evidence'] = {ref: {'source': ctx.retrieved[passage['article_id']]['title'],
         'section': passage['heading'], 'text': passage['text'],
+        'species': passage['species'], 'conditions': passage.get('conditions',[]),
+        'life_stages':passage['life_stages'],
+        'dependencies': [other for other, value in evidence.items() if value.get('chunk_id') in passage.get('depends_on', [])],
         'questions': [i for i, question in enumerate(questions, 1)
                       if question in passage_questions(ctx.retrieved[passage['article_id']], passage['heading'])]}
         for ref, passage in evidence.items()}
     payload.pop('retrieved_data', None)
+    payload['task_snapshot']=remap_task_snapshot(payload.get('task_snapshot',{}),evidence)
     payload['subquestions'] = {str(i): q for i, q in enumerate(questions, 1)}
     payload['answer_tasks'] = {
         str(i): {role: [ref for ref, passage in evidence.items()
                        if question in passage_questions(ctx.retrieved[passage['article_id']], passage['heading'])
-                       and passage_role(passage) == role]
+                       and role in passage.get('roles', [passage_role(passage)])]
                  for role in ('action', 'boundary', 'observation', 'prerequisites')}
         for i, question in enumerate(questions, 1)}
     source_rules = payload.pop('source_specific_rules', [])
     if not re.search(r'零食|奖励|比例|百分|10\s*[%％]', getattr(ctx, 'current_text', '')):
         source_rules.append('当前问题未询问零食配额，不主动引入10%等比例；直接回答当前喂食、饮水或记录原则。')
-    instructions = ('只输出JSON对象sections数组，每段含text、evidence_ids、question_ids三个字段。'
-        '首段直接回答当前问题并保留关键条件，不先复述问题；后续操作另成自然段，不把整套步骤塞进开头。'
-        'text为完整自然段或完整列表项，不含引用标记、链接或内部编号；evidence_ids只取本轮evidence的编号。'
-        '每段事实和操作必须由绑定原文支持；引用数值时，同段写全适用条件。纯追问可无证据。'
-        '只说原文明示的步骤和文件；定性要求不换成具体频率、小时数或强制证件，不补充医学机理。'
-        '证据短编号每轮重新分配，只用本轮evidence的键；不沿用历史回答的来源编号。'
-        'question_ids使用subquestions的数字编号，整篇覆盖全部问题；不要为凑段落重复结论。'
-        '输出紧凑JSON，不缩进。每段优先绑定最直接的1—2个证据，不必把每个证据都讲一遍。'
-        '每段text不换行，不在一个text里放多个段落，不追加“依据：”或内部编号；来源由服务端展示。'
-        '段落按任务自然组织，不限制固定段数。简单追问只讲新增点；深入回答解释依据、取舍、步骤和观察方式。'
-        '没有新增依据就结束，不为凑段数扩写选购、机制、医疗或复盘话题，不重讲上一答。'
-        '缺资料说明已知原则及真正影响判断的缺口，不追问已知字段。不声称保存，不返回草稿。'
-        '\n证据约束示例（示例不属于本轮证据，不可引用）：'
-        '原文“观察接受程度，逐步调整，不要求统一频率”只能改述接受度与调整；不能增加每天几次、分钟数或奖励种类。'
-        '原文“需同时核对A、B、C；未知不推算”应明确缺口，不得说“补A就能准确确定”，也不生成假设数值示例。'
-        '概念解释只能沿用资料的评估对象，生活观察不能改称正式评分指标。')
-    instructions += ('\n先按response_focus组织答案，answer_context.known_fields是已知信息，不列入补充清单。'
-        'answer_tasks是各问题的章节清单，不是要求逐章复述。用直接相关的action给出做法；追问只取新增步骤，不重演原流程。'
-        '同一问题中的并列任务都要回答，例如梳毛与剪指甲、工作日与临时照护、运动与休息；保留直接相关的关键步骤。'
-        '操作涉及尺寸、部位边界、时机、退出或停止条件时，把原文明示的具体要求与操作一起说明，不压缩成“合适、安全、逐步”。'
-        'necessary_gaps可能很多，只选阻碍当前判断的关键项，不复述整套表单；专业评估前提不可省略。'
-        '问个体食量而nutrition_status未就绪时，先说明decision_gaps.eligibility中的健康、体况及肌肉等前提，再索取食品标签；不能让补标签看似已足够计算。'
-        'evidence.questions是章节直接关联的问题；空列表表示补充边界，不能单靠它回答不相干的问题。'
-        '回答“怎么奖励”就说明绑定原文支持的奖励时机与目标，不推论诱导、服从、动机或学习机理。'
-        '概念题先给清楚的区分，不展开无关喂食、记录或用品方案。已解释的风险没有新变化不反复铺陈。')
-    if payload.get('response_focus', {}).get('style') == 'followup':
-        instructions += '\n本次是追问：先直接解决当前障碍。未问用品时不介绍辅助用品；只补本次动作、必要前提和停止条件，已讲过的练习流程不重复。'
+    from app.answer_contract import SECTION_CONTRACT
+    instructions = SECTION_CONTRACT
     if source_rules:
         # These rules are static server code, not instructions from documents.
         # Put their scope at system priority once, outside the evidence payload.

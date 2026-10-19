@@ -1,0 +1,2425 @@
+{
+  "method": "same updated content; frozen article-first vs explicit dependencies vs block BM25",
+  "dataset_sha256": "add46ab52c27b3edb5e67c2e18de1029a41002c03380ddc1c8d35891708cf687",
+  "manifest_sha256": "75a4b2459809b636c650f7627f4f7ed2e6e719d3a76ac97b2a51f6affc226eb4",
+  "baseline_knowledge_sha256": "afdc1bf90caf7377475de0e2c15a230087ba560746fb47447b72268834e08790",
+  "real_model_requests": 0,
+  "source_support_note": "Gold checks retrieval and required content, not semantic or veterinary accuracy.",
+  "metrics": {
+    "article_chapters": {
+      "cases": 40,
+      "article_hits": 37,
+      "complete_packages": 36,
+      "dependency_complete": 40,
+      "characters": {
+        "p50": 474,
+        "p95": 852
+      },
+      "retrieval_ms": {
+        "p50": 4.427,
+        "p95": 12.265
+      }
+    },
+    "scoped_chapters": {
+      "cases": 40,
+      "article_hits": 37,
+      "complete_packages": 36,
+      "dependency_complete": 40,
+      "characters": {
+        "p50": 374,
+        "p95": 674
+      },
+      "retrieval_ms": {
+        "p50": 4.326,
+        "p95": 5.39
+      }
+    },
+    "evidence_blocks": {
+      "cases": 40,
+      "article_hits": 40,
+      "complete_packages": 40,
+      "dependency_complete": 40,
+      "characters": {
+        "p50": 367,
+        "p95": 515
+      },
+      "retrieval_ms": {
+        "p50": 4.388,
+        "p95": 5.213
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "KT-01",
+      "theme": "transition",
+      "query": "猫换粮怎样分步记录并决定是否继续？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 508,
+          "chunks": 6,
+          "retrieval_ms": 35.574
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 372,
+          "chunks": 4,
+          "retrieval_ms": 62.57
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 382,
+          "chunks": 4,
+          "retrieval_ms": 12.726
+        }
+      }
+    },
+    {
+      "id": "KT-02",
+      "theme": "transition",
+      "query": "狗换粮前要核对哪些已有专业要求？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition",
+            "nutrition-risk"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 852,
+          "chunks": 10,
+          "retrieval_ms": 30.413
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition",
+            "nutrition-risk"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 641,
+          "chunks": 7,
+          "retrieval_ms": 5.083
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 283,
+          "chunks": 3,
+          "retrieval_ms": 8.442
+        }
+      }
+    },
+    {
+      "id": "KT-03",
+      "theme": "transition",
+      "query": "新粮不肯吃，换粮时可以让猫饿着接受吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 510,
+          "chunks": 6,
+          "retrieval_ms": 5.594
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 374,
+          "chunks": 4,
+          "retrieval_ms": 4.407
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 374,
+          "chunks": 4,
+          "retrieval_ms": 4.198
+        }
+      }
+    },
+    {
+      "id": "KT-04",
+      "theme": "transition",
+      "query": "换粮一定要按统一天数完成吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 419,
+          "chunks": 5,
+          "retrieval_ms": 4.095
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 224,
+          "chunks": 3,
+          "retrieval_ms": 4.057
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 224,
+          "chunks": 3,
+          "retrieval_ms": 4.505
+        }
+      }
+    },
+    {
+      "id": "KT-05",
+      "theme": "transition",
+      "query": "猫换粮没有标签单位，能先算克数吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition",
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 863,
+          "chunks": 10,
+          "retrieval_ms": 5.32
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition",
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 668,
+          "chunks": 7,
+          "retrieval_ms": 4.941
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 367,
+          "chunks": 4,
+          "retrieval_ms": 4.465
+        }
+      }
+    },
+    {
+      "id": "KT-06",
+      "theme": "transition",
+      "query": "狗换粮后不适，要继续增加新配方吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 478,
+          "chunks": 6,
+          "retrieval_ms": 4.194
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 342,
+          "chunks": 4,
+          "retrieval_ms": 4.276
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 342,
+          "chunks": 4,
+          "retrieval_ms": 3.979
+        }
+      }
+    },
+    {
+      "id": "KT-07",
+      "theme": "transition",
+      "query": "上周问航空箱。现在只想问换粮怎样观察实际吃下量？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 508,
+          "chunks": 6,
+          "retrieval_ms": 4.318
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 372,
+          "chunks": 4,
+          "retrieval_ms": 4.326
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 372,
+          "chunks": 4,
+          "retrieval_ms": 4.326
+        }
+      }
+    },
+    {
+      "id": "KT-08",
+      "theme": "transition",
+      "query": "同品牌另一配方，转粮怎样保存标签和时间线？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "care-record-quality",
+            "nutrition-label"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 674,
+          "chunks": 6,
+          "retrieval_ms": 5.257
+        },
+        "scoped_chapters": {
+          "articles": [
+            "care-record-quality",
+            "nutrition-label"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 674,
+          "chunks": 6,
+          "retrieval_ms": 5.248
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-transition"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 342,
+          "chunks": 4,
+          "retrieval_ms": 4.195
+        }
+      }
+    },
+    {
+      "id": "KA-01",
+      "theme": "alone",
+      "query": "狗独处时叫喊和拆家，如何先记录再练习？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 535,
+          "chunks": 5,
+          "retrieval_ms": 5.065
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 628,
+          "chunks": 6,
+          "retrieval_ms": 4.333
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 537,
+          "chunks": 5,
+          "retrieval_ms": 4.417
+        }
+      }
+    },
+    {
+      "id": "KA-02",
+      "theme": "alone",
+      "query": "狗独自在家哭叫，怎样判断能不能加大难度？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 432,
+          "chunks": 4,
+          "retrieval_ms": 4.62
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 628,
+          "chunks": 6,
+          "retrieval_ms": 4.596
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 441,
+          "chunks": 4,
+          "retrieval_ms": 4.309
+        }
+      }
+    },
+    {
+      "id": "KA-03",
+      "theme": "alone",
+      "query": "独处录像看到叫喊，能直接诊断分离焦虑吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 432,
+          "chunks": 4,
+          "retrieval_ms": 4.388
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 420,
+          "chunks": 4,
+          "retrieval_ms": 4.273
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 515,
+          "chunks": 5,
+          "retrieval_ms": 4.19
+        }
+      }
+    },
+    {
+      "id": "KA-04",
+      "theme": "alone",
+      "query": "独处练习不顺利，出门前怎样安排替代照护？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 535,
+          "chunks": 5,
+          "retrieval_ms": 4.3
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 628,
+          "chunks": 6,
+          "retrieval_ms": 4.453
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone",
+            "dog-fear-support"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 500,
+          "chunks": 4,
+          "retrieval_ms": 4.351
+        }
+      }
+    },
+    {
+      "id": "KA-05",
+      "theme": "alone",
+      "query": "独处叫到停止就算适应了吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 535,
+          "chunks": 5,
+          "retrieval_ms": 4.299
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 537,
+          "chunks": 5,
+          "retrieval_ms": 4.278
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 441,
+          "chunks": 4,
+          "retrieval_ms": 4.104
+        }
+      }
+    },
+    {
+      "id": "KA-06",
+      "theme": "alone",
+      "query": "独处训练可以直接规定每天练几分钟吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-adolescent",
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 848,
+          "chunks": 8,
+          "retrieval_ms": 4.946
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-adolescent",
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 604,
+          "chunks": 6,
+          "retrieval_ms": 5.022
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 415,
+          "chunks": 4,
+          "retrieval_ms": 4.159
+        }
+      }
+    },
+    {
+      "id": "KA-07",
+      "theme": "alone",
+      "query": "过去在谈食盆。现在只想问狗独处时应记录什么？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 523,
+          "chunks": 5,
+          "retrieval_ms": 4.429
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 420,
+          "chunks": 4,
+          "retrieval_ms": 4.466
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 515,
+          "chunks": 5,
+          "retrieval_ms": 4.286
+        }
+      }
+    },
+    {
+      "id": "KA-08",
+      "theme": "alone",
+      "query": "独处记录一个月就必须好转吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 523,
+          "chunks": 5,
+          "retrieval_ms": 4.178
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 420,
+          "chunks": 4,
+          "retrieval_ms": 4.314
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-alone"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 420,
+          "chunks": 4,
+          "retrieval_ms": 4.146
+        }
+      }
+    },
+    {
+      "id": "KC-01",
+      "theme": "carrier",
+      "query": "猫航空箱平时怎样逐步练习进入？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.483
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.172
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-carrier",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 433,
+          "chunks": 4,
+          "retrieval_ms": 4.508
+        }
+      }
+    },
+    {
+      "id": "KC-02",
+      "theme": "carrier",
+      "query": "狗的笼箱适应怎样开始，出现不安怎样停止？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-crate"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 459,
+          "chunks": 4,
+          "retrieval_ms": 4.491
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-crate"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 459,
+          "chunks": 4,
+          "retrieval_ms": 4.199
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-crate"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 365,
+          "chunks": 3,
+          "retrieval_ms": 4.257
+        }
+      }
+    },
+    {
+      "id": "KC-03",
+      "theme": "carrier",
+      "query": "猫运输箱怎样托举移动才平稳？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 3.909
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 3.952
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-carrier",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 433,
+          "chunks": 4,
+          "retrieval_ms": 4.188
+        }
+      }
+    },
+    {
+      "id": "KC-04",
+      "theme": "carrier",
+      "query": "选购狗笼箱怎样核对尺寸，能不能转身？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 409,
+          "chunks": 5,
+          "retrieval_ms": 4.727
+        },
+        "scoped_chapters": {
+          "articles": [
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 279,
+          "chunks": 3,
+          "retrieval_ms": 4.349
+        },
+        "evidence_blocks": {
+          "articles": [
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 278,
+          "chunks": 3,
+          "retrieval_ms": 4.388
+        }
+      }
+    },
+    {
+      "id": "KC-05",
+      "theme": "carrier",
+      "query": "猫航空箱关门后害怕，能继续加难度吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 3.97
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.186
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-carrier",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 433,
+          "chunks": 4,
+          "retrieval_ms": 4.307
+        }
+      }
+    },
+    {
+      "id": "KC-06",
+      "theme": "carrier",
+      "query": "狗进笼箱后踱步喘气，应该强迫独处吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "dog-crate"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 349,
+          "chunks": 3,
+          "retrieval_ms": 4.014
+        },
+        "scoped_chapters": {
+          "articles": [
+            "dog-crate"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 459,
+          "chunks": 4,
+          "retrieval_ms": 4.226
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-crate",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 271,
+          "chunks": 3,
+          "retrieval_ms": 4.509
+        }
+      }
+    },
+    {
+      "id": "KC-07",
+      "theme": "carrier",
+      "query": "猫运输箱奖励一定要每天固定练五分钟吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": false,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.138
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": false,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.107
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-carrier",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 288,
+          "chunks": 3,
+          "retrieval_ms": 4.311
+        }
+      }
+    },
+    {
+      "id": "KC-08",
+      "theme": "carrier",
+      "query": "两只猫可以共用一个运输箱吗，选购时核对什么？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.18
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-carrier"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 320,
+          "chunks": 3,
+          "retrieval_ms": 4.19
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-carrier",
+            "supply-carriers"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 279,
+          "chunks": 3,
+          "retrieval_ms": 4.378
+        }
+      }
+    },
+    {
+      "id": "KK-01",
+      "theme": "cleaning",
+      "query": "干粮开封储存和湿粮剩余怎样处理？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 474,
+          "chunks": 4,
+          "retrieval_ms": 4.46
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.261
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.394
+        }
+      }
+    },
+    {
+      "id": "KK-02",
+      "theme": "cleaning",
+      "query": "食盆清洗要照人的洗手时长浸泡吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 474,
+          "chunks": 4,
+          "retrieval_ms": 4.201
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.152
+        },
+        "evidence_blocks": {
+          "articles": [
+            "dog-clean",
+            "food-storage",
+            "supply-bowls"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 333,
+          "chunks": 3,
+          "retrieval_ms": 4.749
+        }
+      }
+    },
+    {
+      "id": "KK-03",
+      "theme": "cleaning",
+      "query": "环境清洁用品选购要看什么，怎样防止舔到残留？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-clean",
+            "food-storage"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 812,
+          "chunks": 7,
+          "retrieval_ms": 12.265
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-clean",
+            "food-storage"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 718,
+          "chunks": 6,
+          "retrieval_ms": 5.39
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-clean",
+            "supply-cleaning"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 295,
+          "chunks": 3,
+          "retrieval_ms": 4.969
+        }
+      }
+    },
+    {
+      "id": "KK-04",
+      "theme": "cleaning",
+      "query": "狗清洁消毒用品怎么选，清洁等于消毒吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "supply-cleaning"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 503,
+          "chunks": 6,
+          "retrieval_ms": 4.539
+        },
+        "scoped_chapters": {
+          "articles": [
+            "supply-cleaning"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 373,
+          "chunks": 4,
+          "retrieval_ms": 4.175
+        },
+        "evidence_blocks": {
+          "articles": [
+            "supply-cleaning"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 264,
+          "chunks": 3,
+          "retrieval_ms": 4.406
+        }
+      }
+    },
+    {
+      "id": "KK-05",
+      "theme": "cleaning",
+      "query": "猫砂盆日常清洁要同时观察什么？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-clean"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 288,
+          "chunks": 3,
+          "retrieval_ms": 3.979
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-clean"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 288,
+          "chunks": 3,
+          "retrieval_ms": 3.983
+        },
+        "evidence_blocks": {
+          "articles": [
+            "cat-clean"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 369,
+          "chunks": 4,
+          "retrieval_ms": 4.457
+        }
+      }
+    },
+    {
+      "id": "KK-06",
+      "theme": "cleaning",
+      "query": "狗粮开封后要不要保留原袋和批次？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 474,
+          "chunks": 4,
+          "retrieval_ms": 4.287
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.338
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.298
+        }
+      }
+    },
+    {
+      "id": "KK-07",
+      "theme": "cleaning",
+      "query": "以前谈换粮。现在只想问猫食盆如何清洗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 373,
+          "chunks": 3,
+          "retrieval_ms": 3.775
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 279,
+          "chunks": 2,
+          "retrieval_ms": 3.984
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-storage",
+            "supply-bowls"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.19
+        }
+      }
+    },
+    {
+      "id": "KK-08",
+      "theme": "cleaning",
+      "query": "食品储存没有包装日期和温度说明，能猜统一保存天数吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 365,
+          "chunks": 3,
+          "retrieval_ms": 4.253
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 365,
+          "chunks": 3,
+          "retrieval_ms": 4.536
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-storage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 380,
+          "chunks": 3,
+          "retrieval_ms": 4.91
+        }
+      }
+    },
+    {
+      "id": "KL-01",
+      "theme": "label",
+      "query": "食品标签的保证分析、营养适用声明与代谢能有什么区别？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 523,
+          "chunks": 6,
+          "retrieval_ms": 4.815
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 267,
+          "chunks": 3,
+          "retrieval_ms": 4.602
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-adequacy",
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 295,
+          "chunks": 3,
+          "retrieval_ms": 5.002
+        }
+      }
+    },
+    {
+      "id": "KL-02",
+      "theme": "label",
+      "query": "包装写每杯热量，但没有克重，可以换算吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 371,
+          "chunks": 4,
+          "retrieval_ms": 4.031
+        },
+        "scoped_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 312,
+          "chunks": 3,
+          "retrieval_ms": 4.135
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-energy",
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 225,
+          "chunks": 3,
+          "retrieval_ms": 4.624
+        }
+      }
+    },
+    {
+      "id": "KL-03",
+      "theme": "label",
+      "query": "食品包装有厂家人员和研究声明就证明疗效了吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 291,
+          "chunks": 3,
+          "retrieval_ms": 4.427
+        },
+        "scoped_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": false,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": false,
+          "characters": 291,
+          "chunks": 3,
+          "retrieval_ms": 4.315
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-adequacy",
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 295,
+          "chunks": 3,
+          "retrieval_ms": 4.369
+        }
+      }
+    },
+    {
+      "id": "KL-04",
+      "theme": "label",
+      "query": "食品标签说WSAVA认证，该怎样核对？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 466,
+          "chunks": 5,
+          "retrieval_ms": 4.593
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 423,
+          "chunks": 4,
+          "retrieval_ms": 4.456
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-labels",
+            "food-stage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 269,
+          "chunks": 3,
+          "retrieval_ms": 4.392
+        }
+      }
+    },
+    {
+      "id": "KL-05",
+      "theme": "label",
+      "query": "只看品牌能知道食品标签里的准确热量吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 291,
+          "chunks": 3,
+          "retrieval_ms": 4.042
+        },
+        "scoped_chapters": {
+          "articles": [
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 291,
+          "chunks": 3,
+          "retrieval_ms": 4.374
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-labels",
+            "nutrition-label"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 258,
+          "chunks": 3,
+          "retrieval_ms": 4.415
+        }
+      }
+    },
+    {
+      "id": "KL-06",
+      "theme": "label",
+      "query": "保证分析的最低值是不是实测值？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 470,
+          "chunks": 5,
+          "retrieval_ms": 4.145
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 330,
+          "chunks": 3,
+          "retrieval_ms": 4.15
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 327,
+          "chunks": 3,
+          "retrieval_ms": 4.235
+        }
+      }
+    },
+    {
+      "id": "KL-07",
+      "theme": "label",
+      "query": "上次讨论梳毛。现在只想问食品标签的适用阶段怎么核对？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "cat-life-stages",
+            "food-labels",
+            "food-stage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 1278,
+          "chunks": 15,
+          "retrieval_ms": 5.67
+        },
+        "scoped_chapters": {
+          "articles": [
+            "cat-life-stages",
+            "food-labels",
+            "food-stage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 996,
+          "chunks": 11,
+          "retrieval_ms": 5.65
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-adequacy",
+            "food-labels",
+            "food-stage"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 275,
+          "chunks": 3,
+          "retrieval_ms": 5.213
+        }
+      }
+    },
+    {
+      "id": "KL-08",
+      "theme": "label",
+      "query": "美国食品标签声明能直接当中国上市证明吗？",
+      "variants": {
+        "article_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 423,
+          "chunks": 5,
+          "retrieval_ms": 4.494
+        },
+        "scoped_chapters": {
+          "articles": [
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 283,
+          "chunks": 3,
+          "retrieval_ms": 4.463
+        },
+        "evidence_blocks": {
+          "articles": [
+            "food-adequacy",
+            "food-labels"
+          ],
+          "hit": true,
+          "required_content": true,
+          "dependencies_complete": true,
+          "complete_package": true,
+          "characters": 327,
+          "chunks": 3,
+          "retrieval_ms": 4.579
+        }
+      }
+    }
+  ],
+  "edited_article_cases": [
+    {
+      "article_id": "food-transition",
+      "type": "direct",
+      "query": "猫换粮怎样记录并分步推进？",
+      "hit": true
+    },
+    {
+      "article_id": "food-transition",
+      "type": "paraphrase",
+      "query": "新旧配方怎么慢慢换，吃下多少要怎么记？",
+      "hit": true
+    },
+    {
+      "article_id": "food-transition",
+      "type": "conditions",
+      "query": "狗有原兽医饮食要求，换粮前确认什么？",
+      "hit": true
+    },
+    {
+      "article_id": "food-transition",
+      "type": "insufficient",
+      "query": "换粮没有食品单位，能计算可靠克数吗？",
+      "hit": true
+    },
+    {
+      "article_id": "food-transition",
+      "type": "interference",
+      "query": "以前问航空箱。现在只想问换粮要观察什么？",
+      "hit": true
+    },
+    {
+      "article_id": "food-transition",
+      "type": "negation",
+      "query": "换粮一定要所有猫狗按同样天数完成吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "direct",
+      "query": "狗独处叫喊怎样安排观察和练习？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "paraphrase",
+      "query": "狗独自在家拆家，如何先收集事实？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "conditions",
+      "query": "狗独处不安且家人必须出门，先安排什么？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "insufficient",
+      "query": "只有独处叫喊录像就能确定病因吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "interference",
+      "query": "之前问食盆。现在只想问独处的离开练习。",
+      "hit": true
+    },
+    {
+      "article_id": "dog-alone",
+      "type": "negation",
+      "query": "狗独处叫到不叫就表示适应了吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "direct",
+      "query": "狗笼箱适应怎样建立安全休息体验？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "paraphrase",
+      "query": "狗进笼箱如何练习，自愿进入重要吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "conditions",
+      "query": "狗在笼箱里不能自然转身，尺寸合适吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "insufficient",
+      "query": "不知道狗进箱后的反应，可以直接安排独处吗？",
+      "hit": false
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "interference",
+      "query": "之前问饮食。现在只想问狗的笼箱适应。",
+      "hit": true
+    },
+    {
+      "article_id": "dog-crate",
+      "type": "negation",
+      "query": "狗在笼箱中持续喘气，应该强迫留箱吗？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "direct",
+      "query": "猫航空箱怎样从进入练到移动？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "paraphrase",
+      "query": "猫不肯进运输箱，平时怎样熟悉？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "conditions",
+      "query": "猫在航空箱里害怕，怎样退回容易步骤？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "insufficient",
+      "query": "不知道猫能否适应关门，能直接提起运输箱吗？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "interference",
+      "query": "之前问猫砂。现在只想问航空箱怎样练习。",
+      "hit": true
+    },
+    {
+      "article_id": "cat-carrier",
+      "type": "negation",
+      "query": "猫航空箱练习一定要统一分钟数吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "direct",
+      "query": "选购运输箱怎样分别核对猫和狗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "paraphrase",
+      "query": "航空箱和笼箱买之前量什么、看什么？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "conditions",
+      "query": "狗不能自然站立转身，选购笼箱注意什么？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "insufficient",
+      "query": "不知道实际身形，能仅凭品种选运输箱尺寸吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "interference",
+      "query": "以前问主粮。现在只想问运输箱的选购。",
+      "hit": true
+    },
+    {
+      "article_id": "supply-carriers",
+      "type": "negation",
+      "query": "猫和狗能直接套用同一套运输箱建议吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "direct",
+      "query": "环境清洁用品选购和使用怎样看标签？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "paraphrase",
+      "query": "消毒液怎么选才不让猫舔到残留？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "conditions",
+      "query": "家里有猫，清洁用品的成分和接触条件怎样核对？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "insufficient",
+      "query": "清洁剂没有标签，能猜稀释和接触时间吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "interference",
+      "query": "之前问喂食。现在只想问环境清洁用品怎样选。",
+      "hit": true
+    },
+    {
+      "article_id": "supply-cleaning",
+      "type": "negation",
+      "query": "环境清洁是不是就等于消毒？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "direct",
+      "query": "食水器具怎样清洗和干燥？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "paraphrase",
+      "query": "狗碗用完怎么洗，能直接放洗碗机吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "conditions",
+      "query": "食盆是否耐机洗，选购时怎样核对？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "insufficient",
+      "query": "没有器具标签能确定它可机洗吗？",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "interference",
+      "query": "以前问运输箱。现在只想问食盆清洗。",
+      "hit": true
+    },
+    {
+      "article_id": "supply-bowls",
+      "type": "negation",
+      "query": "人的洗手时长就等于食盆消毒时长吗？",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "direct",
+      "query": "干粮开封和湿粮剩余怎样储存？",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "paraphrase",
+      "query": "猫粮袋开了以后怎么收好，罐头剩余怎么办？",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "conditions",
+      "query": "湿粮需要冷藏时怎样处理？",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "insufficient",
+      "query": "没有食品包装要求，能统一说保存几天吗？",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "interference",
+      "query": "以前讨论抓板。现在只想问食品开封储存。",
+      "hit": true
+    },
+    {
+      "article_id": "food-storage",
+      "type": "negation",
+      "query": "食品储存可以只留下收纳桶不要原袋吗？",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "direct",
+      "query": "食品标签里的保证分析和营养适用声明怎么核对？",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "paraphrase",
+      "query": "主粮包装怎样分清厂家说法和可靠依据？",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "conditions",
+      "query": "美国食品标签声明用于中国市场要注意什么？",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "insufficient",
+      "query": "只有品牌名能判定配方热量和质量吗？",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "interference",
+      "query": "之前问梳毛。现在只想问食品标签能支持什么结论。",
+      "hit": true
+    },
+    {
+      "article_id": "food-labels",
+      "type": "negation",
+      "query": "有厂家人员和研究说明就等于WSAVA认证吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "direct",
+      "query": "包装热量和对应计量单位怎样填写？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "paraphrase",
+      "query": "食品每杯多少热量，怎么变成每克？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "conditions",
+      "query": "按罐或按份热量还需要哪些对应份量？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "insufficient",
+      "query": "没有杯中克重能从每杯热量直接算克数吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "interference",
+      "query": "之前问独处。现在只想问包装热量的计量单位。",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-label",
+      "type": "negation",
+      "query": "补上包装热量就保证能精确计算个体食量吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "direct",
+      "query": "BCS与MCS分别评估什么？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "paraphrase",
+      "query": "脂肪体况和肌肉状况能合成一个评分吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "conditions",
+      "query": "脂肪偏多时还可能同时损失肌肉吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "insufficient",
+      "query": "只有起身变慢能判定肌肉损失吗？",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "interference",
+      "query": "之前问食盆。现在只想问BCS与MCS的区别。",
+      "hit": true
+    },
+    {
+      "article_id": "nutrition-muscle",
+      "type": "negation",
+      "query": "肌肉流失是不是必然导致BCS升高？",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "direct",
+      "query": "带猫狗出行前怎样核对文件和实际承运要求？",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "paraphrase",
+      "query": "自驾和乘机前的健康资料怎么整理？",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "conditions",
+      "query": "有疾病和饮食限制，出行前向谁确认？",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "insufficient",
+      "query": "还不知道目的地和运营方，能确定证件清单吗？",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "interference",
+      "query": "之前问梳毛。现在只想问出行前的健康文件。",
+      "hit": true
+    },
+    {
+      "article_id": "pet-travel",
+      "type": "negation",
+      "query": "健康文件是否等于任何出行都必须另开健康证明？",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "direct",
+      "query": "就医前怎样整理观察、记录与联系人？",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "paraphrase",
+      "query": "带宠物看兽医要把哪些事实分开写？",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "conditions",
+      "query": "宠物有原兽医限制，就医交接怎样说明？",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "insufficient",
+      "query": "不知道变化起点，就医记录该猜时间吗？",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "interference",
+      "query": "之前讨论主粮。现在只想问就医材料怎样准备。",
+      "hit": true
+    },
+    {
+      "article_id": "visit-preparation",
+      "type": "negation",
+      "query": "普通就医准备是不是都应当按疑似误食处理？",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "direct",
+      "query": "照护交接怎样写清已完成事项和联系人？",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "paraphrase",
+      "query": "临时请人接手照护，要交接哪些事实？",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "conditions",
+      "query": "接手者遇到原兽医建议，交接时怎样确认？",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "insufficient",
+      "query": "不知道前一个人有没有做，交接记录怎样写？",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "interference",
+      "query": "之前问航空箱。现在只想问照护交接清单。",
+      "hit": true
+    },
+    {
+      "article_id": "care-handoff",
+      "type": "negation",
+      "query": "交接清单是否就授权接手者改变治疗方案？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "direct",
+      "query": "猫玩耍时怎样安排一次可退出的互动？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "paraphrase",
+      "query": "猫想追玩具，怎样让它观察和休息？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "conditions",
+      "query": "猫玩耍时兴趣下降或紧张该怎么办？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "insufficient",
+      "query": "不了解猫当前参与意愿，能统一规定互动次数吗？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "interference",
+      "query": "以前问运输箱，现在只问猫的玩耍互动。",
+      "hit": true
+    },
+    {
+      "article_id": "cat-play",
+      "type": "negation",
+      "query": "一次互动的步骤是否就是每天必须执行一次？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "direct",
+      "query": "多猫家庭介绍新猫怎样分步推进？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "paraphrase",
+      "query": "两只猫初次见面如何先适应气味？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "conditions",
+      "query": "原住猫有健康问题，引入新猫前确认什么？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "insufficient",
+      "query": "不知道双方健康状态，能保证按日历融合吗？",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "interference",
+      "query": "以前问食盆，现在只问新猫与原住猫相处。",
+      "hit": true
+    },
+    {
+      "article_id": "cat-multi",
+      "type": "negation",
+      "query": "两只猫没有打架就表示相处舒服吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "direct",
+      "query": "犬的日常活动前后怎样检查？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "paraphrase",
+      "query": "狗散步探索怎样看精神和步态？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "conditions",
+      "query": "犬有兽医活动限制，新运动先确认什么？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "insufficient",
+      "query": "未记录健康问题就能当成健康成年犬吗？",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "interference",
+      "query": "以前问主粮，现在只问犬的运动与互动。",
+      "hit": true
+    },
+    {
+      "article_id": "dog-play",
+      "type": "negation",
+      "query": "犬精力旺盛就必须统一跑相同公里数吗？",
+      "hit": true
+    }
+  ],
+  "edited_article_metrics": {
+    "cases": 102,
+    "hits": 101
+  }
+}

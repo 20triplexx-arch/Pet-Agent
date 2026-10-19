@@ -51,6 +51,9 @@ React + TypeScript + FastAPI + Pydantic AI + SQLite。
 | [安装与开发](docs/DEVELOPMENT.md) | 启动、测试、知识导入和数据备份 |
 | [产品说明](PRODUCT.md) | 功能与使用流程 |
 | [知识来源](docs/SOURCE_CATALOG.md) | 资料出处与覆盖范围 |
+| [资料分类](docs/KNOWLEDGE_TAXONOMY.md) · [入库规范](docs/KNOWLEDGE_INGESTION.md) | 分类、来源核对、切分、检索与验收方法及编辑模板 |
+| [资料与证据链验收](docs/EVIDENCE_REBUILD.md) | 95篇重分类、579块；候选质量与速度门槛未通过，尚未发布 |
+| [资料与证据链验收](docs/EVIDENCE_REBUILD.md) | 95篇重分类、579块；候选质量与速度门槛未通过，尚未发布 |
 | [测试结果](TEST_RESULTS.md) | 验证记录、性能和已知问题 |
 
 当前主要支持猫和狗。健康建议用于日常观察和就医准备，不能代替兽医诊疗；提醒仅在站内显示。质量与速度仍在持续改进。

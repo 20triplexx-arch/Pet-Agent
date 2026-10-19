@@ -31,7 +31,7 @@ def verify_pricing():
     from html import unescape
     url = "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/"
     page = urllib.request.urlopen(url, timeout=20).read().decode("utf-8")
-    tables = re.findall(r"<table.*?</table>", page, re.S)
+    tables = [table for table in re.findall(r"<table.*?</table>", page, re.S) if 'deepseek-flash' in table]
     if len(tables) != 1:
         raise ValueError("Cannot verify the official pricing table")
     rows = []
@@ -48,7 +48,11 @@ def verify_pricing():
     output_row = next((r for r in rows if "高峰时段" in r and "8元" in r), None)
     if input_row is None or output_row is None or input_row.index("2元") != output_row.index("8元"):
         raise ValueError("Could not verify matching Flash peak input/output columns")
-    return {"currency": "CNY", "model": "deepseek-flash", "checked_at": datetime.now(UTC).isoformat(),
+    version_row = next((row for row in rows if '模型版本' in row), [])
+    version = next((cell for cell in version_row if re.fullmatch(r'DeepSeek-V[\w.\-]+Flash[\w.\-]*',cell)),None)
+    if not version:
+        raise ValueError('Could not verify current Flash model version')
+    return {"currency": "CNY", "model": "deepseek-flash", "model_version":version, "checked_at": datetime.now(UTC).isoformat(),
             "source": url, "peak_input_cache_miss_per_million": 2, "peak_output_per_million": 8,
             "table_sha256": hashlib.sha256(tables[0].encode()).hexdigest()}
 
@@ -64,7 +68,9 @@ def setup_database(folder):
     if engine.url.get_backend_name() != 'sqlite' or Path(engine.url.database).resolve() != expected:
         raise RuntimeError('Evaluation database isolation was lost before initialization')
     from scripts.init_db import initialize
-    initialize(demo=False)
+    # Frozen workers must import their OWN article corpus, not this harness's newer data.
+    from app import models as runtime_models
+    initialize(demo=False,data_root=Path(runtime_models.__file__).resolve().parents[1]/'data')
     from app.core.security import get_password_hash
     from app.models import User, Pet, CareLog
     from sqlmodel import Session

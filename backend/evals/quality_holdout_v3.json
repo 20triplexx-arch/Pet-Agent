@@ -1,0 +1,17 @@
+{
+  "version": "evidence-rebuild-holdout-v3-20261019",
+  "synthetic_data_only": true,
+  "policy": "Frozen before the second candidate repairs. Do not tune from outputs. Previous v2 results remain attached to their original build.",
+  "cases": [
+    {"id":"EF-001","category":"generalization","pet":"cat","turns":["刚接回家的猫喜欢躲在椅子下面。怎样布置休息、食水和猫砂的位置，家人怎样安排接触？先说眼下可以做的事。"]},
+    {"id":"EF-002","category":"generalization","pet":"dog","answer_depth":"detailed","turns":["家里有人想让狗通过多跑步解决青春期啃咬。环境检查、可啃物和练习难度怎样分别调整？有哪些情况不应当作青春期处理？"]},
+    {"id":"EF-003","category":"generalization","pet":"cat","turns":["食盆标签看不清，能用洗碗机高温程序和普通消毒剂一起处理吗？目前能确定哪些步骤，还要核实什么？"]},
+    {"id":"EF-004","category":"generalization","pet":"dog","turns":["昨天问过狗窝尺寸，那件事结束了。这次狗在电梯口僵着不走，怎样记录和降低练习难度？","刚才没有叫但仍不肯往前，是不是已经适应了？"]},
+    {"id":"EF-005","category":"generalization","pet":"cat","answer_depth":"detailed","turns":["食品写了成年维护，另有蛋白最低值和每罐千卡。解释这些项目各能说明什么，以及算每克热量和评估这只猫食量分别还缺哪些条件。"]},
+    {"id":"EF-006","category":"generalization","pet":"dog","turns":["准备让家人周末代喂狗。怎样记录主粮、奖励、实际剩余和兽医原来的限制，哪些事项家人不能直接改？"]},
+    {"id":"EF-007","category":"generalization","pet":"cat","turns":["猫抓沙发时，家人想抓着前爪在新抓板上示范。应该怎样选择位置、稳固性和材质，怎样观察换了以后有没有帮助？不用推荐喷剂。"]},
+    {"id":"EF-008","category":"generalization","pet":"dog","answer_depth":"detailed","turns":["狗刚刷到一半就转头躲，平时咀嚼有点困难。练习和口腔检查先后怎么安排，能否自己刮牙或继续强刷？"]},
+    {"id":"EF-009","category":"generalization","pet":"cat","turns":["我的猫曾有食物过敏，兽医让保持原方案。这次只想了解成年狗的BCS观察，不要把猫的限制改成这只狗的病史。","如果肋骨摸得到，能否只据此给整只狗打一个正式分数？"]},
+    {"id":"EF-010","category":"generalization","pet":"dog","answer_depth":"brief","turns":["运输前犬箱能站起来但没法转身，旁边另一只猫用的可拆顶箱看起来方便。犬的空间限制与猫的搬运方式应怎样分别核对？"]}
+  ]
+}

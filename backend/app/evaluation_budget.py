@@ -14,24 +14,33 @@ class BudgetExceeded(Exception):
 
 
 class EvaluationBudget:
-    def __init__(self, path, pricing, limit_cny="10", *, run_id=None, run_limit_cny=None):
+    def __init__(self, path, pricing, limit_cny="10", *, run_id=None, run_limit_cny=None,
+                 authorized_run_ceiling_cny=None, authorized_budget_scope=None):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.pricing = pricing
+        self.verified_free = pricing.get('billing_mode') == 'verified_free'
+        if authorized_budget_scope not in (None,'paid_only'):
+            raise ValueError('Unknown authorized budget scope')
         from app.alibaba_models import family
         group = family(pricing['model'])
         bounds = {'qwen3.7-flash':[32768, 262144, 1000000], 'qwen3.8-flash':[1000000],
                   'qwen-flash':[131072, 262144, 1000000], 'qwen3.5-flash':[131072, 262144, 1000000],
                   'qwen3.6-flash':[262144, 1000000], 'qwen3.7-plus':[262144, 1000000], 'qwen3.7-max':[1000000]}
-        if pricing["currency"] != "CNY" or (pricing['model'] != 'deepseek-flash' and group not in bounds):
+        if pricing["currency"] != "CNY" or (not self.verified_free and pricing['model'] != 'deepseek-flash' and group not in bounds):
             raise ValueError("Unsupported evaluation pricing")
         checked = datetime.fromisoformat(pricing["checked_at"])
         age = (datetime.now(UTC) - checked).total_seconds()
         if not 0 <= age <= 86400:
             raise ValueError("Pricing must be verified within the last 24 hours")
-        self.provider = "alibaba" if pricing["model"].startswith('qwen') else "deepseek"
+        self.provider = 'alibaba' if self.verified_free or group is not None else 'deepseek'
         self.output_token_limit = 4096 if self.provider == "alibaba" else 1800
-        if self.provider == "alibaba":
+        if self.verified_free:
+            if pricing.get('provider')!='alibaba' or group is None:
+                raise ValueError('Only reviewed Alibaba free models can bypass cash ceilings')
+            self.verify_free_eligibility()
+            tiers = []
+        elif self.provider == "alibaba":
             tiers = pricing.get("tiers", [])
             expected = bounds[group]
             if [t.get("max_input_tokens") for t in tiers] != expected:
@@ -46,8 +55,11 @@ class EvaluationBudget:
         if (run_id is None) != (run_limit_cny is None):
             raise ValueError("Run ID and ceiling must be supplied together")
         run_limit = Decimal(str(run_limit_cny)) if run_id is not None else None
-        if run_limit is not None and not Decimal("0") < run_limit <= Decimal("3"):
-            raise ValueError("The authorized run ceiling is 3 CNY")
+        authorized = Decimal(str(authorized_run_ceiling_cny)) if authorized_run_ceiling_cny is not None else Decimal('3')
+        if not Decimal('0') < authorized <= Decimal('10'):
+            raise ValueError('The authorized lifetime ceiling is 10 CNY')
+        if run_limit is not None and not Decimal("0") < run_limit <= authorized:
+            raise ValueError("Run ceiling exceeds the explicit authorization")
         limit = Decimal(str(limit_cny))
         if not Decimal("0") < limit <= Decimal("10"):
             raise ValueError("The authorized lifetime ceiling is 10 CNY")
@@ -60,6 +72,14 @@ class EvaluationBudget:
             for name in ("provider", "model", "run_id", "pricing_json"):
                 if name not in columns:
                     db.execute(f"ALTER TABLE charges ADD COLUMN {name} TEXT")
+            db.execute('CREATE TABLE IF NOT EXISTS budget_policy (id INTEGER PRIMARY KEY CHECK(id=1),scope TEXT NOT NULL,authorized_at TEXT NOT NULL)')
+            if authorized_budget_scope:
+                db.execute('INSERT INTO budget_policy VALUES (1,?,?) ON CONFLICT(id) DO UPDATE SET scope=excluded.scope,authorized_at=excluded.authorized_at',
+                           (authorized_budget_scope,datetime.now(UTC).isoformat()))
+            policy=db.execute('SELECT scope FROM budget_policy WHERE id=1').fetchone()
+            self.budget_scope=policy[0] if policy else 'legacy_all_providers'
+            if self.verified_free and self.budget_scope!='paid_only':
+                raise ValueError('Free-only accounting requires explicit authorization for the paid-only policy')
             db.execute("CREATE TABLE IF NOT EXISTS runs (id TEXT PRIMARY KEY, limit_micro INTEGER NOT NULL)")
             existing = db.execute("SELECT limit_micro FROM config WHERE id=1").fetchone()
             requested = int(limit * 1_000_000)
@@ -70,8 +90,34 @@ class EvaluationBudget:
                 previous = db.execute("SELECT limit_micro FROM runs WHERE id=?", (self.run_id,)).fetchone()
                 requested_run = int(run_limit * 1_000_000)
                 if previous and requested_run > previous[0]:
-                    raise ValueError("An existing run ceiling cannot be raised")
+                    if authorized_run_ceiling_cny is None:
+                        raise ValueError("An existing run ceiling cannot be raised")
+                    db.execute('CREATE TABLE IF NOT EXISTS run_authorizations (run_id TEXT, previous_micro INTEGER, authorized_micro INTEGER, authorized_at TEXT)')
+                    db.execute('INSERT INTO run_authorizations VALUES (?,?,?,?)',
+                               (self.run_id, previous[0], requested_run, datetime.now(UTC).isoformat()))
                 db.execute("INSERT INTO runs VALUES (?,?) ON CONFLICT(id) DO UPDATE SET limit_micro=excluded.limit_micro", (self.run_id, requested_run))
+
+    def verify_free_eligibility(self):
+        from app import alibaba_quota as free
+        from app.core.config import settings
+        data=free.snapshot()
+        row=next((r for r in data.get('models',[]) if r.get('model')==self.pricing['model']),None)
+        if not settings.DASHSCOPE_FREE_ONLY or not row or row.get('autoStop') is not True or type(row.get('remaining')) is not int or row['remaining']<=0 or not free.quota_unexpired(row):
+            raise ValueError('Verified current free-only quota is required; no paid fallback')
+
+    def used(self,db,run=False):
+        # Retain every historical amount. Under the explicit new policy only
+        # known, settled Alibaba estimates are excluded from the CASH ceiling.
+        # Unknown providers and ALL unresolved reservations remain liabilities.
+        where=[]
+        values=[]
+        if self.budget_scope=='paid_only':
+            where.append("(provider IS NULL OR provider!='alibaba' OR state='reserved')")
+        if run:
+            where.append('run_id=?')
+            values.append(self.run_id)
+        sql='SELECT COALESCE(SUM(amount_micro),0) FROM charges'+(' WHERE '+' AND '.join(where) if where else '')
+        return db.execute(sql,values).fetchone()[0]
 
     @contextmanager
     def connect(self):
@@ -84,6 +130,8 @@ class EvaluationBudget:
             db.close()
 
     def cost(self, inputs, outputs, *, pricing=None):
+        if self.verified_free:
+            return 0
         # Micro-CNY: peak tariff, no cache discount. Round upward.
         tiers = self.tiers if pricing is None else pricing.get("tiers", [{"max_input_tokens": 1000000,
             "input_per_million": pricing.get("peak_input_cache_miss_per_million"),
@@ -97,6 +145,8 @@ class EvaluationBudget:
     def reserve(self, request):
         if request.get("model") != self.pricing["model"]:
             raise ValueError("Budgeted evaluations require the verified model")
+        if self.verified_free:
+            self.verify_free_eligibility()
         if request.get('stream') and request.get('stream_options', {}).get('include_usage') is not True:
             raise ValueError('Streaming evaluations require usage reporting')
         extra = request.get("extra_body", {})
@@ -115,13 +165,13 @@ class EvaluationBudget:
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
             limit = db.execute("SELECT limit_micro FROM config WHERE id=1").fetchone()[0]
-            used = db.execute("SELECT COALESCE(SUM(amount_micro),0) FROM charges").fetchone()[0]
-            if used + amount > limit:
+            used = self.used(db)
+            if not self.verified_free and used + amount > limit:
                 raise BudgetExceeded("Insufficient reserved evaluation budget")
             if self.run_id is not None:
                 run_limit = db.execute("SELECT limit_micro FROM runs WHERE id=?", (self.run_id,)).fetchone()[0]
-                run_used = db.execute("SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE run_id=?", (self.run_id,)).fetchone()[0]
-                if run_used + amount > run_limit:
+                run_used = self.used(db,run=True)
+                if not self.verified_free and run_used + amount > run_limit:
                     raise BudgetExceeded("Insufficient reserved run budget")
             db.execute("INSERT INTO charges (id,amount_micro,state,provider,model,run_id,pricing_json) VALUES (?,?,'reserved',?,?,?,?)",
                        (ident, amount, self.provider, self.pricing["model"], self.run_id, json.dumps(self.pricing)))
@@ -151,10 +201,14 @@ class EvaluationBudget:
             used, requests, unresolved = db.execute("SELECT COALESCE(SUM(amount_micro),0),COUNT(*),SUM(CASE WHEN state='reserved' THEN 1 ELSE 0 END) FROM charges").fetchone()
             run = db.execute("SELECT limit_micro FROM runs WHERE id=?", (self.run_id,)).fetchone()
             run_used = db.execute("SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE run_id=?", (self.run_id,)).fetchone()[0]
+            cash_used=self.used(db)
+            cash_run_used=self.used(db,run=True)
         return {"limit_cny": limit / 1e6, "conservative_used_cny": used / 1e6,
                 "run_id": self.run_id, "run_limit_cny": run[0] / 1e6 if run else None, "run_used_cny": run_used / 1e6,
+                "budget_scope":self.budget_scope,"cash_budget_used_cny":cash_used/1e6,"cash_run_used_cny":cash_run_used/1e6,
+                "billing_mode":'verified_free' if self.verified_free else 'tariff_estimate',
                 "reserved_or_billed_requests": requests, "unresolved_reservations": unresolved or 0,
-                "pricing": self.pricing, "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."}
+                "pricing": self.pricing, "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."}
 
 
 current_budget: ContextVar[EvaluationBudget | None] = ContextVar("evaluation_budget", default=None)

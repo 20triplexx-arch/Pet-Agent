@@ -26,8 +26,40 @@
     "source_version": "2021 AAHA Nutrition and Weight Management Guidelines / Box 1",
     "published_at": null,
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-12",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/weight-reduction-in-the-obese-pet/0/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-22",
+        "checked_at": "2026-10-19",
+        "supports": "RER=70×kg^0.75，MER系数为起始估算并随体重/BCS复评；只采用成年维持行，不把减重/繁殖/生长行接入普通计算。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+        "organization": "AAHA",
+        "version": "2021 营养与体重管理指南",
+        "checked_at": "2026-10-19",
+        "supports": "健康、体况合适猫狗的喂食与饮食调整原则；原章节有明确前提"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "nutrition-risk",
@@ -54,8 +86,33 @@
     "source_version": "2021 AAHA / Nutritional Risk Factors",
     "published_at": null,
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+        "organization": "WSAVA",
+        "version": "Nutrition Guidelines；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "BCS评估脂肪、MCS评估肌肉，分别记录"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "nutrition-feeding",
@@ -84,8 +141,26 @@
     "source_version": "2021 AAHA / Feeding Plans for Healthy, Appropriate Weight Cats and Dogs",
     "published_at": null,
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+        "organization": "AAHA",
+        "version": "2021 营养与体重管理指南",
+        "checked_at": "2026-10-19",
+        "supports": "健康、体况合适猫狗的喂食与饮食调整原则；原章节有明确前提"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "nutrition-cat-bcs",
@@ -110,8 +185,33 @@
     "source_version": "WSAVA feline BCS chart 2025-06",
     "published_at": "2025-06",
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSCat_Nutrition_250612.pdf",
+        "organization": "WSAVA",
+        "version": "WSAVA feline BCS chart 2025-06",
+        "checked_at": "2026-10-19",
+        "supports": "Cat脂肪体况观察；不能合并肌肉评分"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+        "organization": "WSAVA",
+        "version": "Nutrition Guidelines；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "BCS评估脂肪、MCS评估肌肉，分别记录"
+      }
+    ]
   },
   {
     "id": "nutrition-dog-bcs",
@@ -136,13 +236,38 @@
     "source_version": "WSAVA canine BCS chart 2025-06",
     "published_at": "2025-06",
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf",
+        "organization": "WSAVA",
+        "version": "WSAVA canine BCS chart 2025-06",
+        "checked_at": "2026-10-19",
+        "supports": "Dog脂肪体况观察；不能合并肌肉评分"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+        "organization": "WSAVA",
+        "version": "Nutrition Guidelines；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "BCS评估脂肪、MCS评估肌肉，分别记录"
+      }
+    ]
   },
   {
     "id": "nutrition-muscle",
     "title": "肌肉状况与体况评分分别记录",
-    "body": "## 肌肉与脂肪是不同观察\n体况评分关注脂肪，肌肉状况关注肌肉减少。宠物可能在体重不低、脂肪较多时仍发生肌肉损失，两个字段不能互相代替。\n\n## 提高填写的可信度\n1. 了解WSAVA提供的肌肉工具，并请兽医演示触诊要点。\n2. 不仅看照片或毛发轮廓，也不由应用推断评分。\n3. 写明主人或兽医评估、日期和是否有不确定性。\n4. 尚未评估时选择未知，不能为了生成方案随意填正常。\n\n## 与其他信息连起来\n记录食欲、实际摄入、活动、体重及既往病史；说明“起身费力”“背部触感与以前不同”等可观察事实，不自行写肌肉疾病诊断。老年与不活动宠物的变化同样需要专业分析。\n\n## 为什么应用会拦截\n任何报告的肌肉损失会停止普通成年维护数量建议，提示扩展评估。应用不因此推荐蛋白补充、增重克数或训练强度。专业方案确定后可协助记录执行，但调整目标仍应核对适用条件与原建议。",
+    "body": "## 肌肉与脂肪是不同观察\n体况评分关注脂肪，肌肉状况关注肌肉减少。宠物可能在体重不低、脂肪较多时仍发生肌肉损失，两个字段不能互相代替。\n\n## 提高填写的可信度\n1. 了解WSAVA提供的肌肉工具，并请兽医演示触诊要点。\n2. 不仅看照片或毛发轮廓，也不由应用推断评分。\n3. 写明主人或兽医评估、日期和是否有不确定性。\n4. 尚未评估时选择未知，不能为了生成方案随意填正常。\n\n## 与其他信息连起来\n记录食欲、实际摄入、活动、体重及既往病史；说明“起身费力”“背部触感与以前不同”等可观察事实，不自行写肌肉疾病诊断。老年与不活动宠物的变化同样需要专业分析。\n\n## 为什么应用会拦截\n任何报告的肌肉损失会停止普通成年维护数量建议，提示扩展评估。应用不因此推荐蛋白补充、增重克数或训练强度。专业方案确定后可协助记录执行，但调整目标仍应核对适用条件与原建议。\n\n## 脂肪和肌肉分别记录\nBCS评估脂肪储备，MCS评估肌肉状况，二者不是一个整体健康评分。脂肪偏多与肌肉损失可以同时存在，不能说肌肉流失导致BCS升高。起身、活动或触感变化可以作为主人观察提交给兽医，不据此命名MCS指标或自行判定肌肉损失。",
     "species": [
       "cat",
       "dog"
@@ -162,13 +287,38 @@
     "source_version": "Global Nutrition Guidelines / Muscle condition score tools",
     "published_at": null,
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+        "organization": "WSAVA",
+        "version": "Nutrition Guidelines；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "BCS评估脂肪、MCS评估肌肉，分别记录"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "nutrition-label",
     "title": "填写包装热量与计量单位",
-    "body": "## 热量和营养声明要分别核对\n食物包装上的能量、适用生命阶段和完整均衡声明用途不同。仅看成分表第一项、品牌名或营销词，不能证明该食物适合当前宠物。\n\n## 抄录包装的顺序\n1. 填写确切产品与口味，区分主粮和零食；不同产品不能共用一个热量值。\n2. 原样核对kcal或kJ，以及每100g、每kg还是每份。\n3. 若按罐或份标注，填写对应克重；杯、勺不能由应用猜重量。\n4. 保存标签文字来源，无法找到能量信息时向厂家核实，不随便估值。\n\n## 换算怎样理解\nkJ需换成kcal再计算；每克热量由标签能量除以对应克重得出。只有有可靠的能量密度和实际克数，才可以核算摄入。示例数值只是算术演示，不是另一款食物的真实标签。\n\n## 不确定时的处理\n包装更新、换规格或换食物后重新抄录和预览。应用不根据“高蛋白”“天然”或价格排名选择治疗饮食。食物标签与病史、阶段或兽医要求冲突时先寻求专业确认，不以换算正确掩盖适用性问题。",
+    "body": "## 热量和营养声明要分别核对\n食物包装上的能量、适用生命阶段和完整均衡声明用途不同。仅看成分表第一项、品牌名或营销词，不能证明该食物适合当前宠物。\n\n## 抄录包装的顺序\n1. 填写确切产品与口味，区分主粮和零食；不同产品不能共用一个热量值。\n2. 原样核对kcal或kJ，以及每100g、每kg还是每份。\n3. 若按罐或份标注，填写对应克重；杯、勺不能由应用猜重量。\n4. 保存标签文字来源，无法找到能量信息时向厂家核实，不随便估值。\n\n## 换算怎样理解\nkJ需换成kcal再计算；每克热量由标签能量除以对应克重得出。只有有可靠的能量密度和实际克数，才可以核算摄入。示例数值只是算术演示，不是另一款食物的真实标签。\n\n## 不确定时的处理\n包装更新、换规格或换食物后重新抄录和预览。应用不根据“高蛋白”“天然”或价格排名选择治疗饮食。食物标签与病史、阶段或兽医要求冲突时先寻求专业确认，不以换算正确掩盖适用性问题。\n\n## 按份热量仍需对应份量\n抄录包装能量数值、单位和对应的食品份量。每杯或每罐热量不能直接变成每克热量，除非对应克重也已明确。标签用于提供食品数据；个体食量还取决于营养评估是否就绪，补一项标签不等于可以精确算出该宠物的喂食量。",
     "species": [
       "cat",
       "dog"
@@ -190,13 +340,38 @@
     "source_version": "Global Nutrition Guidelines / Food Label Guides and Selecting a Pet Food",
     "published_at": null,
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-10",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+        "organization": "WSAVA",
+        "version": "Guidelines on Selecting Pet Foods；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗营养适用声明、每克或每份热量、厂家核对；非品牌认证"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      },
+      {
+        "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8",
+        "organization": "www.nist.gov",
+        "version": "SP 811 conversion-factor table; page checked 2026-10-19",
+        "checked_at": "2026-10-19",
+        "supports": "只支持营养热化学千卡与千焦的单位换算1 kcal=4.184 kJ，不支持个体热量或医疗需要。"
+      }
+    ]
   },
   {
     "id": "visit-preparation",
     "title": "紧急就医前准备联系信息与观察记录",
-    "body": "## 先判断是否需要立即联系\n资料整理适用于就医准备，不能延迟紧急处理。呼吸困难、倒地、抽搐、严重创伤或疑似中毒时，先联系医院并按其要求转运。\n\n## 摘要里最有用的事实\n1. 宠物身份、物种、阶段与带日期的体重；未知信息留空。\n2. 症状开始、出现次数或持续情况，以及食欲、精神、饮水和排泄变化。\n3. 最近饮食、环境、接触物和生活事件变化。\n4. 用户提供的病史、专业建议及实际用过的药物或补充品，保留原名称与来源。\n\n## 怎样使用应用摘要\n在医院页展开准备就医资料，填写本次观察和开始时间，再读取当前宠物近30天记录。核对是否混入推测、遗漏时间或使用了另一只宠物的信息；可以编辑、复制和下载TXT，不自动发送给医院。\n\n## 出发前核实\n确认能否接诊、地点、电话及安全运输要求。准备原包装、报告和能安全拍摄的短片；医院是否急诊或接诊某物种需电话核实，地图结果不等于已确认。没有完整记录也应如实就医，不能为了补齐模板而等待。\n\n## 深入分析前需要哪些资料\n提供本次开始时间、表现、变化、病史、兽医建议及已给予的药物；区分亲眼观察、既往记录和自己的猜测。就医摘要按宠物整理，不能把其他宠物资料或旧观察作为本次事实。\n\n## 如何整理便于沟通的摘要\n先写本次最重要的观察与时间线，再列年龄、带日期的体重、饮食及病史，最后附近期记录、接触物包装与要询问的问题。未知项明确留空，旧记录标注日期；对既往专业建议保留原意，不自动生成诊断。\n\n## 联系医院时核对什么\n说明当前主要表现，询问是否接诊、是否能处理本次情况及到院方式。地图的名称、电话、距离与营业登记信息不等于急诊能力或资质已核实。电话与导航由用户点击，应用不自动预约或发送摘要。\n\n## 急诊和普通准备如何区分\n命中紧急风险时先联系兽医或急诊，摘要与找医院随后独立进行。准备资料不能成为延误理由，也不应为拍摄影像而冒险。急救资料提供就医准备边界，不能替代专业治疗；病情变化应及时告知接诊团队。",
+    "body": "## 先判断是否需要立即联系\n资料整理适用于就医准备，不能延迟紧急处理。呼吸困难、倒地、抽搐、严重创伤或疑似中毒时，先联系医院并按其要求转运。\n\n## 摘要里最有用的事实\n1. 宠物身份、物种、阶段与带日期的体重；未知信息留空。\n2. 症状开始、出现次数或持续情况，以及食欲、精神、饮水和排泄变化。\n3. 最近饮食、环境、接触物和生活事件变化。\n4. 用户提供的病史、专业建议及实际用过的药物或补充品，保留原名称与来源。\n\n## 怎样使用应用摘要\n在医院页展开准备就医资料，填写本次观察和开始时间，再读取当前宠物近30天记录。核对是否混入推测、遗漏时间或使用了另一只宠物的信息；可以编辑、复制和下载TXT，不自动发送给医院。\n\n## 出发前核实\n确认能否接诊、地点、电话及安全运输要求。准备原包装、报告和能安全拍摄的短片；医院是否急诊或接诊某物种需电话核实，地图结果不等于已确认。没有完整记录也应如实就医，不能为了补齐模板而等待。\n\n## 深入分析前需要哪些资料\n提供本次开始时间、表现、变化、病史、兽医建议及已给予的药物；区分亲眼观察、既往记录和自己的猜测。就医摘要按宠物整理，不能把其他宠物资料或旧观察作为本次事实。\n\n## 如何整理便于沟通的摘要\n先写本次最重要的观察与时间线，再列年龄、带日期的体重、饮食及病史，最后附近期记录、接触物包装与要询问的问题。未知项明确留空，旧记录标注日期；对既往专业建议保留原意，不自动生成诊断。\n\n## 联系医院时核对什么\n说明当前主要表现，询问是否接诊、是否能处理本次情况及到院方式。地图的名称、电话、距离与营业登记信息不等于急诊能力或资质已核实。电话与导航由用户点击，应用不自动预约或发送摘要。\n\n## 急诊和普通准备如何区分\n命中紧急风险时先联系兽医或急诊，摘要与找医院随后独立进行。准备资料不能成为延误理由，也不应为拍摄影像而冒险。急救资料提供就医准备边界，不能替代专业治疗；病情变化应及时告知接诊团队。\n\n## 记录与交接，不推断诊断\n把观察到的变化、开始时间、已有病史与兽医限制分开写，带上可获得的医疗记录和联系人；不知道的内容保持未知。普通就医材料准备不能自动改写成疑似误食处置。急症优先联系兽医，不为凑齐清单延迟出发。",
     "species": [
       "cat",
       "dog"
@@ -214,11 +389,29 @@
       "准备"
     ],
     "source_organization": "AVMA",
-    "source_url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-pet-first-aid-2023.pdf",
-    "source_version": "AVMA Pet First Aid brochure 2023",
+    "source_url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+    "source_version": "Copyright 2025; mcm-0825",
     "published_at": "2023",
     "ingested_at": "2026-10-10",
-    "updated_at": "2026-10-12",
-    "review_status": "editorial_summary_unreviewed"
+    "updated_at": "2026-10-19",
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2025; mcm-0825",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗联系急诊、保留容器和记录、安全转运；未经兽医指示不自行催吐或给药；不移植美国求助电话。"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/emergency-preparedness/index.html",
+        "organization": "CDC",
+        "version": "Be Prepared: Pet Safety in Emergencies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗身份、医疗记录、联系人与应急准备"
+      }
+    ]
   }
 ]

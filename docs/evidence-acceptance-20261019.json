@@ -1,0 +1,4328 @@
+{
+  "date": "2026-10-20",
+  "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+  "releasable": false,
+  "activated": false,
+  "gates": {
+    "all_articles_source_checked": true,
+    "quality_30_pairs": false,
+    "zero_regression": false,
+    "major_claim_support_95": true,
+    "fresh_holdout": false,
+    "first_visible_latency": false,
+    "ordinary_complete_latency": false,
+    "median_speedup_30": false
+  },
+  "article_count": 95,
+  "source_count": 78,
+  "pending_source_ids": [],
+  "runs": [
+    {
+      "report": "artifacts/evaluations/20261019T070859-quality-step2/report.json",
+      "report_sha256": "e463e80425d4ad5b2a8f6d7483434ef8a8787d6a4371f30bd25887ac6d36f790",
+      "answer_build_sha256": "44cfc3f630c0add3912767c8ea668b5d9530cd5ee498c4fd4bfcaee37055167b",
+      "model": "deepseek-flash",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 2445.1,
+            "p95_ms": 3350.7
+          },
+          "first_visible_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 1453.74,
+            "p95_ms": 1768.93
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2445.1,
+              "p95_ms": 3350.7
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1453.74,
+              "p95_ms": 1768.93
+            },
+            "browser_first_visible": {
+              "count": 29,
+              "p50_ms": 1463.7,
+              "p95_ms": 1779.9
+            },
+            "browser_complete_visible": {
+              "count": 29,
+              "p50_ms": 2494,
+              "p95_ms": 3395
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 3,
+            "complete": {
+              "count": 28,
+              "p50_ms": 2383.5,
+              "p95_ms": 3350.7
+            },
+            "first_section": {
+              "count": 28,
+              "p50_ms": 1433.3,
+              "p95_ms": 1768.93
+            },
+            "browser_first_visible": {
+              "count": 28,
+              "p50_ms": 1446.75,
+              "p95_ms": 1779.9
+            },
+            "browser_complete_visible": {
+              "count": 28,
+              "p50_ms": 2428.55,
+              "p95_ms": 3395
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 2548.5,
+              "p95_ms": 2548.5
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 1737.94,
+              "p95_ms": 1737.94
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 1762.1,
+              "p95_ms": 1762.1
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 2595,
+              "p95_ms": 2595
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 82634,
+          "output_tokens": 9947
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2619.9,
+            "p95_ms": 3266.4
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 1511.63,
+            "p95_ms": 1833.8
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2619.9,
+              "p95_ms": 3266.4
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1511.63,
+              "p95_ms": 1833.8
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 1528.45,
+              "p95_ms": 1846.9
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 2670.65,
+              "p95_ms": 3310.8
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2619.9,
+              "p95_ms": 3266.4
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1511.63,
+              "p95_ms": 1833.8
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 1528.45,
+              "p95_ms": 1846.9
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 2670.65,
+              "p95_ms": 3310.8
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 32,
+          "input_tokens": 78784,
+          "output_tokens": 10487
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-013",
+          "CB-037",
+          "CB-043"
+        ],
+        "optimized": [
+          "CB-017",
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 28,
+        "baseline_median_ms": 2428.55,
+        "candidate_median_ms": 2554.3,
+        "median_speedup_percent": -5.18,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "assistant_anonymous_review_not_independent_or_veterinary",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 8.969594,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.194183,
+        "reserved_or_billed_requests": 2662,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "model": "deepseek-flash",
+          "model_version": "DeepSeek-V4.1-Flash-1017",
+          "checked_at": "2026-10-19T07:08:59.491358+00:00",
+          "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+          "peak_input_cache_miss_per_million": 2,
+          "peak_output_per_million": 8,
+          "table_sha256": "9eb6d2ac5b8b95186a7f329e26fe14b604d3a6a37e1361eca06b5ae426827c2f"
+        },
+        "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+      },
+      "source_review": {
+        "preference": {
+          "optimized": 14,
+          "baseline": 8,
+          "tie": 4,
+          "not_comparable": 4
+        },
+        "paragraph_support_including_rejected": {
+          "baseline": [
+            104,
+            111
+          ],
+          "optimized": [
+            88,
+            98
+          ]
+        },
+        "review_seal": {
+          "sha256": "35ce03d48a06373da9ae9c67ff1c60e92f1a5fe3990f3d4d5d7ab219753b104c",
+          "reviewer": "assistant",
+          "labels_decoded": false,
+          "limitations": "匿名标签不等于独立盲审；段落支持率不等于主要结论逐条支持率。"
+        },
+        "published": false
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T071318-quality-step2/report.json",
+      "report_sha256": "b02be227c7d992413a0f5d0712c21af488e80f2473c184387312fe918ef8738f",
+      "answer_build_sha256": "44cfc3f630c0add3912767c8ea668b5d9530cd5ee498c4fd4bfcaee37055167b",
+      "model": "deepseek-flash",
+      "dataset": "quality_holdout_v2.json",
+      "dataset_sha256": "df86a9e7b1e0f1b78b27e315aefde7190edb8c2d9f498258d59b6ebab0ad1876",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 7,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 2779.6,
+            "p95_ms": 5866.4
+          },
+          "first_visible_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 1537.27,
+            "p95_ms": 3552.2
+          },
+          "ordinary": {
+            "turns": 11,
+            "failures": 2,
+            "complete": {
+              "count": 9,
+              "p50_ms": 2698.5,
+              "p95_ms": 5418.5
+            },
+            "first_section": {
+              "count": 9,
+              "p50_ms": 1508.07,
+              "p95_ms": 3552.2
+            },
+            "browser_first_visible": {
+              "count": 9,
+              "p50_ms": 1529.7,
+              "p95_ms": 3566.8
+            },
+            "browser_complete_visible": {
+              "count": 9,
+              "p50_ms": 2744.9,
+              "p95_ms": 5461
+            },
+            "request_counts": [
+              3,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 2,
+            "failures": 1,
+            "complete": {
+              "count": 1,
+              "p50_ms": 5866.4,
+              "p95_ms": 5866.4
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 2196.73,
+              "p95_ms": 2196.73
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2218.4,
+              "p95_ms": 2218.4
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 5912.5,
+              "p95_ms": 5912.5
+            },
+            "request_counts": [
+              1,
+              1
+            ]
+          },
+          "cached": {
+            "turns": 13,
+            "failures": 3,
+            "complete": {
+              "count": 10,
+              "p50_ms": 2779.6,
+              "p95_ms": 5866.4
+            },
+            "first_section": {
+              "count": 10,
+              "p50_ms": 1537.27,
+              "p95_ms": 3552.2
+            },
+            "browser_first_visible": {
+              "count": 10,
+              "p50_ms": 1555.15,
+              "p95_ms": 3566.8
+            },
+            "browser_complete_visible": {
+              "count": 10,
+              "p50_ms": 2820.45,
+              "p95_ms": 5912.5
+            },
+            "request_counts": [
+              1,
+              3,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 15,
+          "input_tokens": 45254,
+          "output_tokens": 6055
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EH-007",
+          "EH-009",
+          "EH-010"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.108542,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.333131,
+        "reserved_or_billed_requests": 2677,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "model": "deepseek-flash",
+          "model_version": "DeepSeek-V4.1-Flash-1017",
+          "checked_at": "2026-10-19T07:13:18.762703+00:00",
+          "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+          "peak_input_cache_miss_per_million": 2,
+          "peak_output_per_million": 8,
+          "table_sha256": "9eb6d2ac5b8b95186a7f329e26fe14b604d3a6a37e1361eca06b5ae426827c2f"
+        },
+        "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T072456-quality-step2/report.json",
+      "report_sha256": "36e5cc9f7099534db6e7028704a57c5aa52df5b8a7c910843adc862d8585c0c7",
+      "answer_build_sha256": "1e639803c9c762114d47f72368a7239aef0f909139fb1b1ea2ed984e07eba88e",
+      "model": "deepseek-flash",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2289.55,
+            "p95_ms": 2740.6
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 1301.05,
+            "p95_ms": 1492.72
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2289.55,
+              "p95_ms": 2740.6
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1301.05,
+              "p95_ms": 1492.72
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 1312.65,
+              "p95_ms": 1513.5
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 2337.2,
+              "p95_ms": 2779.5
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2289.55,
+              "p95_ms": 2740.6
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1301.05,
+              "p95_ms": 1492.72
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 1312.65,
+              "p95_ms": 1513.5
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 2337.2,
+              "p95_ms": 2779.5
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 32,
+          "input_tokens": 82862,
+          "output_tokens": 9844
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 27,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 2359.4,
+            "p95_ms": 3082.3
+          },
+          "first_visible_successful_model_answers": {
+            "count": 29,
+            "p50_ms": 1344.77,
+            "p95_ms": 1888.92
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2359.4,
+              "p95_ms": 3082.3
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1344.77,
+              "p95_ms": 1888.92
+            },
+            "browser_first_visible": {
+              "count": 29,
+              "p50_ms": 1363.3,
+              "p95_ms": 1899.9
+            },
+            "browser_complete_visible": {
+              "count": 29,
+              "p50_ms": 2393.9,
+              "p95_ms": 3128.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 3,
+            "complete": {
+              "count": 29,
+              "p50_ms": 2359.4,
+              "p95_ms": 3082.3
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 1344.77,
+              "p95_ms": 1888.92
+            },
+            "browser_first_visible": {
+              "count": 29,
+              "p50_ms": 1363.3,
+              "p95_ms": 1899.9
+            },
+            "browser_complete_visible": {
+              "count": 29,
+              "p50_ms": 2393.9,
+              "p95_ms": 3128.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 32,
+          "input_tokens": 79096,
+          "output_tokens": 10745
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-013",
+          "CB-015"
+        ],
+        "optimized": [
+          "CB-013",
+          "CB-040",
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 28,
+        "baseline_median_ms": 2337.2,
+        "candidate_median_ms": 2377.4,
+        "median_speedup_percent": -1.72,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.59717,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.821759,
+        "reserved_or_billed_requests": 2741,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "model": "deepseek-flash",
+          "model_version": "DeepSeek-V4.1-Flash-1017",
+          "checked_at": "2026-10-19T07:24:56.978436+00:00",
+          "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+          "peak_input_cache_miss_per_million": 2,
+          "peak_output_per_million": 8,
+          "table_sha256": "9eb6d2ac5b8b95186a7f329e26fe14b604d3a6a37e1361eca06b5ae426827c2f"
+        },
+        "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T073151-quality-step2/report.json",
+      "report_sha256": "a01ac0760b6c8b2dbe026e5c2a00cddcc9993e30e92bca1df8419708a717d75d",
+      "answer_build_sha256": "cc0dc03ba0a23f9742d405b06dbe73954158291849adc024777cbffd53d2c3b5",
+      "model": "deepseek-flash",
+      "dataset": "quality_holdout_v3.json",
+      "dataset_sha256": "9ae4c04beea8e0bb80029a05daf4cdc29eb9ca8d1be2050c51fcc0ccefc9941d",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 8,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 2750.3,
+            "p95_ms": 4155.7
+          },
+          "first_visible_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 1539.32,
+            "p95_ms": 1911.56
+          },
+          "ordinary": {
+            "turns": 9,
+            "failures": 1,
+            "complete": {
+              "count": 8,
+              "p50_ms": 2595.7,
+              "p95_ms": 3380.4
+            },
+            "first_section": {
+              "count": 8,
+              "p50_ms": 1441.24,
+              "p95_ms": 1911.56
+            },
+            "browser_first_visible": {
+              "count": 8,
+              "p50_ms": 1461.85,
+              "p95_ms": 1928
+            },
+            "browser_complete_visible": {
+              "count": 8,
+              "p50_ms": 2643.95,
+              "p95_ms": 3413
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 3,
+            "failures": 1,
+            "complete": {
+              "count": 2,
+              "p50_ms": 3436.5,
+              "p95_ms": 4155.7
+            },
+            "first_section": {
+              "count": 2,
+              "p50_ms": 1624.39,
+              "p95_ms": 1655.11
+            },
+            "browser_first_visible": {
+              "count": 2,
+              "p50_ms": 1648.05,
+              "p95_ms": 1678.2
+            },
+            "browser_complete_visible": {
+              "count": 2,
+              "p50_ms": 3477.8,
+              "p95_ms": 4194.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1
+            ]
+          },
+          "cached": {
+            "turns": 12,
+            "failures": 2,
+            "complete": {
+              "count": 10,
+              "p50_ms": 2750.3,
+              "p95_ms": 4155.7
+            },
+            "first_section": {
+              "count": 10,
+              "p50_ms": 1539.32,
+              "p95_ms": 1911.56
+            },
+            "browser_first_visible": {
+              "count": 10,
+              "p50_ms": 1554.6,
+              "p95_ms": 1928
+            },
+            "browser_complete_visible": {
+              "count": 10,
+              "p50_ms": 2794.2,
+              "p95_ms": 4194.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 12,
+          "input_tokens": 32539,
+          "output_tokens": 4600
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EF-005",
+          "EF-010"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "reserved_or_billed_requests": 2753,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "model": "deepseek-flash",
+          "model_version": "DeepSeek-V4.1-Flash-1017",
+          "checked_at": "2026-10-19T07:31:51.883899+00:00",
+          "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+          "peak_input_cache_miss_per_million": 2,
+          "peak_output_per_million": 8,
+          "table_sha256": "9eb6d2ac5b8b95186a7f329e26fe14b604d3a6a37e1361eca06b5ae426827c2f"
+        },
+        "billing_note": "Peak cache-miss estimate; unresolved requests retain full reservation. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T080603-quality-step2/report.json",
+      "report_sha256": "a98aa7d8e6cd23c085627a1f060fd9dcf4c412ec4fdb2302ddb3bba9c876586b",
+      "answer_build_sha256": "15196ff0ca887b7518a6f20b90130595ab99357d46b176b903fbc8d07d6d815e",
+      "model": "deepseek-v4-pro-0813",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 4356.6,
+            "p95_ms": 6181
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2624.28,
+            "p95_ms": 3314.39
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 4356.6,
+              "p95_ms": 6181
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2624.28,
+              "p95_ms": 3314.39
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 2638.55,
+              "p95_ms": 3328.9
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 4396.7,
+              "p95_ms": 6228.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 0,
+            "complete": {
+              "count": 31,
+              "p50_ms": 4402.6,
+              "p95_ms": 6181
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2628.26,
+              "p95_ms": 3314.39
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2646.6,
+              "p95_ms": 3328.9
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 4446.5,
+              "p95_ms": 6228.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 4077.7,
+              "p95_ms": 4077.7
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 2249,
+              "p95_ms": 2249
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2280.4,
+              "p95_ms": 2280.4
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 4112.6,
+              "p95_ms": 4112.6
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 82022,
+          "output_tokens": 7633
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 5199.0,
+            "p95_ms": 6801.1
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2682.21,
+            "p95_ms": 3365.16
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 5199.0,
+              "p95_ms": 6801.1
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2682.21,
+              "p95_ms": 3365.16
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 2702.3,
+              "p95_ms": 3379.7
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 5237.6,
+              "p95_ms": 6843.5
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 0,
+            "complete": {
+              "count": 31,
+              "p50_ms": 5172.3,
+              "p95_ms": 6801.1
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2656.78,
+              "p95_ms": 3365.16
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2679.4,
+              "p95_ms": 3379.7
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 5212.2,
+              "p95_ms": 6843.5
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 5735.3,
+              "p95_ms": 5735.3
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 3152.22,
+              "p95_ms": 3152.22
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 3168.7,
+              "p95_ms": 3168.7
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 5778,
+              "p95_ms": 5778
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 78498,
+          "output_tokens": 9725
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-043"
+        ],
+        "optimized": [
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 32,
+        "baseline_median_ms": 4396.7,
+        "candidate_median_ms": 5237.6,
+        "median_speedup_percent": -19.13,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 2817,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4-pro-0813",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T08:06:07.935093+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T100835-quality-step2/report.json",
+      "report_sha256": "1e8f8a154b57386fb73910633f59385dc9ed35ad7961e0c8d2c5cf3eef158fab",
+      "answer_build_sha256": "5ec2812ca12cfa1b24574515cc4203dfe97c4b256aeaa610fbf100477a96990a",
+      "model": "deepseek-v4.1-flash-1017",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 3768.7,
+            "p95_ms": 4960.7
+          },
+          "first_visible_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 1957.33,
+            "p95_ms": 2520.13
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 3768.7,
+              "p95_ms": 4960.7
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1957.33,
+              "p95_ms": 2520.13
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 1979.6,
+              "p95_ms": 2530.1
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 3813.8,
+              "p95_ms": 4996.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 1,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3785.8,
+              "p95_ms": 4960.7
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1955.26,
+              "p95_ms": 2520.13
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 1971.5,
+              "p95_ms": 2530.1
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 3829.9,
+              "p95_ms": 4996.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 3643.3,
+              "p95_ms": 3643.3
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 2102.36,
+              "p95_ms": 2102.36
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2128.9,
+              "p95_ms": 2128.9
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 3679.8,
+              "p95_ms": 3679.8
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 82025,
+          "output_tokens": 9623
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 30,
+          "failed": 0,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 3917.5,
+            "p95_ms": 5324.8
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2003.59,
+            "p95_ms": 2445.99
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 3917.5,
+              "p95_ms": 5324.8
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2003.59,
+              "p95_ms": 2445.99
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 2014.2,
+              "p95_ms": 2462.9
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 3953.9,
+              "p95_ms": 5362.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 0,
+            "complete": {
+              "count": 31,
+              "p50_ms": 3929.3,
+              "p95_ms": 5324.8
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2004.39,
+              "p95_ms": 2445.99
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2015,
+              "p95_ms": 2462.9
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 3962.4,
+              "p95_ms": 5362.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 3905.7,
+              "p95_ms": 3905.7
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 1993.54,
+              "p95_ms": 1993.54
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2013.4,
+              "p95_ms": 2013.4
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 3945.4,
+              "p95_ms": 3945.4
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 78667,
+          "output_tokens": 9698
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-013"
+        ],
+        "optimized": []
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 31,
+        "baseline_median_ms": 3813.8,
+        "candidate_median_ms": 3962.4,
+        "median_speedup_percent": -3.9,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 2881,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4.1-flash-1017",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:08:39.300544+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T101424-quality-step2/report.json",
+      "report_sha256": "40feb0268a0a34cd3ae24a686726623430be61c343b7025faa71c44c87b3cbc9",
+      "answer_build_sha256": "5ec2812ca12cfa1b24574515cc4203dfe97c4b256aeaa610fbf100477a96990a",
+      "model": "deepseek-v4.1-flash-1017",
+      "dataset": "quality_holdout_v4.json",
+      "dataset_sha256": "bda78fc10a50503a5b89ebfa3aa64706bbbf39bae49e37b0606b69b77350d58e",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 9,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 4342.9,
+            "p95_ms": 6504.6
+          },
+          "first_visible_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 1930.08,
+            "p95_ms": 3964.33
+          },
+          "ordinary": {
+            "turns": 8,
+            "failures": 0,
+            "complete": {
+              "count": 8,
+              "p50_ms": 3759.9,
+              "p95_ms": 4872.5
+            },
+            "first_section": {
+              "count": 8,
+              "p50_ms": 1817.53,
+              "p95_ms": 3964.33
+            },
+            "browser_first_visible": {
+              "count": 8,
+              "p50_ms": 1831.4,
+              "p95_ms": 3979
+            },
+            "browser_complete_visible": {
+              "count": 8,
+              "p50_ms": 3795.7,
+              "p95_ms": 4911.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 3,
+            "failures": 1,
+            "complete": {
+              "count": 2,
+              "p50_ms": 6340.4,
+              "p95_ms": 6504.6
+            },
+            "first_section": {
+              "count": 2,
+              "p50_ms": 2304.1,
+              "p95_ms": 2411.95
+            },
+            "browser_first_visible": {
+              "count": 2,
+              "p50_ms": 2320.95,
+              "p95_ms": 2428.9
+            },
+            "browser_complete_visible": {
+              "count": 2,
+              "p50_ms": 6379.35,
+              "p95_ms": 6546.3
+            },
+            "request_counts": [
+              1,
+              1,
+              3
+            ]
+          },
+          "cached": {
+            "turns": 11,
+            "failures": 1,
+            "complete": {
+              "count": 10,
+              "p50_ms": 4342.9,
+              "p95_ms": 6504.6
+            },
+            "first_section": {
+              "count": 10,
+              "p50_ms": 1930.08,
+              "p95_ms": 3964.33
+            },
+            "browser_first_visible": {
+              "count": 10,
+              "p50_ms": 1940.2,
+              "p95_ms": 3979
+            },
+            "browser_complete_visible": {
+              "count": 10,
+              "p50_ms": 4378.7,
+              "p95_ms": 6546.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              3
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 13,
+          "input_tokens": 37467,
+          "output_tokens": 3971
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EG-010"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 2894,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4.1-flash-1017",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:14:28.653952+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T102324-quality-step2/report.json",
+      "report_sha256": "82afcb30c48846e2ae21930036cbd2cfcb7951557c0c5d24c58465cef5f1170b",
+      "answer_build_sha256": "78f8bc0340477b81eafbf6888ecdea469cd9c7e00cd80e2222e9c43f62dbc4a9",
+      "model": "deepseek-v4.1-flash-1017",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 3763.55,
+            "p95_ms": 4847.2
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2092.51,
+            "p95_ms": 2789.79
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3763.55,
+              "p95_ms": 4847.2
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2092.51,
+              "p95_ms": 2789.79
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2113.15,
+              "p95_ms": 2812.2
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 3804.1,
+              "p95_ms": 4879.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3763.55,
+              "p95_ms": 4847.2
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2092.51,
+              "p95_ms": 2789.79
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2113.15,
+              "p95_ms": 2812.2
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 3804.1,
+              "p95_ms": 4879.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 32,
+          "input_tokens": 82144,
+          "output_tokens": 9497
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 3877.8,
+            "p95_ms": 4834.9
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2068.26,
+            "p95_ms": 2760.72
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3877.8,
+              "p95_ms": 4834.9
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2068.26,
+              "p95_ms": 2760.72
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2081.05,
+              "p95_ms": 2780.1
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 3920.8,
+              "p95_ms": 4879.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 3877.8,
+              "p95_ms": 4834.9
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2068.26,
+              "p95_ms": 2760.72
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2081.05,
+              "p95_ms": 2780.1
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 3920.8,
+              "p95_ms": 4879.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 32,
+          "input_tokens": 78989,
+          "output_tokens": 9598
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-013",
+          "CB-028"
+        ],
+        "optimized": [
+          "CB-005",
+          "CB-013"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 29,
+        "baseline_median_ms": 3829.6,
+        "candidate_median_ms": 3896,
+        "median_speedup_percent": -1.73,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 2958,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4.1-flash-1017",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:23:28.716989+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T102916-quality-step2/report.json",
+      "report_sha256": "c7edf62b298a4b138e85391e77e88f9a8e6c84352ef68350ecf3d10dbd7824da",
+      "answer_build_sha256": "78f8bc0340477b81eafbf6888ecdea469cd9c7e00cd80e2222e9c43f62dbc4a9",
+      "model": "deepseek-v4.1-flash-1017",
+      "dataset": "quality_holdout_v5.json",
+      "dataset_sha256": "a2f8aab995013d26437d3f8b86b1a9ca08db2da173e43483aaf7fbf081fc7c0f",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 9,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 4277.5,
+            "p95_ms": 7821.8
+          },
+          "first_visible_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 2266.09,
+            "p95_ms": 7821.8
+          },
+          "ordinary": {
+            "turns": 7,
+            "failures": 0,
+            "complete": {
+              "count": 7,
+              "p50_ms": 3971.3,
+              "p95_ms": 7821.8
+            },
+            "first_section": {
+              "count": 7,
+              "p50_ms": 2030.67,
+              "p95_ms": 7821.8
+            },
+            "browser_first_visible": {
+              "count": 7,
+              "p50_ms": 2045.9,
+              "p95_ms": 7835.2
+            },
+            "browser_complete_visible": {
+              "count": 7,
+              "p50_ms": 4012.1,
+              "p95_ms": 7863.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 4,
+            "failures": 1,
+            "complete": {
+              "count": 3,
+              "p50_ms": 5422,
+              "p95_ms": 7096.4
+            },
+            "first_section": {
+              "count": 3,
+              "p50_ms": 2544.37,
+              "p95_ms": 3197.94
+            },
+            "browser_first_visible": {
+              "count": 3,
+              "p50_ms": 2563.6,
+              "p95_ms": 3213.1
+            },
+            "browser_complete_visible": {
+              "count": 3,
+              "p50_ms": 5464.1,
+              "p95_ms": 7146
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "cached": {
+            "turns": 10,
+            "failures": 1,
+            "complete": {
+              "count": 9,
+              "p50_ms": 3977.8,
+              "p95_ms": 7096.4
+            },
+            "first_section": {
+              "count": 9,
+              "p50_ms": 2030.67,
+              "p95_ms": 3197.94
+            },
+            "browser_first_visible": {
+              "count": 9,
+              "p50_ms": 2045.9,
+              "p95_ms": 3213.1
+            },
+            "browser_complete_visible": {
+              "count": 9,
+              "p50_ms": 4013.4,
+              "p95_ms": 7146
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 7821.8,
+              "p95_ms": 7821.8
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 7821.8,
+              "p95_ms": 7821.8
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 7835.2,
+              "p95_ms": 7835.2
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 7863.3,
+              "p95_ms": 7863.3
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 11,
+          "input_tokens": 28914,
+          "output_tokens": 4261
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EV-001"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 2969,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4.1-flash-1017",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:29:19.760056+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T103917-quality-step2/report.json",
+      "report_sha256": "044d239ed32828b9c6125957508c8395585aa3387cd1e3e8f1c2e120ea101cef",
+      "answer_build_sha256": "259aa1bb1533c5e5e87f6ced1dc657d35ed96f2450f4b18095b364eadbdb9dfa",
+      "model": "deepseek-v4-pro-0813",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 29,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 30,
+          "failed": 0,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 4722.75,
+            "p95_ms": 5885
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2701.89,
+            "p95_ms": 3251.55
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 4722.75,
+              "p95_ms": 5885
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2701.89,
+              "p95_ms": 3251.55
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 2720.95,
+              "p95_ms": 3265.7
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 4770.6,
+              "p95_ms": 5930.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 0,
+            "complete": {
+              "count": 31,
+              "p50_ms": 4714.4,
+              "p95_ms": 5885
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2663.35,
+              "p95_ms": 3251.55
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2678.8,
+              "p95_ms": 3265.7
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 4761.7,
+              "p95_ms": 5930.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 5407.5,
+              "p95_ms": 5407.5
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 3145.96,
+              "p95_ms": 3145.96
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 3164.8,
+              "p95_ms": 3164.8
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 5446,
+              "p95_ms": 5446
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 81895,
+          "output_tokens": 7715
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 5215.7,
+            "p95_ms": 7315.1
+          },
+          "first_visible_successful_model_answers": {
+            "count": 30,
+            "p50_ms": 2819.45,
+            "p95_ms": 3813.53
+          },
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 5215.7,
+              "p95_ms": 7315.1
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2819.45,
+              "p95_ms": 3813.53
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2838.55,
+              "p95_ms": 3829
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 5262.85,
+              "p95_ms": 7363.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 31,
+            "failures": 2,
+            "complete": {
+              "count": 29,
+              "p50_ms": 5199.6,
+              "p95_ms": 7315.1
+            },
+            "first_section": {
+              "count": 29,
+              "p50_ms": 2807.95,
+              "p95_ms": 3813.53
+            },
+            "browser_first_visible": {
+              "count": 29,
+              "p50_ms": 2830.2,
+              "p95_ms": 3829
+            },
+            "browser_complete_visible": {
+              "count": 29,
+              "p50_ms": 5246.2,
+              "p95_ms": 7363.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 5985,
+              "p95_ms": 5985
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 3291.12,
+              "p95_ms": 3291.12
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 3313.3,
+              "p95_ms": 3313.3
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 6029.4,
+              "p95_ms": 6029.4
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 32,
+          "input_tokens": 78612,
+          "output_tokens": 9883
+        }
+      },
+      "failures": {
+        "baseline": [],
+        "optimized": [
+          "CB-013",
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 30,
+        "baseline_median_ms": 4770.6,
+        "candidate_median_ms": 5262.85,
+        "median_speedup_percent": -10.32,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 3033,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4-pro-0813",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:39:21.618329+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T104730-quality-step2/report.json",
+      "report_sha256": "cd736d99bea5b176129676b735c196b86b9718c5d89b2fe0391ba0b03e743248",
+      "answer_build_sha256": "259aa1bb1533c5e5e87f6ced1dc657d35ed96f2450f4b18095b364eadbdb9dfa",
+      "model": "deepseek-v4-pro-0813",
+      "dataset": "quality_holdout_v6.json",
+      "dataset_sha256": "348295f65f287f3be25604dbf5086b27f68c89966cb5bc62a7a2a77278367c44",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 9,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 6301.4,
+            "p95_ms": 9873.2
+          },
+          "first_visible_successful_model_answers": {
+            "count": 10,
+            "p50_ms": 3080.89,
+            "p95_ms": 4488.59
+          },
+          "ordinary": {
+            "turns": 8,
+            "failures": 1,
+            "complete": {
+              "count": 7,
+              "p50_ms": 5724.4,
+              "p95_ms": 7940.5
+            },
+            "first_section": {
+              "count": 7,
+              "p50_ms": 2851.12,
+              "p95_ms": 3312.6
+            },
+            "browser_first_visible": {
+              "count": 7,
+              "p50_ms": 2862.2,
+              "p95_ms": 3328.1
+            },
+            "browser_complete_visible": {
+              "count": 7,
+              "p50_ms": 5762.6,
+              "p95_ms": 7977.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 3,
+            "failures": 0,
+            "complete": {
+              "count": 3,
+              "p50_ms": 9518.7,
+              "p95_ms": 9873.2
+            },
+            "first_section": {
+              "count": 3,
+              "p50_ms": 3465.62,
+              "p95_ms": 4488.59
+            },
+            "browser_first_visible": {
+              "count": 3,
+              "p50_ms": 3478.7,
+              "p95_ms": 4499.1
+            },
+            "browser_complete_visible": {
+              "count": 3,
+              "p50_ms": 9579.9,
+              "p95_ms": 9912.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1
+            ]
+          },
+          "cached": {
+            "turns": 11,
+            "failures": 1,
+            "complete": {
+              "count": 10,
+              "p50_ms": 6301.4,
+              "p95_ms": 9873.2
+            },
+            "first_section": {
+              "count": 10,
+              "p50_ms": 3080.89,
+              "p95_ms": 4488.59
+            },
+            "browser_first_visible": {
+              "count": 10,
+              "p50_ms": 3096.2,
+              "p95_ms": 4499.1
+            },
+            "browser_complete_visible": {
+              "count": 10,
+              "p50_ms": 6344.5,
+              "p95_ms": 9912.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 11,
+          "input_tokens": 29333,
+          "output_tokens": 3876
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EX-003"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 3044,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4-pro-0813",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T10:47:34.433568+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T161903-quality-step2/report.json",
+      "report_sha256": "404aabada2a1df0ce87be14cc87e20b8e521d065bdee7f59b28b4d65b72faff3",
+      "answer_build_sha256": "6eec1491aeeb8ac6a62039fd077be7e286f53b767e94962211533704926786e7",
+      "model": "qwen3.8-27b",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 30,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": "f08d049712886c362b3eb0e01fb0ab28cda12a8c66d77067054ba7f01ca1994b",
+      "metrics": {
+        "baseline": {
+          "cases": 31,
+          "passed": 30,
+          "failed": 1,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 5108.0,
+            "p95_ms": 9573.1
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 3025.26,
+            "p95_ms": 6082.38
+          },
+          "ordinary": {
+            "turns": 33,
+            "failures": 1,
+            "complete": {
+              "count": 32,
+              "p50_ms": 5108.0,
+              "p95_ms": 9573.1
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 3025.26,
+              "p95_ms": 6082.38
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 3038.0,
+              "p95_ms": 6096.3
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 5146.1,
+              "p95_ms": 9612.9
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 4,
+            "failures": 0,
+            "complete": {
+              "count": 4,
+              "p50_ms": 6572.15,
+              "p95_ms": 7548.1
+            },
+            "first_section": {
+              "count": 4,
+              "p50_ms": 4254.28,
+              "p95_ms": 5419.51
+            },
+            "browser_first_visible": {
+              "count": 4,
+              "p50_ms": 4264.1,
+              "p95_ms": 5430.2
+            },
+            "browser_complete_visible": {
+              "count": 4,
+              "p50_ms": 6613.0,
+              "p95_ms": 7596.9
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 29,
+            "failures": 1,
+            "complete": {
+              "count": 28,
+              "p50_ms": 5008.55,
+              "p95_ms": 9573.1
+            },
+            "first_section": {
+              "count": 28,
+              "p50_ms": 2954.89,
+              "p95_ms": 6082.38
+            },
+            "browser_first_visible": {
+              "count": 28,
+              "p50_ms": 2971.65,
+              "p95_ms": 6096.3
+            },
+            "browser_complete_visible": {
+              "count": 28,
+              "p50_ms": 5046.2,
+              "p95_ms": 9612.9
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 33,
+          "input_tokens": 85616,
+          "output_tokens": 7603
+        },
+        "optimized": {
+          "cases": 31,
+          "passed": 19,
+          "failed": 12,
+          "complete_successful_model_answers": {
+            "count": 21,
+            "p50_ms": 7025.7,
+            "p95_ms": 9364
+          },
+          "first_visible_successful_model_answers": {
+            "count": 21,
+            "p50_ms": 2788.54,
+            "p95_ms": 3810.68
+          },
+          "ordinary": {
+            "turns": 33,
+            "failures": 12,
+            "complete": {
+              "count": 21,
+              "p50_ms": 7025.7,
+              "p95_ms": 9364
+            },
+            "first_section": {
+              "count": 21,
+              "p50_ms": 2788.54,
+              "p95_ms": 3810.68
+            },
+            "browser_first_visible": {
+              "count": 21,
+              "p50_ms": 2828.9,
+              "p95_ms": 3830.5
+            },
+            "browser_complete_visible": {
+              "count": 21,
+              "p50_ms": 7063.5,
+              "p95_ms": 9412.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 33,
+            "failures": 12,
+            "complete": {
+              "count": 21,
+              "p50_ms": 7025.7,
+              "p95_ms": 9364
+            },
+            "first_section": {
+              "count": 21,
+              "p50_ms": 2788.54,
+              "p95_ms": 3810.68
+            },
+            "browser_first_visible": {
+              "count": 21,
+              "p50_ms": 2828.9,
+              "p95_ms": 3830.5
+            },
+            "browser_complete_visible": {
+              "count": 21,
+              "p50_ms": 7063.5,
+              "p95_ms": 9412.2
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "model_requests": 33,
+          "input_tokens": 81292,
+          "output_tokens": 9330
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-043"
+        ],
+        "optimized": [
+          "CB-002",
+          "CB-005",
+          "CB-011",
+          "CB-012",
+          "CB-013",
+          "CB-015",
+          "CB-017",
+          "CB-021",
+          "CB-022",
+          "CB-028",
+          "CB-037",
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 21,
+        "baseline_median_ms": 4679.4,
+        "candidate_median_ms": 7063.5,
+        "median_speedup_percent": -50.95,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "pending",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 3110,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "qwen3.8-27b",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T16:19:07.503046+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T162751-quality-step2/report.json",
+      "report_sha256": "897eb75d3de7cb9ff09c513ec6415c71af43d503dc277a91153540f2b60bf107",
+      "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+      "model": "deepseek-v4-pro-0813",
+      "dataset": "cases.v1.json",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "actual_model_pair_count": 30,
+      "local_guard_case_ids": [
+        "CB-049"
+      ],
+      "pair_selection_sha256": "f08d049712886c362b3eb0e01fb0ab28cda12a8c66d77067054ba7f01ca1994b",
+      "metrics": {
+        "baseline": {
+          "cases": 31,
+          "passed": 29,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 4545.0,
+            "p95_ms": 6183.3
+          },
+          "first_visible_successful_model_answers": {
+            "count": 32,
+            "p50_ms": 2414.53,
+            "p95_ms": 3545.26
+          },
+          "ordinary": {
+            "turns": 33,
+            "failures": 1,
+            "complete": {
+              "count": 32,
+              "p50_ms": 4545.0,
+              "p95_ms": 6183.3
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2414.53,
+              "p95_ms": 3545.26
+            },
+            "browser_first_visible": {
+              "count": 32,
+              "p50_ms": 2428.9,
+              "p95_ms": 3563.3
+            },
+            "browser_complete_visible": {
+              "count": 32,
+              "p50_ms": 4587.7,
+              "p95_ms": 6229.4
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 4538,
+              "p95_ms": 6183.3
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2400.57,
+              "p95_ms": 3545.26
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2412,
+              "p95_ms": 3563.3
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 4579.7,
+              "p95_ms": 6229.4
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 4552,
+              "p95_ms": 4552
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 2570.35,
+              "p95_ms": 2570.35
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2596,
+              "p95_ms": 2596
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 4595.7,
+              "p95_ms": 4595.7
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 33,
+          "input_tokens": 84340,
+          "output_tokens": 7786
+        },
+        "optimized": {
+          "cases": 31,
+          "passed": 28,
+          "failed": 3,
+          "complete_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 5450.6,
+            "p95_ms": 8489.8
+          },
+          "first_visible_successful_model_answers": {
+            "count": 31,
+            "p50_ms": 2564.33,
+            "p95_ms": 3733.61
+          },
+          "ordinary": {
+            "turns": 33,
+            "failures": 2,
+            "complete": {
+              "count": 31,
+              "p50_ms": 5450.6,
+              "p95_ms": 8489.8
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 2564.33,
+              "p95_ms": 3733.61
+            },
+            "browser_first_visible": {
+              "count": 31,
+              "p50_ms": 2582.4,
+              "p95_ms": 3745.7
+            },
+            "browser_complete_visible": {
+              "count": 31,
+              "p50_ms": 5495.6,
+              "p95_ms": 8529.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 5432.1,
+              "p95_ms": 8489.8
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 2561.99,
+              "p95_ms": 3733.61
+            },
+            "browser_first_visible": {
+              "count": 30,
+              "p50_ms": 2573.4,
+              "p95_ms": 3745.7
+            },
+            "browser_complete_visible": {
+              "count": 30,
+              "p50_ms": 5478.3,
+              "p95_ms": 8529.3
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 1,
+            "failures": 0,
+            "complete": {
+              "count": 1,
+              "p50_ms": 5767.1,
+              "p95_ms": 5767.1
+            },
+            "first_section": {
+              "count": 1,
+              "p50_ms": 2564.33,
+              "p95_ms": 2564.33
+            },
+            "browser_first_visible": {
+              "count": 1,
+              "p50_ms": 2582.4,
+              "p95_ms": 2582.4
+            },
+            "browser_complete_visible": {
+              "count": 1,
+              "p50_ms": 5813.5,
+              "p95_ms": 5813.5
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "model_requests": 33,
+          "input_tokens": 80048,
+          "output_tokens": 10094
+        }
+      },
+      "failures": {
+        "baseline": [
+          "CB-008",
+          "CB-043"
+        ],
+        "optimized": [
+          "CB-013",
+          "CB-022",
+          "CB-043"
+        ]
+      },
+      "paired_browser_complete": {
+        "matched_successful_turns": 30,
+        "baseline_median_ms": 4587.7,
+        "candidate_median_ms": 5513.3,
+        "median_speedup_percent": -20.18,
+        "failed_outputs_excluded_but_retained": true
+      },
+      "source_review_status": "assistant_anonymous_review_not_independent_or_veterinary",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 3176,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4-pro-0813",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T16:27:55.475739+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      },
+      "source_review": {
+        "report_sha256": "897eb75d3de7cb9ff09c513ec6415c71af43d503dc277a91153540f2b60bf107",
+        "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+        "reviewed_pairs": 31,
+        "reviewed_model_pairs": 30,
+        "local_guard_pairs": 1,
+        "preference": {
+          "baseline": 14,
+          "optimized": 16,
+          "tie": 0,
+          "not_comparable": 0
+        },
+        "text_preference": {
+          "baseline": 19,
+          "optimized": 6,
+          "tie": 5,
+          "not_comparable": 0
+        },
+        "major_claim_support": {
+          "baseline": {
+            "total": 292,
+            "supported": 288,
+            "delivered_total": 284,
+            "delivered_supported": 280
+          },
+          "optimized": {
+            "total": 329,
+            "supported": 313,
+            "delivered_total": 307,
+            "delivered_supported": 293
+          }
+        },
+        "severe_candidate_issues": 1,
+        "severe_raw_issues": {
+          "baseline": 0,
+          "optimized": 1
+        },
+        "reasked_known_fields": {
+          "baseline": 0,
+          "optimized": 1
+        },
+        "delivery_failure_cases": {
+          "baseline": 1,
+          "optimized": 2
+        },
+        "review_input_sha256": "1afee50e24af6558bf80781ac4dfd190595b0ab4fca880a7ca87d44841392173",
+        "notes_sha256": "66551203a0c44b12a4b45abb1fc0cb2f22735b3846fd92289557d40e7779bec0",
+        "method": "Explicit assistant editorial source review; not independent or veterinary. Source traceability included in overall preference; text separately judged.",
+        "major_claim_unit": "Full sentences or semicolon-separated action/condition groups, whole paragraph retained as context; any unsupported component fails the group.",
+        "version_key_opened_before_seal": false
+      }
+    },
+    {
+      "report": "artifacts/evaluations/20261019T163521-quality-step2/report.json",
+      "report_sha256": "e20278dc837053ac58fcaf41afdc486ba4ad6ca2eb727fb53a8504d8501194dc",
+      "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+      "model": "deepseek-v4-pro-0813",
+      "dataset": "quality_holdout_v7.json",
+      "dataset_sha256": "20a9c6e45d2b9e25ce003ee5aad99750aad420994a37292bd8f3225b28c1a5c5",
+      "actual_model_pair_count": null,
+      "local_guard_case_ids": [],
+      "pair_selection_sha256": null,
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 8,
+          "failed": 2,
+          "complete_successful_model_answers": {
+            "count": 8,
+            "p50_ms": 7719.5,
+            "p95_ms": 8858.5
+          },
+          "first_visible_successful_model_answers": {
+            "count": 8,
+            "p50_ms": 2723.16,
+            "p95_ms": 3665.38
+          },
+          "ordinary": {
+            "turns": 7,
+            "failures": 1,
+            "complete": {
+              "count": 6,
+              "p50_ms": 8123.6,
+              "p95_ms": 8858.5
+            },
+            "first_section": {
+              "count": 6,
+              "p50_ms": 2600.32,
+              "p95_ms": 3665.38
+            },
+            "browser_first_visible": {
+              "count": 6,
+              "p50_ms": 2614.3,
+              "p95_ms": 3679.1
+            },
+            "browser_complete_visible": {
+              "count": 6,
+              "p50_ms": 8162.65,
+              "p95_ms": 8895.6
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 3,
+            "failures": 1,
+            "complete": {
+              "count": 2,
+              "p50_ms": 6733.1,
+              "p95_ms": 7486.1
+            },
+            "first_section": {
+              "count": 2,
+              "p50_ms": 2912.15,
+              "p95_ms": 3067.23
+            },
+            "browser_first_visible": {
+              "count": 2,
+              "p50_ms": 2934.4,
+              "p95_ms": 3085.2
+            },
+            "browser_complete_visible": {
+              "count": 2,
+              "p50_ms": 6787.0,
+              "p95_ms": 7546.1
+            },
+            "request_counts": [
+              1,
+              1,
+              1
+            ]
+          },
+          "cached": {
+            "turns": 10,
+            "failures": 2,
+            "complete": {
+              "count": 8,
+              "p50_ms": 7719.5,
+              "p95_ms": 8858.5
+            },
+            "first_section": {
+              "count": 8,
+              "p50_ms": 2723.16,
+              "p95_ms": 3665.38
+            },
+            "browser_first_visible": {
+              "count": 8,
+              "p50_ms": 2740.7,
+              "p95_ms": 3679.1
+            },
+            "browser_complete_visible": {
+              "count": 8,
+              "p50_ms": 7771.1,
+              "p95_ms": 8895.6
+            },
+            "request_counts": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "uncached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "browser_first_visible": null,
+            "browser_complete_visible": null,
+            "request_counts": []
+          },
+          "model_requests": 10,
+          "input_tokens": 25826,
+          "output_tokens": 3358
+        }
+      },
+      "failures": {
+        "optimized": [
+          "EQ-004",
+          "EQ-005"
+        ]
+      },
+      "paired_browser_complete": null,
+      "source_review_status": "assistant_anonymous_review_not_independent_or_veterinary",
+      "budget_after": {
+        "limit_cny": 10.0,
+        "conservative_used_cny": 9.699048,
+        "run_id": "alibaba-chat-streaming-20261015",
+        "run_limit_cny": 10.0,
+        "run_used_cny": 3.923637,
+        "budget_scope": "paid_only",
+        "cash_budget_used_cny": 5.625706,
+        "cash_run_used_cny": 1.42739,
+        "billing_mode": "verified_free",
+        "reserved_or_billed_requests": 3186,
+        "unresolved_reservations": 41,
+        "pricing": {
+          "currency": "CNY",
+          "provider": "alibaba",
+          "model": "deepseek-v4-pro-0813",
+          "billing_mode": "verified_free",
+          "checked_at": "2026-10-19T16:35:25.043283+00:00",
+          "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+          "input_cash_per_million": 0,
+          "output_cash_per_million": 0
+        },
+        "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+      },
+      "source_review": {
+        "report_sha256": "e20278dc837053ac58fcaf41afdc486ba4ad6ca2eb727fb53a8504d8501194dc",
+        "answer_build_sha256": "123df52bf238a4e066d541b0969c204928eb8428a784af8de57fd7cabd1eab20",
+        "model": "deepseek-v4-pro-0813",
+        "reviewed_holdout_cases": 10,
+        "automatic_passed": 8,
+        "all_delivered_main_claims_supported": false,
+        "major_claim_support": {
+          "optimized": {
+            "total": 100,
+            "supported": 80,
+            "delivered_total": 81,
+            "delivered_supported": 67
+          }
+        },
+        "severe_candidate_issues": 1,
+        "case_notes": {
+          "EQ-001": {
+            "reason": "核对食品与限制的方向正确，但把已有处方、过敏或疾病限制均升级成不得换粮；应由原兽医具体方案决定，不要求必须没有这些情况。",
+            "issues": {
+              "p3c0": "把需核对并遵守专业限制改成必须没有限制才可换粮。"
+            }
+          },
+          "EQ-002": {
+            "reason": "区分计划与实际摄入、异常停止有据；扣余量直接等同实际入口没有保留撒出、干湿变化和他宠摄入的测量条件，不适归因也越过观察范围。",
+            "issues": {
+              "p0c0": "提供量减剩余量不一定等于实际入口，缺少损耗与个体归属前提。",
+              "p1c0": "直接称剩余后算出真正吃下量，遗漏同一关键测量条件。",
+              "p1c2": "一次一变量便于观察，不足以将不适更可能归因于新粮。",
+              "p2c1": "猫不能以饥饿强迫换粮的显式物种前提被直接扩成犬建议；本次出站并未提供相应犬依据。"
+            }
+          },
+          "EQ-003": {
+            "reason": "记录触发和可承受、正向配对原则有据；钥匙阶段可作原创实例，但观察不能据此确定声音敏感或独处关联的原因。",
+            "issues": {
+              "p1c0": "本次章节未列身体僵硬、后退、躲藏、喘气或紧跟等具体信号清单，模型自行扩充。",
+              "p1c2": "观察对比不能据此确定两种因果机制，来源只支持描述与评估。"
+            }
+          },
+          "EQ-004": {
+            "reason": "应用因首段未绑定依据撤回。快照遗漏“僵住不叫能否适应”明确子问题，仅留后问；仅召回改变安排，未给实际观察定义。",
+            "issues": {
+              "p0c0": "无依据编号，也未提供僵住为压力抑制反应的解释依据。",
+              "p0c1": "无引用，且保持现有安排不是明显不适下已核实可用的结论。",
+              "p1c0": "新增多种观察信号清单未由唯一边界章节提供。",
+              "p1c1": "唯一章节没有僵住与安静不等于适应的直接依据。",
+              "p2c2": "缺少这些信号不能证明现有安排可继续，来源只给停止限制和评估边界。"
+            }
+          },
+          "EQ-005": {
+            "reason": "应用因段落关联到错误子问题撤回；奖励被错误扩成营养检索任务，引入新猫、零食等无关内容。操作大体有据，但奖励原则在最后段错绑营养边界。",
+            "issues": {
+              "p2c0": "奖励保持概括的说明没有绑定实际运输箱奖励章节e2，当前只绑营养e6/e7。"
+            }
+          },
+          "EQ-006": {
+            "reason": "用途、运营方、维护及压力时退出有据，但首句将站立和转身当基础尺寸合适，遗漏舒适躺卧。",
+            "issues": {
+              "p0c0": "原文明示站立、转身、舒适躺卧三个条件，不能用其中两个就认定基础尺寸合适。"
+            }
+          },
+          "EQ-007": {
+            "reason": "冲净并按标签接触条件处理有据；新增无泡沫、滑腻感和气味作为标签不明时可再次接触的安全阈值，来源不支持，是已交付的严重边界错误。",
+            "issues": {
+              "p1c1": "无可见泡沫、无滑腻或气味未由来源规定为冲净判定方法。",
+              "p2c1": "标签条件未知时不能凭感官无残留和完全干燥就认定可让猫接触。"
+            },
+            "severe_units": [
+              "p2c1"
+            ]
+          },
+          "EQ-008": {
+            "reason": "保留批次与记录时长有据，但剪原袋贴桶作为整袋保存替代及部分新操作未由实际出站章节提供。",
+            "issues": {
+              "p0c1": "将剪信息贴桶作为保留原袋的替代，超出本次原袋保存要求。",
+              "p1c0": "剪原袋的信息保存方式未由实际章节提供。",
+              "p1c2": "必须倒出后贴桶的例外程序未由本次章节支持。",
+              "p1c3": "不混新旧粮为正文其他章节内容，本次e1/e2未提供该操作。"
+            }
+          },
+          "EQ-009": {
+            "reason": "正确区分保证下限与精确实测、营养适用及美国标签地域边界；未据最低值排名，也未称产品获得认证。",
+            "issues": {}
+          },
+          "EQ-010": {
+            "reason": "以具体配方、市场和原文数据整理缺口，不把品牌宣传或用户输入当厂家核实，保留单位与中国合规边界；两栏为整理模板而非声明已有产品通过核实。",
+            "issues": {}
+          }
+        },
+        "method": "All ten original responses and actual outgoing evidence read; assistant editorial, not independent or veterinary. Frozen v7 was not used for subsequent code tuning. Sentence/action groups retain whole paragraph conditions; any unsupported component fails the group.",
+        "review_input_sha256": "cf340a71c9b20d03e6ca6436f73b3a0e3545459d197e825bb5c9c5d9e932b7e0",
+        "review_notes_sha256": "80e6913949043f1cfc49dace8ec323594b05ab2ea0e1ff5c62c642fd0f9daafc"
+      }
+    }
+  ],
+  "budget": {
+    "limit_cny": 10.0,
+    "conservative_used_cny": 9.699048,
+    "run_id": "alibaba-chat-streaming-20261015",
+    "run_limit_cny": 10.0,
+    "run_used_cny": 3.923637,
+    "budget_scope": "paid_only",
+    "cash_budget_used_cny": 5.625706,
+    "cash_run_used_cny": 1.42739,
+    "billing_mode": "verified_free",
+    "reserved_or_billed_requests": 3186,
+    "unresolved_reservations": 41,
+    "pricing": {
+      "currency": "CNY",
+      "provider": "alibaba",
+      "model": "deepseek-v4-pro-0813",
+      "billing_mode": "verified_free",
+      "checked_at": "2026-10-19T16:35:25.043283+00:00",
+      "source": "Official Bailian CLI: workspace list and usage free; per-request free-only guard",
+      "input_cash_per_million": 0,
+      "output_cash_per_million": 0
+    },
+    "billing_note": "Verified free calls have zero cash amount; old estimates and unresolved reservations are retained. Cash ceiling includes unknown providers and unresolved historical liabilities. Not a provider invoice."
+  },
+  "limitations": [
+    "Automatic pass is application validation, not expert factual quality.",
+    "Anonymous assistant editorial source review is not independent or veterinary review. Paragraph and explicit major-claim metrics are separate.",
+    "Previous 30-pair results retain their original build identities. Do not transfer their scores or timings to the final build.",
+    "Latency includes only successful complete model answers; failed attempts remain in failures and original reports.",
+    "Cached means provider reported some input cache tokens; not whole-prompt or application answer-cache hit.",
+    "Cold/provider-uncached and detailed samples are insufficient to claim percentile targets.",
+    "Full-corpus source and claim provenance is an assistant editorial review; unreviewed veterinary status retained.",
+    "Verified free Alibaba calls have zero cash cost and no cash cap; paid/unknown liability remains in the original capped ledger. Historical reference amounts are not a provider invoice."
+  ]
+}

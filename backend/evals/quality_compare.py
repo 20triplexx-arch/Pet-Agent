@@ -31,35 +31,49 @@ def preflight(cases, safe_tokens, budget, *, variants=2, pricing=None):
     # still undergo the authoritative atomic token/price checks individually.
     forecast = turns * 4000 + 32000
     reasons = []
-    if safe_tokens < forecast:
+    if safe_tokens is not None and safe_tokens < forecast:
         reasons.append('insufficient_verified_free_tokens')
-    if budget['conservative_used_cny'] >= 10 or budget['run_used_cny'] >= 3:
+    run_cap = budget.get('run_limit_cny', 3)
+    verified_free = bool(pricing and pricing.get('billing_mode')=='verified_free')
+    cash_used=budget.get('cash_budget_used_cny',budget['conservative_used_cny'])
+    cash_run_used=budget.get('cash_run_used_cny',budget['run_used_cny'])
+    if not verified_free and (cash_used >= 10 or cash_run_used >= run_cap):
         reasons.append('existing_budget_exhausted')
     forecast_cny = None
-    if pricing:
+    if verified_free:
+        forecast_cny=0.0
+    elif pricing:
         from decimal import Decimal
-        tier = next(t for t in pricing['tiers'] if t['max_input_tokens'] >= 32000)
+        tiers = pricing.get('tiers') or [{'max_input_tokens':1000000,
+            'input_per_million':pricing['peak_input_cache_miss_per_million'], 'output_per_million':pricing['peak_output_per_million']}]
+        tier = next(t for t in tiers if t['max_input_tokens'] >= 32000)
         # Forecast is deliberately above the last measured input/output mix.
         # Add a full request reservation; authoritative per-call checks remain.
         inp, out = Decimal(str(tier['input_per_million'])), Decimal(str(tier['output_per_million']))
         output_forecast = variants * sum(len(case.get('turns', [])) * (1500 if case.get('answer_depth') == 'detailed' else 500)
                                         for case in cases)
         forecast_cny = float((turns * 3500 * inp + output_forecast * out + 32000 * inp + 4096 * out) / 1000000)
-        if forecast_cny > min(10 - budget['conservative_used_cny'], 3 - budget['run_used_cny']):
+        if forecast_cny > min(10 - cash_used, run_cap - cash_run_used):
             reasons.append('insufficient_existing_budget_for_batch')
     return {'allowed': not reasons, 'reasons': reasons, 'case_count': len(cases),
             'planned_model_turns': turns, 'forecast_tokens': forecast,
             'safe_remaining_tokens': safe_tokens, 'forecast_cny': forecast_cny, 'budget': budget}
 
 
-def budget_snapshot():
+def budget_snapshot(run_limit=None):
     path = Path(os.environ.get('CHONGBAN_EVAL_STATE_DIR', BACKEND/'storage')).resolve() / 'evals/stage-one-budget.sqlite'
     with sqlite3.connect(path.as_uri() + '?mode=ro', uri=True) as db:
         used, pending = db.execute("SELECT SUM(amount_micro),SUM(state='reserved') FROM charges").fetchone()
         run_used = db.execute('SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE run_id=?',
                              ('alibaba-chat-streaming-20261015',)).fetchone()[0]
+        policy=db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='budget_policy'").fetchone()
+        paid_only=bool(policy and db.execute("SELECT 1 FROM budget_policy WHERE scope='paid_only'").fetchone())
+        cash_used=db.execute("SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE provider IS NULL OR provider!='alibaba' OR state='reserved'").fetchone()[0] if paid_only else used
+        cash_run=db.execute("SELECT COALESCE(SUM(amount_micro),0) FROM charges WHERE run_id=? AND (provider IS NULL OR provider!='alibaba' OR state='reserved')",('alibaba-chat-streaming-20261015',)).fetchone()[0] if paid_only else run_used
     return {'conservative_used_cny': (used or 0) / 1e6, 'run_used_cny': run_used / 1e6,
-            'unresolved_reservations': pending or 0, 'cumulative_limit_cny': 10, 'run_limit_cny': 3,
+            'cash_budget_used_cny':(cash_used or 0)/1e6,'cash_run_used_cny':cash_run/1e6,
+            'budget_scope':'paid_only' if paid_only else 'legacy_all_providers',
+            'unresolved_reservations': pending or 0, 'cumulative_limit_cny': 10, 'run_limit_cny': float(run_limit or 3),
             'run_id': 'alibaba-chat-streaming-20261015'}
 
 
@@ -118,7 +132,14 @@ def main():
     parser.add_argument('--folder')
     parser.add_argument('--pricing')
     parser.add_argument('--resume', type=Path, help='Complete only unexecuted cases from a compatible report folder')
-    parser.add_argument('--model', choices=('qwen3.8-flash', 'qwen3.7-plus', 'qwen3.6-flash', 'qwen3.5-flash', 'qwen-flash-2025-07-28'), default=MODEL)
+    from app.alibaba_models import DEFAULT_MODELS
+    parser.add_argument('--model', choices=tuple(dict.fromkeys(('deepseek-flash',*DEFAULT_MODELS))), default=MODEL)
+    parser.add_argument('--baseline', default=BASELINE, help='Frozen Git baseline; never overlays its answer/retrieval implementation')
+    parser.add_argument('--authorized-run-limit', type=str, help='Explicit human-authorized run ceiling; shared lifetime ceiling remains 10 CNY')
+    parser.add_argument('--paid-only-budget',action='store_true',help='Explicit human authorization: verified Alibaba free calls have no cash ceiling; preserve old ledger liabilities')
+    parser.add_argument('--holdout-file', type=Path, help='Previously frozen ten-case holdout')
+    parser.add_argument('--pair-selection-file', type=Path, help='Frozen case selection with local guard cases declared separately')
+    parser.add_argument('--browser', action='store_true', help='Drive the real Chromium UI and measure actual rendered delivery')
     parser.add_argument('--variant', choices=('paired', 'triple', 'optimized'), default='paired')
     parser.add_argument('--holdout', action='store_true', help='Run the frozen ten-case generalization set separately')
     args = parser.parse_args()
@@ -138,10 +159,30 @@ def main():
     cases = [case for case in dataset['cases'] if case['id'] in {'CB-' + i for i in shared.REVIEW_IDS}]
     if len(cases) != 30:
         raise ValueError('The fixed thirty-case review set changed')
+    selection_hash=None
+    local_guards=['CB-049']
+    minimum_model_pairs=29
+    if args.pair_selection_file:
+        if args.holdout:
+            raise ValueError('Pair selection is separate from holdout')
+        raw=args.pair_selection_file.read_bytes()
+        selection=json.loads(raw)
+        identities=selection['case_ids']
+        if len(set(identities))!=len(identities) or not {c['id'] for c in cases}<=set(identities):
+            raise ValueError('Selection must retain all original cases without duplicates')
+        lookup={c['id']:c for c in dataset['cases']}
+        if not set(identities)<=set(lookup):
+            raise ValueError('Unknown comparison case')
+        cases=[lookup[cid] for cid in identities]
+        local_guards=selection['local_guard_case_ids']
+        minimum_model_pairs=selection['minimum_model_pairs']
+        if not set(local_guards)<=set(identities) or len(identities)-len(local_guards)<minimum_model_pairs:
+            raise ValueError('Insufficient model cases in frozen selection')
+        selection_hash=hashlib.sha256(raw).hexdigest()
     if args.holdout:
         if args.variant != 'optimized':
             raise ValueError('Holdout is reported separately from the fixed comparison')
-        raw = (BACKEND/'evals/quality_holdout.json').read_bytes()
+        raw = (args.holdout_file or BACKEND/'evals/quality_holdout.json').read_bytes()
         dataset_hash = hashlib.sha256(raw).hexdigest()
         cases = json.loads(raw)['cases']
         if len(cases) != 10 or len({case['id'] for case in cases}) != 10:
@@ -149,19 +190,23 @@ def main():
     folder = args.resume or ROOT / 'artifacts/evaluations' / (datetime.now(UTC).strftime('%Y%m%dT%H%M%S') + '-quality-step2')
     folder.mkdir(parents=True, exist_ok=bool(args.resume))
     variants = {'paired': ('baseline', 'optimized'), 'triple': ('baseline', 'current', 'optimized'), 'optimized': ('optimized',)}[args.variant]
-    report = {'created_at': datetime.now(UTC).isoformat(), 'model': args.model, 'variant':args.variant, 'baseline_commit': BASELINE, 'dataset_sha256': dataset_hash,
+    report = {'created_at': datetime.now(UTC).isoformat(), 'model': args.model, 'variant':args.variant, 'baseline_commit': args.baseline, 'dataset_sha256': dataset_hash,
               'benchmark_sha256': hashlib.sha256(Path(__file__).read_bytes() + Path(shared.__file__).read_bytes()).hexdigest(),
               'answer_build_sha256': quota.answer_build_hash(), 'results': {variant:[] for variant in variants},
-              'measurement': 'Both revisions use /chat/stream; first checked section and committed final, browser network excluded',
+              'measurement': 'Real Chromium UI, same SSE, network and rendered timing' if args.browser else 'Both revisions use /chat/stream; first checked section and committed final, browser network excluded',
               'review_method': 'Assistant blind paired source review: facts, support, coverage, usefulness, conciseness; not veterinary accuracy',
               'quality_targets': {'improved_cases': 20, 'regressed_cases': 0, 'major_source_support_rate': .95,
                                   'known_severe_raw_issues': 0, 'reasked_known_fields': 0}}
     report.update(current_commit=CURRENT, holdout=args.holdout)
+    report.update(pair_selection_sha256=selection_hash,selected_case_ids=[c['id'] for c in cases],
+                  local_guard_case_ids=[] if args.holdout else local_guards,minimum_model_pairs=minimum_model_pairs)
     if args.resume:
         prior = json.loads((folder / 'report.json').read_text(encoding='utf-8'))
-        for key in ('model', 'variant', 'baseline_commit', 'dataset_sha256', 'answer_build_sha256'):
+        for key in ('model', 'variant', 'baseline_commit', 'dataset_sha256', 'answer_build_sha256','measurement'):
             if prior[key] != report[key]:
                 raise ValueError('Resume identity changed: ' + key)
+        if prior.get('pair_selection_sha256')!=selection_hash:
+            raise ValueError('Resume identity changed: pair selection')
         if args.variant == 'triple' and prior.get('current_commit') != CURRENT:
             raise ValueError('Resume identity changed: current_commit')
         allowed = {case['id'] for case in cases}
@@ -173,18 +218,29 @@ def main():
                'benchmark_sha256': hashlib.sha256(Path(__file__).read_bytes() + Path(shared.__file__).read_bytes()).hexdigest()}
     report.setdefault('segments', []).append(segment)
     try:
-        quota.refresh_quotas()
-        data = quota.snapshot()
-        with quota.ledger() as db:
-            safe = next((quota.remaining(row, data['checked_at'], db) for row in data.get('models', []) if row['model'] == args.model), 0)
-        prices = shared.verified_price(args.model)
+        from app.core.config import settings
+        deepseek = args.model == 'deepseek-flash'
+        if deepseek:
+            if not settings.DEEPSEEK_API_KEY:
+                raise ValueError('DeepSeek credential unavailable')
+            safe = None
+        else:
+            quota.refresh_quotas()
+            data = quota.snapshot()
+            with quota.ledger() as db:
+                safe = next((quota.remaining(row, data['checked_at'], db) for row in data.get('models', []) if row['model'] == args.model), 0)
+        prices = shared.verified_price(args.model,free_only=args.paid_only_budget and not deepseek)
         pending_cases = [case for variant in variants for case in cases
                          if not any(row['id'] == case['id'] for row in report['results'][variant])]
-        report['preflight'] = preflight(pending_cases, safe, budget_snapshot(), variants=1, pricing=prices)
+        report['preflight'] = preflight(pending_cases, safe, budget_snapshot(args.authorized_run_limit), variants=1, pricing=prices)
     except (OSError, RuntimeError, ValueError, sqlite3.Error, subprocess.SubprocessError):
         report['preflight'] = {'allowed': False, 'reasons': ['preflight_state_unverifiable']}
     def save():
         report['metrics'] = {variant: shared.metrics(rows) for variant, rows in report['results'].items()}
+        if len(variants)>1:
+            ids=[{r['id'] for r in rows if sum(t.get('execution',{}).get('model_requests',0) for t in r['turns'])>0}
+                 for rows in report['results'].values()]
+            report['actual_model_pair_count']=len(set.intersection(*ids))
         (folder / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     save()
     if not report['preflight']['allowed'] or args.preflight_only:
@@ -195,8 +251,22 @@ def main():
         return 2 if report['status'] == 'blocked' else 0
     price_file = folder / 'pricing.json'
     price_file.write_text(json.dumps(prices), encoding='utf-8')
-    sources = {'optimized': BACKEND}
-    for variant, revision in (('baseline', BASELINE), ('current', CURRENT)):
+    import shutil
+    candidate = folder/'frozen-optimized'/'backend'
+    if not args.resume:
+        for name in ('app','data'):
+            shutil.copytree(BACKEND/name,candidate/name,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
+    candidate_files = {path.relative_to(candidate).as_posix():hashlib.sha256(path.read_bytes()).hexdigest()
+                       for path in sorted(candidate.rglob('*')) if path.is_file() and '__pycache__' not in path.parts}
+    candidate_checksum = hashlib.sha256(json.dumps(candidate_files,sort_keys=True).encode()).hexdigest()
+    if report.get('candidate_snapshot_sha256',candidate_checksum)!=candidate_checksum:
+        raise ValueError('Frozen candidate changed')
+    if quota.answer_build_hash()!=report['answer_build_sha256']:
+        raise ValueError('Candidate changed while freezing')
+    report['candidate_snapshot_sha256']=candidate_checksum
+    report['candidate_files']=candidate_files
+    sources = {'optimized': candidate}
+    for variant, revision in (('baseline', args.baseline), ('current', CURRENT)):
         if variant not in variants:
             continue
         source, checksum = freeze_baseline(folder / ('frozen-' + variant), revision)
@@ -222,8 +292,19 @@ def main():
             log = (folder / (variant + '-stderr-' + str(len(report['segments'])) + '.log')).open('w', encoding='utf-8')
             logs.append(log)
             env = dict(os.environ, PYTHONUTF8='1', PYTHONPATH=str(source) + os.pathsep + str(BACKEND))
+            # Credentials are inherited in memory only, never copied into frozen archives/logs.
+            env.update(DEEPSEEK_API_KEY=settings.DEEPSEEK_API_KEY if deepseek else '',
+                       DASHSCOPE_API_KEY='' if deepseek else settings.DASHSCOPE_API_KEY,
+                       DASHSCOPE_WORKSPACE_ID=settings.DASHSCOPE_WORKSPACE_ID,
+                       DASHSCOPE_BASE_URL=settings.DASHSCOPE_BASE_URL,
+                       CHONGBAN_EVAL_STATE_DIR=str(Path(os.environ.get('CHONGBAN_EVAL_STATE_DIR', BACKEND/'storage')).resolve()))
+            worker_args = ['--authorized-run-limit',args.authorized_run_limit] if args.authorized_run_limit else []
+            if args.paid_only_budget:
+                worker_args.append('--paid-only-budget')
+            if args.browser:
+                worker_args.append('--browser')
             process = subprocess.Popen([sys.executable, '-u', str(Path(__file__).resolve()), '--worker',
-                '--folder', str(work), '--pricing', str(price_file), '--model', args.model], cwd=BACKEND, env=env, stdin=subprocess.PIPE,
+                '--folder', str(work), '--pricing', str(price_file), '--model', args.model, *worker_args], cwd=BACKEND, env=env, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=log, text=True, encoding='utf-8',
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
             workers[variant] = process

@@ -1,0 +1,98 @@
+{
+  "version": "evidence-rebuild-holdout-v8-20261020",
+  "synthetic": true,
+  "role": "future_unseen_holdout_not_executed",
+  "frozen_before": "Any further changes following v7 failure; not included in current pass statistics",
+  "cases": [
+    {
+      "id": "EN-001",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫原先吃兽医指定饮食，现在想换配方。怎样把旧建议、当前症状和新包装交给原兽医核对，不自行改方案？"
+      ]
+    },
+    {
+      "id": "EN-002",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗换粮时家人各自加了不同食物，记录怎样分清变化，什么情况下先停止继续试换？"
+      ]
+    },
+    {
+      "id": "EN-003",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "独处记录只有家具损坏照片，没有离开前后时间线。还缺哪些观察，不能直接确定什么？"
+      ]
+    },
+    {
+      "id": "EN-004",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "狗独自在家时遇到走廊声音就叫，有人在家也会叫。怎样分别记录环境与独处情境，再决定练习难度？"
+      ]
+    },
+    {
+      "id": "EN-005",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫要去必要的就诊但平日箱子练习还没完成，怎样准备搬运，哪些事项不能等训练成功再做？"
+      ]
+    },
+    {
+      "id": "EN-006",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "准备把笼箱当狗的休息位置，怎样核对箱体用途、身体空间和照护安排，不能用箱子替代什么？"
+      ]
+    },
+    {
+      "id": "EN-007",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "清洁剂只写适用于硬表面，家里想用于猫的软垫。怎样核对材质与标签，缺少哪些说明就不能自行推定适用？"
+      ]
+    },
+    {
+      "id": "EN-008",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗的湿粮剩余和食盆是两项任务，怎样分别按食品与器具说明处理，哪些保存或清洗时长不能猜？"
+      ]
+    },
+    {
+      "id": "EN-009",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "食品热量写的是kJ和每份，但份量克重不清楚。先怎样整理单位与原文，不给这只猫编造喂食克数？"
+      ]
+    },
+    {
+      "id": "EN-010",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "厂家提供人员和质控答复，产品换了配方和销售市场。怎样保存版本并核对支持范围，不能把答复称作什么认证？"
+      ]
+    }
+  ]
+}

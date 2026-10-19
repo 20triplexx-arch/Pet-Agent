@@ -1,0 +1,98 @@
+{
+  "version": "evidence-rebuild-holdout-v5-20261019",
+  "synthetic": true,
+  "frozen_before": "repair of v4 observed task extraction and nationwide-absence errors",
+  "cases": [
+    {
+      "id": "EV-001",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫梳毛时一碰后腿就躲开，之前兽医让避免拉扯皮肤。怎样先判断能否继续，再练习接受工具？"
+      ]
+    },
+    {
+      "id": "EV-002",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "犬刷牙前为什么要问近期口腔检查？如果允许轻触嘴边但看到工具退开，下一步怎么降低难度？"
+      ]
+    },
+    {
+      "id": "EV-003",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "两款猫食品一个写保证最低蛋白，一个只有配料排名。怎样比较这些信息分别能证明什么，还缺哪些厂家资料？"
+      ]
+    },
+    {
+      "id": "EV-004",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "冻干狗粮放冰箱能保证没有细菌吗？请分别讲储存安全和是否能作为完整饮食。"
+      ]
+    },
+    {
+      "id": "EV-005",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗原来有兽医安排的处方饮食，现在想自行掺新粮。哪些条件要先核对，哪些表现意味着应停止推进？"
+      ]
+    },
+    {
+      "id": "EV-006",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "detailed",
+      "turns": [
+        "猫运输箱平时不进去，但现在必须联系医院。怎样把当下就医安排与以后练习分开处理？"
+      ]
+    },
+    {
+      "id": "EV-007",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "auto",
+      "turns": [
+        "狗独处叫的时候怎样记录发生条件？",
+        "现在只问狗牙齿护理，先联系专业人员的表现有哪些？"
+      ]
+    },
+    {
+      "id": "EV-008",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "猫体重一直相近，能说明肌肉没有减少吗？脂肪评分和肌肉观察应怎样分别理解，不要按体重推测评分。"
+      ]
+    },
+    {
+      "id": "EV-009",
+      "category": "generalization",
+      "pet": "cat",
+      "answer_depth": "auto",
+      "turns": [
+        "自驾带猫还没确定目的地和住宿方。文件方面现在能确定什么、哪些需要再核实？不要把未知说成不需要。"
+      ]
+    },
+    {
+      "id": "EV-010",
+      "category": "generalization",
+      "pet": "dog",
+      "answer_depth": "detailed",
+      "turns": [
+        "家里狗和另一只猫的碗要清洁，食物保存也要交接。请分别说明器具说明、食物标签、实际完成记录各管什么。"
+      ]
+    }
+  ]
+}

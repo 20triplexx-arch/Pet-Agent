@@ -20,11 +20,43 @@
     "source_version": "July 2025 / v102055183",
     "published_at": "2025-07",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.merckvetmanual.com/cat-owners/selecting-and-providing-a-home-for-a-cat/selecting-a-cat",
+        "organization": "Merck Veterinary Manual",
+        "version": "Full review Jul 2025; v102055183",
+        "checked_at": "2026-10-19",
+        "supports": "猫的时间、环境、个体差异与领养前核对；不据品种保证性格或健康。"
+      },
+      {
+        "url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+        "organization": "journals.sagepub.com",
+        "version": "2013; DOI 10.1177/1098612X13477537",
+        "checked_at": "2026-10-19",
+        "supports": "猫的安全退避、分散资源、玩耍及由猫发起和结束的积极互动；主人记录表为原创整理，不构成固定训练疗程。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat",
+        "organization": "Cornell 兽医学院",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-19",
+        "supports": "仅猫：梳毛、剪甲专业示范与逐步换粮"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/emergency-preparedness/index.html",
+        "organization": "CDC",
+        "version": "Be Prepared: Pet Safety in Emergencies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗身份、医疗记录、联系人与应急准备"
+      }
+    ]
   },
   {
     "id": "dog-prepare",
@@ -42,16 +74,48 @@
       "养狗",
       "空间"
     ],
-    "source_organization": "AVMA",
-    "source_url": "https://avma.org/resources/pet-owners/petcare/selecting-pet-dog",
-    "source_version": "网页收录版本",
+    "source_organization": "www.merckvetmanual.com",
+    "source_url": "https://www.merckvetmanual.com/dog-owners/selecting-and-providing-a-home-for-a-dog/selecting-a-dog",
+    "source_version": "Full review Jun 2025; v101586099",
     "published_at": null,
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.merckvetmanual.com/dog-owners/selecting-and-providing-a-home-for-a-dog/selecting-a-dog",
+        "organization": "www.merckvetmanual.com",
+        "version": "Full review Jun 2025; v101586099",
+        "checked_at": "2026-10-19",
+        "supports": "犬的生活安排、个体活动及既往健康行为记录；不套用品种性格保证、气候剃毛建议或当地繁殖监管。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+        "organization": "AAHA",
+        "version": "Published 2019-10-08",
+        "checked_at": "2026-10-19",
+        "supports": "犬的环境卫生、粪便处理、适合个体的活动及渐进护理适应；不提供家庭诊疗操作。"
+      },
+      {
+        "url": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+        "organization": "avsab.org",
+        "version": "Copyright 2021; PDF hosted 2024-12",
+        "checked_at": "2026-10-19",
+        "supports": "犬训练采用奖励与环境管理，避免强迫、疼痛和惩罚；不支持具体胸背测量值、材质保证或犬种诊断。"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/emergency-preparedness/index.html",
+        "organization": "CDC",
+        "version": "Be Prepared: Pet Safety in Emergencies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗身份、医疗记录、联系人与应急准备"
+      }
+    ]
   },
   {
     "id": "cat-home",
@@ -68,25 +132,55 @@
       "躲藏",
       "环境"
     ],
-    "source_organization": "AAFP / ISFM",
-    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
-    "source_version": "2013 环境需求指南",
+    "source_organization": "journals.sagepub.com",
+    "source_url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+    "source_version": "2013; DOI 10.1177/1098612X13477537",
     "published_at": "2013-03",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-12",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
     "review_status": "editorial_summary_unreviewed",
     "references": [
       {
-        "organization": "FelineVMA",
+        "url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+        "organization": "journals.sagepub.com",
+        "version": "2013; DOI 10.1177/1098612X13477537",
+        "checked_at": "2026-10-19",
+        "supports": "猫的安全退避、分散资源、玩耍及由猫发起和结束的积极互动；主人记录表为原创整理，不构成固定训练疗程。"
+      },
+      {
         "url": "https://catvets.com/wp-content/uploads/2026/07/FelineVMA-Step-by-Step-Guide-How-to-Introduce.pdf",
-        "supports": "过渡区域、熟悉气味、按反应推进及资源安排；原环境指南页面本次遇访问校验，不伪称已重新读取",
-        "version": "机构公开PDF，原发布日期未确认",
-        "checked_at": "2026-10-12"
+        "organization": "FelineVMA",
+        "version": "Copyright 2026; companion to 2024 intercat tension guidelines",
+        "checked_at": "2026-10-19",
+        "supports": "仅猫：健康核对、过渡房间、分开资源、分步接触、紧张时退回；不得把已适应箱子的有限情境扩大为强行关箱见面。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/choosing-and-caring-your-new-cat",
+        "organization": "Cornell 兽医学院",
+        "version": "2026-10-11网页核对；原页未标发布日期",
+        "checked_at": "2026-10-19",
+        "supports": "仅猫：梳毛、剪甲专业示范与逐步换粮"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia",
+        "organization": "Cornell University College of Veterinary Medicine",
+        "version": "原页未标发布日期；2026-10-19正文核对",
+        "checked_at": "2026-10-19",
+        "supports": "猫拒食是临床表现，需兽医评估；不可通过挨饿或强行喂食迫使接受新食物，不给任意等待天数。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+        "organization": "Cornell Feline Health Center",
+        "version": "网页正文；页面核对 2026-10-19",
+        "checked_at": "2026-10-19",
+        "supports": "猫排尿异常需专业评估，无尿和疑似尿道阻塞为急症；不能把砂盆清洁当作疾病诊断或治疗。"
       }
-    ]
+    ],
+    "content_kind": "care",
+    "breed_ids": []
   },
   {
     "id": "dog-home",
@@ -108,11 +202,43 @@
     "source_version": "网页 2026-06-05",
     "published_at": "2026-06-05",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-12",
+    "updated_at": "2026-10-19",
     "life_stages": [
-      "all"
+      "puppy"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/what-to-do-before-you-bring-home-a-new-puppy/",
+        "organization": "AAHA",
+        "version": "Published 2026-06-05",
+        "checked_at": "2026-10-19",
+        "supports": "仅幼犬：原照护记录、食物衔接、家庭分工与安全布置；不证明成年犬适用的全部细节。"
+      },
+      {
+        "url": "https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf",
+        "organization": "American Veterinary Society of Animal Behavior",
+        "version": "Copyright 2008; file hosted 2024-12",
+        "checked_at": "2026-10-19",
+        "supports": "幼犬安全、渐进、正向社会化与兽医风险核对；文件上传时间不冒充2024新版，不外推统一疫苗日程。"
+      },
+      {
+        "url": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+        "organization": "avsab.org",
+        "version": "Copyright 2021; PDF hosted 2024-12",
+        "checked_at": "2026-10-19",
+        "supports": "犬训练采用奖励与环境管理，避免强迫、疼痛和惩罚；不支持具体胸背测量值、材质保证或犬种诊断。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/dog-crates-when-use-them-and-how-pick-one",
+        "organization": "Cornell 兽医学院",
+        "version": "Dog crates: When to use them and how to pick one；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "仅犬：站立转身躺卧与明显困扰不能强行留箱"
+      }
+    ]
   },
   {
     "id": "cat-food",
@@ -137,11 +263,50 @@
     "source_version": "网页更新 2026-04-30",
     "published_at": "2026-04-30",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feeding-your-cat",
+        "organization": "Cornell Feline Health Center",
+        "version": "网页更新 2026-04-30",
+        "checked_at": "2026-10-19",
+        "supports": "仅猫：阶段、标签和个体差异；不外推犬的具体换粮方法"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2021/04/Selecting-a-pet-food-for-your-pet-updated-2021_WSAVA-Global-Nutrition-Toolkit.pdf",
+        "organization": "WSAVA",
+        "version": "Guidelines on Selecting Pet Foods；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗营养适用声明、每克或每份热量、厂家核对；非品牌认证"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+        "organization": "AAHA",
+        "version": "2021 营养与体重管理指南",
+        "checked_at": "2026-10-19",
+        "supports": "健康、体况合适猫狗的喂食与饮食调整原则；原章节有明确前提"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "dog-food",
@@ -165,11 +330,43 @@
     "source_version": "2021 营养与体重管理指南",
     "published_at": "2021",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+        "organization": "AAHA",
+        "version": "2021 营养与体重管理指南",
+        "checked_at": "2026-10-19",
+        "supports": "健康、体况合适猫狗的喂食与饮食调整原则；原章节有明确前提"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      },
+      {
+        "url": "https://wsava.org/global-guidelines/global-nutrition-guidelines/",
+        "organization": "WSAVA",
+        "version": "Nutrition Guidelines；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "BCS评估脂肪、MCS评估肌肉，分别记录"
+      }
+    ]
   },
   {
     "id": "cat-clean",
@@ -192,11 +389,36 @@
     "source_version": "网页更新 October 2016",
     "published_at": "2016-10",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-lower-urinary-tract-disease",
+        "organization": "Cornell Feline Health Center",
+        "version": "网页正文；页面核对 2026-10-19",
+        "checked_at": "2026-10-19",
+        "supports": "猫排尿异常需专业评估，无尿和疑似尿道阻塞为急症；不能把砂盆清洁当作疾病诊断或治疗。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-house-soiling",
+        "organization": "Cornell 兽医学院",
+        "version": "Updated January 2015",
+        "checked_at": "2026-10-19",
+        "supports": "猫砂盆可达性、安静分散位置、材质偏好与卫生；排除同页惊吓、电击及口服标记物建议，异常需专业排查。"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/about/cleaning-and-disinfecting-pet-supplies.html",
+        "organization": "CDC",
+        "version": "About Cleaning and Disinfecting Pet Supplies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗物品清洁、标签、安全接触；不移植美国消毒剂注册制度"
+      }
+    ]
   },
   {
     "id": "dog-clean",
@@ -219,11 +441,43 @@
     "source_version": "2019 犬生命阶段检查清单",
     "published_at": "2019",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+        "organization": "AAHA",
+        "version": "Published 2019-10-08",
+        "checked_at": "2026-10-19",
+        "supports": "犬的环境卫生、粪便处理、适合个体的活动及渐进护理适应；不提供家庭诊疗操作。"
+      },
+      {
+        "url": "https://www.merckvetmanual.com/dog-owners/routine-care-of-dogs/routine-health-care-of-dogs",
+        "organization": "Merck Veterinary Manual",
+        "version": "本次网页版本，页面核对2026-10-19",
+        "checked_at": "2026-10-19",
+        "supports": "犬梳毛与打结、皮肤观察和适用品；不采用自行剪毛操作、固定洗澡或绝育年龄、强制给药细节。"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/about/cleaning-and-disinfecting-pet-supplies.html",
+        "organization": "CDC",
+        "version": "About Cleaning and Disinfecting Pet Supplies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗物品清洁、标签、安全接触；不移植美国消毒剂注册制度"
+      },
+      {
+        "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2020; filename hosted as 2022",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗清洁剂按标签使用、干燥后接触及安全存放；猫对部分成分敏感，疑似中毒联系兽医；不提供自配浓度。"
+      }
+    ]
   },
   {
     "id": "cat-play",
@@ -232,7 +486,7 @@
     "species": [
       "cat"
     ],
-    "body": "## 玩耍提供选择与探索\n猫需要安全地点、分开的资源以及能表达捕猎、抓挠和探索行为的机会。互动要看猫是否愿意参与，而不是每天必须完成某个固定分钟数。\n\n## 做一次可退出的互动\n1. 挑猫清醒、放松的时候开始，允许它先观察。\n2. 使用适合个体的玩具，引导跟踪和追逐，不直接拿手脚当猎物。\n3. 给猫接近、捕捉和休息的机会；兴趣下降或紧张时结束。\n4. 互动结束后检查并收好有线、细绳或可脱落部件的玩具，不能无人监督地留置危险物。\n\n## 环境丰富化怎样安排\n提供稳定的抓挠处、可退避的休息位置及安全的观察空间。食物互动使用已分配的日常食物或计入零食摄入，不额外无限加餐。多猫家庭分别安排机会，避免一只长期占有资源。\n\n## 用反应调整计划\n记录猫主动参与、回避、容易兴奋或疲惫的情况，比只记录“玩够十分钟”更有用。突然不愿跳跃、互动明显减少或触碰时疼痛，不能直接归为懒惰；应把相关记录提供给兽医。上述环境建议限猫，不直接套用于其他物种。",
+    "body": "## 玩耍提供选择与探索\n猫需要安全地点、分开的资源以及能表达捕猎、抓挠和探索行为的机会。互动要看猫是否愿意参与，而不是每天必须完成某个固定分钟数。\n\n## 做一次可退出的互动\n以下是一次互动的操作顺序，不规定每天的次数或时长；按猫当前的参与意愿和反应调整。\n1. 挑猫清醒、放松的时候开始，允许它先观察。\n2. 使用适合个体的玩具，引导跟踪和追逐，不直接拿手脚当猎物。\n3. 给猫接近、捕捉和休息的机会；兴趣下降或紧张时结束。\n4. 互动结束后检查并收好有线、细绳或可脱落部件的玩具，不能无人监督地留置危险物。\n\n## 环境丰富化怎样安排\n提供稳定的抓挠处、可退避的休息位置及安全的观察空间。食物互动使用已分配的日常食物或计入零食摄入，不额外无限加餐。多猫家庭分别安排机会，避免一只长期占有资源。\n\n## 用反应调整计划\n记录猫主动参与、回避、容易兴奋或疲惫的情况，比只记录“玩够十分钟”更有用。突然不愿跳跃、互动明显减少或触碰时疼痛，不能直接归为懒惰；应把相关记录提供给兽医。上述环境建议限猫，不直接套用于其他物种。",
     "keywords": [
       "互动",
       "运动",
@@ -241,16 +495,48 @@
       "丰富化",
       "行为"
     ],
-    "source_organization": "AAFP / ISFM",
-    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11383066/",
-    "source_version": "2013 环境需求指南",
+    "source_organization": "journals.sagepub.com",
+    "source_url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+    "source_version": "2013; DOI 10.1177/1098612X13477537",
     "published_at": "2013-03",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-20",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://journals.sagepub.com/doi/pdf/10.1177/1098612X13477537",
+        "organization": "journals.sagepub.com",
+        "version": "2013; DOI 10.1177/1098612X13477537",
+        "checked_at": "2026-10-19",
+        "supports": "猫的安全退避、分散资源、玩耍及由猫发起和结束的积极互动；主人记录表为原创整理，不构成固定训练疗程。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/feline-behavior-problems-aggression",
+        "organization": "Cornell University College of Veterinary Medicine",
+        "version": "原页更新2016-12；2026-10-10核对（仅采用非惩罚互动与观察内容）",
+        "checked_at": "2026-10-19",
+        "supports": "猫互动中的停止接触与给予空间，不推测病因"
+      },
+      {
+        "url": "https://www.merckvetmanual.com/special-pet-topics/emergencies/minor-injuries-and-accidents",
+        "organization": "www.merckvetmanual.com",
+        "version": "Updated Dec 2025; v104767940",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗吞异物应联系兽医；不可拉扯口中线绳，避免肠道损伤；不采用同页家庭拔甲、鱼钩或止血操作。"
+      },
+      {
+        "url": "https://wsava.org/wp-content/uploads/2020/01/Diet-History-Form.pdf",
+        "organization": "WSAVA",
+        "version": "Copyright 2013",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗完整饮食史与实际提供量；表格项目不是个体喂量处方，主人观察不替代正式评分。"
+      }
+    ]
   },
   {
     "id": "dog-play",
@@ -259,7 +545,7 @@
     "species": [
       "dog"
     ],
-    "body": "## 活动包含身体与脑力\n犬的活动应结合阶段、身体耐受、环境和日常习惯；散步、嗅闻、奖励式练习与休息共同组成照护，不是只看跑了多少公里。\n\n## 一次活动前后检查\n1. 先看精神、步态及天气，选择能够安全返回的路线。\n2. 使用安全牵引，并给犬适合的探索与排泄机会。\n3. 穿插容易成功的简单互动，不以拉扯或惩罚让犬服从。\n4. 观察活动中及之后的恢复情况，有异常及时停止并寻求评估。\n\n## 制定容易执行的安排\n按用户可用时段拆成活动与互动机会，记录地点、活动类型和犬的反应。幼龄、老年、患病或刚开始活动的犬，不把健康成年犬安排照搬过去。天气不适合外出时，应调整环境和低强度互动，而不是强迫完成原任务。\n\n## 什么时候需要改计划\n出现跛行、不愿继续、明显疲惫或行为突变，要先排查身体因素。新的运动项目或已有疾病的活动限制应向兽医确认。照护记录可以帮助回顾耐受，应用不会把“精力旺盛的品种”转成统一运动时长或训练强度。",
+    "body": "## 活动包含身体与脑力\n犬的活动应结合阶段、身体耐受、环境和日常习惯；散步、嗅闻、奖励式练习与休息共同组成照护，不是只看跑了多少公里。\n\n## 一次活动前后检查\n先核对已有健康问题及兽医活动限制；未知项保留未知，不能当成已经确认健康。新的运动项目或已有疾病的活动限制向兽医确认。\n1. 先看精神、步态及天气，选择能够安全返回的路线。\n2. 使用安全牵引，并给犬适合的探索与排泄机会。\n3. 穿插容易成功的简单互动，不以拉扯或惩罚让犬服从。\n4. 观察活动中及之后的恢复情况，有异常及时停止并寻求评估。\n\n## 制定容易执行的安排\n按用户可用时段拆成活动与互动机会，记录地点、活动类型和犬的反应。幼龄、老年、患病或刚开始活动的犬，不把健康成年犬安排照搬过去。天气不适合外出时，应调整环境和低强度互动，而不是强迫完成原任务。\n\n## 什么时候需要改计划\n出现跛行、不愿继续、明显疲惫或行为突变，要先排查身体因素。新的运动项目或已有疾病的活动限制应向兽医确认。照护记录可以帮助回顾耐受，应用不会把“精力旺盛的品种”转成统一运动时长或训练强度。",
     "keywords": [
       "互动",
       "运动",
@@ -273,11 +559,43 @@
     "source_version": "2019 犬生命阶段检查清单",
     "published_at": "2019",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-20",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+        "organization": "AAHA",
+        "version": "Published 2019-10-08",
+        "checked_at": "2026-10-19",
+        "supports": "犬的环境卫生、粪便处理、适合个体的活动及渐进护理适应；不提供家庭诊疗操作。"
+      },
+      {
+        "url": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+        "organization": "avsab.org",
+        "version": "Copyright 2021; PDF hosted 2024-12",
+        "checked_at": "2026-10-19",
+        "supports": "犬训练采用奖励与环境管理，避免强迫、疼痛和惩罚；不支持具体胸背测量值、材质保证或犬种诊断。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/summer-heat-safety-tips-dogs",
+        "organization": "www.vet.cornell.edu",
+        "version": "原页未标发布日期；2026-10-19正文核对",
+        "checked_at": "2026-10-19",
+        "supports": "犬高温风险、短头结构及个体差异，遮阴、饮水、避热与异常就医；不能据犬资料外推猫的具体风险分层。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-topics/winter-safety-tips",
+        "organization": "Cornell 兽医学院",
+        "version": "原页未标发布日期",
+        "checked_at": "2026-10-19",
+        "supports": "犬冷耐受的个体差异、寒冷信号及干燥保暖；该页不能支持各品种训练或全面健康建议。"
+      }
+    ]
   },
   {
     "id": "cat-stage",
@@ -299,11 +617,43 @@
     "source_version": "2022 What to Expect",
     "published_at": "2022",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "senior"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.vet.cornell.edu/sites/default/files/WhatToExpect_Updated_2022.pdf",
+        "organization": "Cornell Feline Health Center",
+        "version": "2022 文件版本",
+        "checked_at": "2026-10-19",
+        "supports": "猫的不同阶段、可达资源、日常行为和个体照护；疫苗与就诊频次不自动成为本地通用医嘱。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/",
+        "organization": "AAHA / AAFP",
+        "version": "Published 2021-02-17",
+        "checked_at": "2026-10-19",
+        "supports": "猫四个年龄阶段及任何年龄可能的临终阶段；年龄分组是起点，个体和兽医判断仍需保留。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/nutritional-risk-factors/",
+        "organization": "AAHA",
+        "version": "Published 2021-06-21",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗阶段、饮食、体重趋势、BCS、肌肉、消化及口腔异常用于营养风险核对；异常需扩展评估，不直接用普通喂量。"
+      },
+      {
+        "url": "https://catvets.com/resource/2019-respectful-handling-to-prevent-fear-and-pain-position-statement/",
+        "organization": "FelineVMA",
+        "version": "2019 Respectful Handling of Cats to Minimize Fear and Pain；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "尊重式互动与恐惧疼痛；不是家庭临床保定教程"
+      }
+    ]
   },
   {
     "id": "dog-stage",
@@ -327,11 +677,36 @@
     "source_version": "网页 2025-06-18",
     "published_at": "2025-06-18",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/how-often-should-my-dog-go-to-the-vet-a-dog-life-stage-guide/",
+        "organization": "AAHA",
+        "version": "Published 2025-06-18",
+        "checked_at": "2026-10-19",
+        "supports": "犬生命阶段及体型、功能状态、健康需求个体化；不把阶段指南当作线上诊断或一律适用的检查套餐。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/",
+        "organization": "AAHA",
+        "version": "Published 2019-10-08",
+        "checked_at": "2026-10-19",
+        "supports": "犬的环境卫生、粪便处理、适合个体的活动及渐进护理适应；不提供家庭诊疗操作。"
+      },
+      {
+        "url": "https://avsab.org/wp-content/uploads/2024/12/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf",
+        "organization": "avsab.org",
+        "version": "Copyright 2021; PDF hosted 2024-12",
+        "checked_at": "2026-10-19",
+        "supports": "犬训练采用奖励与环境管理，避免强迫、疼痛和惩罚；不支持具体胸背测量值、材质保证或犬种诊断。"
+      }
+    ]
   },
   {
     "id": "cat-lily",
@@ -353,11 +728,36 @@
     "source_version": "网页收录版本",
     "published_at": null,
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.petpoisonhelpline.com/pet-owners/basics/top-10-plants-poisonous-to-pets/",
+        "organization": "Pet Poison Helpline",
+        "version": "原页未标发布日期；2026-10-19正文核对",
+        "checked_at": "2026-10-19",
+        "supports": "真百合属与萱草属对猫的中毒风险，包括花粉及花瓶水；疑似接触及时联系兽医，不据统一剂量等待观察。"
+      },
+      {
+        "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2025; mcm-0825",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗联系急诊、保留容器和记录、安全转运；未经兽医指示不自行催吐或给药；不移植美国求助电话。"
+      },
+      {
+        "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2020; filename hosted as 2022",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗清洁剂按标签使用、干燥后接触及安全存放；猫对部分成分敏感，疑似中毒联系兽医；不提供自配浓度。"
+      }
+    ]
   },
   {
     "id": "first-aid",
@@ -384,11 +784,29 @@
     "source_version": "Pet First Aid 2025",
     "published_at": "2025",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2025; mcm-0825",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗联系急诊、保留容器和记录、安全转运；未经兽医指示不自行催吐或给药；不移植美国求助电话。"
+      },
+      {
+        "url": "https://www.cdc.gov/healthy-pets/emergency-preparedness/index.html",
+        "organization": "CDC",
+        "version": "Be Prepared: Pet Safety in Emergencies；原版本见独立来源记录",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗身份、医疗记录、联系人与应急准备"
+      }
+    ]
   },
   {
     "id": "cat-life-stages",
@@ -411,11 +829,36 @@
     "source_version": "2021 Feline Life Stage Definitions",
     "published_at": "2021",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/",
+        "organization": "AAHA / AAFP",
+        "version": "Published 2021-02-17",
+        "checked_at": "2026-10-19",
+        "supports": "猫四个年龄阶段及任何年龄可能的临终阶段；年龄分组是起点，个体和兽医判断仍需保留。"
+      },
+      {
+        "url": "https://www.vet.cornell.edu/sites/default/files/WhatToExpect_Updated_2022.pdf",
+        "organization": "Cornell Feline Health Center",
+        "version": "2022 文件版本",
+        "checked_at": "2026-10-19",
+        "supports": "猫的不同阶段、可达资源、日常行为和个体照护；疫苗与就诊频次不自动成为本地通用医嘱。"
+      },
+      {
+        "url": "https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/feeding-plans-for-healthy-appropriate-weight-cats-and-dogs/",
+        "organization": "AAHA",
+        "version": "2021 营养与体重管理指南",
+        "checked_at": "2026-10-19",
+        "supports": "健康、体况合适猫狗的喂食与饮食调整原则；原章节有明确前提"
+      }
+    ]
   },
   {
     "id": "dog-hazards",
@@ -437,10 +880,28 @@
     "source_version": "Pet First Aid 2025",
     "published_at": "2025",
     "ingested_at": "2026-10-09",
-    "updated_at": "2026-10-10",
+    "updated_at": "2026-10-19",
     "life_stages": [
       "all"
     ],
-    "review_status": "editorial_summary_unreviewed"
+    "review_status": "editorial_summary_unreviewed",
+    "content_kind": "care",
+    "breed_ids": [],
+    "references": [
+      {
+        "url": "https://ebusiness.avma.org/files/productdownloads/mcm-client-brochures-household-hazards-2022.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2020; filename hosted as 2022",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗清洁剂按标签使用、干燥后接触及安全存放；猫对部分成分敏感，疑似中毒联系兽医；不提供自配浓度。"
+      },
+      {
+        "url": "https://ebusiness.avma.org/files/ProductDownloads/mcm-client-brochures-pet-first-aid-2025.pdf",
+        "organization": "AVMA",
+        "version": "Copyright 2025; mcm-0825",
+        "checked_at": "2026-10-19",
+        "supports": "猫狗联系急诊、保留容器和记录、安全转运；未经兽医指示不自行催吐或给药；不移植美国求助电话。"
+      }
+    ]
   }
 ]

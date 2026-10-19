@@ -60,7 +60,7 @@ def test_alibaba_catalog_and_real_routing_use_own_key(client, headers, cat, monk
     monkeypatch.setattr(adapter, 'AsyncOpenAI', factory)
     catalog = client.get('/api/v1/chat/models', headers=headers).json()
     ali = next(o for o in catalog['options'] if o['id'] == 'alibaba')
-    assert catalog['default_id'] == 'alibaba' and ali['label'] == '阿里千问 · qwen3.7-plus' and ali['available']
+    assert catalog['default_id'] == 'alibaba' and ali['label'] == '阿里百炼 · qwen3.7-plus' and ali['available']
     response = ask(client, headers, cat)
     assert response.status_code == 200, response.text
     assert options[0]['api_key'] == 'ali-only-private' and options[0]['base_url'] == settings.dashscope_url
@@ -154,7 +154,8 @@ def test_multiple_questions_merge_different_passages(db, monkeypatch):
         assert len(all_sections) >= 2
         monkeypatch.setattr(knowledge, 'search_knowledge', lambda *args, **kwargs: [article])
         monkeypatch.setattr(knowledge, 'evidence_sections', lambda a, q: [all_sections[0 if q == 'first' else 1]])
-        found = multi_search(session, 'cat', ['first', 'second'])
+        # The legacy extension path still honors the public article/section hooks.
+        found = knowledge.legacy_multi_search(session, 'cat', ['first', 'second'])
         assert len(found) == 1 and found[0]['matched_questions'] == ['first', 'second']
         assert found[0]['matched_sections'] == all_sections[:2]
 
