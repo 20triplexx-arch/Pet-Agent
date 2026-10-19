@@ -187,7 +187,9 @@ def assemble_prompt(ctx, text, history, profile, articles):
         "response_focus": ctx.analysis.get('response_focus', {}),
         "source_specific_rules": evidence_rules(a["id"] for a in articles),
         'quantitative_policy': '只有tool_results.nutrition.status为ready时才能引用其计算数值；否则不输出任何建议克数、每日热量、区间或假设计算示例。每100克可作为索取标签的单位。',
-        'profile_unknown_fields': [key for key in ('age_months', 'weight', 'neutered', 'allergies', 'medical_history', 'vet_advice') if profile is not None and profile.get(key) is None],
+        'profile_unknown_fields': [key for key in ('age_months', 'weight', 'neutered', 'allergies', 'medical_history', 'vet_advice')
+                                   if profile is not None and profile.get(key) is None
+                                   and key not in ctx.analysis.get('answer_context', {}).get('known_fields', {})],
         "missing_health_information": ctx.analysis.get("health_questions"),
         "tool_results": tools,
         "history_summary": ctx.memory,

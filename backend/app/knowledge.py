@@ -100,7 +100,8 @@ class BM25Retriever(Retriever):
         if not filtered:
             return []
         vocabulary = [k for a in filtered for k in a.keywords] + [w for g in SYNONYMS for w in g]
-        generic = {"宠物", "动物", "怎么", "如何", "什么", "怎样", "需要", "注意", "是否", "可以", "照护", "我的", "你的"}
+        generic = {"宠物", "动物", "怎么", "如何", "什么", "怎样", "需要", "注意", "是否", "可以", "照护", "我的", "你的",
+                   "适应", "记录", "观察", "练习", "安全", "准备", "资料"}
         query_tokens = set(tokenize(expanded_query(query), vocabulary)) - generic
         docs, average, frequencies = corpus_index(tuple((a.id, a.title, a.body, tuple(a.keywords)) for a in filtered), tuple(vocabulary))
         ranked = []
@@ -113,6 +114,8 @@ class BM25Retriever(Retriever):
             exact_keywords = [k for k in a.keywords if len(k) > 1 and k.lower() in query.lower() and k not in generic]
             score += sum(12 + len(k) for k in exact_keywords)
             score += sum(6 for k in a.keywords if len(k) > 1 and k in a.title and k in query)
+            if a.content_kind == 'supplies' and not re.search(r'买|选购|挑选|用品|规格|材质|比较|多少钱|尺寸', query):
+                score *= .45
             if score > 0 and (exact_keywords or len(query_tokens & doc.keys()) >= 2):
                 ranked.append((score, a))
         return [a for _, a in sorted(ranked, key=lambda x: (-x[0], x[1].id))]
@@ -145,12 +148,48 @@ def sections(article):
     return [{'heading': heading, 'text': text} for heading, text in _sections(article['body'])]
 
 
+def passage_role(passage):
+    heading, text = passage['heading'], passage['text']
+    if re.search(r'深入分析前|需要哪些资料|填写|资料缺口', heading):
+        return 'prerequisites'
+    if re.search(r'(?m)^\d+\. ', text) or re.search(r'分步|清单|顺序|责任|练习|怎样.*(?:安排|执行|调整)|检查家庭', heading):
+        return 'action'
+    if re.search(r'边界|限制|风险|安全|就医|求助|停止|专业处理|改变安排', heading):
+        return 'boundary'
+    if re.search(r'观察|记录|衡量|进展', heading):
+        return 'observation'
+    return 'explanation'
+
+
 def evidence_sections(article, query, count=3):
-    terms = set(tokenize(expanded_query(query), article["keywords"])) - {'如何', '怎么', '什么', '是否', '可以', '需要', '建议', '宠物', '照护', '安排'}
-    scored = sorted(enumerate(sections(article)), key=lambda item: (
-        -len(terms & set(tokenize(item[1]["heading"] + " " + item[1]["text"], article["keywords"]))), item[0]))
-    relevant = [(i, s) for i, s in scored if terms & set(tokenize(s['heading'] + ' ' + s['text'], article['keywords']))]
-    return [section for _, section in sorted(relevant[:count])]
+    def passage_terms(text):
+        # Preserve compound substrings: 剪指甲 must still match 指甲护理.
+        grams = {chunk[i:i+2] for chunk in re.findall(r'[\u3400-\u9fff]+', text) for i in range(len(chunk)-1)}
+        return set(tokenize(text, article['keywords'])) | grams
+    terms = passage_terms(expanded_query(query)) - {'如何', '怎么', '什么', '是否', '可以', '需要', '建议', '宠物', '照护', '安排'}
+    shopping = re.search(r'买|选购|挑选|比较|辅助用品|什么用品|哪些用品|规格|材质|多少钱', query)
+    candidates = [(i, s) for i, s in enumerate(sections(article))
+                  if shopping or not re.search(r'购买|选购|辅助用品|(?:选择|比较).*用品', s['heading'])]
+    scored = sorted(candidates, key=lambda item: (
+        -len(terms & passage_terms(item[1]["heading"] + " " + item[1]["text"])), item[0]))
+    relevant = [(i, s) for i, s in scored if terms & passage_terms(s['heading'] + ' ' + s['text'])]
+    chosen = {i for i, _ in relevant[:count]}
+    concept = re.search(r'区别|区分|是什么|什么意思|怎么理解', query)
+    if relevant and not concept and re.search(r'怎么|如何|怎样|安排|准备|练习|适应|条件|注意', query):
+        # Lexical overlap alone can select three "what to record" sections and
+        # omit the actual action. Keep an action and its numbered procedure.
+        actions = [(i, s) for i, s in scored if passage_role(s) == 'action']
+        if actions:
+            chosen.add(actions[0][0])
+        numbered = [(i, s) for i, s in actions if re.search(r'(?m)^\d+\. ', s['text'])]
+        if numbered:
+            chosen.add(numbered[0][0])
+        if re.search(r'练习|训练|适应', query):
+            practice = [(i, s) for i, s in enumerate(sections(article))
+                        if re.search(r'练习|分步|可承受', s['heading']) and passage_role(s) == 'action']
+            if practice:
+                chosen.add(practice[0][0])
+    return [section for i, section in enumerate(sections(article)) if i in chosen]
 
 
 def model_sections(article):
@@ -224,7 +263,8 @@ def search_knowledge(session, species, query, topic=None, limit=5, life_stage=No
 
 def multi_search(session, species, questions, **filters):
     """Reserve coverage per subquestion before filling remaining evidence slots."""
-    groups = [search_knowledge(session, species, question, limit=3, **filters) for question in questions]
+    groups = [focused_articles(search_knowledge(session, species, question, limit=3, **filters), question)
+              for question in questions]
     selected = {}
     for rank in range(3):
         for question, articles in zip(questions, groups):
@@ -244,3 +284,35 @@ def multi_search(session, species, questions, **filters):
                             linked.append(question)
                     current["matched_sections"] = [s for s in sections(article) if s["heading"] in headings]
     return list(selected.values())
+
+
+def focused_articles(articles, query):
+    """Secondary articles must add an explicitly requested topic, not a synonym detour.
+
+    The full search tool remains available for genuinely uncovered questions.
+    This only narrows the automatically prefetched context.
+    """
+    if not articles:
+        return []
+    primary = articles[0]
+    generic = {'猫', '狗', '犬', '宠物', '照护', '记录', '观察', '准备', '资料', '原则',
+               '日常', '条件', '安排', '适应', '互动', '安全', '选择', '如何', '怎样', '需要'}
+    def anchors(article):
+        words = set(article['keywords']) | set(tokenize(article['title']))
+        return {word for word in words if len(word) >= 2 and word not in generic and word.lower() in query.lower()}
+    covered = anchors(primary)
+    result = [primary]
+    for article in articles[1:]:
+        if article.get('content_kind') == 'supplies' and not re.search(r'买|选购|挑选|用品|规格|材质|比较|多少钱|尺寸', query):
+            continue
+        additions = {word for word in anchors(article) - covered if word not in primary['body']
+                     and not (word in ('猫粮', '狗粮') and '粮' in primary['body'])}
+        species_detail = (article.get('topic') == primary.get('topic') and anchors(article)
+                          and article.get('content_kind') == primary.get('content_kind')
+                          and len(article.get('species', [])) < len(primary.get('species', [])))
+        handling_support = (article.get('topic') == primary.get('topic') and anchors(article)
+                            and '低压力' in article['title'] and re.search(r'紧张|害怕|抗拒|强迫', query))
+        if (additions or species_detail or handling_support) and evidence_sections(article, query):
+            result.append(article)
+            covered.update(additions)
+    return result

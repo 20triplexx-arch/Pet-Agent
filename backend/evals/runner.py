@@ -59,9 +59,12 @@ def setup_database(folder):
                        "EXECUTION_LOG_PATH": str(folder / "execution.jsonl"),
                        "SECRET_KEY": "synthetic-evaluation-key-not-for-production", "AMAP_ENABLED": "false",
                        "AMAP_API_KEY": "", "TIANDITU_ENABLED": "false", "TIANDITU_API_KEY": "", "OCR_ENABLED": "false"})
+    from app.core.db import engine
+    expected = (folder / 'evaluation.db').resolve()
+    if engine.url.get_backend_name() != 'sqlite' or Path(engine.url.database).resolve() != expected:
+        raise RuntimeError('Evaluation database isolation was lost before initialization')
     from scripts.init_db import initialize
     initialize(demo=False)
-    from app.core.db import engine
     from app.core.security import get_password_hash
     from app.models import User, Pet, CareLog
     from sqlmodel import Session

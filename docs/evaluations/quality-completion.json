@@ -1,0 +1,993 @@
+{
+  "date": "2026-10-18",
+  "status": "not_qualified_not_deployed",
+  "baseline": "8d8bfe7ca4905aee73f5fd99163ffd8d99974b80",
+  "current": "d630845d9eef826e14d53c72c363bdc775b0ce86",
+  "final_answer_build_sha256": "b4c9e95c494f516d78436e569d9b7f45bcbf0996ffba7a6b8334877e15e66042",
+  "batches": {
+    "triple": {
+      "model": "qwen3.6-flash",
+      "answer_build_sha256": "ed069c74ca5ad2cdbd8fa636540ad0880faf5bcd6e0fea22ba0a86873ea8dab6",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "metrics": {
+        "baseline": {
+          "cases": 30,
+          "passed": 29,
+          "failed": 1,
+          "model_requests": 32,
+          "input_tokens": 91356,
+          "output_tokens": 6530,
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2387.65,
+              "p95_ms": 3314.92
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1294.09,
+              "p95_ms": 1711.9
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2387.65,
+              "p95_ms": 3314.92
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1294.09,
+              "p95_ms": 1711.9
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": [
+            {
+              "id": "CB-043",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型回答未通过事实核对：把能量误写成保证分析中的必备项目。本次未保存，可手动重试。"
+                }
+              ]
+            }
+          ]
+        },
+        "current": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "model_requests": 32,
+          "input_tokens": 91239,
+          "output_tokens": 4938,
+          "ordinary": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2063.76,
+              "p95_ms": 2790.29
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1224.39,
+              "p95_ms": 1685.58
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 2,
+            "complete": {
+              "count": 30,
+              "p50_ms": 2063.76,
+              "p95_ms": 2790.29
+            },
+            "first_section": {
+              "count": 30,
+              "p50_ms": 1224.39,
+              "p95_ms": 1685.58
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": [
+            {
+              "id": "CB-018",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型回答未通过事实核对：用肌肉减少解释脂肪体况变化。本次未保存，可手动重试。"
+                }
+              ]
+            },
+            {
+              "id": "CB-028",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。"
+                }
+              ]
+            }
+          ]
+        },
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "model_requests": 32,
+          "input_tokens": 81305,
+          "output_tokens": 6516,
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2451.04,
+              "p95_ms": 3955.37
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1605.34,
+              "p95_ms": 2708.6
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2451.04,
+              "p95_ms": 3955.37
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1605.34,
+              "p95_ms": 2708.6
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": [
+            {
+              "id": "CB-008",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。"
+                }
+              ]
+            },
+            {
+              "id": "CB-043",
+              "checks": {
+                "turn_0_expected_boundary": false
+              },
+              "turns": []
+            }
+          ]
+        }
+      },
+      "source_review": {
+        "method": "Assistant anonymized three-way source review. Sentence/action-group units; mixed claims fail if any consequential part is unsupported. Rejected turns cannot count as improvements. Not veterinary accuracy. Judgments saved before revealing private key.",
+        "reviewed_before_unblinding_sha256": "85326adcb3eabd1d81f631a1ddc502f5318935e376ecd7242005084333d95680",
+        "comparison": {
+          "baseline": {
+            "improved": 19,
+            "tied": 5,
+            "regressed": 4,
+            "incomparable": 2
+          },
+          "current": {
+            "improved": 21,
+            "tied": 4,
+            "incomparable": 3,
+            "regressed": 2
+          }
+        },
+        "claims": {
+          "baseline": {
+            "claims": 168,
+            "supported": 165,
+            "citation_mismatches": 1,
+            "rejected_turns": 1,
+            "severe_raw_issues": 2,
+            "source_support_rate": 0.9821428571428571
+          },
+          "current": {
+            "claims": 164,
+            "supported": 157,
+            "citation_mismatches": 0,
+            "rejected_turns": 2,
+            "severe_raw_issues": 2,
+            "source_support_rate": 0.9573170731707317
+          },
+          "optimized": {
+            "claims": 240,
+            "supported": 238,
+            "citation_mismatches": 0,
+            "rejected_turns": 1,
+            "severe_raw_issues": 1,
+            "source_support_rate": 0.9916666666666667
+          }
+        },
+        "cases": [
+          {
+            "id": "CB-001",
+            "reason": "B保留自行探索、禁止强迫和逐项调整，直接覆盖操作；A仍夹用品，C有互动泛化扩写。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-002",
+            "reason": "B分开停止与后续安全；C立即停后又接触的时序含糊；A新增静止/缓退并断言情绪原因。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-003",
+            "reason": "步骤、条件和退出机制相同；段落格式不计改善。",
+            "baseline": "tied",
+            "current": "tied"
+          },
+          {
+            "id": "CB-004",
+            "reason": "C兼具指甲边界、分开练习、安全位置与不动不等于舒服；A恢复指甲边界；B遗漏剪甲前示范。",
+            "baseline": "regressed",
+            "current": "improved"
+          },
+          {
+            "id": "CB-005",
+            "reason": "B和C均覆盖退出、玩具收纳与食物计量；A遗漏不用手脚且加入无关日常观察。",
+            "baseline": "tied",
+            "current": "improved"
+          },
+          {
+            "id": "CB-006",
+            "reason": "A/B具体覆盖分工、安全和空间；C省略可执行核对。",
+            "baseline": "tied",
+            "current": "improved"
+          },
+          {
+            "id": "CB-008",
+            "reason": "C拒绝不计改善；B聚焦基础，A无必要展开零食和分餐。C原文10%遗漏体况合适。",
+            "baseline": "incomparable",
+            "current": "incomparable"
+          },
+          {
+            "id": "CB-009",
+            "reason": "A完整清洁与异常边界且聚焦；B有用品扩写；C长维护扩写且引入未供给的公猫限定。",
+            "baseline": "regressed",
+            "current": "regressed"
+          },
+          {
+            "id": "CB-010",
+            "reason": "A/B保留可退开、示范和渐进，C漏退开而泛讲异常；A增加保存专业安排，B更简洁，整体等价。",
+            "baseline": "improved",
+            "current": "tied"
+          },
+          {
+            "id": "CB-011",
+            "reason": "C给出四阶段介绍和回退条件；A关注冲突资源但缺阶段，B更笼统。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-012",
+            "reason": "B完整保留批次与异常反馈，A基本可执行，C把手卫生时机误加到食盆清洗且省略防交叉污染。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-013",
+            "reason": "C聚焦资料与核验；A/B相同且增加用品准备。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-015",
+            "reason": "C完整列出凭证、未知、日期来源与观察渠道；A/B核心正确但材料清单较省略。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-017",
+            "reason": "C完整覆盖次数、进食关系、内容、接触物及推测界限；B有就医摘要扩展；A少进食关系/次数且医疗触发条件引用不匹配。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-018",
+            "reason": "A拒绝单列；B正确区分脂肪、肌肉、体重；C错误写成体重受长毛与拍摄角度影响。",
+            "baseline": "improved",
+            "current": "incomparable"
+          },
+          {
+            "id": "CB-021",
+            "reason": "A完整给出尺寸、初期人在附近、自愿与观察；C漏人在附近；B另漏不可强推和非惩罚用途。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-022",
+            "reason": "B保留观察、可承受练习、进展与家庭一致性；A练习可执行但较少进展方法；C缺从舒适难度开始。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-024",
+            "reason": "A步骤和疼痛边界完整；B接近但外扩用品，C省略用品禁忌与奖励。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-025",
+            "reason": "C完整活动前后和异常停止、无用品扩写；B保留异常停止但外扩玩具；A漏停止条件。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-026",
+            "reason": "C补齐责任到人、替代照护与交接；A/B缺具体分工，B也弱化休息位置。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-028",
+            "reason": "A无条件10%导致拒绝；C热量单位、限制及记录原则齐全且精炼；B较长且保留任务保存扩写。",
+            "baseline": "regressed",
+            "current": "incomparable"
+          },
+          {
+            "id": "CB-033",
+            "reason": "A保留碎片收起、探索与分心渐进，C较精简但遗漏碎片处理；B扩到卫生且缺渐进增加分心。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-034",
+            "reason": "B含路面风险、责任、观察与及时停止；C兼具主体但混入牵引；A少观察与异常行动。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-037",
+            "reason": "B围绕阶段和就诊资料且完整；A外扩清洁打卡，C另扩营养声明并压缩阶段关注。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-040",
+            "reason": "B/C区分脂肪、肌肉和主人观察；A把日常观察列成MCS综合判断依据，易混为正式评分。",
+            "baseline": "improved",
+            "current": "tied"
+          },
+          {
+            "id": "CB-043",
+            "reason": "B误称保证分析中有精确能量而拒绝；A在BCS等资料不足时承诺补食物和绝育/活动后即计算；C相对保留风险边界但同样没有明确BCS/MCS缺口。",
+            "baseline": "incomparable",
+            "current": "improved"
+          },
+          {
+            "id": "CB-049",
+            "reason": "同一确定性本地回复，无模型来源审查。",
+            "baseline": "tied",
+            "current": "tied"
+          },
+          {
+            "id": "CB-053",
+            "reason": "B保留靠近休息阶段即可奖励、退出条件，追问只答新增；A奖励只限进入，C多出旅行用品。",
+            "baseline": "improved",
+            "current": "improved"
+          },
+          {
+            "id": "CB-057",
+            "reason": "B在追问补空间安全，C首轮补齐并明确停止但追问重复较多；二者各有取舍。A全程未核对箱体安全。",
+            "baseline": "tied",
+            "current": "improved"
+          },
+          {
+            "id": "CB-059",
+            "reason": "A追问先直接停止并回退，B重复首轮，C首轮无关用品扩写且追问重述步骤过多。",
+            "baseline": "regressed",
+            "current": "regressed"
+          }
+        ]
+      },
+      "budget_delta_cny": 0.446201,
+      "official_pricing": {
+        "currency": "CNY",
+        "provider": "alibaba",
+        "model": "qwen3.6-flash",
+        "checked_at": "2026-10-18T03:43:18.225325+00:00",
+        "source": "https://help.aliyun.com/zh/model-studio/qwen3-6-flash",
+        "table_sha256": "7b820d8534908d8b562d5df981d3b60345c927113fa7afde0ac517d0f8fecd56",
+        "tiers": [
+          {
+            "max_input_tokens": 262144,
+            "input_per_million": 1.2,
+            "output_per_million": 7.2
+          },
+          {
+            "max_input_tokens": 1000000,
+            "input_per_million": 4.8,
+            "output_per_million": 28.8
+          }
+        ]
+      },
+      "local_artifact": "20261018T034313-quality-step2"
+    },
+    "primary_recheck": {
+      "model": "qwen3.6-flash",
+      "answer_build_sha256": "512d95e88a2227c8d3643119afbf70c21b4ab6cdfa570e2b829dd5254ca8434a",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 28,
+          "failed": 2,
+          "model_requests": 32,
+          "input_tokens": 83193,
+          "output_tokens": 7031,
+          "ordinary": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2388.46,
+              "p95_ms": 3548.22
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1593.78,
+              "p95_ms": 2195.43
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 1,
+            "complete": {
+              "count": 31,
+              "p50_ms": 2388.46,
+              "p95_ms": 3548.22
+            },
+            "first_section": {
+              "count": 31,
+              "p50_ms": 1593.78,
+              "p95_ms": 2195.43
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": [
+            {
+              "id": "CB-037",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型正文包含未处理的内部证据编号，本次未保存。"
+                }
+              ]
+            },
+            {
+              "id": "CB-043",
+              "checks": {
+                "turn_0_expected_boundary": false
+              },
+              "turns": []
+            }
+          ]
+        }
+      },
+      "source_review": {
+        "method": "助手逐段逐句/行动组核对实际出站资料；混合句有实质不支持即失败，不是医学准确率。单版本复测不计算前后改善数。",
+        "raw_claims": 233,
+        "supported_raw_claims": 227,
+        "raw_support_rate": 0.9742489270386266,
+        "delivered_claims": 222,
+        "supported_delivered_claims": 216,
+        "delivered_support_rate": 0.972972972972973,
+        "rejected_turns": 1,
+        "severe_raw_issues": [
+          [
+            "CB-018",
+            0,
+            "BCS/MCS因果混淆再次出现且本次未拦截"
+          ]
+        ],
+        "notes": {
+          "CB-004": "护理边界与退避完整，普通问题仍偏长。",
+          "CB-008": "10%条件此次完整，但基础问答仍有不必要配额扩写。",
+          "CB-009": "已去掉用品维护与未经支持的公猫限定。",
+          "CB-017": "无关饮食盘点长段仍出现。",
+          "CB-033": "将通用青春期问题套入档案36月龄犬，个体对象关联不当。",
+          "CB-037": "正文带e1/e2/e3内部编号，正确拒绝；不放宽引用检查。",
+          "CB-043": "HTTP200但自动边界未命中；肌肉条件仍遗漏，使用精确食量措辞过强。",
+          "CB-059": "辅助用品段已减少，追问仍重讲原练习流程。"
+        },
+        "approved": false,
+        "qualification_note": "整体质量、留出集与当前哈希真实验证门槛未通过；不生成或安装新资格。"
+      },
+      "budget_delta_cny": 0.150466,
+      "official_pricing": {
+        "currency": "CNY",
+        "provider": "alibaba",
+        "model": "qwen3.6-flash",
+        "checked_at": "2026-10-18T04:00:09.176604+00:00",
+        "source": "https://help.aliyun.com/zh/model-studio/qwen3-6-flash",
+        "table_sha256": "7b820d8534908d8b562d5df981d3b60345c927113fa7afde0ac517d0f8fecd56",
+        "tiers": [
+          {
+            "max_input_tokens": 262144,
+            "input_per_million": 1.2,
+            "output_per_million": 7.2
+          },
+          {
+            "max_input_tokens": 1000000,
+            "input_per_million": 4.8,
+            "output_per_million": 28.8
+          }
+        ]
+      },
+      "local_artifact": "20261018T040004-quality-step2"
+    },
+    "holdout": {
+      "model": "qwen3.6-flash",
+      "answer_build_sha256": "512d95e88a2227c8d3643119afbf70c21b4ab6cdfa570e2b829dd5254ca8434a",
+      "dataset_sha256": "fd96cd46b3c142c973487114b62632b8762b844f89b75dff7ebf5d4233307ffd",
+      "metrics": {
+        "optimized": {
+          "cases": 10,
+          "passed": 8,
+          "failed": 2,
+          "model_requests": 15,
+          "input_tokens": 49799,
+          "output_tokens": 3621,
+          "ordinary": {
+            "turns": 12,
+            "failures": 2,
+            "complete": {
+              "count": 10,
+              "p50_ms": 2345.16,
+              "p95_ms": 3635.95
+            },
+            "first_section": {
+              "count": 10,
+              "p50_ms": 1365.08,
+              "p95_ms": 2434.04
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 3,
+            "failures": 0,
+            "complete": {
+              "count": 3,
+              "p50_ms": 3648.94,
+              "p95_ms": 5100.31
+            },
+            "first_section": {
+              "count": 3,
+              "p50_ms": 1871.92,
+              "p95_ms": 2379.53
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 15,
+            "failures": 2,
+            "complete": {
+              "count": 13,
+              "p50_ms": 2663.51,
+              "p95_ms": 5100.31
+            },
+            "first_section": {
+              "count": 13,
+              "p50_ms": 1606.8,
+              "p95_ms": 2434.04
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": [
+            {
+              "id": "QH-005",
+              "checks": {
+                "turn_1_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型正文格式或来源标记无效，本次未保存。"
+                }
+              ]
+            },
+            {
+              "id": "QH-009",
+              "checks": {
+                "turn_0_responded": false
+              },
+              "turns": [
+                {
+                  "status": 502,
+                  "error": "模型建议与实际资料的适用条件不一致，本次回答未保存。可补充条件后手动重试。"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "source_review": {
+        "method": "助手逐段逐句/行动组核对实际出站资料；混合句有实质不支持即失败，不是医学准确率。单版本复测不计算前后改善数。",
+        "raw_claims": 141,
+        "supported_raw_claims": 133,
+        "raw_support_rate": 0.9432624113475178,
+        "delivered_claims": 122,
+        "supported_delivered_claims": 114,
+        "delivered_support_rate": 0.9344262295081968,
+        "rejected_turns": 2,
+        "severe_raw_issues": [],
+        "notes": {
+          "QH-001": "开支只提住所及日常用品，未讲预算取舍，深入覆盖不足。",
+          "QH-002": "三指标与观察界限正确，但就医段突然转为疑似误食，未按本问题组织。",
+          "QH-003": "追问结束练习仍重复原流程。",
+          "QH-004": "标签题额外展开BCS/MCS，与当前问题不相关。",
+          "QH-005": "第二轮数字引用标记错误被拒绝，仍扩展评分表，不能记作改善。",
+          "QH-006": "保留过敏与原兽医限制，但首轮被旧航空箱话题干扰，回答引用不匹配。",
+          "QH-007": "五个子问题均覆盖；额外剪甲内容和新猫介绍略偏题。",
+          "QH-008": "多人记录和热量换算主要正确，但有未提供的具体操作扩写。",
+          "QH-009": "正确的“不等于一律必须”被健康证明规则误拒绝；记录为留出集失败，未据此调参。",
+          "QH-010": "停止与疼痛边界保留；简单追问仍重复护理流程。"
+        },
+        "approved": false,
+        "qualification_note": "整体质量、留出集与当前哈希真实验证门槛未通过；不生成或安装新资格。"
+      },
+      "budget_delta_cny": 0.085836,
+      "official_pricing": {
+        "currency": "CNY",
+        "provider": "alibaba",
+        "model": "qwen3.6-flash",
+        "checked_at": "2026-10-18T04:02:31.857106+00:00",
+        "source": "https://help.aliyun.com/zh/model-studio/qwen3-6-flash",
+        "table_sha256": "7b820d8534908d8b562d5df981d3b60345c927113fa7afde0ac517d0f8fecd56",
+        "tiers": [
+          {
+            "max_input_tokens": 262144,
+            "input_per_million": 1.2,
+            "output_per_million": 7.2
+          },
+          {
+            "max_input_tokens": 1000000,
+            "input_per_million": 4.8,
+            "output_per_million": 28.8
+          }
+        ]
+      },
+      "local_artifact": "20261018T040226-quality-step2"
+    },
+    "backup": {
+      "model": "qwen3.5-flash",
+      "answer_build_sha256": "b4c9e95c494f516d78436e569d9b7f45bcbf0996ffba7a6b8334877e15e66042",
+      "dataset_sha256": "1956072f4a65c067f30f901b0241e2accac66c4bec79087730b763d12eebdbc5",
+      "metrics": {
+        "optimized": {
+          "cases": 30,
+          "passed": 30,
+          "failed": 0,
+          "model_requests": 32,
+          "input_tokens": 83085,
+          "output_tokens": 7642,
+          "ordinary": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 3722.95,
+              "p95_ms": 5346.65
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2408.56,
+              "p95_ms": 3418.58
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "detailed": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "cached": {
+            "turns": 0,
+            "failures": 0,
+            "complete": null,
+            "first_section": null,
+            "request_counts": []
+          },
+          "uncached": {
+            "turns": 32,
+            "failures": 0,
+            "complete": {
+              "count": 32,
+              "p50_ms": 3722.95,
+              "p95_ms": 5346.65
+            },
+            "first_section": {
+              "count": 32,
+              "p50_ms": 2408.56,
+              "p95_ms": 3418.58
+            },
+            "request_counts": [
+              1
+            ]
+          },
+          "failed_cases": []
+        }
+      },
+      "source_review": {
+        "method": "助手逐段逐句/行动组核对实际出站资料；混合句有实质不支持即失败，不是医学准确率。单版本复测不计算前后改善数。",
+        "raw_claims": 217,
+        "supported_raw_claims": 210,
+        "raw_support_rate": 0.967741935483871,
+        "delivered_claims": 217,
+        "supported_delivered_claims": 210,
+        "delivered_support_rate": 0.967741935483871,
+        "rejected_turns": 0,
+        "severe_raw_issues": [
+          [
+            "CB-033",
+            0,
+            "错误地将通用青春期问题绑定为36个月档案犬的阶段"
+          ]
+        ],
+        "notes": {
+          "CB-003": "练习题仍展开出发当天操作。",
+          "CB-008": "非配额问题仍外扩10%，并加入绝育/过敏资料要求；体况条件此次保留。",
+          "CB-013": "猫自驾段把仅对狗的下车牵引条目套给猫，物种适用边界需核对。",
+          "CB-015": "疫苗准备外扩整段急诊转运，普通问题过长。",
+          "CB-017": "仍添加饮食执行与紧急情形扩写。",
+          "CB-043": "已承接已知年龄与体重，也列出BCS/MCS，但仍用准确喂食量措辞、索取清单较长。",
+          "CB-059": "追问大段重述首轮，未做到只补新增内容。"
+        },
+        "approved": false,
+        "qualification_note": "整体质量、留出集与当前哈希真实验证门槛未通过；不生成或安装新资格。"
+      },
+      "budget_delta_cny": 0.031914,
+      "official_pricing": {
+        "currency": "CNY",
+        "provider": "alibaba",
+        "model": "qwen3.5-flash",
+        "checked_at": "2026-10-18T04:04:48.578377+00:00",
+        "source": "https://help.aliyun.com/zh/model-studio/qwen3-5-flash",
+        "table_sha256": "6e08042f296fb6fd7442f000857cab0163af7bbe49b23526e6681fa817b64a10",
+        "tiers": [
+          {
+            "max_input_tokens": 131072,
+            "input_per_million": 0.2,
+            "output_per_million": 2
+          },
+          {
+            "max_input_tokens": 262144,
+            "input_per_million": 0.8,
+            "output_per_million": 8
+          },
+          {
+            "max_input_tokens": 1000000,
+            "input_per_million": 1.2,
+            "output_per_million": 12
+          }
+        ]
+      },
+      "local_artifact": "20261018T040443-quality-step2"
+    }
+  },
+  "tests": {
+    "backend": {"passed": 494, "seconds": 259.05},
+    "offline": {"passed": 100, "model_requests": 0},
+    "frontend_build": {"passed": true, "seconds": 7.19},
+    "browser": {"passed": 106, "minutes": 4.3}
+  },
+  "ci": {
+    "status": "see_corresponding_commit_run",
+    "workflow": "https://github.com/20triplexx-arch/Pet-Agent/actions/workflows/verify.yml"
+  },
+  "runtime": {
+    "switched": false,
+    "qualification_installed": false,
+    "original_checkout": "d630845"
+  },
+  "paired_successful_latency": {
+    "baseline": {
+      "before": {
+        "count": 30,
+        "p50_ms": 2275.93,
+        "p95_ms": 3314.92
+      },
+      "after": {
+        "count": 30,
+        "p50_ms": 2404.03,
+        "p95_ms": 3955.37
+      },
+      "median_reduction_percent": -5.63
+    },
+    "current": {
+      "before": {
+        "count": 29,
+        "p50_ms": 2072.08,
+        "p95_ms": 2790.29
+      },
+      "after": {
+        "count": 29,
+        "p50_ms": 2357.03,
+        "p95_ms": 3670.18
+      },
+      "median_reduction_percent": -13.75
+    }
+  },
+  "budget": {
+    "run_id": "alibaba-chat-streaming-20261015",
+    "run_used_cny": 2.707875,
+    "run_limit_cny": 3.0,
+    "conservative_used_cny": 8.483286,
+    "limit_cny": 10.0,
+    "unresolved_reservations": 41,
+    "this_session_added_cny": 0.714417,
+    "run_remaining_cny": 0.292125
+  },
+  "final_preflights": {
+    "triple": {
+      "allowed": false,
+      "reasons": [
+        "insufficient_verified_free_tokens",
+        "insufficient_existing_budget_for_batch"
+      ],
+      "case_count": 90,
+      "planned_model_turns": 99,
+      "forecast_tokens": 428000,
+      "safe_remaining_tokens": 223484,
+      "forecast_cny": 0.8400912,
+      "budget": {
+        "conservative_used_cny": 8.483286,
+        "run_used_cny": 2.707875,
+        "unresolved_reservations": 41,
+        "cumulative_limit_cny": 10,
+        "run_limit_cny": 3,
+        "run_id": "alibaba-chat-streaming-20261015"
+      }
+    },
+    "primary": {
+      "allowed": false,
+      "reasons": [
+        "insufficient_existing_budget_for_batch"
+      ],
+      "case_count": 30,
+      "planned_model_turns": 33,
+      "forecast_tokens": 164000,
+      "safe_remaining_tokens": 223484,
+      "forecast_cny": 0.3252912,
+      "budget": {
+        "conservative_used_cny": 8.483286,
+        "run_used_cny": 2.707875,
+        "unresolved_reservations": 41,
+        "cumulative_limit_cny": 10,
+        "run_limit_cny": 3,
+        "run_id": "alibaba-chat-streaming-20261015"
+      }
+    }
+  },
+  "limitations": [
+    "盲审由同一助手完成，非独立兽医/真人评审；句/行动组并非医学准确率。",
+    "成功回答计时不包含失败，无新增真实浏览器网络计时；所有缓存命中均为0。",
+    "最终校验补丁后主模型与完整三版本重跑被预算阻止；不得将早期对照标为最终构建通过。",
+    "留出集失败只记录，未据其输出修改实现；备用模型未获新资格。"
+  ]
+}

@@ -84,14 +84,18 @@ class StreamingClient:
 
 
 def worker(args):
+    state = Path(os.environ.get('CHONGBAN_EVAL_STATE_DIR', BACKEND/'storage')).resolve()
+    ledger = state / 'evals/stage-one-budget.sqlite'
+    if not ledger.is_file():
+        raise ValueError('The existing shared evaluation ledger is required; never create a replacement')
     os.environ.update({'DEMO_MODE': 'false', 'MODEL_PROVIDER': 'alibaba', 'DASHSCOPE_MODEL': args.model,
         'DASHSCOPE_AUTO_SELECT': 'false', 'DASHSCOPE_FREE_ONLY': 'true', 'MODEL_API_KEY': '', 'DEEPSEEK_API_KEY': '',
         'MODEL_LIMITS_ENABLED': 'false', 'MODEL_MAX_REQUESTS': '4', 'MODEL_MAX_INPUT_TOKENS': '64000',
         'MODEL_MAX_OUTPUT_TOKENS': '4096', 'MODEL_TIMEOUT_SECONDS': '60',
-        'DASHSCOPE_QUOTA_FILE': str(BACKEND/'storage/alibaba-quota.json'),
-        'DASHSCOPE_QUALIFIED_FILE': str(BACKEND/'storage/alibaba-qualified.json'),
-        'DASHSCOPE_CLI': str(ROOT/'.tools/bailian/2.3.0/bl.exe'),
-        'DASHSCOPE_CLI_CONFIG_DIR': str(BACKEND/'storage/bailian-cli')})
+        'DASHSCOPE_QUOTA_FILE': str(state/'alibaba-quota.json'),
+        'DASHSCOPE_QUALIFIED_FILE': str(state/'alibaba-qualified.json'),
+        'DASHSCOPE_CLI': os.environ.get('DASHSCOPE_CLI') or str(ROOT/'.tools/bailian/2.3.0/bl.exe'),
+        'DASHSCOPE_CLI_CONFIG_DIR': str(state/'bailian-cli')})
     from evals.runner import setup_database, run_case
     folder = Path(args.folder)
     pets = setup_database(folder)
@@ -105,7 +109,7 @@ def worker(args):
     from app import alibaba_quota as free
     from app.evaluation_budget import EvaluationBudget, current_budget
     prices = json.loads(Path(args.pricing).read_text(encoding='utf-8'))
-    budget = EvaluationBudget(BACKEND/'storage/evals/stage-one-budget.sqlite', prices, run_id=RUN_ID, run_limit_cny='3')
+    budget = EvaluationBudget(ledger, prices, run_id=RUN_ID, run_limit_cny='3')
     if not settings.DASHSCOPE_API_KEY or args.model not in free.available_models(qualified=False):
         free.refresh_quotas()
     if args.model not in free.available_models(qualified=False):
